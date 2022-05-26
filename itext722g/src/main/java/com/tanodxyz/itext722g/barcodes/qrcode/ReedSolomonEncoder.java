@@ -41,7 +41,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.barcodes.qrcode;
+package com.tanodxyz.itext722g.barcodes.qrcode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +58,7 @@ final class ReedSolomonEncoder {
     private final List<GF256Poly> cachedGenerators;
 
     /**
-     * Creates a SolomonEncoder object based on a {@link com.itextpdf.barcodes.qrcode.GF256} object.
+     * Creates a SolomonEncoder object based on a {@link GF256} object.
      * Only QR codes are supported at the moment.
      *
      * @param field the galois field

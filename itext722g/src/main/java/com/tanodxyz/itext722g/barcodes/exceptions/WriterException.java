@@ -41,9 +41,10 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.barcodes.exceptions;
+package com.tanodxyz.itext722g.barcodes.exceptions;
 
-import com.itextpdf.commons.exceptions.ITextException;
+
+import com.tanodxyz.itext722g.commons.exceptions.ITextException;
 
 /**
  * A base class which covers the range of exceptions which may occur when encoding a barcode using

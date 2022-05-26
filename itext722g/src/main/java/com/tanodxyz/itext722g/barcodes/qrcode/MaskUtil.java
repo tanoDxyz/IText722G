@@ -41,7 +41,9 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.barcodes.qrcode;
+package com.tanodxyz.itext722g.barcodes.qrcode;
+
+import static com.tanodxyz.itext722g.barcodes.qrcode.QRCode.isValidMaskPattern;
 
 /**
  * @author satorux@google.com (Satoru Takabayashi) - creator
@@ -189,7 +191,7 @@ final class MaskUtil {
      * @return the mask bit at that position
      */
     public static boolean getDataMaskBit(int maskPattern, int x, int y) {
-        if (!QRCode.isValidMaskPattern(maskPattern)) {
+        if (!isValidMaskPattern(maskPattern)) {
             throw new IllegalArgumentException("Invalid mask pattern");
         }
         int intermediate, temp;

@@ -41,7 +41,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.barcodes.qrcode;
+package com.tanodxyz.itext722g.barcodes.qrcode;
 
 import java.util.HashMap;
 import java.util.Map;

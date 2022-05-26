@@ -41,17 +41,18 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.github.tanodxyz.pdfsuite.barcodes;
+package com.tanodxyz.itext722g.barcodes;
 
-import com.itextpdf.barcodes.dmcode.DmParams;
-import com.itextpdf.barcodes.dmcode.Placement;
-import com.itextpdf.barcodes.dmcode.ReedSolomon;
-import com.itextpdf.kernel.geom.Rectangle;
-import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-import com.itextpdf.kernel.colors.Color;
-import com.itextpdf.kernel.pdf.PdfArray;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
+
+import com.tanodxyz.itext722g.barcodes.dmcode.DmParams;
+import com.tanodxyz.itext722g.barcodes.dmcode.Placement;
+import com.tanodxyz.itext722g.barcodes.dmcode.ReedSolomon;
+import com.tanodxyz.itext722g.kernel.geom.Rectangle;
+import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
+import com.tanodxyz.itext722g.kernel.colors.Color;
+import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
+import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
+import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfFormXObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;

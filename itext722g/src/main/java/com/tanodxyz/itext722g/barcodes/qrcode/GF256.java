@@ -41,7 +41,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.barcodes.qrcode;
+package com.tanodxyz.itext722g.barcodes.qrcode;
 
 /**
  * This class contains utility methods for performing mathematical operations over
@@ -63,8 +63,8 @@ final class GF256 {
 
     private final int[] expTable;
     private final int[] logTable;
-    private final GF256Poly zero;
-    private final GF256Poly one;
+    private final   GF256Poly zero;
+    private final   GF256Poly one;
 
     /**
      * Create a representation of GF(256) using the given primitive polynomial.
@@ -91,22 +91,22 @@ final class GF256 {
         }
 
         // logTable[0] == 0 but this should never be used
-        zero = new GF256Poly(this, new int[]{0});
-        one = new GF256Poly(this, new int[]{1});
+        zero = new   GF256Poly(this, new int[]{0});
+        one = new   GF256Poly(this, new int[]{1});
     }
 
-    GF256Poly getZero() {
+      GF256Poly getZero() {
         return zero;
     }
 
-    GF256Poly getOne() {
+      GF256Poly getOne() {
         return one;
     }
 
     /**
      * @return the monomial representing coefficient * x^degree
      */
-    GF256Poly buildMonomial(int degree, int coefficient) {
+      GF256Poly buildMonomial(int degree, int coefficient) {
         if (degree < 0) {
             throw new IllegalArgumentException();
         }
@@ -115,7 +115,7 @@ final class GF256 {
         }
         int[] coefficients = new int[degree + 1];
         coefficients[0] = coefficient;
-        return new GF256Poly(this, coefficients);
+        return new   GF256Poly(this, coefficients);
     }
 
     /**

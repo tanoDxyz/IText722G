@@ -41,7 +41,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.barcodes.dmcode;
+package com.tanodxyz.itext722g.barcodes.dmcode;
 
 import java.util.Arrays;
 import java.util.Map;

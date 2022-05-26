@@ -41,7 +41,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.barcodes.qrcode;
+package com.tanodxyz.itext722g.barcodes.qrcode;
 
 /**
  * See ISO 18004:2006, 6.4.1, Tables 2 and 3. This enum encapsulates the various modes in which

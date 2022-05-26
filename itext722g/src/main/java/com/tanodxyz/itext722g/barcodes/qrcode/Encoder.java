@@ -41,9 +41,10 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.barcodes.qrcode;
+package com.tanodxyz.itext722g.barcodes.qrcode;
 
-import com.itextpdf.barcodes.exceptions.WriterException;
+
+import com.tanodxyz.itext722g.barcodes.exceptions.WriterException;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -110,7 +111,7 @@ final class Encoder {
      * @param qrCode QR code to store the result in
      * @throws WriterException
      */
-    public static void encode(String content, ErrorCorrectionLevel ecLevel, QRCode qrCode)
+    public static void encode(String content,  ErrorCorrectionLevel ecLevel,  QRCode qrCode)
             throws WriterException {
         encode(content, ecLevel, null, qrCode);
     }
@@ -132,8 +133,8 @@ final class Encoder {
      * @param qrCode QR code to store the result in
      * @throws WriterException
      */
-    public static void encode(String content, ErrorCorrectionLevel ecLevel, Map<EncodeHintType, Object> hints,
-                              QRCode qrCode) throws WriterException {
+    public static void encode(String content,  ErrorCorrectionLevel ecLevel, Map<EncodeHintType, Object> hints,
+                               QRCode qrCode) throws WriterException {
 
         String encoding = hints == null ? null : (String) hints.get(EncodeHintType.CHARACTER_SET);
         if (encoding == null) {
@@ -157,7 +158,7 @@ final class Encoder {
         BitVector headerAndDataBits = new BitVector();
 
         // Step 4.5: Append ECI message if applicable
-        if (mode == Mode.BYTE && !DEFAULT_BYTE_MODE_ENCODING.equals(encoding)) {
+        if (mode ==  Mode.BYTE && !DEFAULT_BYTE_MODE_ENCODING.equals(encoding)) {
             CharacterSetECI eci = CharacterSetECI.getCharacterSetECIByName(encoding);
             if (eci != null) {
                 appendECI(eci, headerAndDataBits);
@@ -166,7 +167,7 @@ final class Encoder {
 
         appendModeInfo(mode, headerAndDataBits);
 
-        int numLetters = mode.equals(Mode.BYTE) ? dataBits.sizeInBytes() : content.length();
+        int numLetters = mode.equals( Mode.BYTE) ? dataBits.sizeInBytes() : content.length();
         appendLengthInfo(numLetters, qrCode.getVersion(), mode, headerAndDataBits);
         headerAndDataBits.appendBitVector(dataBits);
 
@@ -184,7 +185,7 @@ final class Encoder {
                 matrix));
 
         // Step 8.  Build the matrix and set it to "qrCode".
-        MatrixUtil.buildMatrix(finalBits, qrCode.getECLevel(), qrCode.getVersion(),
+         MatrixUtil.buildMatrix(finalBits, qrCode.getECLevel(), qrCode.getVersion(),
                 qrCode.getMaskPattern(), matrix);
         qrCode.setMatrix(matrix);
         // Step 9.  Make sure we have a valid QR Code.
@@ -225,7 +226,7 @@ final class Encoder {
     public static Mode chooseMode(String content, String encoding) {
         if ("Shift_JIS".equals(encoding)) {
             // Choose Kanji mode if all input are double-byte characters
-            return isOnlyDoubleByteKanji(content) ? Mode.KANJI : Mode.BYTE;
+            return isOnlyDoubleByteKanji(content) ?  Mode.KANJI :  Mode.BYTE;
         }
         boolean hasNumeric = false;
         boolean hasAlphanumeric = false;
@@ -236,15 +237,15 @@ final class Encoder {
             } else if (getAlphanumericCode(c) != -1) {
                 hasAlphanumeric = true;
             } else {
-                return Mode.BYTE;
+                return  Mode.BYTE;
             }
         }
         if (hasAlphanumeric) {
-            return Mode.ALPHANUMERIC;
+            return  Mode.ALPHANUMERIC;
         } else if (hasNumeric) {
-            return Mode.NUMERIC;
+            return  Mode.NUMERIC;
         }
-        return Mode.BYTE;
+        return  Mode.BYTE;
     }
 
     private static boolean isOnlyDoubleByteKanji(String content) {
@@ -267,7 +268,7 @@ final class Encoder {
         return true;
     }
 
-    private static int chooseMaskPattern(BitVector bits, ErrorCorrectionLevel ecLevel, int version,
+    private static int chooseMaskPattern(BitVector bits,  ErrorCorrectionLevel ecLevel, int version,
                                          ByteMatrix matrix) throws WriterException {
 
         // Lower penalty is better.
@@ -275,8 +276,8 @@ final class Encoder {
         int bestMaskPattern = -1;
 
         // We try all mask patterns to choose the best one.
-        for (int maskPattern = 0; maskPattern < QRCode.NUM_MASK_PATTERNS; maskPattern++) {
-            MatrixUtil.buildMatrix(bits, ecLevel, version, maskPattern, matrix);
+        for (int maskPattern = 0; maskPattern <  QRCode.NUM_MASK_PATTERNS; maskPattern++) {
+             MatrixUtil.buildMatrix(bits, ecLevel, version, maskPattern, matrix);
             int penalty = calculateMaskPenalty(matrix);
             if (penalty < minPenalty) {
                 minPenalty = penalty;
@@ -290,18 +291,18 @@ final class Encoder {
      * Initialize "qrCode" according to "numInputBytes", "ecLevel", and "mode". On success,
      * modify "qrCode".
      */
-    private static void initQRCode(int numInputBytes, ErrorCorrectionLevel ecLevel, int desiredMinVersion, Mode mode,
-                                   QRCode qrCode) throws WriterException {
+    private static void initQRCode(int numInputBytes,  ErrorCorrectionLevel ecLevel, int desiredMinVersion, Mode mode,
+                                    QRCode qrCode) throws WriterException {
         qrCode.setECLevel(ecLevel);
         qrCode.setMode(mode);
 
         // In the following comments, we use numbers of Version 7-H.
         for (int versionNum = desiredMinVersion; versionNum <= 40; versionNum++) {
-            Version version = Version.getVersionForNumber(versionNum);
+             Version version =  Version.getVersionForNumber(versionNum);
             // numBytes = 196
             int numBytes = version.getTotalCodewords();
             // getNumECBytes = 130
-            Version.ECBlocks ecBlocks = version.getECBlocksForLevel(ecLevel);
+             Version.ECBlocks ecBlocks = version.getECBlocksForLevel(ecLevel);
             int numEcBytes = ecBlocks.getTotalECCodewords();
             // getNumRSBlocks = 5
             int numRSBlocks = ecBlocks.getNumBlocks();
@@ -492,7 +493,7 @@ final class Encoder {
         for (int i = 0; i < numDataBytes; i++) {
             toEncode[i] = dataBytes.at(i);
         }
-        new ReedSolomonEncoder(GF256.QR_CODE_FIELD).encode(toEncode, numEcBytesInBlock);
+        new  ReedSolomonEncoder( GF256.QR_CODE_FIELD).encode(toEncode, numEcBytesInBlock);
 
         ByteArray ecBytes = new ByteArray(numEcBytesInBlock);
         for (int i = 0; i < numEcBytesInBlock; i++) {
@@ -514,7 +515,7 @@ final class Encoder {
      */
     static void appendLengthInfo(int numLetters, int version, Mode mode, BitVector bits)
             throws WriterException {
-        int numBits = mode.getCharacterCountBits(Version.getVersionForNumber(version));
+        int numBits = mode.getCharacterCountBits( Version.getVersionForNumber(version));
         if (numLetters > ((1 << numBits) - 1)) {
             throw new WriterException(numLetters + "is bigger than" + ((1 << numBits) - 1));
         }

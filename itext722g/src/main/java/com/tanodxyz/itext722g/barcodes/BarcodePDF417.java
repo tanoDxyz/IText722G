@@ -41,17 +41,17 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.github.tanodxyz.pdfsuite.barcodes;
+package com.tanodxyz.itext722g.barcodes;
 
-import com.itextpdf.barcodes.exceptions.BarcodeExceptionMessageConstant;
-import com.itextpdf.kernel.exceptions.PdfException;
-import com.itextpdf.io.font.PdfEncodings;
-import com.itextpdf.kernel.geom.Rectangle;
-import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-import com.itextpdf.kernel.colors.Color;
-import com.itextpdf.kernel.pdf.PdfArray;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
+import com.tanodxyz.itext722g.barcodes.exceptions.BarcodeExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
+import com.tanodxyz.itext722g.io.font.PdfEncodings;
+import com.tanodxyz.itext722g.kernel.geom.Rectangle;
+import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
+import com.tanodxyz.itext722g.kernel.colors.Color;
+import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
+import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
+import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfFormXObject;
 
 import java.util.ArrayList;
 import java.util.List;
