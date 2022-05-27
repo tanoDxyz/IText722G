@@ -22,8 +22,9 @@
  */
 package com.tanodxyz.itext722g.kernel.actions.data;
 
-import com.itextpdf.commons.actions.data.ProductData;
-import com.itextpdf.commons.actions.ProductNameConstant;
+
+import com.tanodxyz.itext722g.commons.actions.ProductNameConstant;
+import com.tanodxyz.itext722g.commons.actions.data.ProductData;
 
 /**
  * Stores an instance of {@link ProductData} related to iText core module.

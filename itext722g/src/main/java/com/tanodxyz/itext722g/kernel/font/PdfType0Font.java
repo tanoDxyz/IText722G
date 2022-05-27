@@ -43,7 +43,7 @@
  */
 package com.tanodxyz.itext722g.kernel.font;
 
-import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.font.CFFFontSubset;
 import com.tanodxyz.itext722g.io.font.CMapEncoding;
 import com.tanodxyz.itext722g.io.font.CidFont;
@@ -56,14 +56,14 @@ import com.tanodxyz.itext722g.io.font.cmap.CMapContentParser;
 import com.tanodxyz.itext722g.io.font.cmap.CMapToUnicode;
 import com.tanodxyz.itext722g.io.font.otf.Glyph;
 import com.tanodxyz.itext722g.io.font.otf.GlyphLine;
+import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.source.ByteArrayOutputStream;
 import com.tanodxyz.itext722g.io.source.ByteBuffer;
 import com.tanodxyz.itext722g.io.source.OutputStream;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.util.StreamUtil;
 import com.tanodxyz.itext722g.io.util.TextUtil;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfLiteral;
@@ -81,8 +81,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PdfType0Font extends PdfFont {
 
@@ -171,8 +171,8 @@ public class PdfType0Font extends PdfFont {
                 toUnicodeCMap = FontUtil.getToUnicodeFromUniMap(uniMap);
                 if (toUnicodeCMap == null) {
                     toUnicodeCMap = FontUtil.getToUnicodeFromUniMap(PdfEncodings.IDENTITY_H);
-                    Logger logger = LoggerFactory.getLogger(PdfType0Font.class);
-                    logger.error(MessageFormatUtil.format(IoLogMessageConstant.UNKNOWN_CMAP, uniMap));
+                    Logger logger = Logger.getLogger(PdfType0Font.class.getName());
+                    logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.UNKNOWN_CMAP, uniMap));
                 }
             }
             fontProgram = DocTrueTypeFont.createFontProgram(cidFont, toUnicodeCMap);
@@ -214,7 +214,7 @@ public class PdfType0Font extends PdfFont {
         } else if (PdfName.CIDFontType2.equals(subtype)) {
             cidFontType = CID_FONT_TYPE_2;
         } else {
-            LoggerFactory.getLogger(getClass()).error(IoLogMessageConstant.FAILED_TO_DETERMINE_CID_FONT_SUBTYPE);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,IoLogMessageConstant.FAILED_TO_DETERMINE_CID_FONT_SUBTYPE);
         }
         usedGlyphs = new TreeSet<>();
         subset = false;
@@ -570,15 +570,15 @@ public class PdfType0Font extends PdfFont {
                 }
             }
             if (glyph == null) {
-                Logger logger = LoggerFactory.getLogger(PdfType0Font.class);
-                if (logger.isWarnEnabled()) {
+                Logger logger = Logger.getLogger(PdfType0Font.class.getName());
+                 {
                     StringBuilder failedCodes = new StringBuilder();
                     for (int codeLength = 1;
                             codeLength <= MAX_CID_CODE_LENGTH && i + codeLength <= charCodesSequence.length();
                             codeLength++) {
                         failedCodes.append((int) charCodesSequence.charAt(i + codeLength - 1)).append(" ");
                     }
-                    logger.warn(MessageFormatUtil
+                    logger.warning(MessageFormatUtil
                             .format(IoLogMessageConstant.COULD_NOT_FIND_GLYPH_WITH_CODE, failedCodes.toString()));
                 }
                 i += codeSpaceMatchedLength - 1;
@@ -709,8 +709,8 @@ public class PdfType0Font extends PdfFont {
                     try {
                         ttfBytes = ttf.getSubset(usedGlyphs, subset);
                     } catch (com.tanodxyz.itext722g.io.exceptions.IOException e) {
-                        Logger logger = LoggerFactory.getLogger(PdfType0Font.class);
-                        logger.warn(IoLogMessageConstant.FONT_SUBSET_ISSUE);
+                        Logger logger = Logger.getLogger(PdfType0Font.class.getName());
+                        logger.warning(IoLogMessageConstant.FONT_SUBSET_ISSUE);
                         ttfBytes = null;
                     }
                 }
@@ -797,8 +797,8 @@ public class PdfType0Font extends PdfFont {
             }
         } else {
             // TODO DEVSIX-31
-            Logger logger = LoggerFactory.getLogger(PdfType0Font.class);
-            logger.warn("Vertical writing has not been implemented yet.");
+            Logger logger = Logger.getLogger(PdfType0Font.class.getName());
+            logger.warning("Vertical writing has not been implemented yet.");
         }
         return cidFont;
     }

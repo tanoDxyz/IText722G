@@ -43,7 +43,8 @@
  */
 package com.tanodxyz.itext722g.kernel.crypto;
 
-import com.itextpdf.commons.utils.SystemUtil;
+
+import com.tanodxyz.itext722g.commons.utils.SystemUtil;
 
 import java.nio.charset.StandardCharsets;
 

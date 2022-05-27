@@ -42,8 +42,11 @@
  */
 package com.tanodxyz.itext722g.kernel.crypto;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+
+import org.spongycastle.asn1.ASN1Encoding;
+import org.spongycastle.asn1.ASN1OutputStream;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,8 +57,7 @@ import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
-import org.bouncycastle.asn1.ASN1Encoding;
-import org.bouncycastle.asn1.ASN1OutputStream;
+
 
 /**
  * This file is a helper class for internal usage only.

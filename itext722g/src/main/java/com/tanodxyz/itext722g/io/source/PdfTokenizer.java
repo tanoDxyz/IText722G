@@ -43,15 +43,14 @@
  */
 package com.tanodxyz.itext722g.io.source;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.exceptions.IOException;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.itextpdf.commons.utils.MessageFormatUtil;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PdfTokenizer implements Closeable {
 
@@ -301,8 +300,8 @@ public class PdfTokenizer implements Closeable {
                             } catch (Exception ex) {
                                 //warn about incorrect reference number
                                 //Exception: NumberFormatException for java, FormatException or OverflowException for .NET
-                                Logger logger = LoggerFactory.getLogger(PdfTokenizer.class);
-                                logger.error(MessageFormatUtil.format(IoLogMessageConstant.INVALID_INDIRECT_REFERENCE,
+                                Logger logger = Logger.getLogger(PdfTokenizer.class.getName());
+                                logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.INVALID_INDIRECT_REFERENCE,
                                         new String(n1), new String(n2)));
                                 reference = -1;
                                 generation = 0;

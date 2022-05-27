@@ -43,7 +43,6 @@
  */
 package com.tanodxyz.itext722g.kernel.font;
 
-import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.font.AdobeGlyphList;
 import com.tanodxyz.itext722g.io.font.FontEncoding;
 import com.tanodxyz.itext722g.io.font.FontMetrics;
@@ -53,8 +52,9 @@ import com.tanodxyz.itext722g.io.font.constants.FontDescriptorFlags;
 import com.tanodxyz.itext722g.io.font.constants.FontStretches;
 import com.tanodxyz.itext722g.io.font.constants.FontWeights;
 import com.tanodxyz.itext722g.io.font.otf.Glyph;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
+import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
@@ -64,9 +64,8 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfObject;
 import com.tanodxyz.itext722g.kernel.pdf.PdfObjectWrapper;
 import com.tanodxyz.itext722g.kernel.pdf.PdfString;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * Low-level API class for Type 3 fonts.
@@ -177,7 +176,7 @@ public class PdfType3Font extends PdfSimpleFont<Type3Font> {
         PdfDictionary encoding = fontDictionary.getAsDictionary(PdfName.Encoding);
         PdfArray differences = encoding != null ? encoding.getAsArray(PdfName.Differences) : null;
         if (charProcsDic == null || differences == null) {
-            LoggerFactory.getLogger(getClass()).warn(IoLogMessageConstant.TYPE3_FONT_INITIALIZATION_ISSUE);
+            Logger.getLogger(getClass().getName()).warning(IoLogMessageConstant.TYPE3_FONT_INITIALIZATION_ISSUE);
         }
         fillFontDescriptor(fontDictionary.getAsDictionary(PdfName.FontDescriptor));
 
@@ -395,8 +394,8 @@ public class PdfType3Font extends PdfSimpleFont<Type3Font> {
             return fontDescriptor;
         } else if (getPdfObject().getIndirectReference() != null
                 && getPdfObject().getIndirectReference().getDocument().isTagged()) {
-            Logger logger = LoggerFactory.getLogger(PdfType3Font.class);
-            logger.warn(IoLogMessageConstant.TYPE3_FONT_ISSUE_TAGGED_PDF);
+            Logger logger = Logger.getLogger(PdfType3Font.class.getName());
+            logger.warning(IoLogMessageConstant.TYPE3_FONT_ISSUE_TAGGED_PDF);
         }
         return null;
     }

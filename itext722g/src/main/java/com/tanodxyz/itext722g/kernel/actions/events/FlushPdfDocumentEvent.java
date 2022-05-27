@@ -22,17 +22,18 @@
  */
 package com.tanodxyz.itext722g.kernel.actions.events;
 
-import com.itextpdf.commons.actions.confirmations.ConfirmEvent;
-import com.itextpdf.commons.actions.confirmations.ConfirmedEventWrapper;
-import com.itextpdf.commons.actions.confirmations.EventConfirmationType;
-import com.itextpdf.commons.actions.data.ProductData;
-import com.itextpdf.commons.actions.sequence.SequenceId;
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.commons.actions.AbstractITextConfigurationEvent;
-import com.itextpdf.commons.actions.AbstractProductProcessITextEvent;
-import com.itextpdf.commons.actions.EventManager;
-import com.itextpdf.commons.actions.processors.ITextProductEventProcessor;
-import com.itextpdf.commons.actions.producer.ProducerBuilder;
+
+import com.tanodxyz.itext722g.commons.actions.AbstractITextConfigurationEvent;
+import com.tanodxyz.itext722g.commons.actions.AbstractProductProcessITextEvent;
+import com.tanodxyz.itext722g.commons.actions.EventManager;
+import com.tanodxyz.itext722g.commons.actions.confirmations.ConfirmEvent;
+import com.tanodxyz.itext722g.commons.actions.confirmations.ConfirmedEventWrapper;
+import com.tanodxyz.itext722g.commons.actions.confirmations.EventConfirmationType;
+import com.tanodxyz.itext722g.commons.actions.data.ProductData;
+import com.tanodxyz.itext722g.commons.actions.processors.ITextProductEventProcessor;
+import com.tanodxyz.itext722g.commons.actions.producer.ProducerBuilder;
+import com.tanodxyz.itext722g.commons.actions.sequence.SequenceId;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.kernel.actions.data.ITextCoreProductData;
 import com.tanodxyz.itext722g.kernel.logs.KernelLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
@@ -42,14 +43,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 /**
  * Class represents events notifying that {@link PdfDocument} was flushed.
  */
 public final class FlushPdfDocumentEvent extends AbstractITextConfigurationEvent {
-    private static final Logger LOGGER = LoggerFactory.getLogger(FlushPdfDocumentEvent.class);
+    private static final Logger LOGGER = Logger.getLogger(FlushPdfDocumentEvent.class.getName());
 
     private final WeakReference<PdfDocument> document;
 
@@ -93,8 +93,8 @@ public final class FlushPdfDocumentEvent extends AbstractITextConfigurationEvent
 
         for (final String product : products) {
             final ITextProductEventProcessor processor = getActiveProcessor(product);
-            if (processor == null && LOGGER.isWarnEnabled()) {
-                LOGGER.warn(MessageFormatUtil.format(KernelLogMessageConstant.UNKNOWN_PRODUCT_INVOLVED, product));
+            if (processor == null) {
+                LOGGER.warning(MessageFormatUtil.format(KernelLogMessageConstant.UNKNOWN_PRODUCT_INVOLVED, product));
             }
         }
 
@@ -111,7 +111,7 @@ public final class FlushPdfDocumentEvent extends AbstractITextConfigurationEvent
             if (event instanceof ConfirmedEventWrapper) {
                 confirmedEvents.add((ConfirmedEventWrapper) event);
             } else {
-                LOGGER.warn(MessageFormatUtil.format(KernelLogMessageConstant.UNCONFIRMED_EVENT,
+                LOGGER.warning(MessageFormatUtil.format(KernelLogMessageConstant.UNCONFIRMED_EVENT,
                         event.getProductName(), event.getEventType()));
             }
         }

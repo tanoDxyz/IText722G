@@ -22,11 +22,12 @@
  */
 package com.tanodxyz.itext722g.kernel.actions.events;
 
-import com.itextpdf.commons.actions.AbstractITextConfigurationEvent;
-import com.itextpdf.commons.actions.AbstractProductProcessITextEvent;
-import com.itextpdf.commons.actions.sequence.AbstractIdentifiableElement;
-import com.itextpdf.commons.actions.sequence.SequenceId;
-import com.itextpdf.commons.actions.sequence.SequenceIdManager;
+
+import com.tanodxyz.itext722g.commons.actions.AbstractITextConfigurationEvent;
+import com.tanodxyz.itext722g.commons.actions.AbstractProductProcessITextEvent;
+import com.tanodxyz.itext722g.commons.actions.sequence.AbstractIdentifiableElement;
+import com.tanodxyz.itext722g.commons.actions.sequence.SequenceId;
+import com.tanodxyz.itext722g.commons.actions.sequence.SequenceIdManager;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
 
 import java.lang.ref.WeakReference;

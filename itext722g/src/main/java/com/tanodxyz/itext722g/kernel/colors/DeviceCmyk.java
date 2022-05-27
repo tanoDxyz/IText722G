@@ -46,8 +46,8 @@ package com.tanodxyz.itext722g.kernel.colors;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.pdf.colorspace.PdfDeviceCs;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
+
 
 /**
  * Color space to specify colors according to CMYK color model.
@@ -113,8 +113,8 @@ public class DeviceCmyk extends Color {
                 k > 1 ? 1 : (k > 0 ? k : 0)
         });
         if (c > 1 || c < 0 || m > 1 || m < 0 || y > 1 || y < 0 || k > 1 || k < 0) {
-            Logger LOGGER = LoggerFactory.getLogger(DeviceCmyk.class);
-            LOGGER.warn(IoLogMessageConstant.COLORANT_INTENSITIES_INVALID);
+            Logger LOGGER = Logger.getLogger(DeviceCmyk.class.getName());
+            LOGGER.warning(IoLogMessageConstant.COLORANT_INTENSITIES_INVALID);
         }
     }
 

@@ -22,11 +22,12 @@
  */
 package com.tanodxyz.itext722g.kernel.actions.events;
 
-import com.itextpdf.commons.actions.contexts.IMetaInfo;
+
+import com.tanodxyz.itext722g.commons.actions.AbstractProductProcessITextEvent;
+import com.tanodxyz.itext722g.commons.actions.confirmations.EventConfirmationType;
+import com.tanodxyz.itext722g.commons.actions.contexts.IMetaInfo;
+import com.tanodxyz.itext722g.commons.actions.sequence.SequenceId;
 import com.tanodxyz.itext722g.kernel.actions.data.ITextCoreProductData;
-import com.itextpdf.commons.actions.AbstractProductProcessITextEvent;
-import com.itextpdf.commons.actions.confirmations.EventConfirmationType;
-import com.itextpdf.commons.actions.sequence.SequenceId;
 
 /**
  * Class represents events registered in iText core module.
@@ -49,7 +50,7 @@ public final class ITextCoreProductEvent extends AbstractProductProcessITextEven
      *                         associated process has finished successfully
      */
     private ITextCoreProductEvent(SequenceId sequenceId, IMetaInfo metaInfo, String eventType,
-            EventConfirmationType confirmationType) {
+                                  EventConfirmationType confirmationType) {
         super(sequenceId, ITextCoreProductData.getInstance(), metaInfo, confirmationType);
         this.eventType = eventType;
     }

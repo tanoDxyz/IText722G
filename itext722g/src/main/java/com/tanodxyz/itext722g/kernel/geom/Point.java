@@ -23,7 +23,7 @@
  */
 package com.tanodxyz.itext722g.kernel.geom;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.util.HashCode;
 
 public class Point implements Cloneable {

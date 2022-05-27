@@ -43,7 +43,7 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf.action;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
 import com.tanodxyz.itext722g.kernel.pdf.PdfName;

@@ -45,12 +45,11 @@ package com.tanodxyz.itext722g.io.util;
 
 import com.tanodxyz.itext722g.io.exceptions.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
@@ -62,7 +61,7 @@ import java.util.zip.InflaterInputStream;
 public final class FilterUtil {
 
     /** The Logger instance. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(FilterUtil.class);
+    private static final Logger LOGGER = Logger.getLogger(FilterUtil.class.getName());
 
     private FilterUtil() {
     }
@@ -96,7 +95,7 @@ public final class FilterUtil {
                 output.close();
             }catch(Exception e){
                 //Log the error
-                LOGGER.error(e.getMessage(),e);
+                LOGGER.log(Level.SEVERE,e.getMessage(),e);
             }
         }
     }

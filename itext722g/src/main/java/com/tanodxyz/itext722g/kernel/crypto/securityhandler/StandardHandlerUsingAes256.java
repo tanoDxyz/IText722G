@@ -45,28 +45,30 @@ package com.tanodxyz.itext722g.kernel.crypto.securityhandler;
 
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.util.StreamUtil;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.crypto.AESCipherCBCnoPad;
 import com.tanodxyz.itext722g.kernel.crypto.AesDecryptor;
-import com.tanodxyz.itext722g.kernel.exceptions.BadPasswordException;
 import com.tanodxyz.itext722g.kernel.crypto.IDecryptor;
 import com.tanodxyz.itext722g.kernel.crypto.IVGenerator;
 import com.tanodxyz.itext722g.kernel.crypto.OutputStreamAesEncryption;
 import com.tanodxyz.itext722g.kernel.crypto.OutputStreamEncryption;
+import com.tanodxyz.itext722g.kernel.exceptions.BadPasswordException;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.pdf.PdfBoolean;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfLiteral;
 import com.tanodxyz.itext722g.kernel.pdf.PdfName;
 import com.tanodxyz.itext722g.kernel.pdf.PdfNumber;
 import com.tanodxyz.itext722g.kernel.pdf.PdfVersion;
+
 import java.io.OutputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class StandardHandlerUsingAes256 extends StandardSecurityHandler {
 
@@ -268,8 +270,8 @@ public class StandardHandlerUsingAes256 extends StandardSecurityHandler {
 
             Boolean encryptMetadataEntry = encryptionDictionary.getAsBool(PdfName.EncryptMetadata);
             if (permissionsDecoded != permissions || encryptMetadataEntry != null && encryptMetadata != encryptMetadataEntry) {
-                Logger logger = LoggerFactory.getLogger(StandardHandlerUsingAes256.class);
-                logger.error(IoLogMessageConstant.ENCRYPTION_ENTRIES_P_AND_ENCRYPT_METADATA_NOT_CORRESPOND_PERMS_ENTRY);
+                Logger logger = Logger.getLogger(StandardHandlerUsingAes256.class.getName());
+                logger.log(Level.SEVERE,IoLogMessageConstant.ENCRYPTION_ENTRIES_P_AND_ENCRYPT_METADATA_NOT_CORRESPOND_PERMS_ENTRY);
             }
             this.permissions = permissionsDecoded;
             this.encryptMetadata = encryptMetadata;

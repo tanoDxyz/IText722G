@@ -44,11 +44,11 @@
 package com.tanodxyz.itext722g.kernel.colors;
 
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class is a HashMap that contains the names of colors as a key and the
@@ -63,7 +63,7 @@ public class WebColors extends HashMap<String, int[]> {
     public static final WebColors NAMES = new WebColors();
 
     private static final double RGB_MAX_VAL = 255.0;
-    
+
     static {
         NAMES.put("aliceblue", new int[]{0xf0, 0xf8, 0xff, 0xff});
         NAMES.put("antiquewhite", new int[]{0xfa, 0xeb, 0xd7, 0xff});
@@ -232,7 +232,8 @@ public class WebColors extends HashMap<String, int[]> {
     }
 
     /**
-     * Gives an array of four floats that contain RGBA values, each value is between 0 and 1. 
+     * Gives an array of four floats that contain RGBA values, each value is between 0 and 1.
+     *
      * @param name a name such as black, violet, cornflowerblue or #RGB or
      *             #RRGGBB or RGB or RRGGBB or rgb(R,G,B) or rgb(R,G,B,A)
      * @return the corresponding array of four floats, or <code>null</code> if parsing failed.
@@ -261,8 +262,8 @@ public class WebColors extends HashMap<String, int[]> {
                     color[1] = (float) (Integer.parseInt(colorName.substring(2, 4), 16) / RGB_MAX_VAL);
                     color[2] = (float) (Integer.parseInt(colorName.substring(4), 16) / RGB_MAX_VAL);
                 } else {
-                    Logger logger = LoggerFactory.getLogger(WebColors.class);
-                    logger.error(IoLogMessageConstant.UNKNOWN_COLOR_FORMAT_MUST_BE_RGB_OR_RRGGBB);
+                    Logger logger = Logger.getLogger(WebColors.class.getName());
+                    logger.log(Level.SEVERE, IoLogMessageConstant.UNKNOWN_COLOR_FORMAT_MUST_BE_RGB_OR_RRGGBB);
                 }
             } else if (colorName.startsWith("rgb(")) {
                 final String delim = "rgb(), \t\r\n\f";

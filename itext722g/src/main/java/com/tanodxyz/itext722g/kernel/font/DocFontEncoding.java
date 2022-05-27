@@ -43,21 +43,20 @@
  */
 package com.tanodxyz.itext722g.kernel.font;
 
-import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.tanodxyz.itext722g.io.util.IntHashtable;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.font.AdobeGlyphList;
 import com.tanodxyz.itext722g.io.font.FontEncoding;
 import com.tanodxyz.itext722g.io.font.PdfEncodings;
 import com.tanodxyz.itext722g.io.font.cmap.CMapToUnicode;
+import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
+import com.tanodxyz.itext722g.io.util.IntHashtable;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfName;
 import com.tanodxyz.itext722g.kernel.pdf.PdfNumber;
 import com.tanodxyz.itext722g.kernel.pdf.PdfObject;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 /**
  * This class allow to parse document font's encoding.
@@ -122,8 +121,8 @@ class DocFontEncoding extends FontEncoding {
                 if (obj.isNumber()) {
                     currentNumber = ((PdfNumber) obj).intValue();
                 } else if (currentNumber > 255) {
-                    Logger LOGGER = LoggerFactory.getLogger(DocFontEncoding.class);
-                    LOGGER.warn(MessageFormatUtil.format(IoLogMessageConstant.DOCFONT_HAS_ILLEGAL_DIFFERENCES,
+                    Logger LOGGER = Logger.getLogger(DocFontEncoding.class.getName());
+                    LOGGER.warning(MessageFormatUtil.format(IoLogMessageConstant.DOCFONT_HAS_ILLEGAL_DIFFERENCES,
                             ((PdfName) obj).getValue()));
                     /* don't return or break, because differences subarrays may
                      * be in any order:

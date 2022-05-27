@@ -50,8 +50,8 @@ import com.tanodxyz.itext722g.io.font.TrueTypeFont;
 import com.tanodxyz.itext722g.io.font.Type1Font;
 import com.tanodxyz.itext722g.io.font.constants.StandardFonts;
 import com.tanodxyz.itext722g.io.font.otf.Glyph;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfName;
 import com.tanodxyz.itext722g.kernel.pdf.PdfStream;
@@ -59,8 +59,9 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfStream;
 import java.io.IOException;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  * Note. For TrueType FontNames.getStyle() is the same to Subfamily(). So, we shouldn't add style to /BaseFont.
@@ -183,8 +184,8 @@ public class PdfTrueTypeFont extends PdfSimpleFont<TrueTypeFont> {
                     fontStream = getPdfFontStream(fontStreamBytes, new int[]{fontStreamBytes.length});
                     fontStream.put(PdfName.Subtype, new PdfName("Type1C"));
                 } catch (PdfException e) {
-                    Logger logger = LoggerFactory.getLogger(PdfTrueTypeFont.class);
-                    logger.error(e.getMessage());
+                    Logger logger = Logger.getLogger(PdfTrueTypeFont.class.getName());
+                    logger.log(Level.SEVERE,e.getMessage());
                     fontStream = null;
                 }
             } else {
@@ -210,8 +211,8 @@ public class PdfTrueTypeFont extends PdfSimpleFont<TrueTypeFont> {
                     }
                     fontStream = getPdfFontStream(fontStreamBytes, new int[]{fontStreamBytes.length});
                 } catch (PdfException e) {
-                    Logger logger = LoggerFactory.getLogger(PdfTrueTypeFont.class);
-                    logger.error(e.getMessage());
+                    Logger logger = Logger.getLogger(PdfTrueTypeFont.class.getName());
+                    logger.log(Level.SEVERE,e.getMessage());
                     fontStream = null;
                 }
             }

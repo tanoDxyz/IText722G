@@ -46,8 +46,8 @@ package com.tanodxyz.itext722g.io.source;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 
 import java.nio.channels.FileChannel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A RandomAccessSource that is based on an underlying {@link java.nio.channels.FileChannel}.
@@ -90,8 +90,8 @@ public class FileChannelRandomAccessSource implements IRandomAccessSource {
             try {
                 channel.close();
             } catch (Exception ex) {
-                Logger logger = LoggerFactory.getLogger(FileChannelRandomAccessSource.class);
-                logger.error(IoLogMessageConstant.FILE_CHANNEL_CLOSING_FAILED, ex);
+                Logger logger = Logger.getLogger(FileChannelRandomAccessSource.class.getName());
+                logger.log(Level.SEVERE,IoLogMessageConstant.FILE_CHANNEL_CLOSING_FAILED, ex);
             }
         }
     }

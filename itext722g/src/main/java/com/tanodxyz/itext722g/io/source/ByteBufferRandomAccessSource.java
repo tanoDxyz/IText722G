@@ -47,8 +47,9 @@ import java.lang.reflect.Method;
 import java.nio.BufferUnderflowException;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  * A RandomAccessSource that is based on an underlying {@link java.nio.ByteBuffer}.  This class takes steps to ensure
@@ -211,8 +212,8 @@ class ByteBufferRandomAccessSource implements IRandomAccessSource {
             success = Boolean.TRUE;
         } catch (Exception e) {
             // This really is a show stopper on windows
-            Logger logger = LoggerFactory.getLogger(ByteBufferRandomAccessSource.class);
-            logger.debug(e.getMessage());
+            Logger logger = Logger.getLogger(ByteBufferRandomAccessSource.class.getName());
+            logger.log(Level.FINER,e.getMessage());
         }
         return success;
     }

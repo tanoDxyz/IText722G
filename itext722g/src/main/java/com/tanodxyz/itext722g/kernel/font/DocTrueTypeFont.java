@@ -43,11 +43,11 @@
  */
 package com.tanodxyz.itext722g.kernel.font;
 
-import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.font.FontEncoding;
 import com.tanodxyz.itext722g.io.font.TrueTypeFont;
 import com.tanodxyz.itext722g.io.font.cmap.CMapToUnicode;
 import com.tanodxyz.itext722g.io.font.otf.Glyph;
+import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.util.IntHashtable;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
@@ -55,8 +55,9 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfName;
 import com.tanodxyz.itext722g.kernel.pdf.PdfNumber;
 import com.tanodxyz.itext722g.kernel.pdf.PdfStream;
 import com.tanodxyz.itext722g.kernel.pdf.PdfString;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.logging.Logger;
+
 
 public class DocTrueTypeFont extends TrueTypeFont implements IDocFontProgram {
 
@@ -175,8 +176,8 @@ public class DocTrueTypeFont extends TrueTypeFont implements IDocFontProgram {
 
     static void fillFontDescriptor(DocTrueTypeFont font, PdfDictionary fontDesc) {
         if (fontDesc == null) {
-            Logger logger = LoggerFactory.getLogger(FontUtil.class);
-            logger.warn(IoLogMessageConstant.FONT_DICTIONARY_WITH_NO_FONT_DESCRIPTOR);
+            Logger logger = Logger.getLogger(FontUtil.class.getName());
+            logger.warning(IoLogMessageConstant.FONT_DICTIONARY_WITH_NO_FONT_DESCRIPTOR);
             return;
         }
         PdfNumber v = fontDesc.getAsNumber(PdfName.Ascent);

@@ -46,8 +46,8 @@ package com.tanodxyz.itext722g.kernel.colors;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.pdf.colorspace.PdfDeviceCs;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
+
 
 /**
  * Color space to specify shades of gray color.
@@ -79,8 +79,8 @@ public class DeviceGray extends Color {
     public DeviceGray(float value) {
         super(new PdfDeviceCs.Gray(), new float[] {value > 1 ? 1 : (value > 0 ? value : 0)});
         if (value > 1 || value < 0) {
-            Logger LOGGER = LoggerFactory.getLogger(DeviceGray.class);
-            LOGGER.warn(IoLogMessageConstant.COLORANT_INTENSITIES_INVALID);
+            Logger LOGGER = Logger.getLogger(DeviceGray.class.getName());
+            LOGGER.warning(IoLogMessageConstant.COLORANT_INTENSITIES_INVALID);
         }
     }
 

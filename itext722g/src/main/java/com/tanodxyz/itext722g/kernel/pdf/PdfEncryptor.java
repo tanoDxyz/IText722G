@@ -45,14 +45,15 @@ package com.tanodxyz.itext722g.kernel.pdf;
 
 import com.itextpdf.commons.actions.contexts.IMetaInfo;
 
+import org.bouncycastle.cms.CMSException;
+import org.bouncycastle.cms.RecipientInformation;
+import org.bouncycastle.cms.jcajce.JceKeyTransEnvelopedRecipient;
+import org.spongycastle.cms.Recipient;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.security.PrivateKey;
 import java.util.Map;
-import org.bouncycastle.cms.CMSException;
-import org.bouncycastle.cms.Recipient;
-import org.bouncycastle.cms.RecipientInformation;
-import org.bouncycastle.cms.jcajce.JceKeyTransEnvelopedRecipient;
 
 /**
  * This class takes any PDF and returns exactly the same but

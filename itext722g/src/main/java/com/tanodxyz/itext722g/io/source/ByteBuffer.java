@@ -43,8 +43,7 @@
  */
 package com.tanodxyz.itext722g.io.source;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 public class ByteBuffer {
 
     private static final byte[] bytes = new byte[]{48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 97, 98, 99, 100, 101, 102};

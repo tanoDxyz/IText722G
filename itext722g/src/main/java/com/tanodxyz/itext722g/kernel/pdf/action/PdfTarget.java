@@ -44,8 +44,8 @@
 package com.tanodxyz.itext722g.kernel.pdf.action;
 
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
@@ -58,11 +58,10 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfPage;
 import com.tanodxyz.itext722g.kernel.pdf.PdfString;
 import com.tanodxyz.itext722g.kernel.pdf.annot.PdfAnnotation;
 import com.tanodxyz.itext722g.kernel.pdf.annot.PdfFileAttachmentAnnotation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * A target dictionary locates the target in relation to the source,
@@ -248,8 +247,8 @@ public class PdfTarget extends PdfObjectWrapper<PdfDictionary> {
             }
         }
         if (null == resultAnnotation) {
-            Logger logger = LoggerFactory.getLogger(PdfTarget.class);
-            logger.error(IoLogMessageConstant.SOME_TARGET_FIELDS_ARE_NOT_SET_OR_INCORRECT);
+            Logger logger = Logger.getLogger(PdfTarget.class.getName());
+            logger.warning(IoLogMessageConstant.SOME_TARGET_FIELDS_ARE_NOT_SET_OR_INCORRECT);
         }
         return resultAnnotation;
     }

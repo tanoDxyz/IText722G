@@ -43,7 +43,7 @@
  */
 package com.tanodxyz.itext722g.kernel.font;
 
-import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.font.FontEncoding;
 import com.tanodxyz.itext722g.io.font.FontMetrics;
 import com.tanodxyz.itext722g.io.font.FontNames;
@@ -53,8 +53,8 @@ import com.tanodxyz.itext722g.io.font.cmap.CMapToUnicode;
 import com.tanodxyz.itext722g.io.font.constants.FontDescriptorFlags;
 import com.tanodxyz.itext722g.io.font.otf.Glyph;
 import com.tanodxyz.itext722g.io.font.otf.GlyphLine;
+import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.util.ArrayUtil;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.util.StreamUtil;
 import com.tanodxyz.itext722g.io.util.TextUtil;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
@@ -67,8 +67,7 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfString;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 public abstract class PdfSimpleFont<T extends FontProgram> extends PdfFont {
 
@@ -327,10 +326,9 @@ public abstract class PdfSimpleFont<T extends FontProgram> extends PdfFont {
             if (glyph != null) {
                 list.add(glyph);
             } else {
-                Logger logger = LoggerFactory.getLogger(this.getClass());
-                if (logger.isWarnEnabled()) {
-                    logger.warn(MessageFormatUtil.format(IoLogMessageConstant.COULD_NOT_FIND_GLYPH_WITH_CODE, code));
-                }
+                Logger logger = Logger.getLogger(this.getClass().getName());
+                logger.warning(MessageFormatUtil.format(IoLogMessageConstant.COULD_NOT_FIND_GLYPH_WITH_CODE, code));
+
                 allCodesDecoded = false;
             }
         }
@@ -452,6 +450,7 @@ public abstract class PdfSimpleFont<T extends FontProgram> extends PdfFont {
 
     /**
      * Indicates that the font is built in, i.e. it is one of the 14 Standard fonts
+     *
      * @return {@code true} in case the font is a Standard font and {@code false} otherwise
      */
     protected boolean isBuiltInFont() {

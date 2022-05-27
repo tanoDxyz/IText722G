@@ -43,13 +43,13 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf.action;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
 import com.tanodxyz.itext722g.kernel.pdf.PdfName;
 import com.tanodxyz.itext722g.kernel.pdf.PdfObjectWrapper;
 import com.tanodxyz.itext722g.kernel.pdf.PdfString;
 import com.tanodxyz.itext722g.kernel.pdf.filespec.PdfFileSpec;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 
 /**
  * This a wrapper around a rendition dictionary. See ISO 32000-1 sections 13.2.3.2, 13.2.3.3.

@@ -1,8 +1,8 @@
 package com.tanodxyz.itext722;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -10,5 +10,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /**
+         * //todo
+         * static {
+         *     Security.insertProviderAt(new org.spongycastle.jce.provider.BouncyCastleProvider(), 1);
+         * }
+         */
     }
 }

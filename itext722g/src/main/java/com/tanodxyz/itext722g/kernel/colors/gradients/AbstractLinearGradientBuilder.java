@@ -40,7 +40,8 @@ import com.tanodxyz.itext722g.kernel.pdf.function.PdfFunction;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Base class for linear gradient builders implementations.
@@ -157,7 +158,7 @@ public abstract class AbstractLinearGradientBuilder {
                 }
                 shadingTransform.concatenate(gradientTransformation);
             } catch (NoninvertibleTransformException e) {
-                LoggerFactory.getLogger(getClass()).error(IoLogMessageConstant.UNABLE_TO_INVERT_GRADIENT_TRANSFORMATION);
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,IoLogMessageConstant.UNABLE_TO_INVERT_GRADIENT_TRANSFORMATION);
             }
         }
 

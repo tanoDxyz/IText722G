@@ -43,10 +43,10 @@
  */
 package com.tanodxyz.itext722g.io.source;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.exceptions.IOException;
 import com.tanodxyz.itext722g.io.util.ResourceUtil;
 import com.tanodxyz.itext722g.io.util.StreamUtil;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -43,12 +43,14 @@
  */
 package com.tanodxyz.itext722g.io.source;
 
+import android.util.Log;
+
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.util.DecimalFormatUtil;
 
 import java.nio.charset.StandardCharsets;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public final class ByteUtils {
 
@@ -138,8 +140,8 @@ public final class ByteUtils {
                 }
             }
             if (Double.isNaN(d)) {
-                Logger logger = LoggerFactory.getLogger(ByteUtils.class);
-                logger.error(IoLogMessageConstant.ATTEMPT_PROCESS_NAN);
+                Logger logger = Logger.getLogger(ByteUtils.class.getName());
+                logger.log(Level.SEVERE,IoLogMessageConstant.ATTEMPT_PROCESS_NAN);
                 d = 0;
             }
             byte[] result = DecimalFormatUtil.formatNumber(d, "0.######").getBytes(StandardCharsets.ISO_8859_1);
@@ -246,8 +248,8 @@ public final class ByteUtils {
                 v = Long.MAX_VALUE;
             } else {
                 if (Double.isNaN(d)) {
-                    Logger logger = LoggerFactory.getLogger(ByteUtils.class);
-                    logger.error(IoLogMessageConstant.ATTEMPT_PROCESS_NAN);
+                    Logger logger = Logger.getLogger(ByteUtils.class.getName());
+                    logger.log(Level.SEVERE,IoLogMessageConstant.ATTEMPT_PROCESS_NAN);
                     // in java NaN casted to long results in 0, but in .NET it results in long.MIN_VALUE
                     d = 0;
                 }

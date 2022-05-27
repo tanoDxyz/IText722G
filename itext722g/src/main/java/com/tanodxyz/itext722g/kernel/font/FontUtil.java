@@ -43,7 +43,6 @@
  */
 package com.tanodxyz.itext722g.kernel.font;
 
-import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.font.FontCache;
 import com.tanodxyz.itext722g.io.font.PdfEncodings;
 import com.tanodxyz.itext722g.io.font.cmap.CMapLocationFromBytes;
@@ -51,6 +50,7 @@ import com.tanodxyz.itext722g.io.font.cmap.CMapParser;
 import com.tanodxyz.itext722g.io.font.cmap.CMapToUnicode;
 import com.tanodxyz.itext722g.io.font.cmap.CMapUniCid;
 import com.tanodxyz.itext722g.io.font.cmap.ICMapLocation;
+import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.util.IntHashtable;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfName;
@@ -60,9 +60,8 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfStream;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class FontUtil {
 
@@ -86,8 +85,8 @@ public class FontUtil {
                 cMapToUnicode = new CMapToUnicode();
                 CMapParser.parseCid("", cMapToUnicode, lb);
             } catch (Exception e) {
-                Logger logger = LoggerFactory.getLogger(CMapToUnicode.class);
-                logger.error(IoLogMessageConstant.UNKNOWN_ERROR_WHILE_PROCESSING_CMAP);
+                Logger logger = Logger.getLogger(CMapToUnicode.class.getName());
+                logger.warning(IoLogMessageConstant.UNKNOWN_ERROR_WHILE_PROCESSING_CMAP);
                 cMapToUnicode = CMapToUnicode.EmptyCMapToUnicodeMap;
             }
         } else if (PdfName.IdentityH.equals(toUnicode)) {
@@ -130,8 +129,8 @@ public class FontUtil {
         int[] res = new int[256];
         Arrays.fill(res, missingWidth);
         if (widthsArray == null) {
-            Logger logger = LoggerFactory.getLogger(FontUtil.class);
-            logger.warn(IoLogMessageConstant.FONT_DICTIONARY_WITH_NO_WIDTHS);
+            Logger logger = Logger.getLogger(FontUtil.class.getName());
+            logger.warning(IoLogMessageConstant.FONT_DICTIONARY_WITH_NO_WIDTHS);
             return res;
         }
 

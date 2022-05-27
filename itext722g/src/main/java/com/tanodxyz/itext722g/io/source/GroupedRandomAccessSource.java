@@ -45,8 +45,9 @@ package com.tanodxyz.itext722g.io.source;
 
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  * A RandomAccessSource that is based on a set of underlying sources,
@@ -223,12 +224,12 @@ class GroupedRandomAccessSource implements IRandomAccessSource {
                 if (firstThrownIOExc == null) {
                     firstThrownIOExc = ex;
                 } else {
-                    Logger logger = LoggerFactory.getLogger(GroupedRandomAccessSource.class);
-                    logger.error(IoLogMessageConstant.ONE_OF_GROUPED_SOURCES_CLOSING_FAILED, ex);
+                    Logger logger = Logger.getLogger(GroupedRandomAccessSource.class.getName());
+                    logger.log(Level.SEVERE,IoLogMessageConstant.ONE_OF_GROUPED_SOURCES_CLOSING_FAILED, ex);
                 }
             } catch (Exception ex) {
-                Logger logger = LoggerFactory.getLogger(GroupedRandomAccessSource.class);
-                logger.error(IoLogMessageConstant.ONE_OF_GROUPED_SOURCES_CLOSING_FAILED, ex);
+                Logger logger = Logger.getLogger(GroupedRandomAccessSource.class.getName());
+                logger.log(Level.SEVERE,IoLogMessageConstant.ONE_OF_GROUPED_SOURCES_CLOSING_FAILED, ex);
             }
         }
         if (firstThrownIOExc != null) {

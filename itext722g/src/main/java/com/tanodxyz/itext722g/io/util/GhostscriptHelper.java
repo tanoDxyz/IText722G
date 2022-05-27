@@ -43,9 +43,10 @@
  */
 package com.tanodxyz.itext722g.io.util;
 
-import com.itextpdf.commons.utils.FileUtil;
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.commons.utils.SystemUtil;
+
+import com.tanodxyz.itext722g.commons.utils.FileUtil;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.commons.utils.SystemUtil;
 import com.tanodxyz.itext722g.io.exceptions.IoExceptionMessage;
 
 import java.io.IOException;

@@ -43,12 +43,12 @@
  */
 package com.tanodxyz.itext722g.kernel.colors;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.kernel.pdf.colorspace.PdfDeviceCs;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
+
 
 /**
  * Color space to specify colors according to RGB color model.
@@ -111,8 +111,8 @@ public class DeviceRgb extends Color {
                 b > 1 ? 1 : (b > 0 ? b : 0)
         });
         if (r > 1 || r < 0 || g > 1 || g < 0 || b > 1 || b < 0) {
-            Logger LOGGER = LoggerFactory.getLogger(DeviceRgb.class);
-            LOGGER.warn(IoLogMessageConstant.COLORANT_INTENSITIES_INVALID);
+            Logger LOGGER = Logger.getLogger(DeviceRgb.class.getName());
+            LOGGER.warning(IoLogMessageConstant.COLORANT_INTENSITIES_INVALID);
         }
     }
 
@@ -127,8 +127,8 @@ public class DeviceRgb extends Color {
     public DeviceRgb(java.awt.Color color) {
         this(color.getRed(), color.getGreen(), color.getBlue());
         if (color.getAlpha() != 255) {
-            Logger LOGGER = LoggerFactory.getLogger(DeviceRgb.class);
-            LOGGER.warn(MessageFormatUtil.format(IoLogMessageConstant.COLOR_ALPHA_CHANNEL_IS_IGNORED, color.getAlpha()));
+            Logger LOGGER = Logger.getLogger(DeviceRgb.class.getName());
+            LOGGER.warning(MessageFormatUtil.format(IoLogMessageConstant.COLOR_ALPHA_CHANNEL_IS_IGNORED, color.getAlpha()));
         }
     }
 

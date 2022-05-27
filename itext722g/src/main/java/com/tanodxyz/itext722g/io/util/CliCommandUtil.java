@@ -43,7 +43,8 @@
  */
 package com.tanodxyz.itext722g.io.util;
 
-import com.itextpdf.commons.utils.SystemUtil;
+
+import com.tanodxyz.itext722g.commons.utils.SystemUtil;
 
 public final class CliCommandUtil {
 
