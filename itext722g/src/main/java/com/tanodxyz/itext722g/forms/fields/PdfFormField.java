@@ -43,31 +43,15 @@
  */
 package com.tanodxyz.itext722g.forms.fields;
 
-import com.itextpdf.forms.util.DrawingUtil;
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Text;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.properties.BoxSizingPropertyValue;
-import com.itextpdf.layout.properties.Leading;
-import com.itextpdf.layout.properties.OverflowPropertyValue;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.TextAlignment;
-import com.itextpdf.layout.properties.TransparentColor;
-import com.itextpdf.layout.properties.VerticalAlignment;
-import com.itextpdf.layout.renderer.IRenderer;
-import com.itextpdf.layout.renderer.MetaInfoContainer;
+
+import android.util.Log;
+
+import com.tanodxyz.itext722g.commons.utils.Base64;
 import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.forms.PdfAcroForm;
 import com.tanodxyz.itext722g.forms.exceptions.FormsExceptionMessageConstant;
-import com.tanodxyz.itext722g.forms.fields.FormFieldValueNonTrimmingTextRenderer;
-import com.tanodxyz.itext722g.forms.fields.FormsMetaInfoStaticContainer;
-import com.tanodxyz.itext722g.forms.fields.PdfButtonFormField;
-import com.tanodxyz.itext722g.forms.fields.PdfChoiceFormField;
 import com.tanodxyz.itext722g.forms.fields.borders.FormBorderFactory;
+import com.tanodxyz.itext722g.forms.util.DrawingUtil;
 import com.tanodxyz.itext722g.io.font.FontProgram;
 import com.tanodxyz.itext722g.io.font.PdfEncodings;
 import com.tanodxyz.itext722g.io.font.constants.StandardFonts;
@@ -110,9 +94,21 @@ import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfFormXObject;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfImageXObject;
 import com.tanodxyz.itext722g.layout.Canvas;
 import com.tanodxyz.itext722g.layout.Style;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.element.Div;
+import com.tanodxyz.itext722g.layout.element.Paragraph;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.properties.BoxSizingPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Leading;
+import com.tanodxyz.itext722g.layout.properties.OverflowPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.TextAlignment;
+import com.tanodxyz.itext722g.layout.properties.TransparentColor;
+import com.tanodxyz.itext722g.layout.properties.VerticalAlignment;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.renderer.MetaInfoContainer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -124,6 +120,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class represents a single field or field group in an {@link PdfAcroForm
@@ -380,7 +378,7 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
      * @param doc the {@link PdfDocument} to create the text field in
      * @return a new {@link PdfTextFormField}
      */
-    public static com.itextpdf.forms.fields.PdfTextFormField createText(PdfDocument doc) {
+    public static PdfTextFormField createText(PdfDocument doc) {
         return createText(doc, (PdfAConformanceLevel) null);
     }
 
@@ -392,8 +390,8 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
      *                             level of the {@link PdfDocument} this field will eventually be added into
      * @return a new {@link PdfTextFormField}
      */
-    public static com.itextpdf.forms.fields.PdfTextFormField createText(PdfDocument doc, PdfAConformanceLevel pdfAConformanceLevel) {
-        com.itextpdf.forms.fields.PdfTextFormField textFormField = new com.itextpdf.forms.fields.PdfTextFormField(doc);
+    public static PdfTextFormField createText(PdfDocument doc, PdfAConformanceLevel pdfAConformanceLevel) {
+        PdfTextFormField textFormField = new PdfTextFormField(doc);
         textFormField.pdfAConformanceLevel = pdfAConformanceLevel;
         return textFormField;
     }
@@ -405,9 +403,9 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
      * @param rect the location on the page for the text field
      * @return a new {@link PdfTextFormField}
      */
-    public static com.itextpdf.forms.fields.PdfTextFormField createText(PdfDocument doc, Rectangle rect) {
+    public static PdfTextFormField createText(PdfDocument doc, Rectangle rect) {
         PdfWidgetAnnotation annot = new PdfWidgetAnnotation(rect);
-        return new com.itextpdf.forms.fields.PdfTextFormField(annot, doc);
+        return new PdfTextFormField(annot, doc);
     }
 
     /**
@@ -420,7 +418,7 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
      * @param name the name of the form field
      * @return a new {@link PdfTextFormField}
      */
-    public static com.itextpdf.forms.fields.PdfTextFormField createText(PdfDocument doc, Rectangle rect, String name) {
+    public static  PdfTextFormField createText(PdfDocument doc, Rectangle rect, String name) {
         return createText(doc, rect, name, "");
     }
 
@@ -435,7 +433,7 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
      * @param value the initial value
      * @return a new {@link PdfTextFormField}
      */
-    public static com.itextpdf.forms.fields.PdfTextFormField createText(PdfDocument doc, Rectangle rect, String name, String value) {
+    public static PdfTextFormField createText(PdfDocument doc, Rectangle rect, String name, String value) {
         return createText(doc, rect, name, value, null, -1);
     }
 
@@ -451,7 +449,7 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
      * @param fontSize the size of the font
      * @return a new {@link PdfTextFormField}
      */
-    public static com.itextpdf.forms.fields.PdfTextFormField createText(PdfDocument doc, Rectangle rect, String name, String value, PdfFont font, float fontSize) {
+    public static  PdfTextFormField createText(PdfDocument doc, Rectangle rect, String name, String value, PdfFont font, float fontSize) {
         return createText(doc, rect, name, value, font, fontSize, false);
     }
 
@@ -468,7 +466,7 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
      * @param multiline true for multiline text field
      * @return a new {@link PdfTextFormField}
      */
-    public static com.itextpdf.forms.fields.PdfTextFormField createText(PdfDocument doc, Rectangle rect, String name, String value, PdfFont font, float fontSize, boolean multiline) {
+    public static  PdfTextFormField createText(PdfDocument doc, Rectangle rect, String name, String value, PdfFont font, float fontSize, boolean multiline) {
         return createText(doc, rect, name, value, font, fontSize, multiline, null);
     }
 
@@ -486,9 +484,9 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
      * @param pdfAConformanceLevel the {@link PdfAConformanceLevel} of the document. {@code} null if it's no PDF/A document
      * @return a new {@link PdfTextFormField}
      */
-    public static com.itextpdf.forms.fields.PdfTextFormField createText(PdfDocument doc, Rectangle rect, String name, String value, PdfFont font, float fontSize, boolean multiline, PdfAConformanceLevel pdfAConformanceLevel) {
+    public static  PdfTextFormField createText(PdfDocument doc, Rectangle rect, String name, String value, PdfFont font, float fontSize, boolean multiline, PdfAConformanceLevel pdfAConformanceLevel) {
         PdfWidgetAnnotation annot = new PdfWidgetAnnotation(rect);
-        com.itextpdf.forms.fields.PdfTextFormField field = new com.itextpdf.forms.fields.PdfTextFormField(annot, doc);
+         PdfTextFormField field = new  PdfTextFormField(annot, doc);
 
         field.pdfAConformanceLevel = pdfAConformanceLevel;
         if (null != pdfAConformanceLevel) {
@@ -515,7 +513,7 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
      * @param fontSize the size of the font
      * @return a new {@link PdfTextFormField}
      */
-    public static com.itextpdf.forms.fields.PdfTextFormField createMultilineText(PdfDocument doc, Rectangle rect, String name, String value, PdfFont font, float fontSize) {
+    public static  PdfTextFormField createMultilineText(PdfDocument doc, Rectangle rect, String name, String value, PdfFont font, float fontSize) {
         return createText(doc, rect, name, value, font, fontSize, true);
     }
 
@@ -530,7 +528,7 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
      * @param value the initial value
      * @return a new {@link PdfTextFormField}
      */
-    public static com.itextpdf.forms.fields.PdfTextFormField createMultilineText(PdfDocument doc, Rectangle rect, String name, String value) {
+    public static  PdfTextFormField createMultilineText(PdfDocument doc, Rectangle rect, String name, String value) {
         return createText(doc, rect, name, value, null, -1, true);
     }
 
@@ -691,7 +689,7 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
      * @param doc the {@link PdfDocument} to create the signature field in
      * @return a new {@link PdfSignatureFormField}
      */
-    public static com.itextpdf.forms.fields.PdfSignatureFormField createSignature(PdfDocument doc) {
+    public static  PdfSignatureFormField createSignature(PdfDocument doc) {
         return createSignature(doc, (PdfAConformanceLevel) null);
     }
 
@@ -702,8 +700,8 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
      * @param pdfAConformanceLevel the {@link PdfAConformanceLevel} of the document. {@code} null if it's no PDF/A document
      * @return a new {@link PdfSignatureFormField}
      */
-    public static com.itextpdf.forms.fields.PdfSignatureFormField createSignature(PdfDocument doc, PdfAConformanceLevel pdfAConformanceLevel) {
-        com.itextpdf.forms.fields.PdfSignatureFormField signatureFormField = new com.itextpdf.forms.fields.PdfSignatureFormField(doc);
+    public static  PdfSignatureFormField createSignature(PdfDocument doc, PdfAConformanceLevel pdfAConformanceLevel) {
+         PdfSignatureFormField signatureFormField = new  PdfSignatureFormField(doc);
         signatureFormField.pdfAConformanceLevel = pdfAConformanceLevel;
         return signatureFormField;
     }
@@ -715,7 +713,7 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
      * @param rect the location on the page for the signature field
      * @return a new {@link PdfSignatureFormField}
      */
-    public static com.itextpdf.forms.fields.PdfSignatureFormField createSignature(PdfDocument doc, Rectangle rect) {
+    public static  PdfSignatureFormField createSignature(PdfDocument doc, Rectangle rect) {
         return createSignature(doc, rect, null);
     }
 
@@ -727,9 +725,9 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
      * @param pdfAConformanceLevel the {@link PdfAConformanceLevel} of the document. {@code} null if it's no PDF/A document
      * @return a new {@link PdfSignatureFormField}
      */
-    public static com.itextpdf.forms.fields.PdfSignatureFormField createSignature(PdfDocument doc, Rectangle rect, PdfAConformanceLevel pdfAConformanceLevel) {
+    public static  PdfSignatureFormField createSignature(PdfDocument doc, Rectangle rect, PdfAConformanceLevel pdfAConformanceLevel) {
         PdfWidgetAnnotation annot = new PdfWidgetAnnotation(rect);
-        com.itextpdf.forms.fields.PdfSignatureFormField signatureFormField = new com.itextpdf.forms.fields.PdfSignatureFormField(annot, doc);
+         PdfSignatureFormField signatureFormField = new  PdfSignatureFormField(annot, doc);
         signatureFormField.pdfAConformanceLevel = pdfAConformanceLevel;
         if (null != pdfAConformanceLevel) {
             annot.setFlag(PdfAnnotation.PRINT);
@@ -1109,13 +1107,13 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
             PdfDictionary dictionary = (PdfDictionary) pdfObject;
             PdfName formType = dictionary.getAsName(PdfName.FT);
             if (PdfName.Tx.equals(formType)) {
-                field = new com.itextpdf.forms.fields.PdfTextFormField(dictionary);
+                field = new  PdfTextFormField(dictionary);
             } else if (PdfName.Btn.equals(formType)) {
                 field = new PdfButtonFormField(dictionary);
             } else if (PdfName.Ch.equals(formType)) {
                 field = new PdfChoiceFormField(dictionary);
             } else if (PdfName.Sig.equals(formType)) {
-                field = new com.itextpdf.forms.fields.PdfSignatureFormField(dictionary);
+                field = new  PdfSignatureFormField(dictionary);
             } else {
                 field = new PdfFormField(dictionary);
             }
@@ -1485,8 +1483,8 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
     public PdfFormField setFieldFlags(int flags) {
         int oldFlags = getFieldFlags();
         put(PdfName.Ff, new PdfNumber(flags));
-        if (((oldFlags ^ flags) & com.itextpdf.forms.fields.PdfTextFormField.FF_COMB) != 0
-                && PdfName.Tx.equals(getFormType()) && new com.itextpdf.forms.fields.PdfTextFormField(getPdfObject()).getMaxLen() != 0)
+        if (((oldFlags ^ flags) &  PdfTextFormField.FF_COMB) != 0
+                && PdfName.Tx.equals(getFormType()) && new  PdfTextFormField(getPdfObject()).getMaxLen() != 0)
             regenerateField();
         return this;
     }
@@ -2444,9 +2442,9 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
         if (color != null)
             paragraphStyle.setProperty(Property.FONT_COLOR, new TransparentColor(color));
 
-        int maxLen = new com.itextpdf.forms.fields.PdfTextFormField(getPdfObject()).getMaxLen();
+        int maxLen = new  PdfTextFormField(getPdfObject()).getMaxLen();
         // check if /Comb has been set
-        if (this.getFieldFlag(com.itextpdf.forms.fields.PdfTextFormField.FF_COMB) && 0 != maxLen) {
+        if (this.getFieldFlag( PdfTextFormField.FF_COMB) && 0 != maxLen) {
             float widthPerCharacter = width / maxLen;
             int numberOfCharacters = Math.min(maxLen, value.length());
 
@@ -2467,7 +2465,7 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
                         startOffset + widthPerCharacter * i, rect.getHeight() / 2, TextAlignment.CENTER, VerticalAlignment.MIDDLE);
             }
         } else {
-            if (this.getFieldFlag(com.itextpdf.forms.fields.PdfTextFormField.FF_COMB)) {
+            if (this.getFieldFlag( PdfTextFormField.FF_COMB)) {
                 Logger logger = LoggerFactory.getLogger(PdfFormField.class);
                 logger.error(MessageFormatUtil.format(IoLogMessageConstant.COMB_FLAG_MAY_BE_SET_ONLY_IF_MAXLEN_IS_PRESENT));
             }
@@ -3397,8 +3395,8 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
             bBox = new PdfArray(rect);
         } else {
             //Avoid NPE when handling corrupt pdfs
-            Logger logger = LoggerFactory.getLogger(PdfFormField.class);
-            logger.error(IoLogMessageConstant.INCORRECT_PAGEROTATION);
+            Logger logger = Logger.getLogger(PdfFormField.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.INCORRECT_PAGEROTATION);
             matrix = new PdfArray(new double[]{1, 0, 0, 1, 0, 0});
         }
         //Apply field rotation

@@ -42,16 +42,10 @@
  */
 package com.tanodxyz.itext722g.forms.xfdf;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.forms.fields.PdfFormField;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.forms.PdfAcroForm;
-import com.tanodxyz.itext722g.forms.xfdf.AnnotObject;
-import com.tanodxyz.itext722g.forms.xfdf.AnnotsObject;
-import com.tanodxyz.itext722g.forms.xfdf.FieldObject;
-import com.tanodxyz.itext722g.forms.xfdf.FieldsObject;
-import com.tanodxyz.itext722g.forms.xfdf.XfdfConstants;
-import com.tanodxyz.itext722g.forms.xfdf.XfdfObject;
-import com.tanodxyz.itext722g.forms.xfdf.XfdfObjectUtils;
+import com.tanodxyz.itext722g.forms.fields.PdfFormField;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
@@ -67,15 +61,14 @@ import com.tanodxyz.itext722g.kernel.pdf.annot.PdfStampAnnotation;
 import com.tanodxyz.itext722g.kernel.pdf.annot.PdfTextAnnotation;
 import com.tanodxyz.itext722g.kernel.pdf.annot.PdfTextMarkupAnnotation;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 class XfdfReader {
 
-    private static Logger logger = LoggerFactory.getLogger(XfdfReader.class);
+    private static Logger logger = Logger.getLogger(XfdfReader.class.getName());
 
     /**
      * Merges existing XfdfObject into pdf document associated with it.
@@ -89,10 +82,10 @@ class XfdfReader {
             if (pdfDocumentName.equalsIgnoreCase(xfdfObject.getF().getHref())) {
                 logger.info("Xfdf href and pdf name are equal. Continue merge");
             } else {
-                logger.warn(IoLogMessageConstant.XFDF_HREF_ATTRIBUTE_AND_PDF_DOCUMENT_NAME_ARE_DIFFERENT);
+                logger.warning(IoLogMessageConstant.XFDF_HREF_ATTRIBUTE_AND_PDF_DOCUMENT_NAME_ARE_DIFFERENT);
             }
         } else {
-            logger.warn(IoLogMessageConstant.XFDF_NO_F_OBJECT_TO_COMPARE);
+            logger.warning(IoLogMessageConstant.XFDF_NO_F_OBJECT_TO_COMPARE);
         }
         //TODO DEVSIX-4026 check for ids original/modified compatability with those in pdf document
 
@@ -120,7 +113,7 @@ class XfdfReader {
                 if (formFields.get(name) != null && xfdfField.getValue() != null) {
                     formFields.get(name).setValue(xfdfField.getValue());
                 } else {
-                    logger.error(IoLogMessageConstant.XFDF_NO_SUCH_FIELD_IN_PDF_DOCUMENT);
+                    logger.log(Level.SEVERE,IoLogMessageConstant.XFDF_NO_SUCH_FIELD_IN_PDF_DOCUMENT);
                 }
             }
         }
@@ -288,7 +281,7 @@ class XfdfReader {
                 //XfdfConstants.REDACT
                 //XfdfConstants.PROJECTION
                 default:
-                    logger.warn(
+                    logger.warning(
                             MessageFormatUtil.format(IoLogMessageConstant.XFDF_ANNOTATION_IS_NOT_SUPPORTED, annotName));
                     break;
             }

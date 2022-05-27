@@ -42,23 +42,9 @@
  */
 package com.tanodxyz.itext722g.forms.xfdf;
 
-import com.tanodxyz.itext722g.forms.xfdf.ActionObject;
-import com.tanodxyz.itext722g.forms.xfdf.AnnotObject;
-import com.tanodxyz.itext722g.forms.xfdf.AttributeObject;
-import com.tanodxyz.itext722g.forms.xfdf.BorderStyleAltObject;
-import com.tanodxyz.itext722g.forms.xfdf.DestObject;
-import com.tanodxyz.itext722g.forms.xfdf.FObject;
-import com.tanodxyz.itext722g.forms.xfdf.FieldObject;
-import com.tanodxyz.itext722g.forms.xfdf.FitObject;
-import com.tanodxyz.itext722g.forms.xfdf.IdsObject;
-import com.tanodxyz.itext722g.forms.xfdf.XfdfConstants;
-import com.tanodxyz.itext722g.forms.xfdf.XfdfFileUtils;
-import com.tanodxyz.itext722g.forms.xfdf.XfdfObject;
-import com.tanodxyz.itext722g.forms.xfdf.XfdfObjectUtils;
+
 import com.tanodxyz.itext722g.kernel.pdf.PdfName;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -66,6 +52,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -74,7 +62,7 @@ class XfdfWriter {
 
     private OutputStream outputStream;
 
-    private static Logger logger = LoggerFactory.getLogger(XfdfWriter.class);
+    private static Logger logger = Logger.getLogger(XfdfWriter.class.getName());
 
     /**
      * Creates a XfdfWriter for output stream specified.
@@ -233,7 +221,7 @@ class XfdfWriter {
                 addActionObject(annotObject.getAction(), onActivation, document);
                 annot.appendChild(onActivation);
             } else {
-                logger.error("Dest and OnActivation elements are both missing");
+                logger.log(Level.SEVERE,"Dest and OnActivation elements are both missing");
             }
 
             if (annotObject.getBorderStyleAlt() != null) {
@@ -425,7 +413,7 @@ class XfdfWriter {
                 file.setAttribute(XfdfConstants.ORIGINAL_NAME, actionObject.getFileOriginalName());
                 goToR.appendChild(file);
             } else {
-                logger.error("Dest or File elements are missing.");
+                logger.log(Level.SEVERE,"Dest or File elements are missing.");
             }
 
             action.appendChild(goToR);
@@ -443,7 +431,7 @@ class XfdfWriter {
                 file.setAttribute(XfdfConstants.ORIGINAL_NAME, actionObject.getFileOriginalName());
                 launch.appendChild(file);
             } else {
-                logger.error("File element is missing");
+                logger.log(Level.SEVERE,"File element is missing");
             }
             if (actionObject.isNewWindow()) {
                 launch.setAttribute(XfdfConstants.NEW_WINDOW, "true");

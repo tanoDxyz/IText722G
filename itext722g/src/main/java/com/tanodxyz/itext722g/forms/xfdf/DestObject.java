@@ -64,7 +64,7 @@ public class DestObject {
      * Required attributes: Page, Left, Bottom, Right, Top.
      * For more details see paragraph 6.5.32 in XFDF document specification.
      */
-    private com.itextpdf.forms.xfdf.FitObject xyz;
+    private   FitObject xyz;
 
     /**
      * Represents the Fit element, a child of the Dest element.
@@ -72,7 +72,7 @@ public class DestObject {
      * Required attributes: Page.
      * For more details see paragraph 6.5.13 in XFDF document specification.
      */
-    private com.itextpdf.forms.xfdf.FitObject fit;
+    private   FitObject fit;
 
     /**
      * Represents the FitH element, a child of the Dest element.
@@ -80,7 +80,7 @@ public class DestObject {
      * Required attributes: Page, Top.
      * For more details see paragraph 6.5.17 in XFDF document specification.
      */
-    private com.itextpdf.forms.xfdf.FitObject fitH;
+    private   FitObject fitH;
 
     /**
      * Represents the FitV element, a child of the Dest element.
@@ -88,7 +88,7 @@ public class DestObject {
      * Required attributes: Page, Left.
      * For more details see paragraph 6.5.19 in XFDF document specification.
      */
-    private com.itextpdf.forms.xfdf.FitObject fitV;
+    private   FitObject fitV;
 
     /**
      * Represents the FitR element, a child of the Dest element.
@@ -96,7 +96,7 @@ public class DestObject {
      * Required attributes: Page, Left, Bottom, Right, Top.
      * For more details see paragraph 6.5.18 in XFDF document specification.
      */
-    private com.itextpdf.forms.xfdf.FitObject fitR;
+    private   FitObject fitR;
 
     /**
      * Represents the FitB element, a child of the Dest element.
@@ -104,7 +104,7 @@ public class DestObject {
      * Required attributes: Page.
      * For more details see paragraph 6.5.14 in XFDF document specification.
      */
-    private com.itextpdf.forms.xfdf.FitObject fitB;
+    private   FitObject fitB;
 
     /**
      * Represents the FitBH element, a child of the Dest element.
@@ -112,7 +112,7 @@ public class DestObject {
      * Required attributes: Page, Top.
      * For more details see paragraph 6.5.15 in XFDF document specification.
      */
-    private com.itextpdf.forms.xfdf.FitObject fitBH;
+    private   FitObject fitBH;
 
     /**
      * Represents the FitBV element, a child of the Dest element.
@@ -120,7 +120,7 @@ public class DestObject {
      * Required attributes: Page, Left.
      * For more details see paragraph 6.5.16 in XFDF document specification.
      */
-    private com.itextpdf.forms.xfdf.FitObject fitBV;
+    private   FitObject fitBV;
 
     public DestObject() {
         //create empty DestObject
@@ -157,7 +157,7 @@ public class DestObject {
      *
      * @return a {@link FitObject} that represents XYZ of Dest element.
      */
-    public com.itextpdf.forms.xfdf.FitObject getXyz() {
+    public   FitObject getXyz() {
         return xyz;
     }
 
@@ -169,7 +169,7 @@ public class DestObject {
      * @param xyz a {@link FitObject} that represents XYZ of Dest element.
      * @return this {@link DestObject} instance.
      */
-    public DestObject setXyz(com.itextpdf.forms.xfdf.FitObject xyz) {
+    public DestObject setXyz(  FitObject xyz) {
         this.xyz = xyz;
         return this;
     }
@@ -182,7 +182,7 @@ public class DestObject {
      *
      * @return a {@link FitObject} that represents Fit of Dest element.
      */
-    public com.itextpdf.forms.xfdf.FitObject getFit() {
+    public   FitObject getFit() {
         return fit;
     }
 
@@ -194,7 +194,7 @@ public class DestObject {
      * @param fit a {@link FitObject} that represents Fit of Dest element.
      * @return this {@link DestObject} instance.
      */
-    public DestObject setFit(com.itextpdf.forms.xfdf.FitObject fit) {
+    public DestObject setFit(  FitObject fit) {
         this.fit = fit;
         return this;
     }
@@ -207,7 +207,7 @@ public class DestObject {
      *
      * @return a {@link FitObject} that represents FitH of Dest element.
      */
-    public com.itextpdf.forms.xfdf.FitObject getFitH() {
+    public   FitObject getFitH() {
         return fitH;
     }
 
@@ -219,7 +219,7 @@ public class DestObject {
      * @param fitH a {@link FitObject} that represents FitH of Dest element.
      * @return this {@link DestObject} instance.
      */
-    public DestObject setFitH(com.itextpdf.forms.xfdf.FitObject fitH) {
+    public DestObject setFitH(  FitObject fitH) {
         this.fitH = fitH;
         return this;
     }
@@ -232,7 +232,7 @@ public class DestObject {
      *
      * @return a {@link FitObject} that represents FitV of Dest element.
      */
-    public com.itextpdf.forms.xfdf.FitObject getFitV() {
+    public   FitObject getFitV() {
         return fitV;
     }
 
@@ -244,7 +244,7 @@ public class DestObject {
      * @param fitV a {@link FitObject} that represents FitV of Dest element.
      * @return this {@link DestObject} instance.
      */
-    public DestObject setFitV(com.itextpdf.forms.xfdf.FitObject fitV) {
+    public DestObject setFitV(  FitObject fitV) {
         this.fitV = fitV;
         return this;
     }
@@ -257,7 +257,7 @@ public class DestObject {
      *
      * @return a {@link FitObject} that represents FitR of Dest element.
      */
-    public com.itextpdf.forms.xfdf.FitObject getFitR() {
+    public   FitObject getFitR() {
         return fitR;
     }
 
@@ -269,7 +269,7 @@ public class DestObject {
      * @param fitR a {@link FitObject} that represents FitR of Dest element.
      * @return this {@link DestObject} instance.
      */
-    public DestObject setFitR(com.itextpdf.forms.xfdf.FitObject fitR) {
+    public DestObject setFitR(  FitObject fitR) {
         this.fitR = fitR;
         return this;
     }
@@ -282,7 +282,7 @@ public class DestObject {
      *
      * @return a {@link FitObject} that represents FitB of Dest element.
      */
-    public com.itextpdf.forms.xfdf.FitObject getFitB() {
+    public   FitObject getFitB() {
         return fitB;
     }
 
@@ -295,7 +295,7 @@ public class DestObject {
      * @param fitB a {@link FitObject} that represents FitB of Dest element.
      * @return this {@link DestObject} instance.
      */
-    public DestObject setFitB(com.itextpdf.forms.xfdf.FitObject fitB) {
+    public DestObject setFitB(  FitObject fitB) {
         this.fitB = fitB;
         return this;
     }
@@ -308,7 +308,7 @@ public class DestObject {
      *
      * @return a {@link FitObject} that represents FitBH of Dest element.
      */
-    public com.itextpdf.forms.xfdf.FitObject getFitBH() {
+    public   FitObject getFitBH() {
         return fitBH;
     }
 
@@ -320,7 +320,7 @@ public class DestObject {
      * @param fitBH a {@link FitObject} that represents FitBH of Dest element.
      * @return this {@link DestObject} instance.
      */
-    public DestObject setFitBH(com.itextpdf.forms.xfdf.FitObject fitBH) {
+    public DestObject setFitBH(  FitObject fitBH) {
         this.fitBH = fitBH;
         return this;
     }
@@ -333,7 +333,7 @@ public class DestObject {
      *
      * @return a {@link FitObject} that represents FitBV of Dest element.
      */
-    public com.itextpdf.forms.xfdf.FitObject getFitBV() {
+    public   FitObject getFitBV() {
         return fitBV;
     }
 
@@ -345,7 +345,7 @@ public class DestObject {
      * @param fitBV a {@link FitObject} that represents FitBV of Dest element.
      * @return this {@link DestObject} instance.
      */
-    public DestObject setFitBV(com.itextpdf.forms.xfdf.FitObject fitBV) {
+    public DestObject setFitBV(  FitObject fitBV) {
         this.fitBV = fitBV;
         return this;
     }

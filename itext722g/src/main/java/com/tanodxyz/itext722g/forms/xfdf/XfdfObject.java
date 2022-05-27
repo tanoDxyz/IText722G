@@ -42,11 +42,7 @@
  */
 package com.tanodxyz.itext722g.forms.xfdf;
 
-import com.tanodxyz.itext722g.forms.xfdf.AnnotsObject;
-import com.tanodxyz.itext722g.forms.xfdf.AttributeObject;
-import com.tanodxyz.itext722g.forms.xfdf.FObject;
-import com.tanodxyz.itext722g.forms.xfdf.FieldsObject;
-import com.tanodxyz.itext722g.forms.xfdf.IdsObject;
+
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
 
 import java.io.FileOutputStream;
@@ -195,7 +191,7 @@ public class XfdfObject {
      *                        different, a warning will be thrown.
      */
     public void mergeToPdf(PdfDocument pdfDocument, String pdfDocumentName) {
-        com.itextpdf.forms.xfdf.XfdfReader reader = new com.itextpdf.forms.xfdf.XfdfReader();
+           XfdfReader reader = new    XfdfReader();
         reader.mergeXfdfIntoPdf(this, pdfDocument, pdfDocumentName);
     }
 
@@ -221,7 +217,7 @@ public class XfdfObject {
      * @throws ParserConfigurationException if there is an error while writing info into xml format.
      */
     public void writeToFile(OutputStream os) throws TransformerException, ParserConfigurationException {
-        com.itextpdf.forms.xfdf.XfdfWriter writer = new com.itextpdf.forms.xfdf.XfdfWriter(os);
+           XfdfWriter writer = new    XfdfWriter(os);
         writer.write(this);
     }
 }

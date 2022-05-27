@@ -63,7 +63,7 @@ import java.util.logging.Logger;
  * An AcroForm field type representing any type of choice field. Choice fields
  * are to be represented by a viewer as a list box or a combo box.
  */
-public class PdfChoiceFormField extends com.itextpdf.forms.fields.PdfFormField {
+public class PdfChoiceFormField extends PdfFormField {
 
     /**
      * Choice field flags
@@ -146,8 +146,8 @@ public class PdfChoiceFormField extends com.itextpdf.forms.fields.PdfFormField {
      */
     public PdfChoiceFormField setListSelected(String[] optionValues, boolean generateAppearance) {
         if (optionValues.length > 1 && !isMultiSelect()) {
-            Logger logger = LoggerFactory.getLogger(this.getClass());
-            logger.warn(IoLogMessageConstant.MULTIPLE_VALUES_ON_A_NON_MULTISELECT_FIELD);
+            Logger logger = Logger.getLogger(this.getClass().getName());
+            logger.warning(IoLogMessageConstant.MULTIPLE_VALUES_ON_A_NON_MULTISELECT_FIELD);
         }
         PdfArray options = getOptions();
         PdfArray indices = new PdfArray();
@@ -164,8 +164,8 @@ public class PdfChoiceFormField extends com.itextpdf.forms.fields.PdfFormField {
                 values.add(optByIndex.isString() ? (PdfString) optByIndex : (PdfString) ((PdfArray) optByIndex).get(1));
             } else {
                 if (!(this.isCombo() && this.isEdit())) {
-                    Logger logger = LoggerFactory.getLogger(this.getClass());
-                    logger.warn(MessageFormatUtil
+                    Logger logger = Logger.getLogger(this.getClass().getName());
+                    logger.warning(MessageFormatUtil
                             .format(IoLogMessageConstant.FIELD_VALUE_IS_NOT_CONTAINED_IN_OPT_ARRAY, element,
                                     this.getFieldName()));
                 }
@@ -197,8 +197,8 @@ public class PdfChoiceFormField extends com.itextpdf.forms.fields.PdfFormField {
      */
     public PdfChoiceFormField setListSelected(int[] optionNumbers) {
         if (optionNumbers.length > 1 && !isMultiSelect()) {
-            Logger logger = LoggerFactory.getLogger(this.getClass());
-            logger.warn(IoLogMessageConstant.MULTIPLE_VALUES_ON_A_NON_MULTISELECT_FIELD);
+            Logger logger = Logger.getLogger(this.getClass().getName());
+            logger.warning(IoLogMessageConstant.MULTIPLE_VALUES_ON_A_NON_MULTISELECT_FIELD);
         }
         PdfArray indices = new PdfArray();
         PdfArray values = new PdfArray();

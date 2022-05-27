@@ -86,7 +86,7 @@ public class XfaForm {
     private static final int INIT_SERIALIZER_BUFFER_SIZE = 16 * 1024;
 
     private Node templateNode;
-    private com.itextpdf.forms.xfa.Xml2SomDatasets datasetsSom;
+    private Xml2SomDatasets datasetsSom;
     private Node datasetsNode;
     private AcroFieldsSearch acroFieldsSom;
     private boolean xfaPresent = false;
@@ -289,7 +289,7 @@ public class XfaForm {
         if (isXfaPresent()) {
             name = findFieldName(name);
             if (name != null) {
-                String shortName = com.itextpdf.forms.xfa.Xml2Som.getShortName(name);
+                String shortName = Xml2Som.getShortName(name);
                 Node xn = findDatasetsNode(shortName);
                 if (xn == null) {
                     xn = datasetsSom.insertNode(getDatasetsNode(), shortName);
@@ -310,7 +310,7 @@ public class XfaForm {
             name = findFieldName(name);
             if (name != null) {
 
-                name = com.itextpdf.forms.xfa.Xml2Som.getShortName(name);
+                name =   Xml2Som.getShortName(name);
                 return XfaForm.getNodeText(findDatasetsNode(name));
             }
         }
@@ -338,7 +338,7 @@ public class XfaForm {
         }
 
         if (acroFieldsSom != null && xfaPresent) {
-            return acroFieldsSom.getAcroShort2LongName().containsKey(name) ? acroFieldsSom.getAcroShort2LongName().get(name) : acroFieldsSom.inverseSearchGlobal(com.itextpdf.forms.xfa.Xml2Som.splitParts(name));
+            return acroFieldsSom.getAcroShort2LongName().containsKey(name) ? acroFieldsSom.getAcroShort2LongName().get(name) : acroFieldsSom.inverseSearchGlobal(  Xml2Som.splitParts(name));
         }
 
         return null;
@@ -352,7 +352,7 @@ public class XfaForm {
      * @return the complete name or <CODE>null</CODE> if not found
      */
     public String findDatasetsName(String name) {
-        return datasetsSom.getName2Node().containsKey(name) ? name : datasetsSom.inverseSearchGlobal(com.itextpdf.forms.xfa.Xml2Som.splitParts(name));
+        return datasetsSom.getName2Node().containsKey(name) ? name : datasetsSom.inverseSearchGlobal(  Xml2Som.splitParts(name));
     }
 
     /**
@@ -644,7 +644,7 @@ public class XfaForm {
         if (xfaNodes.containsKey("datasets")) {
             datasetsNode = xfaNodes.get("datasets");
             Node dataNode = findDataNode(datasetsNode);
-            datasetsSom = new com.itextpdf.forms.xfa.Xml2SomDatasets(dataNode != null ? dataNode : datasetsNode.getFirstChild());
+            datasetsSom = new   Xml2SomDatasets(dataNode != null ? dataNode : datasetsNode.getFirstChild());
         }
         if (datasetsNode == null)
             createDatasetsNode(domDocument.getFirstChild());

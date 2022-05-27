@@ -43,11 +43,11 @@
  */
 package com.tanodxyz.itext722g.forms.fields.borders;
 
-import com.itextpdf.layout.borders.SolidBorder;
-import com.tanodxyz.itext722g.forms.fields.borders.AbstractFormBorder;
+
 import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.kernel.colors.ColorConstants;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
+import com.tanodxyz.itext722g.layout.borders.SolidBorder;
 
 class InsetBorder extends AbstractFormBorder {
 

@@ -43,37 +43,8 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.commons.actions.contexts.IMetaInfo;
-import com.itextpdf.commons.actions.sequence.SequenceId;
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.element.Text;
-import com.itextpdf.layout.exceptions.LayoutExceptionMessageConstant;
-import com.itextpdf.layout.font.FontCharacteristics;
-import com.itextpdf.layout.font.FontProvider;
-import com.itextpdf.layout.font.FontSelectorStrategy;
-import com.itextpdf.layout.font.FontSet;
-import com.itextpdf.layout.hyphenation.Hyphenation;
-import com.itextpdf.layout.hyphenation.HyphenationConfig;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.layout.TextLayoutResult;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidthUtils;
-import com.itextpdf.layout.properties.BaseDirection;
-import com.itextpdf.layout.properties.FloatPropertyValue;
-import com.itextpdf.layout.properties.FontKerning;
-import com.itextpdf.layout.properties.OverflowPropertyValue;
-import com.itextpdf.layout.properties.OverflowWrapPropertyValue;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.RenderingMode;
-import com.itextpdf.layout.properties.TransparentColor;
-import com.itextpdf.layout.properties.Underline;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.layout.splitting.BreakAllSplitCharacters;
-import com.itextpdf.layout.splitting.ISplitCharacters;
-import com.itextpdf.layout.tagging.LayoutTaggingHelper;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.font.FontMetrics;
 import com.tanodxyz.itext722g.io.font.FontProgram;
 import com.tanodxyz.itext722g.io.font.TrueTypeFont;
@@ -92,11 +63,22 @@ import com.tanodxyz.itext722g.kernel.pdf.canvas.CanvasArtifact;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvasConstants;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.TagTreePointer;
-import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
-import com.tanodxyz.itext722g.layout.renderer.ILeafElementRenderer;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.element.Text;
+import com.tanodxyz.itext722g.layout.hyphenation.Hyphenation;
+import com.tanodxyz.itext722g.layout.hyphenation.HyphenationConfig;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.layout.TextLayoutResult;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidth;
+import com.tanodxyz.itext722g.layout.properties.FloatPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.OverflowPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.OverflowWrapPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.RenderingMode;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.layout.splitting.ISplitCharacters;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -104,6 +86,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * This class represents the {@link IRenderer renderer} object for a {@link Text}

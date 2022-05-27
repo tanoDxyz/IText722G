@@ -43,14 +43,14 @@
  */
 package com.tanodxyz.itext722g.forms.fields.borders;
 
-import com.itextpdf.layout.borders.SolidBorder;
-import com.tanodxyz.itext722g.forms.fields.borders.AbstractFormBorder;
+
 import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.kernel.colors.ColorConstants;
 import com.tanodxyz.itext722g.kernel.colors.DeviceCmyk;
 import com.tanodxyz.itext722g.kernel.colors.DeviceGray;
 import com.tanodxyz.itext722g.kernel.colors.DeviceRgb;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
+import com.tanodxyz.itext722g.layout.borders.SolidBorder;
 
 class BeveledBorder extends AbstractFormBorder {
 

@@ -58,7 +58,7 @@ import java.io.InputStream;
 /**
  * An interactive control on the screen that raises events and/or can retain data.
  */
-public class PdfButtonFormField extends com.itextpdf.forms.fields.PdfFormField {
+public class PdfButtonFormField extends PdfFormField {
 
     /**
      * Button field flags

@@ -73,7 +73,7 @@ public class AnnotObject {
     /**
      * Represents a list of attributes of the annotation.
      */
-    private List<com.itextpdf.forms.xfdf.AttributeObject> attributes;
+    private List<  AttributeObject> attributes;
 
     /**
      * Represents contents tag in Xfdf document structure. Is a child of caret, circle, fileattachment, freetext,
@@ -115,7 +115,7 @@ public class AnnotObject {
      * Represents Dest element, a child element of link, GoTo, GoToR elements.
      * Corresponds to the Dest key in link annotation dictionary.
      */
-    private com.itextpdf.forms.xfdf.DestObject destination;
+    private   DestObject destination;
 
     /**
      * Represents appearance element,  a child element of stamp element.
@@ -146,7 +146,7 @@ public class AnnotObject {
      * Corresponds to the Border key in the common annotation dictionary.
      * For more details see paragraph 6.5.3 in Xfdf document specification.
      */
-    private com.itextpdf.forms.xfdf.BorderStyleAltObject borderStyleAlt;
+    private   BorderStyleAltObject borderStyleAlt;
 
     /**
      * Represents the string, containing vertices element, a child of the polygon and polyline elements.
@@ -197,7 +197,7 @@ public class AnnotObject {
      *
      * @return {@link List list} containing all {@link AttributeObject attribute objects} of the annotation
      */
-    public List<com.itextpdf.forms.xfdf.AttributeObject> getAttributes() {
+    public List<  AttributeObject> getAttributes() {
         return attributes;
     }
 
@@ -206,8 +206,8 @@ public class AnnotObject {
      * @param name The name of the attribute to look for.
      * @return {@link AttributeObject} with the given name, or null, if no object with this name was found.
      */
-    public com.itextpdf.forms.xfdf.AttributeObject getAttribute(String name) {
-        for (com.itextpdf.forms.xfdf.AttributeObject attr : attributes) {
+    public   AttributeObject getAttribute(String name) {
+        for (  AttributeObject attr : attributes) {
             if (attr.getName().equals(name)) {
                 return attr;
             }
@@ -221,7 +221,7 @@ public class AnnotObject {
      * @return the value of the {@link AttributeObject} with the given name, or null, if no object with this name was found.
      */
     public String getAttributeValue(String name) {
-        for (com.itextpdf.forms.xfdf.AttributeObject attr : attributes) {
+        for (  AttributeObject attr : attributes) {
             if (attr.getName().equals(name)) {
                 return attr.getValue();
             }
@@ -345,7 +345,7 @@ public class AnnotObject {
      * Adds new {@link AttributeObject} to the list of annotation attributes.
      * @param attr attribute to be added.
      */
-    public void addAttribute(com.itextpdf.forms.xfdf.AttributeObject attr) {
+    public void addAttribute(  AttributeObject attr) {
         attributes.add(attr);
     }
 
@@ -354,16 +354,16 @@ public class AnnotObject {
      */
     void addAttribute(String name, boolean value) {
         String valueString = value ? "yes" : "no";
-        attributes.add(new com.itextpdf.forms.xfdf.AttributeObject(name, valueString));
+        attributes.add(new   AttributeObject(name, valueString));
     }
 
     void addAttribute(String name, float value) {
-        attributes.add(new com.itextpdf.forms.xfdf.AttributeObject(name, String.valueOf(value)));
+        attributes.add(new   AttributeObject(name, String.valueOf(value)));
     }
 
     void addAttribute(String name, Rectangle value) {
-        String stringValue = com.itextpdf.forms.xfdf.XfdfObjectUtils.convertRectToString(value);
-        attributes.add(new com.itextpdf.forms.xfdf.AttributeObject(name, stringValue));
+        String stringValue =   XfdfObjectUtils.convertRectToString(value);
+        attributes.add(new   AttributeObject(name, stringValue));
     }
 
     /**
@@ -390,7 +390,7 @@ public class AnnotObject {
             valueString = ((PdfString)(valueObject)).getValue();
         }
 
-        attributes.add(new com.itextpdf.forms.xfdf.AttributeObject(name, valueString));
+        attributes.add(new   AttributeObject(name, valueString));
     }
 
     void addAttribute(String name, PdfObject valueObject) {
@@ -401,7 +401,7 @@ public class AnnotObject {
      * Adds page, required attribute of every annotation.
      */
     void addFdfAttributes(int pageNumber) {
-        this.addAttribute(new com.itextpdf.forms.xfdf.AttributeObject(com.itextpdf.forms.xfdf.XfdfConstants.PAGE, String.valueOf(pageNumber)));
+        this.addAttribute(new   AttributeObject(  XfdfConstants.PAGE, String.valueOf(pageNumber)));
     }
 
     /**
@@ -410,7 +410,7 @@ public class AnnotObject {
      *
      * @return inner {@link DestObject destination object} of annotation object
      */
-    public com.itextpdf.forms.xfdf.DestObject getDestination() {
+    public DestObject getDestination() {
         return destination;
     }
 
@@ -421,7 +421,7 @@ public class AnnotObject {
      * @param destination {@link DestObject destination object}, an inner element of annotation object
      * @return current {@link AnnotObject annotation object}
      */
-    public AnnotObject setDestination(com.itextpdf.forms.xfdf.DestObject destination) {
+    public AnnotObject setDestination(DestObject destination) {
         this.destination = destination;
         return this;
     }
@@ -508,7 +508,7 @@ public class AnnotObject {
      *
      * @return inner {@link BorderStyleAltObject BorderStyleAlt object}
      */
-    public com.itextpdf.forms.xfdf.BorderStyleAltObject getBorderStyleAlt() {
+    public   BorderStyleAltObject getBorderStyleAlt() {
         return borderStyleAlt;
     }
 
@@ -519,7 +519,7 @@ public class AnnotObject {
      * @param borderStyleAlt inner {@link BorderStyleAltObject BorderStyleAlt object}
      * @return current {@link AnnotObject annotation object}
      */
-    public AnnotObject setBorderStyleAlt(com.itextpdf.forms.xfdf.BorderStyleAltObject borderStyleAlt) {
+    public AnnotObject setBorderStyleAlt(  BorderStyleAltObject borderStyleAlt) {
         this.borderStyleAlt = borderStyleAlt;
         return this;
     }

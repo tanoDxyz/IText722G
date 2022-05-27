@@ -92,7 +92,7 @@ public class ActionObject {
      * Corresponds to Dest key in link annotation dictionary.
      * For more details see paragraph 6.5.10 in Xfdf specification.
      */
-    private com.itextpdf.forms.xfdf.DestObject destination;
+    private DestObject destination;
 
     public ActionObject(PdfName type) {
         this.type = type;
@@ -234,7 +234,7 @@ public class ActionObject {
      *
      * @return {@link DestObject} destination attribute of current action element
      */
-    public com.itextpdf.forms.xfdf.DestObject getDestination() {
+    public   DestObject getDestination() {
         return destination;
     }
 
@@ -246,7 +246,7 @@ public class ActionObject {
      * @param destination {@link DestObject} destination attribute of the action element
      * @return current {@link ActionObject}
      */
-    public ActionObject setDestination(com.itextpdf.forms.xfdf.DestObject destination) {
+    public ActionObject setDestination(  DestObject destination) {
         this.destination = destination;
         return this;
     }

@@ -50,7 +50,7 @@ import java.util.Map;
 /**
  * A class to process "classic" fields.
  */
-class AcroFieldsSearch extends com.itextpdf.forms.xfa.Xml2Som {
+class AcroFieldsSearch extends Xml2Som {
     private Map<String, String> acroShort2LongName;
 
     /**

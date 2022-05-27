@@ -43,9 +43,9 @@
  */
 package com.tanodxyz.itext722g.forms;
 
-import com.itextpdf.forms.fields.PdfFormField;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.forms.fields.PdfFormField;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.kernel.pdf.IPdfPageExtraCopier;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
@@ -55,14 +55,13 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfObject;
 import com.tanodxyz.itext722g.kernel.pdf.PdfPage;
 import com.tanodxyz.itext722g.kernel.pdf.PdfString;
 import com.tanodxyz.itext722g.kernel.pdf.annot.PdfAnnotation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * A sample implementation of the {#link IPdfPageExtraCopier} interface which
@@ -79,7 +78,7 @@ public class PdfPageFormCopier implements IPdfPageExtraCopier {
     private PdfAcroForm formTo;
     private PdfDocument documentFrom;
     private PdfDocument documentTo;
-    private static Logger logger = LoggerFactory.getLogger(PdfPageFormCopier.class);
+    private static Logger logger = Logger.getLogger(PdfPageFormCopier.class.getName());
 
     @Override
     public void copy(PdfPage fromPage, PdfPage toPage) {
@@ -123,7 +122,7 @@ public class PdfPageFormCopier implements IPdfPageExtraCopier {
     private PdfFormField makeFormField(PdfObject fieldDict) {
         PdfFormField field = PdfFormField.makeFormField(fieldDict, documentTo);
         if (field == null) {
-            logger.warn(MessageFormatUtil.format(IoLogMessageConstant.CANNOT_CREATE_FORMFIELD,
+            logger.warning(MessageFormatUtil.format(IoLogMessageConstant.CANNOT_CREATE_FORMFIELD,
                     fieldDict.getIndirectReference()));
         }
         return field;
@@ -223,7 +222,7 @@ public class PdfPageFormCopier implements IPdfPageExtraCopier {
             fullFieldName = newField.getFieldName().toUnicodeString();
         }
 
-        logger.warn(MessageFormatUtil.format(IoLogMessageConstant.DOCUMENT_ALREADY_HAS_FIELD, fullFieldName));
+        logger.warning(MessageFormatUtil.format(IoLogMessageConstant.DOCUMENT_ALREADY_HAS_FIELD, fullFieldName));
 
         PdfFormField existingField = formTo.getField(fullFieldName);
         if (existingField.isFlushed()) {

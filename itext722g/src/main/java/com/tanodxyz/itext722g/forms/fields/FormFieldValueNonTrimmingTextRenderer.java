@@ -22,12 +22,13 @@
  */
 package com.tanodxyz.itext722g.forms.fields;
 
-import com.itextpdf.layout.element.Text;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.layout.TextLayoutResult;
-import com.itextpdf.layout.renderer.IRenderer;
-import com.itextpdf.layout.renderer.TextRenderer;
+
+import com.tanodxyz.itext722g.layout.element.Text;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.layout.TextLayoutResult;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.renderer.TextRenderer;
 
 /**
  * Custom implementation for rendering form field values. It makes sure that text value

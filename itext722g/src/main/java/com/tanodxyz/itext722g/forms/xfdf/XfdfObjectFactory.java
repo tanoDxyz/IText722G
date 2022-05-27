@@ -43,20 +43,6 @@
 package com.tanodxyz.itext722g.forms.xfdf;
 
 import com.tanodxyz.itext722g.forms.PdfAcroForm;
-import com.tanodxyz.itext722g.forms.xfdf.ActionObject;
-import com.tanodxyz.itext722g.forms.xfdf.AnnotObject;
-import com.tanodxyz.itext722g.forms.xfdf.AnnotsObject;
-import com.tanodxyz.itext722g.forms.xfdf.AttributeObject;
-import com.tanodxyz.itext722g.forms.xfdf.BorderStyleAltObject;
-import com.tanodxyz.itext722g.forms.xfdf.DestObject;
-import com.tanodxyz.itext722g.forms.xfdf.FObject;
-import com.tanodxyz.itext722g.forms.xfdf.FieldObject;
-import com.tanodxyz.itext722g.forms.xfdf.FieldsObject;
-import com.tanodxyz.itext722g.forms.xfdf.FitObject;
-import com.tanodxyz.itext722g.forms.xfdf.IdsObject;
-import com.tanodxyz.itext722g.forms.xfdf.XfdfConstants;
-import com.tanodxyz.itext722g.forms.xfdf.XfdfFileUtils;
-import com.tanodxyz.itext722g.forms.xfdf.XfdfObject;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
@@ -79,8 +65,6 @@ import com.tanodxyz.itext722g.kernel.pdf.annot.PdfStampAnnotation;
 import com.tanodxyz.itext722g.kernel.pdf.annot.PdfTextAnnotation;
 import com.tanodxyz.itext722g.kernel.pdf.annot.PdfTextMarkupAnnotation;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -93,12 +77,13 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 public class XfdfObjectFactory {
 
-    private static Logger logger = LoggerFactory.getLogger(XfdfObjectFactory.class);
+    private static Logger logger = Logger.getLogger(XfdfObjectFactory.class.getName());
 
     /**
      * Extracts data from pdf document acroform and annotations into XfdfObject.
@@ -134,8 +119,8 @@ public class XfdfObjectFactory {
         }
         resultXfdf.setFields(xfdfFields);
 
-        String original = com.itextpdf.forms.xfdf.XfdfObjectUtils.convertIdToHexString(document.getOriginalDocumentId().getValue());
-        String modified = com.itextpdf.forms.xfdf.XfdfObjectUtils.convertIdToHexString(document.getModifiedDocumentId().getValue());
+        String original =    XfdfObjectUtils.convertIdToHexString(document.getOriginalDocumentId().getValue());
+        String modified =    XfdfObjectUtils.convertIdToHexString(document.getModifiedDocumentId().getValue());
 
 
         IdsObject ids = new IdsObject()
@@ -367,7 +352,7 @@ public class XfdfObjectFactory {
                 case XfdfConstants.FRINGE:
                     annotObject.addAttribute(new AttributeObject(attributeName, attributeNode.getNodeValue()));
                     break;
-                default: logger.warn(IoLogMessageConstant.XFDF_UNSUPPORTED_ANNOTATION_ATTRIBUTE);
+                default: logger.warning(IoLogMessageConstant.XFDF_UNSUPPORTED_ANNOTATION_ATTRIBUTE);
                     break;
             }
         }
@@ -524,10 +509,10 @@ public class XfdfObjectFactory {
         annot.setName(pdfAnnotation.getSubtype().getValue().toLowerCase());
 
         if (pdfAnnotation.getColorObject() != null) {
-            annot.addAttribute(new AttributeObject(XfdfConstants.COLOR, com.itextpdf.forms.xfdf.XfdfObjectUtils.convertColorToString(pdfAnnotation.getColorObject().toFloatArray())));
+            annot.addAttribute(new AttributeObject(XfdfConstants.COLOR,    XfdfObjectUtils.convertColorToString(pdfAnnotation.getColorObject().toFloatArray())));
         }
         annot.addAttribute(XfdfConstants.DATE, pdfAnnotation.getDate());
-        String flagsString = com.itextpdf.forms.xfdf.XfdfObjectUtils.convertFlagsToString(pdfAnnotation);
+        String flagsString =    XfdfObjectUtils.convertFlagsToString(pdfAnnotation);
         if(flagsString != null) {
             annot.addAttribute(new AttributeObject(XfdfConstants.FLAGS, flagsString));
         }
@@ -555,7 +540,7 @@ public class XfdfObjectFactory {
         PdfTextMarkupAnnotation pdfTextMarkupAnnotation = (PdfTextMarkupAnnotation) pdfAnnotation;
 
         annot.addAttribute(new AttributeObject(XfdfConstants.COORDS,
-                com.itextpdf.forms.xfdf.XfdfObjectUtils.convertQuadPointsToCoordsString(pdfTextMarkupAnnotation.getQuadPoints().toFloatArray())));
+                   XfdfObjectUtils.convertQuadPointsToCoordsString(pdfTextMarkupAnnotation.getQuadPoints().toFloatArray())));
 
 
         if (pdfTextMarkupAnnotation.getContents() != null) {
@@ -604,11 +589,11 @@ public class XfdfObjectFactory {
         }
 
         if (pdfCircleAnnotation.getInteriorColor() != null && pdfCircleAnnotation.getInteriorColor().getColorValue() != null) {
-            annot.addAttribute(new AttributeObject(XfdfConstants.INTERIOR_COLOR, com.itextpdf.forms.xfdf.XfdfObjectUtils.convertColorToString(pdfCircleAnnotation.getInteriorColor().getColorValue())));
+            annot.addAttribute(new AttributeObject(XfdfConstants.INTERIOR_COLOR,    XfdfObjectUtils.convertColorToString(pdfCircleAnnotation.getInteriorColor().getColorValue())));
         }
 
         if(pdfCircleAnnotation.getRectangleDifferences() != null) {
-            annot.addAttribute(new AttributeObject("fringe", com.itextpdf.forms.xfdf.XfdfObjectUtils.convertFringeToString(pdfCircleAnnotation.getRectangleDifferences().toFloatArray())));
+            annot.addAttribute(new AttributeObject("fringe",    XfdfObjectUtils.convertFringeToString(pdfCircleAnnotation.getRectangleDifferences().toFloatArray())));
         }
 
         annot.setContents(pdfAnnotation.getContents());
@@ -633,10 +618,10 @@ public class XfdfObjectFactory {
         }
 
         if (pdfSquareAnnotation.getInteriorColor() != null && pdfSquareAnnotation.getInteriorColor().getColorValue() != null) {
-            annot.addAttribute(new AttributeObject(XfdfConstants.INTERIOR_COLOR, com.itextpdf.forms.xfdf.XfdfObjectUtils.convertColorToString(pdfSquareAnnotation.getInteriorColor().getColorValue())));
+            annot.addAttribute(new AttributeObject(XfdfConstants.INTERIOR_COLOR,    XfdfObjectUtils.convertColorToString(pdfSquareAnnotation.getInteriorColor().getColorValue())));
         }
         if(pdfSquareAnnotation.getRectangleDifferences() != null) {
-            annot.addAttribute(new AttributeObject("fringe", com.itextpdf.forms.xfdf.XfdfObjectUtils.convertFringeToString(pdfSquareAnnotation.getRectangleDifferences().toFloatArray())));
+            annot.addAttribute(new AttributeObject("fringe",    XfdfObjectUtils.convertFringeToString(pdfSquareAnnotation.getRectangleDifferences().toFloatArray())));
         }
 
         annot.setContents(pdfAnnotation.getContents());
@@ -702,9 +687,9 @@ public class XfdfObjectFactory {
         PdfArray line = pdfLineAnnotation.getLine();
         if (line != null) {
             annot.addAttribute(new AttributeObject(XfdfConstants.START,
-                    com.itextpdf.forms.xfdf.XfdfObjectUtils.convertLineStartToString(line.toFloatArray())));
+                       XfdfObjectUtils.convertLineStartToString(line.toFloatArray())));
             annot.addAttribute(new AttributeObject(XfdfConstants.END,
-                    com.itextpdf.forms.xfdf.XfdfObjectUtils.convertLineEndToString(line.toFloatArray())));
+                       XfdfObjectUtils.convertLineEndToString(line.toFloatArray())));
         }
         if (pdfLineAnnotation.getLineEndingStyles() != null) {
             if (pdfLineAnnotation.getLineEndingStyles().get(0) != null) {
@@ -718,7 +703,7 @@ public class XfdfObjectFactory {
 
         }
         if (pdfLineAnnotation.getInteriorColor() != null) {
-            annot.addAttribute(new AttributeObject(XfdfConstants.INTERIOR_COLOR, com.itextpdf.forms.xfdf.XfdfObjectUtils.convertColorToString(pdfLineAnnotation.getInteriorColor())));
+            annot.addAttribute(new AttributeObject(XfdfConstants.INTERIOR_COLOR,    XfdfObjectUtils.convertColorToString(pdfLineAnnotation.getInteriorColor())));
         }
         annot.addAttribute(XfdfConstants.LEADER_EXTENDED, pdfLineAnnotation.getLeaderLineExtension());
         annot.addAttribute(XfdfConstants.LEADER_LENGTH, pdfLineAnnotation.getLeaderLineLength());
@@ -840,7 +825,7 @@ public class XfdfObjectFactory {
         }
 
         if (pdfPolyGeomAnnotation.getInteriorColor() != null) {
-            annot.addAttribute(new AttributeObject(XfdfConstants.INTERIOR_COLOR, com.itextpdf.forms.xfdf.XfdfObjectUtils.convertColorToString(pdfPolyGeomAnnotation.getInteriorColor())));
+            annot.addAttribute(new AttributeObject(XfdfConstants.INTERIOR_COLOR,    XfdfObjectUtils.convertColorToString(pdfPolyGeomAnnotation.getInteriorColor())));
         }
         if (pdfPolyGeomAnnotation.getIntent() != null) {
             annot.addAttribute(new AttributeObject(XfdfConstants.INTENT, pdfPolyGeomAnnotation.getIntent().getValue()));
@@ -860,7 +845,7 @@ public class XfdfObjectFactory {
         }
 
         //in xfdfd: no attributes, inside text string
-        annot.setVertices(com.itextpdf.forms.xfdf.XfdfObjectUtils.convertVerticesToString(pdfPolyGeomAnnotation.getVertices().toFloatArray()));
+        annot.setVertices(   XfdfObjectUtils.convertVerticesToString(pdfPolyGeomAnnotation.getVertices().toFloatArray()));
 
         annot.setContents(pdfAnnotation.getContents());
         if (pdfPolyGeomAnnotation.getPopup() != null) {

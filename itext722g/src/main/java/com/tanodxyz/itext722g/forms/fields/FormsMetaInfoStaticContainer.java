@@ -22,7 +22,9 @@
  */
 package com.tanodxyz.itext722g.forms.fields;
 
-import com.itextpdf.layout.renderer.MetaInfoContainer;
+
+import com.tanodxyz.itext722g.commons.utils.Action;
+import com.tanodxyz.itext722g.layout.renderer.MetaInfoContainer;
 
 /**
  * Class to store meta info that will be used in forms module in static context.

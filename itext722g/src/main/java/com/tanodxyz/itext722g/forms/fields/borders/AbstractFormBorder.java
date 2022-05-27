@@ -44,7 +44,7 @@
 package com.tanodxyz.itext722g.forms.fields.borders;
 
 import com.tanodxyz.itext722g.kernel.colors.Color;
-import com.itextpdf.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.borders.Border;
 
 abstract class AbstractFormBorder extends Border {
 

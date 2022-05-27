@@ -43,11 +43,12 @@
  */
 package com.tanodxyz.itext722g.forms;
 
-import com.itextpdf.forms.exceptions.FormsExceptionMessageConstant;
-import com.itextpdf.forms.fields.PdfFormField;
-import com.itextpdf.forms.xfa.XfaForm;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.forms.exceptions.FormsExceptionMessageConstant;
+import com.tanodxyz.itext722g.forms.fields.PdfFormField;
+import com.tanodxyz.itext722g.forms.xfa.XfaForm;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.geom.AffineTransform;
 import com.tanodxyz.itext722g.kernel.geom.Point;
@@ -72,22 +73,21 @@ import com.tanodxyz.itext722g.kernel.pdf.tagutils.TagReference;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.TagTreePointer;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfFormXObject;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class represents the static form technology AcroForm on a PDF file.
  */
 public class PdfAcroForm extends PdfObjectWrapper<PdfDictionary> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PdfAcroForm.class);
+    private static Logger LOGGER = Logger.getLogger(PdfAcroForm.class.getName());
 
     /**
      * To be used with {@link #setSignatureFlags}.
@@ -721,7 +721,7 @@ public class PdfAcroForm extends PdfObjectWrapper<PdfDictionary> {
                     }
                 }
             } else {
-                LOGGER.error(IoLogMessageConstant.N_ENTRY_IS_REQUIRED_FOR_APPEARANCE_DICTIONARY);
+                LOGGER.log(Level.SEVERE,IoLogMessageConstant.N_ENTRY_IS_REQUIRED_FOR_APPEARANCE_DICTIONARY);
             }
 
             PdfArray fFields = getFields();
@@ -862,7 +862,7 @@ public class PdfAcroForm extends PdfObjectWrapper<PdfDictionary> {
     protected PdfArray getFields() {
         PdfArray fields = getPdfObject().getAsArray(PdfName.Fields);
         if (fields == null) {
-            LOGGER.warn(IoLogMessageConstant.NO_FIELDS_IN_ACROFORM);
+            LOGGER.warning(IoLogMessageConstant.NO_FIELDS_IN_ACROFORM);
             fields = new PdfArray();
             getPdfObject().put(PdfName.Fields, fields);
         }
@@ -883,7 +883,7 @@ public class PdfAcroForm extends PdfObjectWrapper<PdfDictionary> {
             }
             PdfFormField formField = PdfFormField.makeFormField(field, document);
             if (formField == null) {
-                LOGGER.warn(MessageFormatUtil.format(IoLogMessageConstant.CANNOT_CREATE_FORMFIELD,
+                LOGGER.warning(MessageFormatUtil.format(IoLogMessageConstant.CANNOT_CREATE_FORMFIELD,
                         field.getIndirectReference() == null ? field : field.getIndirectReference()));
                 continue;
             }

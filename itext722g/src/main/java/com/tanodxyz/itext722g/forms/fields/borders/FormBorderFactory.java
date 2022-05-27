@@ -43,13 +43,14 @@
  */
 package com.tanodxyz.itext722g.forms.fields.borders;
 
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.borders.FixedDashedBorder;
-import com.itextpdf.layout.borders.SolidBorder;
+
 import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfName;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.borders.FixedDashedBorder;
+import com.tanodxyz.itext722g.layout.borders.SolidBorder;
 
 /**
  *  A factory for creating {@link AbstractFormBorder} implementations.
@@ -70,7 +71,7 @@ public final class FormBorderFactory {
      * @return {@link Border} implementation or {@code null}
      */
     public static Border getBorder(PdfDictionary borderStyle, float borderWidth, Color borderColor,
-            Color backgroundColor) {
+                                   Color backgroundColor) {
         if (borderStyle == null || borderStyle.getAsName(PdfName.S) == null
                 || borderColor == null || borderWidth <= 0) {
             return null;
@@ -78,7 +79,7 @@ public final class FormBorderFactory {
         Border resultBorder;
         PdfName borderType = borderStyle.getAsName(PdfName.S);
         if (PdfName.U.equals(borderType)) {
-            resultBorder = new com.itextpdf.forms.fields.borders.UnderlineBorder(borderColor, borderWidth);
+            resultBorder = new UnderlineBorder(borderColor, borderWidth);
         } else if (PdfName.S.equals(borderType)) {
             resultBorder = new SolidBorder(borderColor, borderWidth);
         } else if (PdfName.D.equals(borderType)) {
@@ -93,7 +94,7 @@ public final class FormBorderFactory {
             }
             resultBorder = new FixedDashedBorder(borderColor, borderWidth, unitsOn, unitsOff, 0);
         } else if (PdfName.I.equals(borderType)) {
-            resultBorder = new com.itextpdf.layout.borders.InsetBorder(borderColor, borderWidth);
+            resultBorder = new InsetBorder(borderColor, borderWidth);
         } else if (PdfName.B.equals(borderType)) {
             resultBorder = new BeveledBorder(borderColor, borderWidth, backgroundColor);
         } else {
