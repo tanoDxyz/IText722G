@@ -43,7 +43,7 @@
  */
 package com.tanodxyz.itext722g.io.font;
 
-import com.itextpdf.commons.utils.EncodingUtil;
+import com.tanodxyz.itext722g.commons.utils.EncodingUtil;
 import com.tanodxyz.itext722g.io.exceptions.IOException;
 import com.tanodxyz.itext722g.io.util.IntHashtable;
 

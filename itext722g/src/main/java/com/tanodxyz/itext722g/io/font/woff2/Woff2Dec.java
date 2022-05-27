@@ -15,7 +15,7 @@
 // This is part of java port of project hosted at https://github.com/google/woff2
 package com.tanodxyz.itext722g.io.font.woff2;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.codec.brotli.dec.BrotliInputStream;
 import com.tanodxyz.itext722g.io.exceptions.FontCompressionException;
 
@@ -28,8 +28,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
-import static com.tanodxyz.itext722g.io.font.woff2.Round.round4;
 
 // Library for converting WOFF2 format font files to their TTF versions.
 class Woff2Dec {

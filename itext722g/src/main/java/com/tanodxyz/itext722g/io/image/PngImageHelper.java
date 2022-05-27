@@ -43,20 +43,21 @@
  */
 package com.tanodxyz.itext722g.io.image;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.io.colors.IccProfile;
 import com.tanodxyz.itext722g.io.exceptions.IOException;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.tanodxyz.itext722g.io.util.FilterUtil;
-import com.tanodxyz.itext722g.io.util.StreamUtil;
-import com.tanodxyz.itext722g.io.colors.IccProfile;
 import com.tanodxyz.itext722g.io.source.ByteArrayOutputStream;
 import com.tanodxyz.itext722g.io.source.ByteBuffer;
-import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.io.util.FilterUtil;
+import com.tanodxyz.itext722g.io.util.StreamUtil;
 
-import org.slf4j.LoggerFactory;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 class PngImageHelper {
 
@@ -189,8 +190,8 @@ class PngImageHelper {
         readPng(pngStream, png);
         int colorType = png.image.getColorType();
         if (png.iccProfile != null && png.iccProfile.getNumComponents() != getExpectedNumberOfColorComponents(png)) {
-            LoggerFactory.getLogger(PngImageHelper.class)
-                    .warn(IoLogMessageConstant.PNG_IMAGE_HAS_ICC_PROFILE_WITH_INCOMPATIBLE_NUMBER_OF_COLOR_COMPONENTS);
+            Logger.getLogger(PngImageHelper.class.getName())
+                    .warning(IoLogMessageConstant.PNG_IMAGE_HAS_ICC_PROFILE_WITH_INCOMPATIBLE_NUMBER_OF_COLOR_COMPONENTS);
         }
         try {
             int pal0 = 0;

@@ -46,13 +46,11 @@ package com.tanodxyz.itext722g.io.font.cmap;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.util.IntHashtable;
 import com.tanodxyz.itext722g.io.util.TextUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * This class represents a CMap file.
@@ -172,8 +170,8 @@ public class CMapToUnicode extends AbstractCMap {
             char[] dest = createCharsFromDoubleBytes((byte[]) code.getValue());
             byteMappings.put((mark.charAt(0) << 8) + mark.charAt(1), dest);
         } else {
-            Logger logger = LoggerFactory.getLogger(CMapToUnicode.class);
-            logger.warn(IoLogMessageConstant.TOUNICODE_CMAP_MORE_THAN_2_BYTES_NOT_SUPPORTED);
+            Logger logger = Logger.getLogger(CMapToUnicode.class.getName());
+            logger.warning(IoLogMessageConstant.TOUNICODE_CMAP_MORE_THAN_2_BYTES_NOT_SUPPORTED);
         }
     }
 

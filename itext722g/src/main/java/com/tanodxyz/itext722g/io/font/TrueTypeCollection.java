@@ -43,10 +43,10 @@
  */
 package com.tanodxyz.itext722g.io.font;
 
+import com.tanodxyz.itext722g.commons.utils.FileUtil;
 import com.tanodxyz.itext722g.io.exceptions.IOException;
 import com.tanodxyz.itext722g.io.source.RandomAccessFileOrArray;
 import com.tanodxyz.itext722g.io.source.RandomAccessSourceFactory;
-import com.itextpdf.commons.utils.FileUtil;
 
 /**
  * Use this class for working with true type collection font (*.ttc)

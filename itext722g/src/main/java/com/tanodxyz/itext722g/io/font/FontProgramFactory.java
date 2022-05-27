@@ -43,14 +43,14 @@
  */
 package com.tanodxyz.itext722g.io.font;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.io.exceptions.FontCompressionException;
 import com.tanodxyz.itext722g.io.exceptions.IOException;
 import com.tanodxyz.itext722g.io.font.constants.FontStyles;
 import com.tanodxyz.itext722g.io.font.constants.StandardFonts;
-import com.tanodxyz.itext722g.io.exceptions.FontCompressionException;
 import com.tanodxyz.itext722g.io.font.woff2.Woff2Converter;
 import com.tanodxyz.itext722g.io.source.RandomAccessFileOrArray;
 import com.tanodxyz.itext722g.io.source.RandomAccessSourceFactory;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 
 import java.util.Set;
 

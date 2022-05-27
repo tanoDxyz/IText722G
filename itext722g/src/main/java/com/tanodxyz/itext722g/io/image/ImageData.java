@@ -43,19 +43,17 @@
  */
 package com.tanodxyz.itext722g.io.image;
 
+import com.tanodxyz.itext722g.io.colors.IccProfile;
 import com.tanodxyz.itext722g.io.exceptions.IOException;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.tanodxyz.itext722g.io.colors.IccProfile;
 import com.tanodxyz.itext722g.io.source.ByteArrayOutputStream;
 import com.tanodxyz.itext722g.io.source.RandomAccessFileOrArray;
 import com.tanodxyz.itext722g.io.source.RandomAccessSourceFactory;
 import com.tanodxyz.itext722g.io.util.StreamUtil;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.net.URL;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public abstract class ImageData {
 
@@ -331,13 +329,13 @@ public abstract class ImageData {
      * @return if the image can be inline
      */
     public boolean canImageBeInline() {
-        Logger logger = LoggerFactory.getLogger(ImageData.class);
+        Logger logger = Logger.getLogger(ImageData.class.getName());
         if (imageSize > 4096) {
-            logger.warn(IoLogMessageConstant.IMAGE_SIZE_CANNOT_BE_MORE_4KB);
+            logger.warning(IoLogMessageConstant.IMAGE_SIZE_CANNOT_BE_MORE_4KB);
             return false;
         }
         if (imageMask != null) {
-            logger.warn(IoLogMessageConstant.IMAGE_HAS_MASK);
+            logger.warning(IoLogMessageConstant.IMAGE_HAS_MASK);
             return false;
         }
         return true;

@@ -42,7 +42,8 @@
  */
 package com.tanodxyz.itext722g.io.exceptions;
 
-import com.itextpdf.commons.exceptions.ITextException;
+
+import com.tanodxyz.itext722g.commons.exceptions.ITextException;
 
 public class FontCompressionException extends ITextException {
     public static final String BUFFER_READ_FAILED = "Reading woff2 exception";

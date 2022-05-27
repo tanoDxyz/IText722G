@@ -136,8 +136,8 @@
  ********************************************************************/
 package com.tanodxyz.itext722g.io.font;
 
+import com.tanodxyz.itext722g.commons.utils.FileUtil;
 import com.tanodxyz.itext722g.io.source.RandomAccessFileOrArray;
-import com.itextpdf.commons.utils.FileUtil;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;

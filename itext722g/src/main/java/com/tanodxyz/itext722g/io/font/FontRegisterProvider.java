@@ -43,21 +43,20 @@
  */
 package com.tanodxyz.itext722g.io.font;
 
+import com.tanodxyz.itext722g.commons.utils.FileUtil;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.exceptions.IOException;
 import com.tanodxyz.itext722g.io.font.constants.FontStyles;
 import com.tanodxyz.itext722g.io.font.constants.StandardFontFamilies;
 import com.tanodxyz.itext722g.io.font.constants.StandardFonts;
-import com.itextpdf.commons.utils.FileUtil;
-import com.itextpdf.commons.utils.MessageFormatUtil;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * If you are using True Type fonts, you can declare the paths of the different ttf- and ttc-files
@@ -66,7 +65,7 @@ import java.util.Set;
  */
 class FontRegisterProvider {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FontRegisterProvider.class);
+    private static final Logger LOGGER = Logger.getLogger(FontRegisterProvider.class.getName());
     /**
      * This is a map of postscriptfontnames of fonts and the path of their font file.
      */
@@ -268,7 +267,7 @@ class FontRegisterProvider {
 
                 if (descriptor.getFamilyNameEnglishOpenType() != null) {
                     for (String fullName : descriptor.getFullNamesEnglishOpenType())
-                         registerFontFamily(descriptor.getFamilyNameEnglishOpenType(), fullName, null);
+                        registerFontFamily(descriptor.getFamilyNameEnglishOpenType(), fullName, null);
 
                 }
             } else if (path.toLowerCase().endsWith(".ttc")) {
@@ -287,7 +286,7 @@ class FontRegisterProvider {
                 fontNames.put(descriptor.getFontNameLowerCase(), path);
                 fontNames.put(descriptor.getFullNameLowerCase(), path);
             }
-            LOGGER.trace(MessageFormatUtil.format("Registered {0}", path));
+            LOGGER.log(Level.FINEST, MessageFormatUtil.format("Registered {0}", path));
         } catch (java.io.IOException e) {
             throw new IOException(e);
         }
@@ -324,7 +323,7 @@ class FontRegisterProvider {
      * @return the number of fonts registered
      */
     int registerFontDirectory(String dir, boolean scanSubdirectories) {
-        LOGGER.debug(MessageFormatUtil.format("Registering directory {0}, looking for fonts", dir));
+        LOGGER.log(Level.FINER, MessageFormatUtil.format("Registering directory {0}, looking for fonts", dir));
         int count = 0;
         try {
             String[] files = FileUtil.listFilesInDirectory(dir, scanSubdirectories);

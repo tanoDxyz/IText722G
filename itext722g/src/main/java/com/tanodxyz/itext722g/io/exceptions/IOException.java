@@ -43,8 +43,10 @@
  */
 package com.tanodxyz.itext722g.io.exceptions;
 
-import com.itextpdf.commons.exceptions.ITextException;
-import com.itextpdf.commons.utils.MessageFormatUtil;
+
+import com.tanodxyz.itext722g.commons.exceptions.ITextException;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

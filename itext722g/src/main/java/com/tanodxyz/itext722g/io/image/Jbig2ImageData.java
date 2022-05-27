@@ -43,17 +43,15 @@
  */
 package com.tanodxyz.itext722g.io.image;
 
+import com.tanodxyz.itext722g.io.codec.Jbig2SegmentReader;
 import com.tanodxyz.itext722g.io.exceptions.IOException;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.tanodxyz.itext722g.io.codec.Jbig2SegmentReader;
-import com.tanodxyz.itext722g.io.source.RandomAccessFileOrArray;
 import com.tanodxyz.itext722g.io.source.IRandomAccessSource;
+import com.tanodxyz.itext722g.io.source.RandomAccessFileOrArray;
 import com.tanodxyz.itext722g.io.source.RandomAccessSourceFactory;
 
 import java.net.URL;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 public class Jbig2ImageData extends ImageData {
 
@@ -100,8 +98,8 @@ public class Jbig2ImageData extends ImageData {
 
     @Override
     public boolean canImageBeInline() {
-        Logger logger = LoggerFactory.getLogger(ImageData.class);
-        logger.warn(IoLogMessageConstant.IMAGE_HAS_JBIG2DECODE_FILTER);
+        Logger logger = Logger.getLogger(ImageData.class.getName());
+        logger.warning(IoLogMessageConstant.IMAGE_HAS_JBIG2DECODE_FILTER);
         return false;
     }
 }

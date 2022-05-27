@@ -43,14 +43,14 @@
  */
 package com.tanodxyz.itext722g.io.font.otf;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.tanodxyz.itext722g.io.util.IntHashtable;
 import com.tanodxyz.itext722g.io.source.RandomAccessFileOrArray;
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.io.util.IntHashtable;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class OtfClass {
 
@@ -92,8 +92,8 @@ public class OtfClass {
         try {
             otfClass = new OtfClass(rf, classLocation);
         } catch (IOException e) {
-            Logger logger = LoggerFactory.getLogger(OtfClass.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.OPENTYPE_GDEF_TABLE_ERROR, e.getMessage()));
+            Logger logger = Logger.getLogger(OtfClass.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.OPENTYPE_GDEF_TABLE_ERROR, e.getMessage()));
             otfClass = null;
         }
         return otfClass;

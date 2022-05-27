@@ -43,21 +43,20 @@
  */
 package com.tanodxyz.itext722g.io.image;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.io.colors.IccProfile;
 import com.tanodxyz.itext722g.io.exceptions.IOException;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.util.StreamUtil;
-import com.tanodxyz.itext722g.io.colors.IccProfile;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 class JpegImageHelper {
-    private static final Logger LOGGER = LoggerFactory.getLogger(JpegImageHelper.class);
+    private static final Logger LOGGER = Logger.getLogger(JpegImageHelper.class.getName());
 
     /**
      * This is a type of marker.
@@ -172,7 +171,7 @@ class JpegImageHelper {
             try {
                 image.setProfile(IccProfile.getInstance(ficc, image.getColorEncodingComponentsNumber()));
             } catch (Exception e) {
-                LOGGER.error(MessageFormatUtil.format(
+                LOGGER.log(Level.SEVERE,MessageFormatUtil.format(
                         IoLogMessageConstant.DURING_CONSTRUCTION_OF_ICC_PROFILE_ERROR_OCCURRED,
                         e.getClass().getSimpleName(), e.getMessage()));
             }
@@ -341,7 +340,7 @@ class JpegImageHelper {
                             dx = (unitsx == 2 ? (int) (dx * 2.54f + 0.5f) : dx);
                             // make sure this is consistent with JFIF data
                             if (image.getDpiX() != 0 && image.getDpiX() != dx) {
-                                LOGGER.debug(MessageFormatUtil.format("Inconsistent metadata (dpiX: {0} vs {1})", image.getDpiX(), dx));
+                                LOGGER.log(Level.FINER,MessageFormatUtil.format("Inconsistent metadata (dpiX: {0} vs {1})", image.getDpiX(), dx));
                             } else {
                                 image.setDpi(dx, image.getDpiY());
                             }
@@ -350,7 +349,7 @@ class JpegImageHelper {
                             dy = (unitsy == 2 ? (int) (dy * 2.54f + 0.5f) : dy);
                             // make sure this is consistent with JFIF data
                             if (image.getDpiY() != 0 && image.getDpiY() != dy) {
-                                LOGGER.debug(MessageFormatUtil.format("Inconsistent metadata (dpiY: {0} vs {1})", image.getDpiY(), dy));
+                                LOGGER.log(Level.FINER,MessageFormatUtil.format("Inconsistent metadata (dpiY: {0} vs {1})", image.getDpiY(), dy));
                             } else {
                                 image.setDpi(image.getDpiX(), dx);
                             }

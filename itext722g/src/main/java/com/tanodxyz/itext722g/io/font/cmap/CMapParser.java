@@ -45,11 +45,11 @@ package com.tanodxyz.itext722g.io.font.cmap;
 
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.source.PdfTokenizer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CMapParser {
 
@@ -132,8 +132,8 @@ public class CMapParser {
                 }
             }
         } catch (Exception ex) {
-            Logger logger = LoggerFactory.getLogger(CMapParser.class);
-            logger.error(IoLogMessageConstant.UNKNOWN_ERROR_WHILE_PROCESSING_CMAP);
+            Logger logger = Logger.getLogger(CMapParser.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.UNKNOWN_ERROR_WHILE_PROCESSING_CMAP);
         } finally {
             inp.close();
         }

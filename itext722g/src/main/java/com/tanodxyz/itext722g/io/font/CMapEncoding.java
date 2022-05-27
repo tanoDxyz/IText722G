@@ -51,12 +51,13 @@ import com.tanodxyz.itext722g.io.font.cmap.CMapParser;
 import com.tanodxyz.itext722g.io.source.ByteBuffer;
 import com.tanodxyz.itext722g.io.util.IntHashtable;
 
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CMapEncoding {
 
@@ -116,7 +117,7 @@ public class CMapEncoding {
             code2Cid = cid2Code.getReversMap();
             this.codeSpaceRanges = cid2Code.getCodeSpaceRanges();
         } catch (IOException e) {
-            LoggerFactory.getLogger(getClass()).error(IoLogMessageConstant.FAILED_TO_PARSE_ENCODING_STREAM);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,IoLogMessageConstant.FAILED_TO_PARSE_ENCODING_STREAM);
         }
     }
 

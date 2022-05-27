@@ -43,7 +43,7 @@
  */
 package com.tanodxyz.itext722g.io.font;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.exceptions.IOException;
 import com.tanodxyz.itext722g.io.font.constants.TrueTypeCodePages;
 import com.tanodxyz.itext722g.io.font.otf.Glyph;
@@ -60,9 +60,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class TrueTypeFont extends FontProgram {
 
@@ -330,8 +329,8 @@ public class TrueTypeFont extends FontProgram {
         for (int charCode : cmap.keySet()) {
             int index = cmap.get(charCode)[0];
             if (index >= numOfGlyphs) {
-                Logger LOGGER = LoggerFactory.getLogger(TrueTypeFont.class);
-                LOGGER.warn(MessageFormatUtil.format(IoLogMessageConstant.FONT_HAS_INVALID_GLYPH,
+                Logger LOGGER = Logger.getLogger(TrueTypeFont.class.getName());
+                LOGGER.warning(MessageFormatUtil.format(IoLogMessageConstant.FONT_HAS_INVALID_GLYPH,
                         getFontNames().getFontName(), index));
                 continue;
             }

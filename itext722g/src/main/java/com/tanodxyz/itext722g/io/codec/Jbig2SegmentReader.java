@@ -442,8 +442,8 @@ public class Jbig2SegmentReader {
             }
             os.close();
         } catch (java.io.IOException e) {
-            Logger logger = LoggerFactory.getLogger(Jbig2SegmentReader.class);
-            logger.debug(e.getMessage());
+            Logger logger = Logger.getLogger(Jbig2SegmentReader.class.getName());
+            logger.info(e.getMessage());
         }
 
         return streamBytes;
