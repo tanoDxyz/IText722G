@@ -42,9 +42,13 @@
  */
 package com.tanodxyz.itext722g.kernel.utils;
 
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
@@ -54,8 +58,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 final class XmlUtils {
     public static void writeXmlDocToStream(Document xmlReport, OutputStream stream) throws TransformerException {

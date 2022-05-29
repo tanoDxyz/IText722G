@@ -94,7 +94,7 @@ public class Transform {
             for (int i = 0; i < 4; i++)
                 floats[i] = transform.getFloats()[i];
             for (int i = 4; i < 6; i++)
-                floats[i] = transform.getUnitValues()[i - 4].getUnitType() == com.itextpdf.layout.properties.UnitValue.POINT ?
+                floats[i] = transform.getUnitValues()[i - 4].getUnitType() ==    UnitValue.POINT ?
                         transform.getUnitValues()[i - 4].getValue() : transform.getUnitValues()[i - 4].getValue() / 100 * (i == 4 ? width : height);
             affineTransform.preConcatenate(new AffineTransform(floats));
         }
@@ -106,7 +106,7 @@ public class Transform {
      */
     public static class SingleTransform {
         private float a, b, c, d;
-        private com.itextpdf.layout.properties.UnitValue tx, ty;
+        private    UnitValue tx, ty;
 
         /**
          * Creates a default {@link SingleTransform} instance equivalent to no transform.
@@ -116,8 +116,8 @@ public class Transform {
             this.b = 0;
             this.c = 0;
             this.d = 1;
-            this.tx = new com.itextpdf.layout.properties.UnitValue(com.itextpdf.layout.properties.UnitValue.POINT, 0);
-            this.ty = new com.itextpdf.layout.properties.UnitValue(com.itextpdf.layout.properties.UnitValue.POINT, 0);
+            this.tx = new    UnitValue(   UnitValue.POINT, 0);
+            this.ty = new    UnitValue(   UnitValue.POINT, 0);
         }
 
         /**
@@ -130,7 +130,7 @@ public class Transform {
          * @param tx horizontal translation
          * @param ty vertical translation
          */
-        public SingleTransform(float a, float b, float c, float d, com.itextpdf.layout.properties.UnitValue tx, com.itextpdf.layout.properties.UnitValue ty) {
+        public SingleTransform(float a, float b, float c, float d,    UnitValue tx,    UnitValue ty) {
             this.a = a;
             this.b = b;
             this.c = c;
@@ -153,8 +153,8 @@ public class Transform {
          *
          * @return an array of {@link UnitValue}-s
          */
-        public com.itextpdf.layout.properties.UnitValue[] getUnitValues() {
-            return new com.itextpdf.layout.properties.UnitValue[]{tx, ty};
+        public    UnitValue[] getUnitValues() {
+            return new    UnitValue[]{tx, ty};
         }
     }
 }

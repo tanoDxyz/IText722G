@@ -22,26 +22,26 @@
  */
 package com.tanodxyz.itext722g.layout.renderer.typography;
 
-import com.itextpdf.commons.actions.contexts.IMetaInfo;
-import com.itextpdf.commons.actions.sequence.SequenceId;
-import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
+
+import com.tanodxyz.itext722g.commons.actions.contexts.IMetaInfo;
+import com.tanodxyz.itext722g.commons.actions.sequence.SequenceId;
 import com.tanodxyz.itext722g.io.font.FontProgram;
 import com.tanodxyz.itext722g.io.font.TrueTypeFont;
 import com.tanodxyz.itext722g.io.font.otf.GlyphLine;
-import com.itextpdf.layout.properties.BaseDirection;
-import com.itextpdf.layout.renderer.LineRenderer.RendererGlyph;
+import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
+import com.tanodxyz.itext722g.layout.properties.BaseDirection;
+import com.tanodxyz.itext722g.layout.renderer.LineRenderer;
 
 import java.io.IOException;
 import java.lang.Character.UnicodeScript;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 public final class DefaultTypographyApplier extends AbstractTypographyApplier {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultTypographyApplier.class);
+    private static final Logger LOGGER = Logger.getLogger(DefaultTypographyApplier.class.getName());
 
     public DefaultTypographyApplier() {
     }
@@ -53,51 +53,51 @@ public final class DefaultTypographyApplier extends AbstractTypographyApplier {
 
     @Override
     public boolean applyOtfScript(TrueTypeFont font, GlyphLine glyphLine, UnicodeScript script, Object configurator,
-            SequenceId id, IMetaInfo metaInfo) {
-        LOGGER.warn(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
+                                  SequenceId id, IMetaInfo metaInfo) {
+        LOGGER.warning(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
         return super.applyOtfScript(font, glyphLine, script, configurator, id, metaInfo);
     }
 
     @Override
     public Collection<UnicodeScript> getSupportedScripts() {
-        LOGGER.warn(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
+        LOGGER.warning(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
         return super.getSupportedScripts();
     }
 
     @Override
     public Collection<UnicodeScript> getSupportedScripts(Object configurator) {
-        LOGGER.warn(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
+        LOGGER.warning(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
         return super.getSupportedScripts(configurator);
     }
 
     @Override
     public boolean applyKerning(FontProgram fontProgram, GlyphLine text, SequenceId sequenceId, IMetaInfo metaInfo) {
-        LOGGER.warn(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
+        LOGGER.warning(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
         return super.applyKerning(fontProgram, text, sequenceId, metaInfo);
     }
 
     @Override
     public byte[] getBidiLevels(BaseDirection baseDirection, int[] unicodeIds, SequenceId sequenceId,
-            IMetaInfo metaInfo) {
-        LOGGER.warn(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
+                                IMetaInfo metaInfo) {
+        LOGGER.warning(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
         return super.getBidiLevels(baseDirection, unicodeIds, sequenceId, metaInfo);
     }
 
     @Override
-    public int[] reorderLine(List<RendererGlyph> line, byte[] lineLevels, byte[] levels) {
-        LOGGER.warn(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
+    public int[] reorderLine(List<LineRenderer.RendererGlyph> line, byte[] lineLevels, byte[] levels) {
+        LOGGER.warning(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
         return super.reorderLine(line, lineLevels, levels);
     }
 
     @Override
     public List<Integer> getPossibleBreaks(String str) {
-        LOGGER.warn(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
+        LOGGER.warning(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
         return super.getPossibleBreaks(str);
     }
 
     @Override
     public Map<String, byte[]> loadShippedFonts() throws IOException {
-        LOGGER.warn(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
+        LOGGER.warning(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
         return super.loadShippedFonts();
     }
 }

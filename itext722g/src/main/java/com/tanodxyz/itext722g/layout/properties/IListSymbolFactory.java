@@ -43,7 +43,7 @@
 package com.tanodxyz.itext722g.layout.properties;
 
 import com.tanodxyz.itext722g.layout.IPropertyContainer;
-import com.itextpdf.layout.element.IElement;
+import com.tanodxyz.itext722g.layout.element.IElement;
 
 /**
  * Interface for implementing custom symbols for lists

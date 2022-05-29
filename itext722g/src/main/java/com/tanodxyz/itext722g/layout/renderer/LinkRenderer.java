@@ -43,18 +43,16 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.element.Link;
-import com.itextpdf.layout.layout.LayoutContext;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.tanodxyz.itext722g.layout.renderer.DrawContext;
-import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.element.Link;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
-public class LinkRenderer extends com.itextpdf.layout.renderer.TextRenderer {
+public class LinkRenderer extends TextRenderer {
 
     /**
      * Creates a LinkRenderer from its corresponding layout object.
@@ -78,8 +76,8 @@ public class LinkRenderer extends com.itextpdf.layout.renderer.TextRenderer {
     @Override
     public void draw(DrawContext drawContext) {
         if (occupiedArea == null) {
-            Logger logger = LoggerFactory.getLogger(LinkRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED,
+            Logger logger = Logger.getLogger(LinkRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED,
                     "Drawing won't be performed."));
             return;
         }

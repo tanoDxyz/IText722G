@@ -43,8 +43,9 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf;
 
-import com.itextpdf.commons.actions.data.ProductData;
-import com.itextpdf.commons.utils.MessageFormatUtil;
+
+import com.tanodxyz.itext722g.commons.actions.data.ProductData;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.source.ByteUtils;
 import com.tanodxyz.itext722g.kernel.actions.data.ITextCoreProductData;
@@ -57,8 +58,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A representation of a cross-referenced table of a PDF document.
@@ -239,13 +240,13 @@ public class PdfXrefTable {
             return;
         }
         if (reference.checkState(PdfObject.MUST_BE_FLUSHED)) {
-            Logger logger = LoggerFactory.getLogger(PdfXrefTable.class);
-            logger.error(IoLogMessageConstant.INDIRECT_REFERENCE_USED_IN_FLUSHED_OBJECT_MADE_FREE);
+            Logger logger = Logger.getLogger(PdfXrefTable.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.INDIRECT_REFERENCE_USED_IN_FLUSHED_OBJECT_MADE_FREE);
             return;
         }
         if (reference.checkState(PdfObject.FLUSHED)) {
-            Logger logger = LoggerFactory.getLogger(PdfXrefTable.class);
-            logger.error(IoLogMessageConstant.ALREADY_FLUSHED_INDIRECT_OBJECT_MADE_FREE);
+            Logger logger = Logger.getLogger(PdfXrefTable.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.ALREADY_FLUSHED_INDIRECT_OBJECT_MADE_FREE);
             return;
         }
 

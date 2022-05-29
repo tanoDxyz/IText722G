@@ -43,21 +43,18 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf;
 
+import com.tanodxyz.itext722g.commons.utils.FileUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.source.ByteUtils;
-import com.itextpdf.commons.utils.FileUtil;
 import com.tanodxyz.itext722g.io.source.DeflaterOutputStream;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.FileNotFoundException;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 public class PdfWriter extends PdfOutputStream {
     private static final byte[] obj = ByteUtils.getIsoBytes(" obj\n");
@@ -261,8 +258,8 @@ public class PdfWriter extends PdfOutputStream {
             obj = PdfNull.PDF_NULL;
         }
         if (checkTypeOfPdfDictionary(obj, PdfName.Catalog)) {
-            Logger logger = LoggerFactory.getLogger(PdfReader.class);
-            logger.warn(IoLogMessageConstant.MAKE_COPY_OF_CATALOG_DICTIONARY_IS_FORBIDDEN);
+            Logger logger = Logger.getLogger(PdfReader.class.getName());
+            logger.warning(IoLogMessageConstant.MAKE_COPY_OF_CATALOG_DICTIONARY_IS_FORBIDDEN);
             obj = PdfNull.PDF_NULL;
         }
 

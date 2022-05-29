@@ -43,16 +43,16 @@
  */
 package com.tanodxyz.itext722g.layout.borders;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.kernel.colors.ColorConstants;
 import com.tanodxyz.itext722g.kernel.geom.Point;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
-import com.itextpdf.layout.properties.TransparentColor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.properties.TransparentColor;
+
+import java.util.logging.Logger;
 
 /**
  * Represents a border.
@@ -285,8 +285,8 @@ public abstract class Border {
      * @param borderWidthAfter  defines width of the border that is after the current one
      */
     public void draw(PdfCanvas canvas, float x1, float y1, float x2, float y2, float horizontalRadius1, float verticalRadius1, float horizontalRadius2, float verticalRadius2, Side defaultSide, float borderWidthBefore, float borderWidthAfter) {
-        Logger logger = LoggerFactory.getLogger(Border.class);
-        logger.warn(MessageFormatUtil.format(
+        Logger logger = Logger.getLogger(Border.class.getName());
+        logger.warning(MessageFormatUtil.format(
                 IoLogMessageConstant.METHOD_IS_NOT_IMPLEMENTED_BY_DEFAULT_OTHER_METHOD_WILL_BE_USED,
                 "Border#draw(PdfCanvas, float, float, float, float, float, float, float, float, Side, float, float",
                 "Border#draw(PdfCanvas, float, float, float, float, Side, float, float)"));

@@ -42,11 +42,11 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.layout.layout.LayoutPosition;
-import com.itextpdf.layout.properties.OverflowPropertyValue;
-import com.itextpdf.layout.properties.Property;
+
 import com.tanodxyz.itext722g.io.util.NumberUtil;
-import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
+import com.tanodxyz.itext722g.layout.layout.LayoutPosition;
+import com.tanodxyz.itext722g.layout.properties.OverflowPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Property;
 
 /**
  * This class helps to identify whether we are dealing with a renderer that creates
@@ -65,12 +65,12 @@ public class BlockFormattingContextUtil {
      * @param renderer an {@link IRenderer} to be checked.
      * @return true if given renderer creates a new "Block formatting context" in terms of CSS, false otherwise.
      */
-    public static boolean isRendererCreateBfc(com.itextpdf.layout.renderer.IRenderer renderer) {
-        return (renderer instanceof com.itextpdf.layout.renderer.RootRenderer)
-                || (renderer instanceof com.itextpdf.layout.renderer.CellRenderer)
+    public static boolean isRendererCreateBfc( IRenderer renderer) {
+        return (renderer instanceof  RootRenderer)
+                || (renderer instanceof  CellRenderer)
                 || isInlineBlock(renderer)
-                || renderer.getParent() instanceof com.itextpdf.layout.renderer.FlexContainerRenderer
-                || com.itextpdf.layout.renderer.FloatingHelper.isRendererFloating(renderer)
+                || renderer.getParent() instanceof  FlexContainerRenderer
+                ||  FloatingHelper.isRendererFloating(renderer)
                 || isAbsolutePosition(renderer)
                 || isFixedPosition(renderer)
                 || isCaption(renderer)
@@ -78,23 +78,23 @@ public class BlockFormattingContextUtil {
                 || AbstractRenderer.isOverflowProperty(OverflowPropertyValue.HIDDEN, renderer, Property.OVERFLOW_Y);
     }
 
-    private static boolean isInlineBlock(com.itextpdf.layout.renderer.IRenderer renderer) {
-        return renderer.getParent() instanceof com.itextpdf.layout.renderer.LineRenderer
-                && (renderer instanceof com.itextpdf.layout.renderer.BlockRenderer || renderer instanceof com.itextpdf.layout.renderer.TableRenderer);
+    private static boolean isInlineBlock( IRenderer renderer) {
+        return renderer.getParent() instanceof  LineRenderer
+                && (renderer instanceof  BlockRenderer || renderer instanceof  TableRenderer);
     }
 
-    private static boolean isAbsolutePosition(com.itextpdf.layout.renderer.IRenderer renderer) {
+    private static boolean isAbsolutePosition( IRenderer renderer) {
         Integer positioning = NumberUtil.asInteger(renderer.<Object>getProperty(Property.POSITION));
         return Integer.valueOf(LayoutPosition.ABSOLUTE).equals(positioning);
     }
 
-    private static boolean isFixedPosition(com.itextpdf.layout.renderer.IRenderer renderer) {
+    private static boolean isFixedPosition( IRenderer renderer) {
         Integer positioning = NumberUtil.asInteger(renderer.<Object>getProperty(Property.POSITION));
         return Integer.valueOf(LayoutPosition.FIXED).equals(positioning);
     }
 
-    private static boolean isCaption(com.itextpdf.layout.renderer.IRenderer renderer) {
-        return renderer.getParent() instanceof com.itextpdf.layout.renderer.TableRenderer
-                && (renderer instanceof com.itextpdf.layout.renderer.DivRenderer);
+    private static boolean isCaption( IRenderer renderer) {
+        return renderer.getParent() instanceof  TableRenderer
+                && (renderer instanceof  DivRenderer);
     }
 }

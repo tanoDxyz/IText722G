@@ -88,7 +88,7 @@ public class MinMaxWidth {
     }
 
     public float getMaxWidth() {
-        return Math.min(childrenMaxWidth + additionalWidth, com.itextpdf.layout.minmaxwidth.MinMaxWidthUtils.getInfWidth());
+        return Math.min(childrenMaxWidth + additionalWidth, MinMaxWidthUtils.getInfWidth());
     }
 
     public float getMinWidth() {

@@ -43,11 +43,11 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf;
 
-import com.itextpdf.commons.actions.data.ProductData;
+
+import com.tanodxyz.itext722g.commons.actions.data.ProductData;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 

@@ -42,18 +42,11 @@
  */
 package com.tanodxyz.itext722g.kernel.utils;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
-import com.tanodxyz.itext722g.kernel.logs.KernelLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
+import com.tanodxyz.itext722g.kernel.logs.KernelLogMessageConstant;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -61,13 +54,21 @@ import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.XMLReader;
 
+import java.util.logging.Logger;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
 /**
  * Implementation of {@link IXmlParserFactory} for creating safe xml parser objects.
  * Creates parsers with configuration to prevent XML bombs and XXE attacks.
  */
 public class DefaultSafeXmlParserFactory implements IXmlParserFactory {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultSafeXmlParserFactory.class);
+    private static final Logger LOGGER = Logger.getLogger(DefaultSafeXmlParserFactory.class.getName());
 
     /**
      * Feature for disallowing DOCTYPE declaration.

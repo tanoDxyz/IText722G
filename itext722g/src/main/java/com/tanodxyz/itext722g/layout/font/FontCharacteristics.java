@@ -72,14 +72,14 @@ public final class FontCharacteristics {
      */
     public FontCharacteristics setFontWeight(short fw) {
         if (fw > 0) {
-            this.fontWeight = com.itextpdf.layout.font.FontCharacteristicsUtils.normalizeFontWeight(fw);
+            this.fontWeight =   FontCharacteristicsUtils.normalizeFontWeight(fw);
             modified();
         }
         return this;
     }
 
     public FontCharacteristics setFontWeight(String fw) {
-        return setFontWeight(com.itextpdf.layout.font.FontCharacteristicsUtils.parseFontWeight(fw));
+        return setFontWeight(  FontCharacteristicsUtils.parseFontWeight(fw));
     }
 
     public FontCharacteristics setBoldFlag(boolean isBold) {

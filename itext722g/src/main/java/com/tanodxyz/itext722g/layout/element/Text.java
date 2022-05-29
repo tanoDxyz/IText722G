@@ -43,15 +43,13 @@
  */
 package com.tanodxyz.itext722g.layout.element;
 
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.renderer.IRenderer;
-import com.itextpdf.layout.renderer.TextRenderer;
-import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.tanodxyz.itext722g.kernel.pdf.tagging.StandardRoles;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.AccessibilityProperties;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.DefaultAccessibilityProperties;
-import com.tanodxyz.itext722g.layout.element.AbstractElement;
-import com.tanodxyz.itext722g.layout.element.ILeafElement;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.renderer.TextRenderer;
+import com.tanodxyz.itext722g.layout.tagging.IAccessibleElement;
 
 /**
  * A {@link Text} is a piece of text of any length. As a {@link ILeafElement leaf element},

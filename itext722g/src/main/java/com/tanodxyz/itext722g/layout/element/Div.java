@@ -45,14 +45,12 @@ package com.tanodxyz.itext722g.layout.element;
 
 import android.media.Image;
 
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.renderer.DivRenderer;
-import com.itextpdf.layout.renderer.IRenderer;
 import com.tanodxyz.itext722g.kernel.pdf.tagging.StandardRoles;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.AccessibilityProperties;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.DefaultAccessibilityProperties;
-import com.tanodxyz.itext722g.layout.element.AreaBreak;
-import com.tanodxyz.itext722g.layout.element.BlockElement;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.renderer.DivRenderer;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
 
 /**
  * A {@link Div} is a container object that defines a section in a document,
@@ -71,7 +69,7 @@ public class Div extends BlockElement<Div> {
      * @param element a {@link BlockElement}
      * @return this Element
      */
-    public Div add(com.itextpdf.layout.element.IBlockElement element) {
+    public Div add(IBlockElement element) {
         childElements.add(element);
         return this;
     }

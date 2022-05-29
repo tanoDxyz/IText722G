@@ -43,18 +43,18 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf.xobject;
 
-import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.colors.IccProfile;
 import com.tanodxyz.itext722g.io.font.PdfEncodings;
 import com.tanodxyz.itext722g.io.image.ImageData;
 import com.tanodxyz.itext722g.io.image.ImageType;
 import com.tanodxyz.itext722g.io.image.PngChromaticities;
-import com.tanodxyz.itext722g.io.image.PngImageHelperConstants;
 import com.tanodxyz.itext722g.io.image.PngImageData;
+import com.tanodxyz.itext722g.io.image.PngImageHelperConstants;
 import com.tanodxyz.itext722g.io.image.RawImageData;
 import com.tanodxyz.itext722g.io.image.RawImageHelper;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
+import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.pdf.CompressionConstants;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfBoolean;
@@ -77,14 +77,12 @@ import com.tanodxyz.itext722g.kernel.pdf.filters.IFilterHandler;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import javax.imageio.ImageIO;
-
-import org.slf4j.LoggerFactory;
 
 /**
  * A wrapper for Image XObject. ISO 32000-1, 8.9 Images.
@@ -408,16 +406,16 @@ public class PdfImageXObject extends PdfXObject {
             if (colorSpaceObject != null) {
                 PdfColorSpace cs = PdfColorSpace.makeColorSpace(colorSpaceObject);
                 if (cs == null) {
-                    LoggerFactory.getLogger(PdfImageXObject.class)
-                            .error(IoLogMessageConstant.IMAGE_HAS_INCORRECT_OR_UNSUPPORTED_COLOR_SPACE_OVERRIDDEN_BY_ICC_PROFILE);
+                    Logger.getLogger(PdfImageXObject.class.getName())
+                            .log(Level.SEVERE,IoLogMessageConstant.IMAGE_HAS_INCORRECT_OR_UNSUPPORTED_COLOR_SPACE_OVERRIDDEN_BY_ICC_PROFILE);
                 } else if (cs instanceof PdfSpecialCs.Indexed) {
                     PdfColorSpace baseCs = ((PdfSpecialCs.Indexed) cs).getBaseCs();
                     if (baseCs == null) {
-                        LoggerFactory.getLogger(PdfImageXObject.class)
-                                .error(IoLogMessageConstant.IMAGE_HAS_INCORRECT_OR_UNSUPPORTED_BASE_COLOR_SPACE_IN_INDEXED_COLOR_SPACE_OVERRIDDEN_BY_ICC_PROFILE);
+                        Logger.getLogger(PdfImageXObject.class.getName())
+                                .log(Level.SEVERE,IoLogMessageConstant.IMAGE_HAS_INCORRECT_OR_UNSUPPORTED_BASE_COLOR_SPACE_IN_INDEXED_COLOR_SPACE_OVERRIDDEN_BY_ICC_PROFILE);
                     } else if (baseCs.getNumberOfComponents() != iccProfile.getNumComponents()) {
-                        LoggerFactory.getLogger(PdfImageXObject.class)
-                                .error(IoLogMessageConstant.IMAGE_HAS_ICC_PROFILE_WITH_INCOMPATIBLE_NUMBER_OF_COLOR_COMPONENTS_COMPARED_TO_BASE_COLOR_SPACE_IN_INDEXED_COLOR_SPACE);
+                        Logger.getLogger(PdfImageXObject.class.getName())
+                                .log(Level.SEVERE,IoLogMessageConstant.IMAGE_HAS_ICC_PROFILE_WITH_INCOMPATIBLE_NUMBER_OF_COLOR_COMPONENTS_COMPARED_TO_BASE_COLOR_SPACE_IN_INDEXED_COLOR_SPACE);
                         iccProfileShouldBeApplied = false;
                     } else {
                         iccProfileStream.put(PdfName.Alternate, baseCs.getPdfObject());
@@ -427,8 +425,8 @@ public class PdfImageXObject extends PdfXObject {
                         iccProfileShouldBeApplied = false;
                     }
                 } else if (cs.getNumberOfComponents() != iccProfile.getNumComponents()) {
-                    LoggerFactory.getLogger(PdfImageXObject.class)
-                            .error(IoLogMessageConstant.IMAGE_HAS_ICC_PROFILE_WITH_INCOMPATIBLE_NUMBER_OF_COLOR_COMPONENTS_COMPARED_TO_COLOR_SPACE);
+                    Logger.getLogger(PdfImageXObject.class.getName())
+                            .log(Level.SEVERE,IoLogMessageConstant.IMAGE_HAS_ICC_PROFILE_WITH_INCOMPATIBLE_NUMBER_OF_COLOR_COMPONENTS_COMPARED_TO_COLOR_SPACE);
                     iccProfileShouldBeApplied = false;
                 } else {
                     iccProfileStream.put(PdfName.Alternate, colorSpaceObject);

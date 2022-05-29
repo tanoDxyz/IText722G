@@ -43,14 +43,7 @@
  */
 package com.tanodxyz.itext722g.layout.element;
 
-import com.itextpdf.layout.exceptions.LayoutExceptionMessageConstant;
-import com.itextpdf.layout.layout.LayoutPosition;
-import com.itextpdf.layout.properties.ObjectFit;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.layout.renderer.IRenderer;
-import com.itextpdf.layout.renderer.ImageRenderer;
-import com.itextpdf.layout.tagging.IAccessibleElement;
+
 import com.tanodxyz.itext722g.io.image.ImageData;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
@@ -61,11 +54,17 @@ import com.tanodxyz.itext722g.kernel.pdf.tagutils.DefaultAccessibilityProperties
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfFormXObject;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfImageXObject;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfXObject;
-import com.tanodxyz.itext722g.layout.element.AbstractElement;
-import com.tanodxyz.itext722g.layout.element.ILeafElement;
+import com.tanodxyz.itext722g.layout.exceptions.LayoutExceptionMessageConstant;
+import com.tanodxyz.itext722g.layout.layout.LayoutPosition;
+import com.tanodxyz.itext722g.layout.properties.ObjectFit;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.renderer.ImageRenderer;
+import com.tanodxyz.itext722g.layout.tagging.IAccessibleElement;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
+
 
 /**
  * A layout element that represents an image for inclusion in the document model.
@@ -472,8 +471,8 @@ public class Image extends AbstractElement<Image> implements ILeafElement, IAcce
         if (hasProperty(Property.AUTO_SCALE_WIDTH) && hasProperty(Property.AUTO_SCALE_HEIGHT) && autoScale &&
                 ((boolean) this.<Boolean>getProperty(Property.AUTO_SCALE_WIDTH) ||
                         (boolean) this.<Boolean>getProperty(Property.AUTO_SCALE_HEIGHT))) {
-            Logger logger = LoggerFactory.getLogger(Image.class);
-            logger.warn(IoLogMessageConstant.IMAGE_HAS_AMBIGUOUS_SCALE);
+            Logger logger = Logger.getLogger(Image.class.getName());
+            logger.warning(IoLogMessageConstant.IMAGE_HAS_AMBIGUOUS_SCALE);
         }
         setProperty(Property.AUTO_SCALE, autoScale);
         return this;

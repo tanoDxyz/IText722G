@@ -42,8 +42,8 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf.tagging;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfName;
@@ -52,8 +52,8 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfObjectWrapper;
 import com.tanodxyz.itext722g.kernel.pdf.PdfString;
 import com.tanodxyz.itext722g.kernel.pdf.filespec.PdfFileSpec;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
+
 
 /**
  * A wrapper for namespace dictionaries (ISO 32000-2 section 14.7.4).
@@ -223,12 +223,12 @@ public class PdfNamespace extends PdfObjectWrapper<PdfDictionary> {
 
     private void logOverwritingOfMappingIfNeeded(String thisNsRole, PdfObject prevVal) {
         if (prevVal != null) {
-            Logger logger = LoggerFactory.getLogger(PdfNamespace.class);
+            Logger logger = Logger.getLogger(PdfNamespace.class.getName());
             String nsNameStr = getNamespaceName();
             if (nsNameStr == null) {
                 nsNameStr = "this";
             }
-            logger.warn(MessageFormatUtil.format(IoLogMessageConstant.MAPPING_IN_NAMESPACE_OVERWRITTEN, thisNsRole,
+            logger.warning(MessageFormatUtil.format(IoLogMessageConstant.MAPPING_IN_NAMESPACE_OVERWRITTEN, thisNsRole,
                     nsNameStr));
         }
     }

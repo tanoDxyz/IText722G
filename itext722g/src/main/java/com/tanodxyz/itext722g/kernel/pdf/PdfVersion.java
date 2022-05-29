@@ -43,7 +43,8 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 

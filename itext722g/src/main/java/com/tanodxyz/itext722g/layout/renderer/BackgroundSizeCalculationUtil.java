@@ -43,9 +43,10 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.layout.properties.BackgroundImage;
-import com.itextpdf.layout.properties.BackgroundSize;
-import com.itextpdf.layout.properties.UnitValue;
+
+import com.tanodxyz.itext722g.layout.properties.BackgroundImage;
+import com.tanodxyz.itext722g.layout.properties.BackgroundSize;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
 
 /**
  * Utility class for calculate background image width and height.

@@ -42,28 +42,26 @@
  */
 package com.tanodxyz.itext722g.layout.properties;
 
-import com.itextpdf.layout.properties.BackgroundRepeat.BackgroundRepeatValue;
 import com.tanodxyz.itext722g.kernel.colors.gradients.AbstractLinearGradientBuilder;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfFormXObject;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfImageXObject;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfXObject;
-import com.tanodxyz.itext722g.layout.properties.BackgroundBox;
 
 public class BackgroundImage {
 
-    private static final com.itextpdf.layout.properties.BlendMode DEFAULT_BLEND_MODE = com.itextpdf.layout.properties.BlendMode.NORMAL;
+    private static final   BlendMode DEFAULT_BLEND_MODE =   BlendMode.NORMAL;
 
     protected PdfXObject image;
 
     protected AbstractLinearGradientBuilder linearGradientBuilder;
 
-    private com.itextpdf.layout.properties.BlendMode blendMode = DEFAULT_BLEND_MODE;
+    private   BlendMode blendMode = DEFAULT_BLEND_MODE;
 
-    private final com.itextpdf.layout.properties.BackgroundRepeat repeat;
+    private final   BackgroundRepeat repeat;
 
-    private final com.itextpdf.layout.properties.BackgroundPosition position;
+    private final   BackgroundPosition position;
 
-    private final com.itextpdf.layout.properties.BackgroundSize backgroundSize;
+    private final   BackgroundSize backgroundSize;
 
     private final BackgroundBox backgroundClip;
 
@@ -105,8 +103,8 @@ public class BackgroundImage {
      * @param clip                  background-clip property. {@link BackgroundBox} instance.
      * @param origin                background-origin property. {@link BackgroundBox} instance.
      */
-    private BackgroundImage(PdfXObject image, com.itextpdf.layout.properties.BackgroundRepeat repeat, com.itextpdf.layout.properties.BackgroundPosition position,
-                            com.itextpdf.layout.properties.BackgroundSize backgroundSize, AbstractLinearGradientBuilder linearGradientBuilder,
+    private BackgroundImage(PdfXObject image,   BackgroundRepeat repeat,   BackgroundPosition position,
+                              BackgroundSize backgroundSize, AbstractLinearGradientBuilder linearGradientBuilder,
                             BlendMode blendMode, BackgroundBox clip, BackgroundBox origin) {
         this.image = image;
         this.repeat = repeat;
@@ -125,7 +123,7 @@ public class BackgroundImage {
      *
      * @return {@link BackgroundPosition}
      */
-    public com.itextpdf.layout.properties.BackgroundPosition getBackgroundPosition() {
+    public   BackgroundPosition getBackgroundPosition() {
         return position;
     }
 
@@ -142,7 +140,7 @@ public class BackgroundImage {
      *
      * @return {@link BackgroundSize} instance
      */
-    public com.itextpdf.layout.properties.BackgroundSize getBackgroundSize() {
+    public   BackgroundSize getBackgroundSize() {
         return backgroundSize;
     }
 
@@ -169,7 +167,7 @@ public class BackgroundImage {
      *
      * @return the image background repeat
      */
-    public com.itextpdf.layout.properties.BackgroundRepeat getRepeat() {
+    public   BackgroundRepeat getRepeat() {
         return repeat;
     }
 
@@ -207,10 +205,10 @@ public class BackgroundImage {
 
         private PdfXObject image;
         private AbstractLinearGradientBuilder linearGradientBuilder;
-        private com.itextpdf.layout.properties.BackgroundPosition position = new com.itextpdf.layout.properties.BackgroundPosition();
-        private com.itextpdf.layout.properties.BackgroundRepeat repeat = new com.itextpdf.layout.properties.BackgroundRepeat();
-        private com.itextpdf.layout.properties.BlendMode blendMode = DEFAULT_BLEND_MODE;
-        private com.itextpdf.layout.properties.BackgroundSize backgroundSize = new com.itextpdf.layout.properties.BackgroundSize();
+        private   BackgroundPosition position = new   BackgroundPosition();
+        private   BackgroundRepeat repeat = new   BackgroundRepeat();
+        private   BlendMode blendMode = DEFAULT_BLEND_MODE;
+        private   BackgroundSize backgroundSize = new   BackgroundSize();
         private BackgroundBox clip = BackgroundBox.BORDER_BOX;
         private BackgroundBox origin = BackgroundBox.PADDING_BOX;
 
@@ -241,7 +239,7 @@ public class BackgroundImage {
          */
         public Builder setLinearGradientBuilder(AbstractLinearGradientBuilder linearGradientBuilder) {
             this.linearGradientBuilder = linearGradientBuilder;
-            this.repeat = new com.itextpdf.layout.properties.BackgroundRepeat(BackgroundRepeatValue.NO_REPEAT);
+            this.repeat = new   BackgroundRepeat(BackgroundRepeat.BackgroundRepeatValue.NO_REPEAT);
             this.image = null;
             return this;
         }
@@ -252,7 +250,7 @@ public class BackgroundImage {
          * @param repeat {@link BackgroundRepeat} to be set.
          * @return this {@link Builder}.
          */
-        public Builder setBackgroundRepeat(com.itextpdf.layout.properties.BackgroundRepeat repeat) {
+        public Builder setBackgroundRepeat(  BackgroundRepeat repeat) {
             this.repeat = repeat;
             return this;
         }
@@ -263,7 +261,7 @@ public class BackgroundImage {
          * @param position {@link BackgroundPosition} to be set.
          * @return this {@link Builder}.
          */
-        public Builder setBackgroundPosition(com.itextpdf.layout.properties.BackgroundPosition position) {
+        public Builder setBackgroundPosition(  BackgroundPosition position) {
             this.position = position;
             return this;
         }
@@ -287,7 +285,7 @@ public class BackgroundImage {
          * @param backgroundSize {@link BackgroundSize} to be set.
          * @return this {@link Builder}.
          */
-        public Builder setBackgroundSize(com.itextpdf.layout.properties.BackgroundSize backgroundSize) {
+        public Builder setBackgroundSize(  BackgroundSize backgroundSize) {
             if (backgroundSize != null) {
                 this.backgroundSize = backgroundSize;
             }

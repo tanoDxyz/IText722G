@@ -44,8 +44,8 @@
 package com.tanodxyz.itext722g.kernel.pdf.tagutils;
 
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
@@ -63,13 +63,11 @@ import com.tanodxyz.itext722g.kernel.pdf.tagging.PdfMcrDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.tagging.PdfMcrNumber;
 import com.tanodxyz.itext722g.kernel.pdf.tagging.PdfNamespace;
 import com.tanodxyz.itext722g.kernel.pdf.tagging.PdfObjRef;
-import com.tanodxyz.itext722g.kernel.pdf.tagging.PdfStructTreeRoot;
 import com.tanodxyz.itext722g.kernel.pdf.tagging.PdfStructElem;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.tanodxyz.itext722g.kernel.pdf.tagging.PdfStructTreeRoot;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * {@link TagTreePointer} class is used to modify the document's tag tree. At any given moment, instance of this class
@@ -482,8 +480,8 @@ public class TagTreePointer {
 
         PdfStructElem parent = (PdfStructElem) getCurrentStructElem().getParent();
         if (parent.isFlushed()) {
-            Logger logger = LoggerFactory.getLogger(TagTreePointer.class);
-            logger.warn(IoLogMessageConstant.ATTEMPT_TO_MOVE_TO_FLUSHED_PARENT);
+            Logger logger = Logger.getLogger(TagTreePointer.class.getName());
+            logger.warning(IoLogMessageConstant.ATTEMPT_TO_MOVE_TO_FLUSHED_PARENT);
 
             moveToRoot();
         } else {

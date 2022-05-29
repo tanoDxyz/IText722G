@@ -54,12 +54,12 @@ import com.tanodxyz.itext722g.layout.IPropertyContainer;
  * location of the edges of the background coloring.
  */
 public class Background {
-    protected com.itextpdf.layout.properties.TransparentColor transparentColor;
+    protected  TransparentColor transparentColor;
     protected float extraLeft;
     protected float extraRight;
     protected float extraTop;
     protected float extraBottom;
-    private com.itextpdf.layout.properties.BackgroundBox backgroundClip = com.itextpdf.layout.properties.BackgroundBox.BORDER_BOX;
+    private  BackgroundBox backgroundClip =  BackgroundBox.BORDER_BOX;
 
     /**
      * Creates a background with a specified color.
@@ -104,7 +104,7 @@ public class Background {
      * @param extraBottom extra coloring at the bottom
      */
     public Background(Color color, float opacity, float extraLeft, float extraTop, float extraRight, float extraBottom) {
-        this.transparentColor = new com.itextpdf.layout.properties.TransparentColor(color, opacity);
+        this.transparentColor = new  TransparentColor(color, opacity);
         this.extraLeft = extraLeft;
         this.extraRight = extraRight;
         this.extraTop = extraTop;
@@ -119,7 +119,7 @@ public class Background {
      *                color and 0 - for fully transparent
      * @param clip    the value to clip the background color
      */
-    public Background(Color color, float opacity, com.itextpdf.layout.properties.BackgroundBox clip) {
+    public Background(Color color, float opacity,  BackgroundBox clip) {
         this(color, opacity);
         this.backgroundClip = clip;
     }
@@ -177,7 +177,7 @@ public class Background {
      *
      * @return background clip value
      */
-    public com.itextpdf.layout.properties.BackgroundBox getBackgroundClip() {
+    public  BackgroundBox getBackgroundClip() {
         return backgroundClip;
     }
 }

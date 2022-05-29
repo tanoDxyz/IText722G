@@ -52,8 +52,7 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfObject;
 import com.tanodxyz.itext722g.kernel.pdf.action.PdfAction;
 import com.tanodxyz.itext722g.kernel.pdf.navigation.PdfDestination;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 /**
  * A link annotation represents either a hypertext link to a destination elsewhere in the document
@@ -62,7 +61,7 @@ import org.slf4j.LoggerFactory;
 public class PdfLinkAnnotation extends PdfAnnotation {
 
 
-    private static final Logger logger = LoggerFactory.getLogger(PdfLinkAnnotation.class);
+    private static final Logger logger = Logger.getLogger(PdfLinkAnnotation.class.getName());
 
     /**
      * Highlight modes.
@@ -122,10 +121,10 @@ public class PdfLinkAnnotation extends PdfAnnotation {
     public PdfLinkAnnotation setDestination(PdfObject destination) {
         if (getPdfObject().containsKey(PdfName.A)) {
             getPdfObject().remove(PdfName.A);
-            logger.warn(IoLogMessageConstant.DESTINATION_NOT_PERMITTED_WHEN_ACTION_IS_SET);
+            logger.warning(IoLogMessageConstant.DESTINATION_NOT_PERMITTED_WHEN_ACTION_IS_SET);
         }
         if (destination.isArray() && ((PdfArray)destination).get(0).isNumber())
-            LoggerFactory.getLogger(PdfLinkAnnotation.class).warn(IoLogMessageConstant.INVALID_DESTINATION_TYPE);
+            Logger.getLogger(PdfLinkAnnotation.class.getName()).warning(IoLogMessageConstant.INVALID_DESTINATION_TYPE);
         return (PdfLinkAnnotation) put(PdfName.Dest, destination);
     }
 
@@ -188,7 +187,7 @@ public class PdfLinkAnnotation extends PdfAnnotation {
     public PdfLinkAnnotation setAction(PdfAction action) {
         if (getDestinationObject() != null) {
             removeDestination();
-            logger.warn(IoLogMessageConstant.ACTION_WAS_SET_TO_LINK_ANNOTATION_WITH_DESTINATION);
+            logger.warning(IoLogMessageConstant.ACTION_WAS_SET_TO_LINK_ANNOTATION_WITH_DESTINATION);
         }
         return (PdfLinkAnnotation) put(PdfName.A, action.getPdfObject());
     }

@@ -43,27 +43,26 @@
  */
 package com.tanodxyz.itext722g.layout;
 
+import com.tanodxyz.itext722g.commons.actions.sequence.AbstractIdentifiableElement;
+import com.tanodxyz.itext722g.io.font.constants.StandardFontFamilies;
 import com.tanodxyz.itext722g.kernel.colors.Color;
-import com.itextpdf.commons.actions.sequence.AbstractIdentifiableElement;
 import com.tanodxyz.itext722g.kernel.font.PdfFont;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvasConstants;
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.font.FontProvider;
-import com.itextpdf.layout.hyphenation.HyphenationConfig;
-import com.itextpdf.layout.layout.LayoutPosition;
-import com.itextpdf.layout.properties.Background;
-import com.itextpdf.layout.properties.BackgroundImage;
-import com.itextpdf.layout.properties.BaseDirection;
-import com.itextpdf.layout.properties.BorderRadius;
-import com.itextpdf.layout.properties.FontKerning;
-import com.itextpdf.layout.properties.HorizontalAlignment;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.TextAlignment;
-import com.itextpdf.layout.properties.TransparentColor;
-import com.itextpdf.layout.properties.Underline;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.layout.splitting.ISplitCharacters;
-import com.tanodxyz.itext722g.io.font.constants.StandardFontFamilies;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.hyphenation.HyphenationConfig;
+import com.tanodxyz.itext722g.layout.layout.LayoutPosition;
+import com.tanodxyz.itext722g.layout.properties.Background;
+import com.tanodxyz.itext722g.layout.properties.BackgroundImage;
+import com.tanodxyz.itext722g.layout.properties.BaseDirection;
+import com.tanodxyz.itext722g.layout.properties.BorderRadius;
+import com.tanodxyz.itext722g.layout.properties.FontKerning;
+import com.tanodxyz.itext722g.layout.properties.HorizontalAlignment;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.TextAlignment;
+import com.tanodxyz.itext722g.layout.properties.TransparentColor;
+import com.tanodxyz.itext722g.layout.properties.Underline;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.layout.splitting.ISplitCharacters;
 
 import java.util.ArrayList;
 import java.util.HashMap;

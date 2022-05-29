@@ -43,8 +43,9 @@
  */
 package com.tanodxyz.itext722g.layout.layout;
 
-import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
-import com.itextpdf.layout.renderer.IRenderer;
+
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidth;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
 
 /**
  * Represents the result of content {@link IRenderer#layout(LayoutContext) layouting}.

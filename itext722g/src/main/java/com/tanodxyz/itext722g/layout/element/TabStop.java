@@ -44,7 +44,7 @@
 package com.tanodxyz.itext722g.layout.element;
 
 import com.tanodxyz.itext722g.kernel.pdf.canvas.draw.ILineDrawer;
-import com.itextpdf.layout.properties.TabAlignment;
+import com.tanodxyz.itext722g.layout.properties.TabAlignment;
 
 /**
  * A TabStop is the closest location on a line of text that the text will jump

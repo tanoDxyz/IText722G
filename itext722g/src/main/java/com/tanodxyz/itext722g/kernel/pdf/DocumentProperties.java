@@ -43,7 +43,8 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf;
 
-import com.itextpdf.commons.actions.contexts.IMetaInfo;
+
+import com.tanodxyz.itext722g.commons.actions.contexts.IMetaInfo;
 
 /**
  * Class with additional properties for {@link PdfDocument} processing.

@@ -43,10 +43,10 @@
  */
 package com.tanodxyz.itext722g.kernel.utils;
 
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
+import com.tanodxyz.itext722g.commons.actions.contexts.IMetaInfo;
 import com.tanodxyz.itext722g.io.source.ByteArrayOutputStream;
-import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.pdf.DocumentProperties;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
 import com.tanodxyz.itext722g.kernel.pdf.PdfName;

@@ -43,19 +43,8 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.properties.Background;
-import com.itextpdf.layout.properties.HorizontalAlignment;
-import com.itextpdf.layout.properties.IListSymbolFactory;
-import com.itextpdf.layout.properties.ListNumberingType;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.TextAlignment;
-import com.itextpdf.layout.properties.TransparentColor;
-import com.itextpdf.layout.properties.Underline;
-import com.itextpdf.layout.properties.UnitValue;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.kernel.colors.DeviceRgb;
@@ -73,12 +62,22 @@ import com.tanodxyz.itext722g.kernel.pdf.tagging.StandardRoles;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.IRoleMappingResolver;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.TagStructureContext;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.TagTreePointer;
-import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.element.Cell;
+import com.tanodxyz.itext722g.layout.element.Table;
+import com.tanodxyz.itext722g.layout.properties.Background;
+import com.tanodxyz.itext722g.layout.properties.HorizontalAlignment;
+import com.tanodxyz.itext722g.layout.properties.IListSymbolFactory;
+import com.tanodxyz.itext722g.layout.properties.ListNumberingType;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.TextAlignment;
+import com.tanodxyz.itext722g.layout.properties.TransparentColor;
+import com.tanodxyz.itext722g.layout.properties.Underline;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Generates standard structure attributes for current tag
@@ -93,21 +92,21 @@ public class AccessibleAttributesApplier {
         }
 
         String role = resolvedMapping.getRole();
-        int tagType = com.itextpdf.layout.renderer.AccessibleTypes.identifyType(role);
+        int tagType =  AccessibleTypes.identifyType(role);
         PdfDictionary attributes = new PdfDictionary();
         attributes.put(PdfName.O, PdfName.Layout);
 
         //TODO WritingMode attribute applying when needed
 
         applyCommonLayoutAttributes(renderer, attributes);
-        if (tagType == com.itextpdf.layout.renderer.AccessibleTypes.BlockLevel) {
+        if (tagType ==  AccessibleTypes.BlockLevel) {
             applyBlockLevelLayoutAttributes(role, renderer, attributes);
         }
-        if (tagType == com.itextpdf.layout.renderer.AccessibleTypes.InlineLevel) {
+        if (tagType ==  AccessibleTypes.InlineLevel) {
             applyInlineLevelLayoutAttributes(renderer, attributes);
         }
 
-        if (tagType == com.itextpdf.layout.renderer.AccessibleTypes.Illustration) {
+        if (tagType ==  AccessibleTypes.Illustration) {
             applyIllustrationLayoutAttributes(renderer, attributes);
         }
 
@@ -196,8 +195,8 @@ public class AccessibleAttributesApplier {
         UnitValue spaceBefore = margins[marginsOrder[0]];
         if (spaceBefore != null) {
             if (!spaceBefore.isPointValue()) {
-                Logger logger = LoggerFactory.getLogger(AccessibleAttributesApplier.class);
-                logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+                Logger logger = Logger.getLogger(AccessibleAttributesApplier.class.getName());
+                logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                         Property.MARGIN_TOP));
             }
             if (0 != spaceBefore.getValue()) {
@@ -208,8 +207,8 @@ public class AccessibleAttributesApplier {
         UnitValue spaceAfter = margins[marginsOrder[1]];
         if (spaceAfter != null) {
             if (!spaceAfter.isPointValue()) {
-                Logger logger = LoggerFactory.getLogger(AccessibleAttributesApplier.class);
-                logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+                Logger logger = Logger.getLogger(AccessibleAttributesApplier.class.getName());
+                logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                         Property.MARGIN_BOTTOM));
             }
             if (0 != spaceAfter.getValue()) {
@@ -221,8 +220,8 @@ public class AccessibleAttributesApplier {
         UnitValue startIndent = margins[marginsOrder[2]];
         if (startIndent != null) {
             if (!startIndent.isPointValue()) {
-                Logger logger = LoggerFactory.getLogger(AccessibleAttributesApplier.class);
-                logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+                Logger logger = Logger.getLogger(AccessibleAttributesApplier.class.getName());
+                logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                         Property.MARGIN_LEFT));
             }
             if (0 != startIndent.getValue()) {
@@ -233,8 +232,8 @@ public class AccessibleAttributesApplier {
         UnitValue endIndent = margins[marginsOrder[3]];
         if (endIndent != null) {
             if (!endIndent.isPointValue()) {
-                Logger logger = LoggerFactory.getLogger(AccessibleAttributesApplier.class);
-                logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+                Logger logger = Logger.getLogger(AccessibleAttributesApplier.class.getName());
+                logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                         Property.MARGIN_RIGHT));
             }
             if (0 != endIndent.getValue()) {
@@ -265,7 +264,7 @@ public class AccessibleAttributesApplier {
             // There are also technical issues with large tables widths being explicitly set as property on element during layouting
             // (even if user didn't explcitly specfied it). This is required due to specificity of large elements implementation,
             // however in this case we cannot distinguish layout-specific and user-specified width properties.
-            if (!(renderer instanceof com.itextpdf.layout.renderer.TableRenderer) || ((Table) renderer.getModelElement()).isComplete()) {
+            if (!(renderer instanceof  TableRenderer) || ((Table) renderer.getModelElement()).isComplete()) {
                 UnitValue width = renderer.<UnitValue>getProperty(Property.WIDTH);
                 if (width != null && width.isPointValue()) {
                     attributes.put(PdfName.Width, new PdfNumber(width.getValue()));
@@ -302,8 +301,8 @@ public class AccessibleAttributesApplier {
         if (underlines != null) {
             UnitValue fontSize = renderer.getPropertyAsUnitValue(Property.FONT_SIZE);
             if (!fontSize.isPointValue()) {
-                Logger logger = LoggerFactory.getLogger(AccessibleAttributesApplier.class);
-                logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+                Logger logger = Logger.getLogger(AccessibleAttributesApplier.class.getName());
+                logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                         Property.FONT_SIZE));
             }
             Underline underline = null;
@@ -354,23 +353,23 @@ public class AccessibleAttributesApplier {
         };
 
         if (!paddingsUV[0].isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(AccessibleAttributesApplier.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(AccessibleAttributesApplier.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.PADDING_TOP));
         }
         if (!paddingsUV[1].isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(AccessibleAttributesApplier.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(AccessibleAttributesApplier.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.PADDING_RIGHT));
         }
         if (!paddingsUV[2].isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(AccessibleAttributesApplier.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(AccessibleAttributesApplier.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.PADDING_BOTTOM));
         }
         if (!paddingsUV[3].isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(AccessibleAttributesApplier.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(AccessibleAttributesApplier.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.PADDING_LEFT));
         }
 

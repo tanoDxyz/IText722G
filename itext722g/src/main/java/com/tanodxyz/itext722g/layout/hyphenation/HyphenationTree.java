@@ -17,10 +17,6 @@
 
 package com.tanodxyz.itext722g.layout.hyphenation;
 
-import com.tanodxyz.itext722g.layout.hyphenation.ByteVector;
-import com.tanodxyz.itext722g.layout.hyphenation.Hyphenation;
-import com.tanodxyz.itext722g.layout.hyphenation.HyphenationException;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -37,7 +33,7 @@ import java.util.Map;
  * <p>
  * This work was authored by Carlos Villegas (cav@uniscope.co.jp).
  */
-public class HyphenationTree extends com.itextpdf.layout.hyphenation.TernaryTree implements com.itextpdf.layout.hyphenation.IPatternConsumer {
+public class HyphenationTree extends   TernaryTree implements   IPatternConsumer {
 
 
     /**
@@ -53,17 +49,17 @@ public class HyphenationTree extends com.itextpdf.layout.hyphenation.TernaryTree
     /**
      * This map stores the character classes
      */
-    protected com.itextpdf.layout.hyphenation.TernaryTree classmap;
+    protected   TernaryTree classmap;
 
     /**
      * Temporary map to store interletter values on pattern loading.
      */
-    private com.itextpdf.layout.hyphenation.TernaryTree ivalues;
+    private   TernaryTree ivalues;
 
     /** Default constructor. */
     public HyphenationTree() {
         stoplist = new HashMap<>(23);
-        classmap = new com.itextpdf.layout.hyphenation.TernaryTree();
+        classmap = new   TernaryTree();
         vspace = new ByteVector();
 
         // this reserves index 0, which we don't use
@@ -140,8 +136,8 @@ public class HyphenationTree extends com.itextpdf.layout.hyphenation.TernaryTree
      * @throws HyphenationException In case the parsing fails
      */
     public void loadPatterns(InputStream stream, String name) throws HyphenationException {
-        com.itextpdf.layout.hyphenation.PatternParser pp = new com.itextpdf.layout.hyphenation.PatternParser(this);
-        ivalues = new com.itextpdf.layout.hyphenation.TernaryTree();
+          PatternParser pp = new   PatternParser(this);
+        ivalues = new   TernaryTree();
 
         pp.parse(stream, name);
 

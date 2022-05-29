@@ -43,10 +43,9 @@
  */
 package com.tanodxyz.itext722g.layout.element;
 
-import com.itextpdf.layout.renderer.IRenderer;
-import com.itextpdf.layout.renderer.TabRenderer;
-import com.tanodxyz.itext722g.layout.element.AbstractElement;
-import com.tanodxyz.itext722g.layout.element.ILeafElement;
+
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.renderer.TabRenderer;
 
 /**
  * This class represents the empty space from a {@link Text} to the following

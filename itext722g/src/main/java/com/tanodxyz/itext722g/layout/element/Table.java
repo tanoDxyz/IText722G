@@ -43,31 +43,25 @@
  */
 package com.tanodxyz.itext722g.layout.element;
 
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.exceptions.LayoutExceptionMessageConstant;
-import com.itextpdf.layout.properties.BorderCollapsePropertyValue;
-import com.itextpdf.layout.properties.CaptionSide;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.layout.renderer.IRenderer;
-import com.itextpdf.layout.renderer.TableRenderer;
+
 import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.pdf.tagging.StandardRoles;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.AccessibilityProperties;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.DefaultAccessibilityProperties;
 import com.tanodxyz.itext722g.layout.Document;
-import com.tanodxyz.itext722g.layout.element.BlockElement;
-import com.tanodxyz.itext722g.layout.element.Cell;
-import com.tanodxyz.itext722g.layout.element.Div;
-import com.tanodxyz.itext722g.layout.element.IElement;
-import com.tanodxyz.itext722g.layout.element.ILargeElement;
-import com.tanodxyz.itext722g.layout.element.Paragraph;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.exceptions.LayoutExceptionMessageConstant;
+import com.tanodxyz.itext722g.layout.properties.BorderCollapsePropertyValue;
+import com.tanodxyz.itext722g.layout.properties.CaptionSide;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.renderer.TableRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A {@link Table} is a layout element that represents data in a two-dimensional
@@ -713,8 +707,8 @@ public class Table extends BlockElement<Table> implements ILargeElement {
                 nextRenderer = nextRenderer.getNextRenderer();
                 return renderer;
             } else {
-                Logger logger = LoggerFactory.getLogger(Table.class);
-                logger.error("Invalid renderer for Table: must be inherited from TableRenderer");
+                Logger logger = Logger.getLogger(Table.class.getName());
+                logger.log(Level.SEVERE,"Invalid renderer for Table: must be inherited from TableRenderer");
             }
         }
         // In case of large tables, we only add to the renderer the cells from complete row groups,

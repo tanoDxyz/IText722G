@@ -43,6 +43,7 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.source.ByteBuffer;
 import com.tanodxyz.itext722g.io.source.ByteUtils;
@@ -52,31 +53,28 @@ import com.tanodxyz.itext722g.io.source.RASInputStream;
 import com.tanodxyz.itext722g.io.source.RandomAccessFileOrArray;
 import com.tanodxyz.itext722g.io.source.RandomAccessSourceFactory;
 import com.tanodxyz.itext722g.io.source.WindowRandomAccessSource;
-import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.kernel.crypto.securityhandler.UnsupportedSecurityHandlerException;
 import com.tanodxyz.itext722g.kernel.exceptions.InvalidXRefPrevException;
+import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
 import com.tanodxyz.itext722g.kernel.exceptions.MemoryLimitsAwareException;
 import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
-import com.tanodxyz.itext722g.kernel.crypto.securityhandler.UnsupportedSecurityHandlerException;
-import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
 import com.tanodxyz.itext722g.kernel.exceptions.XrefCycledReferencesException;
 import com.tanodxyz.itext722g.kernel.pdf.filters.FilterHandlers;
 import com.tanodxyz.itext722g.kernel.pdf.filters.IFilterHandler;
+import com.tanodxyz.itext722g.kernel.xmp.XMPException;
+import com.tanodxyz.itext722g.kernel.xmp.XMPMetaFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashSet;
 import java.nio.charset.StandardCharsets;
+import java.util.HashSet;
 import java.util.Map;
-
-import com.tanodxyz.itext722g.kernel.xmp.XMPException;
-import com.tanodxyz.itext722g.kernel.xmp.XMPMetaFactory;
-
 import java.util.Set;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Reads a PDF document.
@@ -744,8 +742,8 @@ public class PdfReader implements Closeable {
             throw ex;
         } catch (RuntimeException ex) {
             if (StrictnessLevel.CONSERVATIVE.isStricter(this.getStrictnessLevel())) {
-                Logger logger = LoggerFactory.getLogger(PdfReader.class);
-                logger.error(IoLogMessageConstant.XREF_ERROR_WHILE_READING_TABLE_WILL_BE_REBUILT, ex);
+                Logger logger = Logger.getLogger(PdfReader.class.getName());
+                logger.log(Level.SEVERE,IoLogMessageConstant.XREF_ERROR_WHILE_READING_TABLE_WILL_BE_REBUILT, ex);
 
                 rebuildXref();
             } else {
@@ -836,15 +834,15 @@ public class PdfReader implements Closeable {
         PdfIndirectReference reference = table.get(num);
         if (reference != null) {
             if (reference.isFree()) {
-                Logger logger = LoggerFactory.getLogger(PdfReader.class);
-                logger.warn(MessageFormatUtil.format(IoLogMessageConstant.INVALID_INDIRECT_REFERENCE, tokens.getObjNr(),
+                Logger logger = Logger.getLogger(PdfReader.class.getName());
+                logger.warning(MessageFormatUtil.format(IoLogMessageConstant.INVALID_INDIRECT_REFERENCE, tokens.getObjNr(),
                         tokens.getGenNr()));
                 return createPdfNullInstance(readAsDirect);
             }
             if (reference.getGenNumber() != tokens.getGenNr()) {
                 if (fixedXref) {
-                    Logger logger = LoggerFactory.getLogger(PdfReader.class);
-                    logger.warn(
+                    Logger logger = Logger.getLogger(PdfReader.class.getName());
+                    logger.warning(
                             MessageFormatUtil.format(IoLogMessageConstant.INVALID_INDIRECT_REFERENCE, tokens.getObjNr(),
                                     tokens.getGenNr()));
                     return createPdfNullInstance(readAsDirect);
@@ -855,8 +853,8 @@ public class PdfReader implements Closeable {
             }
         } else {
             if (table.isReadingCompleted()) {
-                Logger logger = LoggerFactory.getLogger(PdfReader.class);
-                logger.warn(MessageFormatUtil.format(IoLogMessageConstant.INVALID_INDIRECT_REFERENCE, tokens.getObjNr(),
+                Logger logger = Logger.getLogger(PdfReader.class.getName());
+                logger.warning(MessageFormatUtil.format(IoLogMessageConstant.INVALID_INDIRECT_REFERENCE, tokens.getObjNr(),
                         tokens.getGenNr()));
                 return createPdfNullInstance(readAsDirect);
             } else {
@@ -1362,8 +1360,8 @@ public class PdfReader implements Closeable {
         final String error = MessageFormatUtil.format(KernelExceptionMessageConstant.UNEXPECTED_TOKEN,
                 new String(tokens.getByteContent(), StandardCharsets.UTF_8));
         if (StrictnessLevel.CONSERVATIVE.isStricter(this.getStrictnessLevel())) {
-            final Logger logger = LoggerFactory.getLogger(PdfReader.class);
-            logger.error(error);
+            final Logger logger = Logger.getLogger(PdfReader.class.getName());
+            logger.log(Level.SEVERE,error);
         } else {
             tokens.throwError(error);
         }
@@ -1433,7 +1431,7 @@ public class PdfReader implements Closeable {
         }
     }
 
-    private void checkPdfStreamLength(PdfStream pdfStream) throws IOException {
+    void checkPdfStreamLength(PdfStream pdfStream) throws IOException {
         if (!correctStreamLength)
             return;
         long fileLength = tokens.length();

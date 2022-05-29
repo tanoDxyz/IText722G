@@ -43,16 +43,16 @@
  */
 package com.tanodxyz.itext722g.layout.element;
 
-import com.itextpdf.layout.properties.ListNumberingType;
-import com.itextpdf.layout.properties.ListSymbolAlignment;
-import com.itextpdf.layout.properties.ListSymbolPosition;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.renderer.IRenderer;
-import com.itextpdf.layout.renderer.ListRenderer;
+
 import com.tanodxyz.itext722g.kernel.pdf.tagging.StandardRoles;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.AccessibilityProperties;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.DefaultAccessibilityProperties;
-import com.tanodxyz.itext722g.layout.element.BlockElement;
+import com.tanodxyz.itext722g.layout.properties.ListNumberingType;
+import com.tanodxyz.itext722g.layout.properties.ListSymbolAlignment;
+import com.tanodxyz.itext722g.layout.properties.ListSymbolPosition;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.renderer.ListRenderer;
 
 /**
  * A List is a layout element representing a series of objects that are vertically

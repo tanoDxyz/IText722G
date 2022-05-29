@@ -42,9 +42,9 @@
  */
 package com.tanodxyz.itext722g.layout.element;
 
-import com.itextpdf.layout.renderer.FlexContainerRenderer;
-import com.itextpdf.layout.renderer.IRenderer;
-import com.tanodxyz.itext722g.layout.element.Div;
+
+import com.tanodxyz.itext722g.layout.renderer.FlexContainerRenderer;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
 
 class FlexContainer extends Div {
 

@@ -48,8 +48,8 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfName;
 import com.tanodxyz.itext722g.kernel.pdf.PdfObject;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
+
 
 /**
  * Handles a JPXDecode filter. For now no modification applies and the data would be return as is
@@ -57,7 +57,7 @@ import org.slf4j.LoggerFactory;
  */
 public class JpxDecodeFilter implements IFilterHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JpxDecodeFilter.class);
+    private static final Logger LOGGER = Logger.getLogger(JpxDecodeFilter.class.getName());
 
     @Override
     public byte[] decode(byte[] b, PdfName filterName, PdfObject decodeParams, PdfDictionary streamDictionary) {

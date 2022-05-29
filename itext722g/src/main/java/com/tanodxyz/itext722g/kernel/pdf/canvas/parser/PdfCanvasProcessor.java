@@ -43,13 +43,11 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf.canvas.parser;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.source.PdfTokenizer;
 import com.tanodxyz.itext722g.io.source.RandomAccessFileOrArray;
 import com.tanodxyz.itext722g.io.source.RandomAccessSourceFactory;
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.tanodxyz.itext722g.kernel.logs.KernelLogMessageConstant;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.colors.CalGray;
 import com.tanodxyz.itext722g.kernel.colors.CalRgb;
 import com.tanodxyz.itext722g.kernel.colors.Color;
@@ -63,11 +61,13 @@ import com.tanodxyz.itext722g.kernel.colors.Lab;
 import com.tanodxyz.itext722g.kernel.colors.PatternColor;
 import com.tanodxyz.itext722g.kernel.colors.Separation;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.font.PdfFont;
 import com.tanodxyz.itext722g.kernel.font.PdfFontFactory;
 import com.tanodxyz.itext722g.kernel.geom.Matrix;
 import com.tanodxyz.itext722g.kernel.geom.NoninvertibleTransformException;
 import com.tanodxyz.itext722g.kernel.geom.Path;
+import com.tanodxyz.itext722g.kernel.logs.KernelLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfIndirectReference;
@@ -96,12 +96,19 @@ import com.tanodxyz.itext722g.kernel.pdf.colorspace.PdfPattern;
 import com.tanodxyz.itext722g.kernel.pdf.colorspace.PdfSpecialCs;
 import com.tanodxyz.itext722g.kernel.pdf.extgstate.PdfExtGState;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Processor for a PDF content stream.
@@ -963,8 +970,8 @@ public class PdfCanvasProcessor {
                 if (!(exception.getCause() instanceof NoninvertibleTransformException)) {
                     throw exception;
                 } else {
-                    Logger logger = LoggerFactory.getLogger(PdfCanvasProcessor.class);
-                    logger.error(MessageFormatUtil.format(IoLogMessageConstant.FAILED_TO_PROCESS_A_TRANSFORMATION_MATRIX));
+                    Logger logger = Logger.getLogger(PdfCanvasProcessor.class.getName());
+                    logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.FAILED_TO_PROCESS_A_TRANSFORMATION_MATRIX));
                 }
             }
         }
@@ -1029,8 +1036,8 @@ public class PdfCanvasProcessor {
             }
         }
 
-        Logger logger = LoggerFactory.getLogger(PdfCanvasProcessor.class);
-        logger.warn(MessageFormatUtil.format(KernelLogMessageConstant.UNABLE_TO_PARSE_COLOR_WITHIN_COLORSPACE,
+        Logger logger = Logger.getLogger(PdfCanvasProcessor.class.getName());
+        logger.warning(MessageFormatUtil.format(KernelLogMessageConstant.UNABLE_TO_PARSE_COLOR_WITHIN_COLORSPACE,
                 Arrays.toString((Object[])operands.toArray()), pdfColorSpace.getPdfObject()));
 
         return null;
@@ -1278,16 +1285,16 @@ public class PdfCanvasProcessor {
             PdfName dictionaryName = ((PdfName) operand1);
             PdfDictionary properties = resources.getResource(PdfName.Properties);
             if (null == properties) {
-                Logger logger = LoggerFactory.getLogger(PdfCanvasProcessor.class);
-                logger.warn(
+                Logger logger = Logger.getLogger(PdfCanvasProcessor.class.getName());
+                logger.warning(
                         MessageFormatUtil.format(IoLogMessageConstant.PDF_REFERS_TO_NOT_EXISTING_PROPERTY_DICTIONARY,
                                 PdfName.Properties));
                 return null;
             }
             PdfDictionary propertiesDictionary = properties.getAsDictionary(dictionaryName);
             if (null == propertiesDictionary) {
-                Logger logger = LoggerFactory.getLogger(PdfCanvasProcessor.class);
-                logger.warn(
+                Logger logger = Logger.getLogger(PdfCanvasProcessor.class.getName());
+                logger.warning(
                         MessageFormatUtil.format(IoLogMessageConstant.PDF_REFERS_TO_NOT_EXISTING_PROPERTY_DICTIONARY,
                                 dictionaryName));
                 return null;

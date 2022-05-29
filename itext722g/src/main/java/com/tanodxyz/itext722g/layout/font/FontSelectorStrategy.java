@@ -56,9 +56,9 @@ public abstract class FontSelectorStrategy {
     protected String text;
     protected int index;
     protected final FontProvider provider;
-    protected final com.itextpdf.layout.font.FontSet additionalFonts;
+    protected final       FontSet additionalFonts;
 
-    protected FontSelectorStrategy(String text, FontProvider provider, com.itextpdf.layout.font.FontSet additionalFonts) {
+    protected FontSelectorStrategy(String text, FontProvider provider,       FontSet additionalFonts) {
         this.text = text;
         this.index = 0;
         this.provider = provider;
@@ -78,7 +78,7 @@ public abstract class FontSelectorStrategy {
      *
      * @param fontInfo instance of FontInfo.
      * @return cached or just created PdfFont on success, otherwise null.
-     * @see FontProvider#getPdfFont(FontInfo, com.itextpdf.layout.font.FontSet)
+     * @see FontProvider#getPdfFont(FontInfo,       FontSet)
      */
     protected PdfFont getPdfFont(FontInfo fontInfo) {
         return provider.getPdfFont(fontInfo, additionalFonts);

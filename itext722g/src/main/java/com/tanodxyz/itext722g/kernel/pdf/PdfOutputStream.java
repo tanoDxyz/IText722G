@@ -43,20 +43,20 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.source.ByteArrayOutputStream;
 import com.tanodxyz.itext722g.io.source.ByteUtils;
 import com.tanodxyz.itext722g.io.source.DeflaterOutputStream;
 import com.tanodxyz.itext722g.io.source.OutputStream;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.crypto.OutputStreamEncryption;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.pdf.filters.FlateDecodeFilter;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PdfOutputStream extends OutputStream<PdfOutputStream> {
 
@@ -181,8 +181,8 @@ public class PdfOutputStream extends OutputStream<PdfOutputStream> {
             write(key);
             PdfObject value = pdfDictionary.get(key, false);
             if (value == null) {
-                Logger logger = LoggerFactory.getLogger(PdfOutputStream.class);
-                logger.warn(MessageFormatUtil.format(IoLogMessageConstant.INVALID_KEY_VALUE_KEY_0_HAS_NULL_VALUE, key));
+                Logger logger = Logger.getLogger(PdfOutputStream.class.getName());
+                logger.warning(MessageFormatUtil.format(IoLogMessageConstant.INVALID_KEY_VALUE_KEY_0_HAS_NULL_VALUE, key));
                 value = PdfNull.PDF_NULL;
             }
             if ((value.getType() == PdfObject.NUMBER
@@ -213,14 +213,14 @@ public class PdfOutputStream extends OutputStream<PdfOutputStream> {
             throw new PdfException(KernelExceptionMessageConstant.PDF_INDIRECT_OBJECT_BELONGS_TO_OTHER_PDF_DOCUMENT);
         }
         if (indirectReference.isFree()) {
-            Logger logger = LoggerFactory.getLogger(PdfOutputStream.class);
-            logger.error(IoLogMessageConstant.FLUSHED_OBJECT_CONTAINS_FREE_REFERENCE);
+            Logger logger = Logger.getLogger(PdfOutputStream.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.FLUSHED_OBJECT_CONTAINS_FREE_REFERENCE);
             write(PdfNull.PDF_NULL);
         } else if (indirectReference.refersTo == null
                 && (indirectReference.checkState(PdfObject.MODIFIED) || indirectReference.getReader() == null
                     || !(indirectReference.getOffset() > 0 || indirectReference.getIndex() >= 0))) {
-            Logger logger = LoggerFactory.getLogger(PdfOutputStream.class);
-            logger.error(IoLogMessageConstant.FLUSHED_OBJECT_CONTAINS_REFERENCE_WHICH_NOT_REFER_TO_ANY_OBJECT);
+            Logger logger = Logger.getLogger(PdfOutputStream.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.FLUSHED_OBJECT_CONTAINS_REFERENCE_WHICH_NOT_REFER_TO_ANY_OBJECT);
             write(PdfNull.PDF_NULL);
         } else if (indirectReference.getGenNumber() == 0) {
             writeInteger(indirectReference.getObjNumber()).

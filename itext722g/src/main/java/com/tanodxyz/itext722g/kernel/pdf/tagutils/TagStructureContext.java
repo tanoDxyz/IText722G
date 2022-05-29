@@ -74,8 +74,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  * {@code TagStructureContext} class is used to track necessary information of document's tag structure.
@@ -334,8 +335,8 @@ public class TagStructureContext {
         int maxIters = 100;
         while (mappingResolver.currentRoleShallBeMappedToStandard()) {
             if (++i > maxIters) {
-                Logger logger = LoggerFactory.getLogger(TagStructureContext.class);
-                logger.error(composeTooMuchTransitiveMappingsException(role, namespace));
+                Logger logger = Logger.getLogger(TagStructureContext.class.getName());
+                logger.log(Level.SEVERE,composeTooMuchTransitiveMappingsException(role, namespace));
                 return null;
             }
             if (!mappingResolver.resolveNextMapping()) {
@@ -558,8 +559,8 @@ public class TagStructureContext {
             if (forbidUnknownRoles) {
                 throw new PdfException(exMessage);
             } else {
-                Logger logger = LoggerFactory.getLogger(TagStructureContext.class);
-                logger.warn(exMessage);
+                Logger logger = Logger.getLogger(TagStructureContext.class.getName());
+                logger.warning(exMessage);
             }
         }
     }
@@ -615,14 +616,14 @@ public class TagStructureContext {
             IRoleMappingResolver resolvedMapping = resolveMappingToStandardOrDomainSpecificRole(firstKid.getRole().getValue(), firstKid.getNamespace());
             if (resolvedMapping == null || !resolvedMapping.currentRoleIsStandard()) {
 
-                Logger logger = LoggerFactory.getLogger(TagStructureContext.class);
+                Logger logger = Logger.getLogger(TagStructureContext.class.getName());
                 String nsStr;
                 if (firstKid.getNamespace() != null) {
                     nsStr = firstKid.getNamespace().getNamespaceName();
                 } else {
                     nsStr = StandardNamespaces.getDefault();
                 }
-                logger.warn(MessageFormat.format(IoLogMessageConstant.EXISTING_TAG_STRUCTURE_ROOT_IS_NOT_STANDARD,
+                logger.warning(MessageFormat.format(IoLogMessageConstant.EXISTING_TAG_STRUCTURE_ROOT_IS_NOT_STANDARD,
                         firstKid.getRole().getValue(), nsStr));
             }
             if (resolvedMapping == null || !StandardNamespaces.PDF_1_7.equals(resolvedMapping.getNamespace().getNamespaceName())) {

@@ -44,8 +44,8 @@
 package com.tanodxyz.itext722g.kernel.pdf.xobject;
 
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfName;
@@ -54,8 +54,8 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfStream;
 import com.tanodxyz.itext722g.kernel.pdf.filespec.PdfFileSpec;
 import com.tanodxyz.itext722g.kernel.pdf.layer.IPdfOCG;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * An abstract wrapper for supported types of XObject.
@@ -179,8 +179,8 @@ public abstract class PdfXObject extends PdfObjectWrapper<PdfStream> {
      */
     public void addAssociatedFile(PdfFileSpec fs) {
         if (null == ((PdfDictionary)fs.getPdfObject()).get(PdfName.AFRelationship)) {
-            Logger logger = LoggerFactory.getLogger(PdfXObject.class);
-            logger.error(IoLogMessageConstant.ASSOCIATED_FILE_SPEC_SHALL_INCLUDE_AFRELATIONSHIP);
+            Logger logger = Logger.getLogger(PdfXObject.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.ASSOCIATED_FILE_SPEC_SHALL_INCLUDE_AFRELATIONSHIP);
         }
         PdfArray afArray = getPdfObject().getAsArray(PdfName.AF);
         if (afArray == null) {

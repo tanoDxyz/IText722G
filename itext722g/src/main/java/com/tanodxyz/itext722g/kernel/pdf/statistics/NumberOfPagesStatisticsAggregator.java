@@ -22,9 +22,10 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf.statistics;
 
-import com.itextpdf.commons.actions.AbstractStatisticsAggregator;
-import com.itextpdf.commons.actions.AbstractStatisticsEvent;
-import com.itextpdf.commons.utils.MapUtil;
+
+import com.tanodxyz.itext722g.commons.actions.AbstractStatisticsAggregator;
+import com.tanodxyz.itext722g.commons.actions.AbstractStatisticsEvent;
+import com.tanodxyz.itext722g.commons.utils.MapUtil;
 
 import java.util.Arrays;
 import java.util.Collections;

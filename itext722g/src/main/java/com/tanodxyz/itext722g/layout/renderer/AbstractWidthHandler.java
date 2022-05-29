@@ -42,7 +42,8 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
+
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidth;
 
 public abstract class AbstractWidthHandler {
     MinMaxWidth minMaxWidth;

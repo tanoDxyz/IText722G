@@ -106,7 +106,7 @@ public class BackgroundRepeat {
      * @return the necessary whitespace between backgrounds
      */
     public Point prepareRectangleToDrawingAndGetWhitespace(final Rectangle imageRectangle,
-            final Rectangle backgroundArea, final com.itextpdf.layout.properties.BackgroundSize backgroundSize) {
+            final Rectangle backgroundArea, final   BackgroundSize backgroundSize) {
         if (BackgroundRepeatValue.ROUND == xAxisRepeat) {
             final int ratio = BackgroundRepeat.calculateRatio(backgroundArea.getWidth(), imageRectangle.getWidth());
             final float initialImageRatio = imageRectangle.getHeight() / imageRectangle.getWidth();

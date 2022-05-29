@@ -43,11 +43,12 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf;
 
-import com.itextpdf.commons.actions.contexts.IMetaInfo;
 
-import org.bouncycastle.cms.CMSException;
-import org.bouncycastle.cms.RecipientInformation;
-import org.bouncycastle.cms.jcajce.JceKeyTransEnvelopedRecipient;
+import com.tanodxyz.itext722g.commons.actions.contexts.IMetaInfo;
+
+import org.spongycastle.cms.CMSException;
+import org.spongycastle.cms.RecipientInformation;
+import org.spongycastle.cms.jcajce.JceKeyTransEnvelopedRecipient;
 import org.spongycastle.cms.Recipient;
 
 import java.io.IOException;

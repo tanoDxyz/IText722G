@@ -44,8 +44,8 @@
 package com.tanodxyz.itext722g.kernel.pdf.tagging;
 
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.pdf.IsoKey;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
@@ -62,12 +62,11 @@ import com.tanodxyz.itext722g.kernel.pdf.VersionConforming;
 import com.tanodxyz.itext722g.kernel.pdf.annot.PdfAnnotation;
 import com.tanodxyz.itext722g.kernel.pdf.filespec.PdfFileSpec;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A wrapper for structure element dictionaries (ISO-32000 14.7.2 "Structure Hierarchy").
@@ -445,8 +444,8 @@ public class PdfStructElem extends PdfObjectWrapper<PdfDictionary> implements IS
      */
     public void addAssociatedFile(String description, PdfFileSpec fs) {
         if (null == ((PdfDictionary) fs.getPdfObject()).get(PdfName.AFRelationship)) {
-            Logger logger = LoggerFactory.getLogger(PdfStructElem.class);
-            logger.error(IoLogMessageConstant.ASSOCIATED_FILE_SPEC_SHALL_INCLUDE_AFRELATIONSHIP);
+            Logger logger = Logger.getLogger(PdfStructElem.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.ASSOCIATED_FILE_SPEC_SHALL_INCLUDE_AFRELATIONSHIP);
         }
         if (null != description) {
             getDocument().getCatalog().getNameTree(PdfName.EmbeddedFiles).addEntry(description, fs.getPdfObject());

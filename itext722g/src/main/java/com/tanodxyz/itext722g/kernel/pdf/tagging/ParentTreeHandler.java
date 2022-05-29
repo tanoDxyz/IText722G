@@ -44,8 +44,8 @@
 package com.tanodxyz.itext722g.kernel.pdf.tagging;
 
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.pdf.IsoKey;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
@@ -67,8 +67,8 @@ import java.util.Map;
 import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -173,8 +173,8 @@ class ParentTreeHandler {
     private void registerMcr(PdfMcr mcr, boolean registeringOnInit) {
         PdfIndirectReference mcrPageIndRef = mcr.getPageIndirectReference();
         if (mcrPageIndRef == null || (!(mcr instanceof PdfObjRef) && mcr.getMcid() < 0)) {
-            Logger logger = LoggerFactory.getLogger(ParentTreeHandler.class);
-            logger.error(IoLogMessageConstant.ENCOUNTERED_INVALID_MCR);
+            Logger logger = Logger.getLogger(ParentTreeHandler.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.ENCOUNTERED_INVALID_MCR);
             return;
         }
         PageMcrsContainer pageMcrs = pageToPageMcrs.get(mcrPageIndRef);
@@ -203,8 +203,8 @@ class ParentTreeHandler {
                 xObjectToStructParentsInd.put(stmIndRef, structParent);
             } else {
                 // TODO DEVSIX-3351 an error is thrown here because right now no /StructParents will be created.
-                Logger logger = LoggerFactory.getLogger(ParentTreeHandler.class);
-                logger.error(IoLogMessageConstant.XOBJECT_HAS_NO_STRUCT_PARENTS);
+                Logger logger = Logger.getLogger(ParentTreeHandler.class.getName());
+                logger.log(Level.SEVERE,IoLogMessageConstant.XOBJECT_HAS_NO_STRUCT_PARENTS);
             }
             pageMcrs.putXObjectMcr(stmIndRef, mcr);
             if (registeringOnInit) {

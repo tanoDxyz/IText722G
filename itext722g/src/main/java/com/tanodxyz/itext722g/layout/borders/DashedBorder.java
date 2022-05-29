@@ -45,7 +45,6 @@ package com.tanodxyz.itext722g.layout.borders;
 
 import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
-import com.tanodxyz.itext722g.layout.borders.Border;
 
 /**
  * Draws a border with dashes around the element it's been set to.
@@ -116,7 +115,7 @@ public class DashedBorder extends Border {
             adjustedGap -= dash;
         }
 
-        new com.itextpdf.layout.borders.FixedDashedBorder(getColor(), width, getOpacity(), dash, adjustedGap, dash + adjustedGap / 2)
+        new FixedDashedBorder(getColor(), width, getOpacity(), dash, adjustedGap, dash + adjustedGap / 2)
                 .draw(canvas, x1, y1, x2, y2, defaultSide, borderWidthBefore, borderWidthAfter);
     }
 
@@ -133,7 +132,7 @@ public class DashedBorder extends Border {
         if (adjustedGap > dash) {
             adjustedGap -= dash;
         }
-        new com.itextpdf.layout.borders.FixedDashedBorder(getColor(), width, getOpacity(), dash, adjustedGap, dash + adjustedGap / 2)
+        new FixedDashedBorder(getColor(), width, getOpacity(), dash, adjustedGap, dash + adjustedGap / 2)
                 .draw(canvas, x1, y1, x2, y2, horizontalRadius1, verticalRadius1, horizontalRadius2, verticalRadius2,
                         defaultSide, borderWidthBefore, borderWidthAfter);
     }
@@ -154,7 +153,7 @@ public class DashedBorder extends Border {
             adjustedGap -= dash;
         }
 
-        new com.itextpdf.layout.borders.FixedDashedBorder(getColor(), width, getOpacity(), dash, adjustedGap, dash + adjustedGap / 2)
+        new FixedDashedBorder(getColor(), width, getOpacity(), dash, adjustedGap, dash + adjustedGap / 2)
                 .drawCellBorder(canvas, x1, y1, x2, y2, defaultSide);
     }
 }

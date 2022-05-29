@@ -43,18 +43,17 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
-
-import java.util.HashSet;
-import java.util.Set;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Algorithm for construction {@link PdfPages} tree
@@ -72,7 +71,7 @@ class PdfPagesTree {
     private boolean generated = false;
     private PdfPages root;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PdfPagesTree.class);
+    private static final Logger LOGGER = Logger.getLogger(PdfPagesTree.class.getName());
 
     /**
      * Creates a PdfPages tree.
@@ -125,12 +124,12 @@ class PdfPagesTree {
                     pdfPage = document.getPageFactory().createPdfPage((PdfDictionary) pageObject);
                     pdfPage.parentPages = parents.get(parentIndex);
                 } else {
-                    LOGGER.error(
+                    LOGGER.log(Level.SEVERE,
                             MessageFormatUtil.format(IoLogMessageConstant.PAGE_TREE_IS_BROKEN_FAILED_TO_RETRIEVE_PAGE,
                                     pageNum + 1));
                 }
             } else {
-                LOGGER.error(MessageFormatUtil.format(IoLogMessageConstant.PAGE_TREE_IS_BROKEN_FAILED_TO_RETRIEVE_PAGE,
+                LOGGER.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PAGE_TREE_IS_BROKEN_FAILED_TO_RETRIEVE_PAGE,
                         pageNum + 1));
             }
             pages.set(pageNum, pdfPage);
@@ -259,7 +258,7 @@ class PdfPagesTree {
     public PdfPage removePage(int pageNum) {
         PdfPage pdfPage = getPage(pageNum);
         if (pdfPage.isFlushed()) {
-            LOGGER.warn(IoLogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED);
+            LOGGER.warning(IoLogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED);
         }
         if (internalRemovePage(--pageNum)) {
             return pdfPage;

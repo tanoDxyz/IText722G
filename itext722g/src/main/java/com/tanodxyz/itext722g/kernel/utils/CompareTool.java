@@ -43,15 +43,16 @@
  */
 package com.tanodxyz.itext722g.kernel.utils;
 
-import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
+
+import com.tanodxyz.itext722g.commons.actions.contexts.IMetaInfo;
+import com.tanodxyz.itext722g.commons.utils.FileUtil;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.font.PdfEncodings;
-import com.itextpdf.commons.utils.FileUtil;
+import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.util.GhostscriptHelper;
 import com.tanodxyz.itext722g.io.util.ImageMagickHelper;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.util.UrlUtil;
 import com.tanodxyz.itext722g.io.util.XmlUtil;
-import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.DocumentProperties;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
@@ -82,6 +83,11 @@ import com.tanodxyz.itext722g.kernel.xmp.XMPUtils;
 import com.tanodxyz.itext722g.kernel.xmp.options.ParseOptions;
 import com.tanodxyz.itext722g.kernel.xmp.options.SerializeOptions;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileFilter;
@@ -101,13 +107,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.logging.Logger;
+
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
-import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
 
 /**
  * This class provides means to compare two PDF files both by content and visually
@@ -783,7 +786,7 @@ public class CompareTool {
         System.out.println("Out xml: " + UrlUtil.getNormalizedFileUriString(outXmlFile));
         System.out.println("Cmp xml: " + UrlUtil.getNormalizedFileUriString(cmpXmlFile) + "\n");
         try (InputStream outXmlStream = FileUtil.getInputStreamForFile(outXmlFile);
-                InputStream cmpXmlStream = FileUtil.getInputStreamForFile(cmpXmlFile)) {
+             InputStream cmpXmlStream = FileUtil.getInputStreamForFile(cmpXmlFile)) {
             return XmlUtils.compareXmls(outXmlStream, cmpXmlStream);
         }
     }
@@ -1036,7 +1039,7 @@ public class CompareTool {
         } catch (IllegalArgumentException e) {
             compareExecIsOk = false;
             imageMagickInitError = e.getMessage();
-            LoggerFactory.getLogger(CompareTool.class).warn(e.getMessage());
+            Logger.getLogger(CompareTool.class.getName()).warning(e.getMessage());
         }
 
         List<Integer> diffPages = new ArrayList<>();
@@ -1356,7 +1359,7 @@ public class CompareTool {
                 PdfNumber outLeftover = flattenNumTree(outNumTree, null, outItems);
                 PdfNumber cmpLeftover = flattenNumTree(cmpNumTree, null, cmpItems);
                 if (outLeftover != null) {
-                    LoggerFactory.getLogger(CompareTool.class).warn(IoLogMessageConstant.NUM_TREE_SHALL_NOT_END_WITH_KEY);
+                    Logger.getLogger(CompareTool.class.getName()).warning(IoLogMessageConstant.NUM_TREE_SHALL_NOT_END_WITH_KEY);
                     if (cmpLeftover == null) {
                         if (compareResult != null && currentPath != null) {
                             compareResult.addError(currentPath, "Number tree unexpectedly ends with a key");
@@ -1365,7 +1368,7 @@ public class CompareTool {
                     }
                 }
                 if (cmpLeftover != null) {
-                    LoggerFactory.getLogger(CompareTool.class).warn(IoLogMessageConstant.NUM_TREE_SHALL_NOT_END_WITH_KEY);
+                    Logger.getLogger(CompareTool.class.getName()).warning(IoLogMessageConstant.NUM_TREE_SHALL_NOT_END_WITH_KEY);
                     if (outLeftover == null) {
                         if (compareResult != null && currentPath != null) {
                             compareResult.addError(currentPath, "Number tree was expected to end with a key (although it is invalid according to the specification), but ended with a value");

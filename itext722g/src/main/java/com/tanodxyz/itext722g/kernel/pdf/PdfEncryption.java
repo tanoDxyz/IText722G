@@ -43,8 +43,8 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf;
 
-import com.itextpdf.commons.utils.SystemUtil;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
+import com.tanodxyz.itext722g.commons.utils.SystemUtil;
+import com.tanodxyz.itext722g.io.source.ByteBuffer;
 import com.tanodxyz.itext722g.kernel.crypto.IDecryptor;
 import com.tanodxyz.itext722g.kernel.crypto.OutputStreamEncryption;
 import com.tanodxyz.itext722g.kernel.crypto.securityhandler.PubKeySecurityHandler;
@@ -59,8 +59,8 @@ import com.tanodxyz.itext722g.kernel.crypto.securityhandler.StandardHandlerUsing
 import com.tanodxyz.itext722g.kernel.crypto.securityhandler.StandardHandlerUsingStandard40;
 import com.tanodxyz.itext722g.kernel.crypto.securityhandler.StandardSecurityHandler;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.security.IExternalDecryptionProcess;
-import com.tanodxyz.itext722g.io.source.ByteBuffer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

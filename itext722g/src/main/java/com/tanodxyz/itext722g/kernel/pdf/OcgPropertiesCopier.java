@@ -43,9 +43,9 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf;
 
-import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.font.PdfEncodings;
-import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.pdf.annot.PdfAnnotation;
 
 import java.util.ArrayList;
@@ -54,12 +54,11 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 final class OcgPropertiesCopier {
-    private static final Logger LOGGER = LoggerFactory.getLogger(OcgPropertiesCopier.class);
+    private static final Logger LOGGER = Logger.getLogger(OcgPropertiesCopier.class.getName());
 
     private OcgPropertiesCopier() {
         // Empty constructor
@@ -87,7 +86,7 @@ final class OcgPropertiesCopier {
             OcgPropertiesCopier.copyDDictionary(fromOcgsToCopy, fromOcProperties.getAsDictionary(PdfName.D),
                     toOcProperties, toDocument);
         } catch (Exception ex) {
-            LOGGER.error(MessageFormatUtil.format(IoLogMessageConstant.OCG_COPYING_ERROR, ex.toString()));
+            LOGGER.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.OCG_COPYING_ERROR, ex.toString()));
         }
     }
 
@@ -250,7 +249,7 @@ final class OcgPropertiesCopier {
         }
 
         if (hasConflictingNames) {
-            LOGGER.warn(IoLogMessageConstant.DOCUMENT_HAS_CONFLICTING_OCG_NAMES);
+            LOGGER.warning(IoLogMessageConstant.DOCUMENT_HAS_CONFLICTING_OCG_NAMES);
         }
     }
 

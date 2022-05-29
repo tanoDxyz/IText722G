@@ -18,14 +18,6 @@
 package com.tanodxyz.itext722g.layout.hyphenation;
 
 import com.tanodxyz.itext722g.io.util.ResourceUtil;
-import com.tanodxyz.itext722g.layout.hyphenation.Hyphenation;
-import com.tanodxyz.itext722g.layout.hyphenation.HyphenationConstants;
-import com.tanodxyz.itext722g.layout.hyphenation.HyphenationException;
-import com.tanodxyz.itext722g.layout.hyphenation.HyphenationTree;
-import com.tanodxyz.itext722g.layout.hyphenation.HyphenationTreeCache;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,6 +26,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class is the main entry point to the hyphenation package.
@@ -50,7 +44,7 @@ public final class Hyphenator {
     /**
      * Logging instance.
      */
-    private static Logger log = LoggerFactory.getLogger(Hyphenator.class);
+    private static Logger log = Logger.getLogger(Hyphenator.class.getName());
 
     private static HyphenationTreeCache hTreeCache;
 
@@ -65,9 +59,9 @@ public final class Hyphenator {
     /**
      * Creates a new hyphenator.
      *
-     * @param lang the language
-     * @param country the optional country code (may be null or "none")
-     * @param leftMin the minimum number of characters before the hyphenation point
+     * @param lang     the language
+     * @param country  the optional country code (may be null or "none")
+     * @param leftMin  the minimum number of characters before the hyphenation point
      * @param rightMin the minimum number of characters after the hyphenation point
      */
     public Hyphenator(String lang, String country, int leftMin, int rightMin) {
@@ -80,11 +74,11 @@ public final class Hyphenator {
     /**
      * Creates a new hyphenator.
      *
-     * @param lang the language
-     * @param country the optional country code (may be null or "none")
+     * @param lang          the language
+     * @param country       the optional country code (may be null or "none")
      * @param hyphPathNames the map with user-configured hyphenation pattern file names
-     * @param leftMin the minimum number of characters before the hyphenation point
-     * @param rightMin the minimum number of characters after the hyphenation point
+     * @param leftMin       the minimum number of characters before the hyphenation point
+     * @param rightMin      the minimum number of characters after the hyphenation point
      */
     public Hyphenator(String lang, String country, int leftMin, int rightMin, Map<String, String> hyphPathNames) {
         this(lang, country, leftMin, rightMin);
@@ -133,8 +127,8 @@ public final class Hyphenator {
      * with fallback from (lang,country) to (lang).
      * The hyphenation trees are cached.
      *
-     * @param lang the language
-     * @param country the country (may be null or "none")
+     * @param lang          the language
+     * @param country       the country (may be null or "none")
      * @param hyphPathNames the map with user-configured hyphenation pattern file names
      * @return the hyphenation tree
      */
@@ -154,11 +148,11 @@ public final class Hyphenator {
             String llKey = HyphenationTreeCache.constructLlccKey(lang, null);
             if (!cache.isMissing(llKey)) {
                 hTree = getHyphenationTree2(lang, null, hyphPathNames);
-                if (hTree != null && log.isDebugEnabled()) {
-                    log.debug("Couldn't find hyphenation pattern "
-                              + "for lang=\"" + lang + "\",country=\"" + country + "\"."
-                              + " Using general language pattern "
-                              + "for lang=\"" + lang + "\" instead.");
+                if (hTree != null) {
+                    log.log(Level.FINER, "Couldn't find hyphenation pattern "
+                            + "for lang=\"" + lang + "\",country=\"" + country + "\"."
+                            + " Using general language pattern "
+                            + "for lang=\"" + lang + "\" instead.");
                 }
                 if (hTree == null) {
                     // no fallback; register as missing
@@ -173,12 +167,12 @@ public final class Hyphenator {
         if (hTree == null) {
             // (lang,country) and (lang) tried; register as missing
             cache.noteMissing(llccKey);
-            log.error("Couldn't find hyphenation pattern "
-                      + "for lang=\"" + lang + "\""
-                      + (country != null && !country.equals("none")
-                              ? ",country=\"" + country + "\""
-                              : "")
-                      + ".");
+            log.log(Level.SEVERE, "Couldn't find hyphenation pattern "
+                    + "for lang=\"" + lang + "\""
+                    + (country != null && !country.equals("none")
+                    ? ",country=\"" + country + "\""
+                    : "")
+                    + ".");
         }
 
         return hTree;
@@ -187,8 +181,8 @@ public final class Hyphenator {
     /**
      * Returns a hyphenation tree for a given language and country. The hyphenation trees are cached.
      *
-     * @param lang the language
-     * @param country the country (may be null or "none")
+     * @param lang          the language
+     * @param country       the country (may be null or "none")
      * @param hyphPathNames the map with user-configured hyphenation pattern file names
      * @return the hyphenation tree
      */
@@ -237,7 +231,7 @@ public final class Hyphenator {
      * Load tree from xml file using configuration settings.
      *
      * @param searchDirectory the directory to search the file into
-     * @param key language key for the requested hyphenation file
+     * @param key             language key for the requested hyphenation file
      * @return the requested HyphenationTree or null if it is not available
      */
     public static HyphenationTree getHyphenationTree(String searchDirectory, String key) {
@@ -247,9 +241,7 @@ public final class Hyphenator {
             InputStream fis = new FileInputStream(searchDirectory + File.separator + name);
             return getHyphenationTree(fis, name);
         } catch (IOException ioe) {
-            if (log.isDebugEnabled()) {
-                log.debug("I/O problem while trying to load " + name + ": " + ioe.getMessage());
-            }
+            log.log(Level.FINER,"I/O problem while trying to load " + name + ": " + ioe.getMessage());
             return null;
         }
     }
@@ -257,7 +249,7 @@ public final class Hyphenator {
     /**
      * Load tree from the stream.
      *
-     * @param in the input stream to load the tree from
+     * @param in   the input stream to load the tree from
      * @param name unique key representing country-language combination
      * @return the requested HyphenationTree or null if it is not available
      */
@@ -269,15 +261,14 @@ public final class Hyphenator {
         try {
             hTree = new HyphenationTree();
             hTree.loadPatterns(in, name);
-        }
-        catch (HyphenationException ex) {
-            log.error("Can't load user patterns from XML file " + name + ": " + ex.getMessage());
+        } catch (HyphenationException ex) {
+            log.log(Level.SEVERE,"Can't load user patterns from XML file " + name + ": " + ex.getMessage());
             return null;
-        }
-        finally {
+        } finally {
             try {
                 in.close();
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         }
         return hTree;
     }
@@ -285,12 +276,12 @@ public final class Hyphenator {
     /**
      * Hyphenates a word.
      *
-     * @param lang the language
-     * @param country the optional country code (may be null or "none")
+     * @param lang          the language
+     * @param country       the optional country code (may be null or "none")
      * @param hyphPathNames the map with user-configured hyphenation pattern file names
-     * @param word the word to hyphenate
-     * @param leftMin the minimum number of characters before the hyphenation point
-     * @param rightMin the minimum number of characters after the hyphenation point
+     * @param word          the word to hyphenate
+     * @param leftMin       the minimum number of characters before the hyphenation point
+     * @param rightMin      the minimum number of characters after the hyphenation point
      * @return the hyphenation result
      */
     public static Hyphenation hyphenate(String lang, String country, Map<String, String> hyphPathNames, String word, int leftMin, int rightMin) {
@@ -309,10 +300,10 @@ public final class Hyphenator {
     /**
      * Hyphenates a word.
      *
-     * @param lang the language
-     * @param country the optional country code (may be null or "none")
-     * @param word the word to hyphenate
-     * @param leftMin the minimum number of characters before the hyphenation point
+     * @param lang     the language
+     * @param country  the optional country code (may be null or "none")
+     * @param word     the word to hyphenate
+     * @param leftMin  the minimum number of characters before the hyphenation point
      * @param rightMin the minimum number of characters after the hyphenation point
      * @return the hyphenation result
      */

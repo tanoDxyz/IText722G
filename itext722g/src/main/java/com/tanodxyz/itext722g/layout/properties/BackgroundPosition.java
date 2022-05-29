@@ -35,15 +35,15 @@ public class BackgroundPosition {
 
     private PositionX positionX;
     private PositionY positionY;
-    private com.itextpdf.layout.properties.UnitValue xShift;
-    private com.itextpdf.layout.properties.UnitValue yShift;
+    private   UnitValue xShift;
+    private   UnitValue yShift;
 
     /**
      * Creates a new {@link BackgroundPosition} instance. Fills it with default values.
      */
     public BackgroundPosition() {
-        xShift = new com.itextpdf.layout.properties.UnitValue(com.itextpdf.layout.properties.UnitValue.POINT, 0);
-        yShift = new com.itextpdf.layout.properties.UnitValue(com.itextpdf.layout.properties.UnitValue.POINT, 0);
+        xShift = new   UnitValue(  UnitValue.POINT, 0);
+        yShift = new   UnitValue(  UnitValue.POINT, 0);
         positionX = PositionX.LEFT;
         positionY = PositionY.TOP;
     }
@@ -56,7 +56,7 @@ public class BackgroundPosition {
      * @param outXValue  {@link UnitValue} to store processed xPosition.
      * @param outYValue  {@link UnitValue} to store processed yPosition.
      */
-    public void calculatePositionValues(float fullWidth, float fullHeight, com.itextpdf.layout.properties.UnitValue outXValue, com.itextpdf.layout.properties.UnitValue outYValue) {
+    public void calculatePositionValues(float fullWidth, float fullHeight,   UnitValue outXValue,   UnitValue outYValue) {
         int posMultiplier = parsePositionXToUnitValueAndReturnMultiplier(outXValue);
         if (posMultiplier == 0 && xShift != null && Math.abs(xShift.getValue()) > EPS) {
             outXValue.setValue(0);
@@ -64,7 +64,7 @@ public class BackgroundPosition {
             outXValue.setValue(
                     calculateValue(outXValue, fullWidth) + calculateValue(xShift, fullWidth) * posMultiplier);
         }
-        outXValue.setUnitType(com.itextpdf.layout.properties.UnitValue.POINT);
+        outXValue.setUnitType(  UnitValue.POINT);
 
         posMultiplier = parsePositionYToUnitValueAndReturnMultiplier(outYValue);
         if (posMultiplier == 0 && yShift != null && Math.abs(yShift.getValue()) > EPS) {
@@ -73,7 +73,7 @@ public class BackgroundPosition {
             outYValue.setValue(
                     calculateValue(outYValue, fullHeight) + calculateValue(yShift, fullHeight) * posMultiplier);
         }
-        outYValue.setUnitType(com.itextpdf.layout.properties.UnitValue.POINT);
+        outYValue.setUnitType(  UnitValue.POINT);
     }
 
     /**
@@ -121,7 +121,7 @@ public class BackgroundPosition {
      *
      * @return shift in x-dimension from left
      */
-    public com.itextpdf.layout.properties.UnitValue getXShift() {
+    public   UnitValue getXShift() {
         return xShift;
     }
 
@@ -131,7 +131,7 @@ public class BackgroundPosition {
      * @param xShift shift in x-dimension from left
      * @return {@link BackgroundPosition}
      */
-    public BackgroundPosition setXShift(final com.itextpdf.layout.properties.UnitValue xShift) {
+    public BackgroundPosition setXShift(final   UnitValue xShift) {
         this.xShift = xShift;
         return this;
     }
@@ -141,7 +141,7 @@ public class BackgroundPosition {
      *
      * @return shift in y-dimension from top
      */
-    public com.itextpdf.layout.properties.UnitValue getYShift() {
+    public   UnitValue getYShift() {
         return yShift;
     }
 
@@ -151,7 +151,7 @@ public class BackgroundPosition {
      * @param yShift shift in y-dimension
      * @return {@link BackgroundPosition}
      */
-    public BackgroundPosition setYShift(final com.itextpdf.layout.properties.UnitValue yShift) {
+    public BackgroundPosition setYShift(final   UnitValue yShift) {
         this.yShift = yShift;
         return this;
     }
@@ -192,8 +192,8 @@ public class BackgroundPosition {
      * @param outValue {@link UnitValue} in which positionX will be parsed
      * @return multiplier by which the xShift will be multiplied
      */
-    private int parsePositionXToUnitValueAndReturnMultiplier(com.itextpdf.layout.properties.UnitValue outValue) {
-        outValue.setUnitType(com.itextpdf.layout.properties.UnitValue.PERCENT);
+    private int parsePositionXToUnitValueAndReturnMultiplier(  UnitValue outValue) {
+        outValue.setUnitType(  UnitValue.PERCENT);
         switch (positionX) {
             case LEFT:
                 outValue.setValue(0);
@@ -215,8 +215,8 @@ public class BackgroundPosition {
      * @param outValue {@link UnitValue} in which positionY will be parsed
      * @return multiplier by which the yShift will be multiplied
      */
-    private int parsePositionYToUnitValueAndReturnMultiplier(com.itextpdf.layout.properties.UnitValue outValue) {
-        outValue.setUnitType(com.itextpdf.layout.properties.UnitValue.PERCENT);
+    private int parsePositionYToUnitValueAndReturnMultiplier(  UnitValue outValue) {
+        outValue.setUnitType(  UnitValue.PERCENT);
         switch (positionY) {
             case TOP:
                 outValue.setValue(0);
@@ -232,7 +232,7 @@ public class BackgroundPosition {
         }
     }
 
-    private static float calculateValue(com.itextpdf.layout.properties.UnitValue value, float fullValue) {
+    private static float calculateValue(  UnitValue value, float fullValue) {
         if (value == null) {
             return 0;
         }

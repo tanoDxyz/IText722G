@@ -42,8 +42,8 @@
  */
 package com.tanodxyz.itext722g.layout.layout;
 
-import com.itextpdf.layout.margincollapse.MarginsCollapseInfo;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
+import com.tanodxyz.itext722g.layout.margincollapse.MarginsCollapseInfo;
 
 import java.util.List;
 

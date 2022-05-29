@@ -22,14 +22,15 @@
  */
 package com.tanodxyz.itext722g.layout.renderer.typography;
 
-import com.itextpdf.commons.actions.AbstractITextEvent;
-import com.itextpdf.commons.actions.contexts.IMetaInfo;
-import com.itextpdf.commons.actions.sequence.SequenceId;
+
+import com.tanodxyz.itext722g.commons.actions.AbstractITextEvent;
+import com.tanodxyz.itext722g.commons.actions.contexts.IMetaInfo;
+import com.tanodxyz.itext722g.commons.actions.sequence.SequenceId;
 import com.tanodxyz.itext722g.io.font.FontProgram;
 import com.tanodxyz.itext722g.io.font.TrueTypeFont;
 import com.tanodxyz.itext722g.io.font.otf.GlyphLine;
-import com.itextpdf.layout.properties.BaseDirection;
-import com.itextpdf.layout.renderer.LineRenderer;
+import com.tanodxyz.itext722g.layout.properties.BaseDirection;
+import com.tanodxyz.itext722g.layout.renderer.LineRenderer;
 
 import java.io.IOException;
 import java.lang.Character.UnicodeScript;
@@ -54,7 +55,7 @@ public abstract class AbstractTypographyApplier extends AbstractITextEvent {
     }
 
     public boolean applyOtfScript(TrueTypeFont font, GlyphLine glyphLine, Character.UnicodeScript script,
-            Object configurator, SequenceId id, IMetaInfo metaInfo) {
+                                  Object configurator, SequenceId id, IMetaInfo metaInfo) {
         return false;
     }
 
@@ -63,7 +64,7 @@ public abstract class AbstractTypographyApplier extends AbstractITextEvent {
     }
 
     public byte[] getBidiLevels(BaseDirection baseDirection, int[] unicodeIds,
-            SequenceId sequenceId, IMetaInfo metaInfo) {
+                                SequenceId sequenceId, IMetaInfo metaInfo) {
         return null;
     }
 

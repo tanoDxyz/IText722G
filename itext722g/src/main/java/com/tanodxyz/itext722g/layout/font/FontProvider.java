@@ -42,8 +42,8 @@
  */
 package com.tanodxyz.itext722g.layout.font;
 
-import com.itextpdf.commons.utils.FileUtil;
-import com.itextpdf.layout.exceptions.LayoutExceptionMessageConstant;
+
+import com.tanodxyz.itext722g.commons.utils.FileUtil;
 import com.tanodxyz.itext722g.io.font.FontCache;
 import com.tanodxyz.itext722g.io.font.FontProgram;
 import com.tanodxyz.itext722g.io.font.FontProgramFactory;
@@ -55,8 +55,7 @@ import com.tanodxyz.itext722g.kernel.font.PdfFont;
 import com.tanodxyz.itext722g.kernel.font.PdfFontFactory;
 import com.tanodxyz.itext722g.kernel.font.PdfFontFactory.EmbeddingStrategy;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
-import com.tanodxyz.itext722g.layout.font.ComplexFontSelectorStrategy;
-import com.tanodxyz.itext722g.layout.font.FontCharacteristics;
+import com.tanodxyz.itext722g.layout.exceptions.LayoutExceptionMessageConstant;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -83,8 +82,8 @@ public class FontProvider {
 
     private static final String DEFAULT_FONT_FAMILY = "Helvetica";
 
-    private final com.itextpdf.layout.font.FontSet fontSet;
-    private final com.itextpdf.layout.font.FontSelectorCache fontSelectorCache;
+    private final    FontSet fontSet;
+    private final FontSelectorCache fontSelectorCache;
     /**
      * The default font-family is used by {@link FontSelector} if it's impossible to select a font for all other set font-families
      */
@@ -96,7 +95,7 @@ public class FontProvider {
      *
      * @param fontSet predefined set of fonts, could be null.
      */
-    public FontProvider(com.itextpdf.layout.font.FontSet fontSet) {
+    public FontProvider(   FontSet fontSet) {
         this(fontSet, DEFAULT_FONT_FAMILY);
     }
 
@@ -104,7 +103,7 @@ public class FontProvider {
      * Creates a new instance of FontProvider.
      */
     public FontProvider() {
-        this(new com.itextpdf.layout.font.FontSet());
+        this(new    FontSet());
     }
 
     /**
@@ -113,7 +112,7 @@ public class FontProvider {
      * @param defaultFontFamily default font family.
      */
     public FontProvider(String defaultFontFamily) {
-        this(new com.itextpdf.layout.font.FontSet(), defaultFontFamily);
+        this(new    FontSet(), defaultFontFamily);
     }
 
     /**
@@ -122,10 +121,10 @@ public class FontProvider {
      * @param fontSet predefined set of fonts, could be null.
      * @param defaultFontFamily default font family.
      */
-    public FontProvider(com.itextpdf.layout.font.FontSet fontSet, String defaultFontFamily) {
-        this.fontSet = fontSet != null ? fontSet : new com.itextpdf.layout.font.FontSet();
+    public FontProvider(   FontSet fontSet, String defaultFontFamily) {
+        this.fontSet = fontSet != null ? fontSet : new    FontSet();
         pdfFonts = new HashMap<>();
-        fontSelectorCache = new com.itextpdf.layout.font.FontSelectorCache(this.fontSet);
+        fontSelectorCache = new FontSelectorCache(this.fontSet);
         this.defaultFontFamily = defaultFontFamily;
     }
 
@@ -319,7 +318,7 @@ public class FontProvider {
      *
      * @return the font set
      */
-    public com.itextpdf.layout.font.FontSet getFontSet() {
+    public    FontSet getFontSet() {
         return fontSet;
     }
 
@@ -387,7 +386,7 @@ public class FontProvider {
      *
      * @return {@link FontSelectorStrategy} instance.
      */
-    public com.itextpdf.layout.font.FontSelectorStrategy getStrategy(String text, List<String> fontFamilies, FontCharacteristics fc, com.itextpdf.layout.font.FontSet additionalFonts) {
+    public    FontSelectorStrategy getStrategy(String text, List<String> fontFamilies, FontCharacteristics fc,    FontSet additionalFonts) {
         return new ComplexFontSelectorStrategy(text, getFontSelector(fontFamilies, fc, additionalFonts), this, additionalFonts);
     }
 
@@ -402,7 +401,7 @@ public class FontProvider {
      *
      * @return {@link FontSelectorStrategy} instance.
      */
-    public com.itextpdf.layout.font.FontSelectorStrategy getStrategy(String text, List<String> fontFamilies, FontCharacteristics fc) {
+    public    FontSelectorStrategy getStrategy(String text, List<String> fontFamilies, FontCharacteristics fc) {
         return getStrategy(text, fontFamilies, fc, null);
     }
 
@@ -416,7 +415,7 @@ public class FontProvider {
      *
      * @return {@link FontSelectorStrategy} instance.
      */
-    public com.itextpdf.layout.font.FontSelectorStrategy getStrategy(String text, List<String> fontFamilies) {
+    public    FontSelectorStrategy getStrategy(String text, List<String> fontFamilies) {
         return getStrategy(text, fontFamilies, null);
     }
 
@@ -430,9 +429,9 @@ public class FontProvider {
      * @see #createFontSelector(Collection, List, FontCharacteristics)
      * @see #getFontSelector(List, FontCharacteristics, FontSet)
      */
-    public final com.itextpdf.layout.font.FontSelector getFontSelector(List<String> fontFamilies, FontCharacteristics fc) {
-        com.itextpdf.layout.font.FontSelectorKey key = new com.itextpdf.layout.font.FontSelectorKey(fontFamilies, fc);
-        com.itextpdf.layout.font.FontSelector fontSelector = fontSelectorCache.get(key);
+    public final    FontSelector getFontSelector(List<String> fontFamilies, FontCharacteristics fc) {
+           FontSelectorKey key = new    FontSelectorKey(fontFamilies, fc);
+           FontSelector fontSelector = fontSelectorCache.get(key);
         if (fontSelector == null) {
             fontSelector = createFontSelector(fontSet.getFonts(), fontFamilies, fc);
             fontSelectorCache.put(key, fontSelector);
@@ -453,10 +452,10 @@ public class FontProvider {
      * @return an instance of {@link FontSelector}.
      * @see #createFontSelector(Collection, List, FontCharacteristics) }
      */
-    public final com.itextpdf.layout.font.FontSelector getFontSelector(List<String> fontFamilies, FontCharacteristics fc,
-                                                                       com.itextpdf.layout.font.FontSet additionalFonts) {
-        com.itextpdf.layout.font.FontSelectorKey key = new com.itextpdf.layout.font.FontSelectorKey(fontFamilies, fc);
-        com.itextpdf.layout.font.FontSelector fontSelector = fontSelectorCache.get(key, additionalFonts);
+    public final    FontSelector getFontSelector(List<String> fontFamilies, FontCharacteristics fc,
+                                                                          FontSet additionalFonts) {
+           FontSelectorKey key = new    FontSelectorKey(fontFamilies, fc);
+           FontSelector fontSelector = fontSelectorCache.get(key, additionalFonts);
         if (fontSelector == null) {
             fontSelector = createFontSelector(fontSet.getFonts(additionalFonts), fontFamilies, fc);
             fontSelectorCache.put(key, fontSelector, additionalFonts);
@@ -475,11 +474,11 @@ public class FontProvider {
      *
      * @return an instance of {@link FontSelector}.
      */
-    protected com.itextpdf.layout.font.FontSelector createFontSelector(Collection<FontInfo> fonts,
+    protected    FontSelector createFontSelector(Collection<FontInfo> fonts,
                                                                        List<String> fontFamilies, FontCharacteristics fc) {
         List<String> fontFamiliesToBeProcessed = new ArrayList<>(fontFamilies);
         fontFamiliesToBeProcessed.add(defaultFontFamily);
-        return new com.itextpdf.layout.font.FontSelector(fonts, fontFamiliesToBeProcessed, fc);
+        return new    FontSelector(fonts, fontFamiliesToBeProcessed, fc);
     }
 
     /**
@@ -501,7 +500,7 @@ public class FontProvider {
      *
      * @return cached or new instance of {@link PdfFont}.
      */
-    public PdfFont getPdfFont(FontInfo fontInfo, com.itextpdf.layout.font.FontSet additionalFonts) {
+    public PdfFont getPdfFont(FontInfo fontInfo,    FontSet additionalFonts) {
         if (pdfFonts.containsKey(fontInfo)) {
             return pdfFonts.get(fontInfo);
         } else {

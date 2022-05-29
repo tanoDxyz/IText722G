@@ -43,10 +43,10 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf.tagging;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
@@ -58,10 +58,6 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfPage;
 import com.tanodxyz.itext722g.kernel.pdf.PdfVersion;
 import com.tanodxyz.itext722g.kernel.pdf.VersionConforming;
 import com.tanodxyz.itext722g.kernel.pdf.filespec.PdfFileSpec;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -69,6 +65,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Represents a wrapper-class for structure tree root dictionary. See ISO-32000-1 "14.7.2 Structure hierarchy".
@@ -191,8 +189,8 @@ public class PdfStructTreeRoot extends PdfObjectWrapper<PdfDictionary> implement
         PdfDictionary roleMap = getRoleMap();
         PdfObject prevVal = roleMap.put(convertRoleToPdfName(fromRole), convertRoleToPdfName(toRole));
         if (prevVal != null && prevVal instanceof PdfName) {
-            Logger logger = LoggerFactory.getLogger(PdfStructTreeRoot.class);
-            logger.warn(MessageFormat.format(IoLogMessageConstant.MAPPING_IN_STRUCT_ROOT_OVERWRITTEN, fromRole, prevVal,
+            Logger logger = Logger.getLogger(PdfStructTreeRoot.class.getName());
+            logger.warning(MessageFormat.format(IoLogMessageConstant.MAPPING_IN_STRUCT_ROOT_OVERWRITTEN, fromRole, prevVal,
                     toRole));
         }
 
@@ -433,8 +431,8 @@ public class PdfStructTreeRoot extends PdfObjectWrapper<PdfDictionary> implement
      */
     public void addAssociatedFile(String description, PdfFileSpec fs) {
         if (null == ((PdfDictionary) fs.getPdfObject()).get(PdfName.AFRelationship)) {
-            Logger logger = LoggerFactory.getLogger(PdfStructTreeRoot.class);
-            logger.error(IoLogMessageConstant.ASSOCIATED_FILE_SPEC_SHALL_INCLUDE_AFRELATIONSHIP);
+            Logger logger = Logger.getLogger(PdfStructTreeRoot.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.ASSOCIATED_FILE_SPEC_SHALL_INCLUDE_AFRELATIONSHIP);
         }
         if (null != description) {
             getDocument().getCatalog().getNameTree(PdfName.EmbeddedFiles).addEntry(description, fs.getPdfObject());

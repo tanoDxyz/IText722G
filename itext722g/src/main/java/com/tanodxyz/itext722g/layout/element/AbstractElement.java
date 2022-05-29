@@ -43,11 +43,12 @@
  */
 package com.tanodxyz.itext722g.layout.element;
 
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.renderer.IRenderer;
+
 import com.tanodxyz.itext722g.kernel.pdf.action.PdfAction;
 import com.tanodxyz.itext722g.layout.ElementPropertyContainer;
 import com.tanodxyz.itext722g.layout.Style;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -60,11 +61,11 @@ import java.util.Set;
  *
  * @param <T> the type of the implementation
  */
-public abstract class AbstractElement<T extends com.itextpdf.layout.element.IElement>
-        extends ElementPropertyContainer<T> implements com.itextpdf.layout.element.IAbstractElement {
+public abstract class AbstractElement<T extends IElement>
+        extends ElementPropertyContainer<T> implements IAbstractElement {
 
     protected IRenderer nextRenderer;
-    protected List<com.itextpdf.layout.element.IElement> childElements = new ArrayList<>();
+    protected List<IElement> childElements = new ArrayList<>();
     protected Set<Style> styles;
 
     @Override
@@ -85,7 +86,7 @@ public abstract class AbstractElement<T extends com.itextpdf.layout.element.IEle
     @Override
     public IRenderer createRendererSubTree() {
         IRenderer rendererRoot = getRenderer();
-        for (com.itextpdf.layout.element.IElement child : childElements) {
+        for (IElement child : childElements) {
             rendererRoot.addChild(child.createRendererSubTree());
         }
         return rendererRoot;
@@ -150,7 +151,7 @@ public abstract class AbstractElement<T extends com.itextpdf.layout.element.IEle
      * @return a list of children
      */
     @Override
-    public List<com.itextpdf.layout.element.IElement> getChildren() {
+    public List<IElement> getChildren() {
         return childElements;
     }
 

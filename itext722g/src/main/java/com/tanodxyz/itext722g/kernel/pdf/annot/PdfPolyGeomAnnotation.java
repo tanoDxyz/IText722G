@@ -43,17 +43,19 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf.annot;
 
+import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.kernel.colors.DeviceCmyk;
 import com.tanodxyz.itext722g.kernel.colors.DeviceGray;
 import com.tanodxyz.itext722g.kernel.colors.DeviceRgb;
-import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfName;
-import org.slf4j.LoggerFactory;
 import com.tanodxyz.itext722g.kernel.pdf.PdfObject;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class PdfPolyGeomAnnotation extends PdfMarkupAnnotation {
 
@@ -87,14 +89,14 @@ public abstract class PdfPolyGeomAnnotation extends PdfMarkupAnnotation {
 
     public PdfPolyGeomAnnotation setVertices(PdfArray vertices) {
         if (getPdfObject().containsKey(PdfName.Path)) {
-            LoggerFactory.getLogger(getClass()).warn(IoLogMessageConstant.PATH_KEY_IS_PRESENT_VERTICES_WILL_BE_IGNORED);
+            Logger.getLogger(getClass().getName()).warning(IoLogMessageConstant.PATH_KEY_IS_PRESENT_VERTICES_WILL_BE_IGNORED);
         }
         return (PdfPolyGeomAnnotation) put(PdfName.Vertices, vertices);
     }
 
     public PdfPolyGeomAnnotation setVertices(float[] vertices) {
         if (getPdfObject().containsKey(PdfName.Path)) {
-            LoggerFactory.getLogger(getClass()).warn(IoLogMessageConstant.PATH_KEY_IS_PRESENT_VERTICES_WILL_BE_IGNORED);
+            Logger.getLogger(getClass().getName()).warning(IoLogMessageConstant.PATH_KEY_IS_PRESENT_VERTICES_WILL_BE_IGNORED);
         }
         return (PdfPolyGeomAnnotation) put(PdfName.Vertices, new PdfArray(vertices));
     }
@@ -148,7 +150,7 @@ public abstract class PdfPolyGeomAnnotation extends PdfMarkupAnnotation {
      */
     public PdfPolyGeomAnnotation setPath(PdfArray path) {
         if (getPdfObject().containsKey(PdfName.Vertices)) {
-            LoggerFactory.getLogger(getClass()).error(IoLogMessageConstant.IF_PATH_IS_SET_VERTICES_SHALL_NOT_BE_PRESENT);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,IoLogMessageConstant.IF_PATH_IS_SET_VERTICES_SHALL_NOT_BE_PRESENT);
         }
         return (PdfPolyGeomAnnotation) put(PdfName.Path, path);
     }

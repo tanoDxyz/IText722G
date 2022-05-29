@@ -43,17 +43,15 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.itextpdf.commons.utils.MessageFormatUtil;
-
-import java.util.LinkedHashMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 public class PdfNameTree {
 
@@ -136,8 +134,8 @@ public class PdfNameTree {
             if (value.getIndirectReference() != null && value.getIndirectReference().equals(existingVal.getIndirectReference())) {
                 return;
             } else {
-                Logger logger = LoggerFactory.getLogger(PdfNameTree.class);
-                logger.warn(MessageFormatUtil.format(IoLogMessageConstant.NAME_ALREADY_EXISTS_IN_THE_NAME_TREE, key));
+                Logger logger = Logger.getLogger(PdfNameTree.class.getName());
+                logger.warning(MessageFormatUtil.format(IoLogMessageConstant.NAME_ALREADY_EXISTS_IN_THE_NAME_TREE, key));
             }
         }
         modified = true;

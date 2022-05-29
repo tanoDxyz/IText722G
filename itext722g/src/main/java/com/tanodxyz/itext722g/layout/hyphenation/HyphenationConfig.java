@@ -43,8 +43,6 @@
  */
 package com.tanodxyz.itext722g.layout.hyphenation;
 
-import com.tanodxyz.itext722g.layout.hyphenation.Hyphenation;
-
 /**
  * This is the class used to configure hyphenation on layout level
  */
@@ -53,7 +51,7 @@ public class HyphenationConfig {
     /**
      * The Hyphenator object.
      */
-    protected com.itextpdf.layout.hyphenation.Hyphenator hyphenator;
+    protected  Hyphenator hyphenator;
 
     /**
      * The hyphenation symbol used when hyphenating.
@@ -67,7 +65,7 @@ public class HyphenationConfig {
      * @param rightMin the minimum number of characters after the hyphenation point
      */
     public HyphenationConfig(int leftMin, int rightMin) {
-        this.hyphenator = new com.itextpdf.layout.hyphenation.Hyphenator(null, null, leftMin, rightMin);
+        this.hyphenator = new  Hyphenator(null, null, leftMin, rightMin);
     }
 
     /**
@@ -75,7 +73,7 @@ public class HyphenationConfig {
      * find hyphenation points.
      * @param hyphenator the {@link Hyphenator} instance
      */
-    public HyphenationConfig(com.itextpdf.layout.hyphenation.Hyphenator hyphenator) {
+    public HyphenationConfig( Hyphenator hyphenator) {
         this.hyphenator = hyphenator;
     }
 
@@ -87,7 +85,7 @@ public class HyphenationConfig {
      * @param rightMin the minimum number of characters after the hyphenation point
      */
     public HyphenationConfig(String lang, String country, int leftMin, int rightMin) {
-        this.hyphenator = new com.itextpdf.layout.hyphenation.Hyphenator(lang, country, leftMin, rightMin);
+        this.hyphenator = new  Hyphenator(lang, country, leftMin, rightMin);
     }
 
     /**

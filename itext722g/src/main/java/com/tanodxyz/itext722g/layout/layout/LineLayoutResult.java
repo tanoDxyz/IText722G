@@ -43,8 +43,7 @@
  */
 package com.tanodxyz.itext722g.layout.layout;
 
-import com.itextpdf.layout.renderer.IRenderer;
-import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
 
 import java.util.List;
 

@@ -44,14 +44,13 @@
 package com.tanodxyz.itext722g.kernel.pdf;
 
 import com.tanodxyz.itext722g.io.source.ByteArrayOutputStream;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
-import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
 import com.tanodxyz.itext722g.io.source.DeflaterOutputStream;
-
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Logger;
 
 /**
  * Representation of a stream as described in the PDF Specification.
@@ -242,7 +241,7 @@ public class PdfStream extends PdfDictionary {
             throw new PdfException(KernelExceptionMessageConstant.CANNOT_OPERATE_WITH_FLUSHED_PDF_STREAM);
         }
         if (inputStream != null) {
-            LoggerFactory.getLogger(PdfStream.class).warn("PdfStream was created by InputStream." +
+            Logger.getLogger(PdfStream.class.getName()).warning("PdfStream was created by InputStream." +
                     "getBytes() always returns null in this case");
             return null;
         }

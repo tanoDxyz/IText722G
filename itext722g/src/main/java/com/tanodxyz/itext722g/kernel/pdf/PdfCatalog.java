@@ -43,10 +43,10 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.logs.KernelLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.pdf.action.PdfAction;
 import com.tanodxyz.itext722g.kernel.pdf.collection.PdfCollection;
@@ -55,24 +55,22 @@ import com.tanodxyz.itext722g.kernel.pdf.navigation.PdfDestination;
 import com.tanodxyz.itext722g.kernel.pdf.navigation.PdfExplicitDestination;
 import com.tanodxyz.itext722g.kernel.pdf.navigation.PdfStringDestination;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * The root of a document’s object hierarchy.
  */
 public class PdfCatalog extends PdfObjectWrapper<PdfDictionary> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PdfCatalog.class);
+    private static final Logger LOGGER = Logger.getLogger(PdfCatalog.class.getName());
 
 
     final private PdfPagesTree pageTree;
@@ -186,8 +184,8 @@ public class PdfCatalog extends PdfObjectWrapper<PdfDictionary> {
      */
     @Override
     public void flush() {
-        Logger logger = LoggerFactory.getLogger(PdfDocument.class);
-        logger.warn("PdfCatalog cannot be flushed manually");
+        Logger logger = Logger.getLogger(PdfDocument.class.getName());
+        logger.warning("PdfCatalog cannot be flushed manually");
     }
 
     /**
@@ -614,7 +612,7 @@ public class PdfCatalog extends PdfObjectWrapper<PdfDictionary> {
                         throw new PdfException(MessageFormatUtil.format(
                                 KernelExceptionMessageConstant.CORRUPTED_OUTLINE_DICTIONARY_HAS_INFINITE_LOOP, first));
                     }
-                    LOGGER.warn(MessageFormatUtil.format(
+                    LOGGER.warning(MessageFormatUtil.format(
                             KernelLogMessageConstant.CORRUPTED_OUTLINE_DICTIONARY_HAS_INFINITE_LOOP, first));
                     return;
                 }
@@ -628,7 +626,7 @@ public class PdfCatalog extends PdfObjectWrapper<PdfDictionary> {
                         throw new PdfException(MessageFormatUtil.format(
                                 KernelExceptionMessageConstant.CORRUPTED_OUTLINE_DICTIONARY_HAS_INFINITE_LOOP, next));
                     }
-                    LOGGER.warn(MessageFormatUtil.format(
+                    LOGGER.warning(MessageFormatUtil.format(
                             KernelLogMessageConstant.CORRUPTED_OUTLINE_DICTIONARY_HAS_INFINITE_LOOP, next));
                     return;
                 }
@@ -728,7 +726,7 @@ public class PdfCatalog extends PdfObjectWrapper<PdfDictionary> {
                 pageObj = getDocument().getPage(pageNumber).getPdfObject();
             } catch (IndexOutOfBoundsException ex) {
                 pageObj = null;
-                LOGGER.warn(MessageFormatUtil.format(
+                LOGGER.warning(MessageFormatUtil.format(
                         IoLogMessageConstant.OUTLINE_DESTINATION_PAGE_NUMBER_IS_OUT_OF_BOUNDS, pageNumber)
                 );
             }

@@ -42,21 +42,22 @@
  */
 package com.tanodxyz.itext722g.layout.minmaxwidth;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.layout.renderer.IRenderer;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.layout.IPropertyContainer;
-import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidth;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public final class MinMaxWidthUtils {
 
@@ -103,14 +104,14 @@ public final class MinMaxWidthUtils {
     public static float getMarginsWidth(IPropertyContainer element) {
         UnitValue rightMargin = element.<UnitValue>getProperty(Property.MARGIN_RIGHT);
         if (null != rightMargin && !rightMargin.isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(MinMaxWidthUtils.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(MinMaxWidthUtils.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.MARGIN_RIGHT));
         }
         UnitValue leftMargin = element.<UnitValue>getProperty(Property.MARGIN_LEFT);
         if (null != leftMargin && !leftMargin.isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(MinMaxWidthUtils.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(MinMaxWidthUtils.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.MARGIN_LEFT));
         }
 
@@ -123,14 +124,14 @@ public final class MinMaxWidthUtils {
     public static float getPaddingWidth(IPropertyContainer element) {
         UnitValue rightPadding = element.<UnitValue>getProperty(Property.PADDING_RIGHT);
         if (null != rightPadding && !rightPadding.isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(MinMaxWidthUtils.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(MinMaxWidthUtils.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.PADDING_RIGHT));
         }
         UnitValue leftPadding = element.<UnitValue>getProperty(Property.PADDING_LEFT);
         if (null != leftPadding && !leftPadding.isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(MinMaxWidthUtils.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(MinMaxWidthUtils.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.PADDING_LEFT));
         }
 

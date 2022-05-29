@@ -42,8 +42,8 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf.annot.da;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.font.constants.StandardFonts;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.kernel.colors.DeviceCmyk;
 import com.tanodxyz.itext722g.kernel.colors.DeviceGray;
 import com.tanodxyz.itext722g.kernel.colors.DeviceRgb;

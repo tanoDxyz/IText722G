@@ -43,24 +43,23 @@
  */
 package com.tanodxyz.itext722g.layout.element;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.borders.SolidBorder;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.layout.renderer.CellRenderer;
-import com.itextpdf.layout.renderer.IRenderer;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.kernel.pdf.tagging.StandardRoles;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.AccessibilityProperties;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.DefaultAccessibilityProperties;
-import com.tanodxyz.itext722g.layout.element.BlockElement;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.borders.SolidBorder;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.layout.renderer.CellRenderer;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A {@link Cell} is one piece of data in an enclosing grid, the {@link Table}.
@@ -115,8 +114,8 @@ public class Cell extends BlockElement<Cell> {
                 nextRenderer = nextRenderer.getNextRenderer();
                 cellRenderer = (CellRenderer) renderer;
             } else {
-                Logger logger = LoggerFactory.getLogger(Table.class);
-                logger.error("Invalid renderer for Table: must be inherited from TableRenderer");
+                Logger logger = Logger.getLogger(Table.class.getName());
+                logger.log(Level.SEVERE,"Invalid renderer for Table: must be inherited from TableRenderer");
             }
         }
         //cellRenderer could be null in case invalid type (see logger message above)
@@ -161,7 +160,7 @@ public class Cell extends BlockElement<Cell> {
      * @param element a {@link BlockElement}
      * @return this Element
      */
-    public Cell add(com.itextpdf.layout.element.IBlockElement element) {
+    public Cell add(IBlockElement element) {
         childElements.add(element);
         return this;
     }

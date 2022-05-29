@@ -49,11 +49,12 @@ import com.tanodxyz.itext722g.kernel.pdf.annot.PdfAnnotation;
 import com.tanodxyz.itext722g.kernel.pdf.annot.PdfLinkAnnotation;
 import com.tanodxyz.itext722g.kernel.pdf.navigation.PdfDestination;
 import com.tanodxyz.itext722g.kernel.pdf.tagging.StandardRoles;
-import com.tanodxyz.itext722g.kernel.pdf.tagutils.DefaultAccessibilityProperties;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.AccessibilityProperties;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.renderer.IRenderer;
-import com.itextpdf.layout.renderer.LinkRenderer;
+import com.tanodxyz.itext722g.kernel.pdf.tagutils.DefaultAccessibilityProperties;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.renderer.LinkRenderer;
+
 
 /**
  * A clickable piece of {@link Text} which contains a {@link PdfLinkAnnotation

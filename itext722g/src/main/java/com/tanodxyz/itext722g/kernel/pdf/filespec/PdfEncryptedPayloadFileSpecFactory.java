@@ -43,16 +43,17 @@
 package com.tanodxyz.itext722g.kernel.pdf.filespec;
 
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
 import com.tanodxyz.itext722g.kernel.pdf.PdfEncryptedPayload;
 import com.tanodxyz.itext722g.kernel.pdf.PdfName;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PdfEncryptedPayloadFileSpecFactory {
 
@@ -178,8 +179,8 @@ public class PdfEncryptedPayloadFileSpecFactory {
 
     public static PdfFileSpec wrap(PdfDictionary dictionary) {
         if (!PdfName.EncryptedPayload.equals(dictionary.getAsName(PdfName.AFRelationship))) {
-            LoggerFactory.getLogger(PdfEncryptedPayloadFileSpecFactory.class)
-                    .error(IoLogMessageConstant.ENCRYPTED_PAYLOAD_FILE_SPEC_SHALL_HAVE_AFRELATIONSHIP_FILED_EQUAL_TO_ENCRYPTED_PAYLOAD);
+            Logger.getLogger(PdfEncryptedPayloadFileSpecFactory.class.getName())
+                    .log(Level.SEVERE,IoLogMessageConstant.ENCRYPTED_PAYLOAD_FILE_SPEC_SHALL_HAVE_AFRELATIONSHIP_FILED_EQUAL_TO_ENCRYPTED_PAYLOAD);
         }
         PdfDictionary ef = dictionary.getAsDictionary(PdfName.EF);
         if (ef == null || (ef.getAsStream(PdfName.F) == null) && (ef.getAsStream(PdfName.UF) == null)) {

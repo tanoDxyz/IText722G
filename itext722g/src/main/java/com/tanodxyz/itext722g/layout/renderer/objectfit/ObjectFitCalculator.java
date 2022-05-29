@@ -42,8 +42,7 @@
  */
 package com.tanodxyz.itext722g.layout.renderer.objectfit;
 
-import com.itextpdf.layout.properties.ObjectFit;
-import com.tanodxyz.itext722g.layout.renderer.objectfit.ObjectFitApplyingResult;
+import com.tanodxyz.itext722g.layout.properties.ObjectFit;
 
 /**
  * Utility class which supports the {@link ObjectFit} property.

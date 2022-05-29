@@ -43,11 +43,11 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf.canvas.parser.listener;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
-import com.tanodxyz.itext722g.kernel.pdf.canvas.parser.data.IEventData;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.parser.EventType;
+import com.tanodxyz.itext722g.kernel.pdf.canvas.parser.data.IEventData;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.parser.data.TextRenderInfo;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;

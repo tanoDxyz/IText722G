@@ -43,8 +43,8 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf.annot;
 
-import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.font.PdfEncodings;
+import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.kernel.colors.DeviceCmyk;
 import com.tanodxyz.itext722g.kernel.colors.DeviceGray;
@@ -64,8 +64,9 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfString;
 import com.tanodxyz.itext722g.kernel.pdf.filespec.PdfFileSpec;
 import com.tanodxyz.itext722g.kernel.pdf.layer.IPdfOCG;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  * This is a super class for the annotation dictionary wrappers. Derived classes represent
@@ -1079,8 +1080,8 @@ public abstract class PdfAnnotation extends PdfObjectWrapper<PdfDictionary> {
      */
     public void addAssociatedFile(PdfFileSpec fs) {
         if (null == ((PdfDictionary) fs.getPdfObject()).get(PdfName.AFRelationship)) {
-            Logger logger = LoggerFactory.getLogger(PdfAnnotation.class);
-            logger.error(IoLogMessageConstant.ASSOCIATED_FILE_SPEC_SHALL_INCLUDE_AFRELATIONSHIP);
+            Logger logger = Logger.getLogger(PdfAnnotation.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.ASSOCIATED_FILE_SPEC_SHALL_INCLUDE_AFRELATIONSHIP);
         }
         PdfArray afArray = getPdfObject().getAsArray(PdfName.AF);
         if (afArray == null) {

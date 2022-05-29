@@ -43,12 +43,12 @@
  */
 package com.tanodxyz.itext722g.layout.element;
 
-import com.itextpdf.layout.properties.AreaBreakType;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.renderer.AreaBreakRenderer;
-import com.itextpdf.layout.renderer.IRenderer;
+
 import com.tanodxyz.itext722g.kernel.geom.PageSize;
-import com.tanodxyz.itext722g.layout.element.AbstractElement;
+import com.tanodxyz.itext722g.layout.properties.AreaBreakType;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.renderer.AreaBreakRenderer;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
 
 /**
  * A layout object that terminates the current content area and creates a new

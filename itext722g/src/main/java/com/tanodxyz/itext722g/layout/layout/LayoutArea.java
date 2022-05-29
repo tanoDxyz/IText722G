@@ -43,9 +43,9 @@
  */
 package com.tanodxyz.itext722g.layout.layout;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.util.HashCode;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 
 /**
  * Represents the area for content {@link com.itextpdf.layout.renderer.IRenderer#layout(LayoutContext) layouting}.

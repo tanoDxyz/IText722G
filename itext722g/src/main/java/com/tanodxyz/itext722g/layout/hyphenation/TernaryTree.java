@@ -21,8 +21,6 @@
 
 package com.tanodxyz.itext722g.layout.hyphenation;
 
-import com.tanodxyz.itext722g.layout.hyphenation.CharVector;
-
 import java.util.Enumeration;
 
 /**
@@ -518,7 +516,7 @@ public class TernaryTree {
         int n = length;
         String[] k = new String[n];
         char[] v = new char[n];
-        com.itextpdf.layout.hyphenation.TernaryTreeIterator iter = new com.itextpdf.layout.hyphenation.TernaryTreeIterator(this);
+          TernaryTreeIterator iter = new   TernaryTreeIterator(this);
         while (iter.hasMoreElements()) {
             v[i] = iter.getValue();
             k[i++] = (String)iter.nextElement();
@@ -583,7 +581,7 @@ public class TernaryTree {
 
     /** @return the keys */
     public Enumeration keys() {
-        return new com.itextpdf.layout.hyphenation.TernaryTreeIterator(this);
+        return new   TernaryTreeIterator(this);
     }
 
     // PLEASE NOTE that this is a helper class that was added as a result of the file modification

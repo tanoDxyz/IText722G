@@ -44,7 +44,7 @@
 package com.tanodxyz.itext722g.layout.element;
 
 import com.tanodxyz.itext722g.layout.IPropertyContainer;
-import com.itextpdf.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
 
 /**
  * This class represents a layout element, i.e. a piece of content that will

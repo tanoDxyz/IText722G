@@ -44,14 +44,12 @@
 package com.tanodxyz.itext722g.kernel.pdf;
 
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.exceptions.BadPasswordException;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public abstract class PdfObject {
 
@@ -175,7 +173,7 @@ public abstract class PdfObject {
             PdfDocument document = getIndirectReference().getDocument();
             if (document != null) {
                 if (document.isAppendMode() && !isModified()) {
-                    Logger logger = LoggerFactory.getLogger(PdfObject.class);
+                    Logger logger = Logger.getLogger(PdfObject.class.getName());
                     logger.info(IoLogMessageConstant.PDF_OBJECT_FLUSHING_NOT_PERFORMED);
                     return;
                 }
@@ -365,8 +363,8 @@ public abstract class PdfObject {
     public void release() {
         // In case ForbidRelease flag is set, release will not be performed.
         if (isReleaseForbidden()) {
-            Logger logger = LoggerFactory.getLogger(PdfObject.class);
-            logger.warn(IoLogMessageConstant.FORBID_RELEASE_IS_SET);
+            Logger logger = Logger.getLogger(PdfObject.class.getName());
+            logger.warning(IoLogMessageConstant.FORBID_RELEASE_IS_SET);
         } else {
             if (indirectReference != null && indirectReference.getReader() != null
                     && !indirectReference.checkState(FLUSHED)) {

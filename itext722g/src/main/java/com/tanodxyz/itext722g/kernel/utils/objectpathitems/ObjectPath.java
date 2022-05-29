@@ -43,9 +43,10 @@
  */
 package com.tanodxyz.itext722g.kernel.utils.objectpathitems;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.kernel.pdf.PdfIndirectReference;
 import com.tanodxyz.itext722g.kernel.pdf.PdfName;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

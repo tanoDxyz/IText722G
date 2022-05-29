@@ -43,12 +43,13 @@
  */
 package com.tanodxyz.itext722g.layout.element;
 
-import com.itextpdf.layout.properties.OverflowPropertyValue;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.layout.properties.VerticalAlignment;
-import com.itextpdf.layout.tagging.IAccessibleElement;
+
 import com.tanodxyz.itext722g.layout.RootElement;
+import com.tanodxyz.itext722g.layout.properties.OverflowPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.layout.properties.VerticalAlignment;
+import com.tanodxyz.itext722g.layout.tagging.IAccessibleElement;
 
 /**
  * A {@link BlockElement} will try to take up as much horizontal space as
@@ -58,7 +59,7 @@ import com.tanodxyz.itext722g.layout.RootElement;
  *
  * @param <T> the type of the implementation
  */
-public abstract class BlockElement<T extends com.itextpdf.layout.element.IElement> extends AbstractElement<T> implements IAccessibleElement, com.itextpdf.layout.element.IBlockElement {
+public abstract class BlockElement<T extends IElement> extends AbstractElement<T> implements IAccessibleElement, IBlockElement {
 
     /**
      * Creates a BlockElement.

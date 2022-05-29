@@ -43,7 +43,8 @@
  */
 package com.tanodxyz.itext722g.layout.layout;
 
-import com.itextpdf.layout.renderer.IRenderer;
+
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
 
 /**
  * Represents the result of a text {@link com.itextpdf.layout.renderer.TextRenderer#layout(LayoutContext) layout}.

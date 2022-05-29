@@ -54,19 +54,19 @@ import java.util.List;
  * If unicode script changes, a new font will be found.
  * If there is no suitable font, only one notdef glyph from {@link FontSelector#bestMatch()} will be added.
  */
-public class ComplexFontSelectorStrategy extends com.itextpdf.layout.font.FontSelectorStrategy {
+public class ComplexFontSelectorStrategy extends FontSelectorStrategy {
 
     private PdfFont font;
-    private com.itextpdf.layout.font.FontSelector selector;
+    private FontSelector selector;
 
 
-    public ComplexFontSelectorStrategy(String text, com.itextpdf.layout.font.FontSelector selector, com.itextpdf.layout.font.FontProvider provider, com.itextpdf.layout.font.FontSet additionalFonts) {
+    public ComplexFontSelectorStrategy(String text, FontSelector selector, FontProvider provider, FontSet additionalFonts) {
         super(text, provider, additionalFonts);
         this.font = null;
         this.selector = selector;
     }
 
-    public ComplexFontSelectorStrategy(String text, com.itextpdf.layout.font.FontSelector selector, com.itextpdf.layout.font.FontProvider provider) {
+    public ComplexFontSelectorStrategy(String text, FontSelector selector, FontProvider provider) {
         super(text, provider, null);
         this.font = null;
         this.selector = selector;

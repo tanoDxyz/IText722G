@@ -27,11 +27,11 @@ import java.util.List;
 /**
  * The interface represents abstract layout element and provides an access to its children.
  */
-public interface IAbstractElement extends com.itextpdf.layout.element.IElement {
+public interface IAbstractElement extends IElement {
     /**
      * Gets the child elements of this elements.
      *
      * @return a list of children
      */
-    List<com.itextpdf.layout.element.IElement> getChildren();
+    List<IElement> getChildren();
 }

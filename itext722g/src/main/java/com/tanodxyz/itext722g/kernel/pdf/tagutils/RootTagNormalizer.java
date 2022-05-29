@@ -50,10 +50,11 @@ import com.tanodxyz.itext722g.kernel.pdf.tagging.PdfNamespace;
 import com.tanodxyz.itext722g.kernel.pdf.tagging.PdfStructElem;
 import com.tanodxyz.itext722g.kernel.pdf.tagging.StandardNamespaces;
 import com.tanodxyz.itext722g.kernel.pdf.tagging.StandardRoles;
+
 import java.text.MessageFormat;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
+
 
 class RootTagNormalizer {
 
@@ -189,7 +190,7 @@ class RootTagNormalizer {
             mappingRole += "not standard role";
         }
 
-        Logger logger = LoggerFactory.getLogger(RootTagNormalizer.class);
-        logger.warn(MessageFormat.format(IoLogMessageConstant.CREATED_ROOT_TAG_HAS_MAPPING, origRootTagNs, mappingRole));
+        Logger logger = Logger.getLogger(RootTagNormalizer.class.getName());
+        logger.warning(MessageFormat.format(IoLogMessageConstant.CREATED_ROOT_TAG_HAS_MAPPING, origRootTagNs, mappingRole));
     }
 }

@@ -43,12 +43,13 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf;
 
-import com.itextpdf.commons.actions.EventManager;
-import com.itextpdf.commons.actions.confirmations.ConfirmEvent;
-import com.itextpdf.commons.actions.confirmations.EventConfirmationType;
-import com.itextpdf.commons.actions.data.ProductData;
-import com.itextpdf.commons.actions.sequence.SequenceId;
-import com.itextpdf.commons.utils.MessageFormatUtil;
+
+import com.tanodxyz.itext722g.commons.actions.EventManager;
+import com.tanodxyz.itext722g.commons.actions.confirmations.ConfirmEvent;
+import com.tanodxyz.itext722g.commons.actions.confirmations.EventConfirmationType;
+import com.tanodxyz.itext722g.commons.actions.data.ProductData;
+import com.tanodxyz.itext722g.commons.actions.sequence.SequenceId;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.source.ByteUtils;
 import com.tanodxyz.itext722g.io.source.RandomAccessFileOrArray;
@@ -56,8 +57,10 @@ import com.tanodxyz.itext722g.kernel.actions.data.ITextCoreProductData;
 import com.tanodxyz.itext722g.kernel.actions.events.FlushPdfDocumentEvent;
 import com.tanodxyz.itext722g.kernel.actions.events.ITextCoreProductEvent;
 import com.tanodxyz.itext722g.kernel.colors.Color;
+import com.tanodxyz.itext722g.kernel.events.Event;
 import com.tanodxyz.itext722g.kernel.events.EventDispatcher;
 import com.tanodxyz.itext722g.kernel.events.IEventDispatcher;
+import com.tanodxyz.itext722g.kernel.events.IEventHandler;
 import com.tanodxyz.itext722g.kernel.events.PdfDocumentEvent;
 import com.tanodxyz.itext722g.kernel.exceptions.BadPasswordException;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
@@ -72,6 +75,7 @@ import com.tanodxyz.itext722g.kernel.pdf.annot.PdfAnnotation;
 import com.tanodxyz.itext722g.kernel.pdf.annot.PdfLinkAnnotation;
 import com.tanodxyz.itext722g.kernel.pdf.annot.PdfWidgetAnnotation;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.CanvasGraphicsState;
+import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.kernel.pdf.collection.PdfCollection;
 import com.tanodxyz.itext722g.kernel.pdf.filespec.PdfEncryptedPayloadFileSpecFactory;
 import com.tanodxyz.itext722g.kernel.pdf.filespec.PdfFileSpec;
@@ -87,9 +91,6 @@ import com.tanodxyz.itext722g.kernel.xmp.XMPMeta;
 import com.tanodxyz.itext722g.kernel.xmp.XMPMetaFactory;
 import com.tanodxyz.itext722g.kernel.xmp.options.PropertyOptions;
 import com.tanodxyz.itext722g.kernel.xmp.options.SerializeOptions;
-import com.tanodxyz.itext722g.kernel.events.Event;
-import com.tanodxyz.itext722g.kernel.events.IEventHandler;
-import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -103,8 +104,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Main enter point to work with PDF document.
@@ -307,12 +308,12 @@ public class PdfDocument implements IEventDispatcher, Closeable {
 
         boolean writerHasEncryption = writerHasEncryption();
         if (properties.appendMode && writerHasEncryption) {
-            Logger logger = LoggerFactory.getLogger(PdfDocument.class);
-            logger.warn(IoLogMessageConstant.WRITER_ENCRYPTION_IS_IGNORED_APPEND);
+            Logger logger = Logger.getLogger(PdfDocument.class.getName());
+            logger.warning(IoLogMessageConstant.WRITER_ENCRYPTION_IS_IGNORED_APPEND);
         }
         if (properties.preserveEncryption && writerHasEncryption) {
-            Logger logger = LoggerFactory.getLogger(PdfDocument.class);
-            logger.warn(IoLogMessageConstant.WRITER_ENCRYPTION_IS_IGNORED_PRESERVE);
+            Logger logger = Logger.getLogger(PdfDocument.class.getName());
+            logger.warning(IoLogMessageConstant.WRITER_ENCRYPTION_IS_IGNORED_PRESERVE);
         }
 
         open(writer.properties.pdfVersion);
@@ -1025,8 +1026,8 @@ public class PdfDocument implements IEventDispatcher, Closeable {
                 try {
                     writer.close();
                 } catch (Exception e) {
-                    Logger logger = LoggerFactory.getLogger(PdfDocument.class);
-                    logger.error(IoLogMessageConstant.PDF_WRITER_CLOSING_FAILED, e);
+                    Logger logger = Logger.getLogger(PdfDocument.class.getName());
+                    logger.log(Level.SEVERE,IoLogMessageConstant.PDF_WRITER_CLOSING_FAILED, e);
                 }
             }
 
@@ -1034,8 +1035,8 @@ public class PdfDocument implements IEventDispatcher, Closeable {
                 try {
                     reader.close();
                 } catch (Exception e) {
-                    Logger logger = LoggerFactory.getLogger(PdfDocument.class);
-                    logger.error(IoLogMessageConstant.PDF_READER_CLOSING_FAILED, e);
+                    Logger logger = Logger.getLogger(PdfDocument.class.getName());
+                    logger.log(Level.SEVERE,IoLogMessageConstant.PDF_READER_CLOSING_FAILED, e);
                 }
             }
 
@@ -1129,7 +1130,7 @@ public class PdfDocument implements IEventDispatcher, Closeable {
      * <p>
      * If outlines destination names are the same in different documents, all
      * such outlines will lead to a single location in the resultant document.
-     * In this case iText will log a warning. This can be avoided by renaming
+     * In this case iText will log a warninging. This can be avoided by renaming
      * destinations names in the source document.
      *
      * @param pageFrom         start of the range of pages to be copied.
@@ -1150,7 +1151,7 @@ public class PdfDocument implements IEventDispatcher, Closeable {
      * <p>
      * If outlines destination names are the same in different documents, all
      * such outlines will lead to a single location in the resultant document.
-     * In this case iText will log a warning. This can be avoided by renaming
+     * In this case iText will log a warninging. This can be avoided by renaming
      * destinations names in the source document.
      *
      * @param pageFrom         1-based start of the range of pages to be copied.
@@ -1178,7 +1179,7 @@ public class PdfDocument implements IEventDispatcher, Closeable {
      * <p>
      * If outlines destination names are the same in different documents, all
      * such outlines will lead to a single location in the resultant document.
-     * In this case iText will log a warning. This can be avoided by renaming
+     * In this case iText will log a warninging. This can be avoided by renaming
      * destinations names in the source document.
      *
      * @param pageFrom   1-based start of the range of pages to be copied.
@@ -1198,7 +1199,7 @@ public class PdfDocument implements IEventDispatcher, Closeable {
      * <p>
      * If outlines destination names are the same in different documents, all
      * such outlines will lead to a single location in the resultant document.
-     * In this case iText will log a warning. This can be avoided by renaming
+     * In this case iText will log a warninging. This can be avoided by renaming
      * destinations names in the source document.
      *
      * @param pageFrom   1-based start of the range of pages to be copied.
@@ -1220,7 +1221,7 @@ public class PdfDocument implements IEventDispatcher, Closeable {
      * <p>
      * If outlines destination names are the same in different documents, all
      * such outlines will lead to a single location in the resultant document.
-     * In this case iText will log a warning. This can be avoided by renaming
+     * In this case iText will log a warninging. This can be avoided by renaming
      * destinations names in the source document.
      *
      * @param pagesToCopy      list of pages to be copied.
@@ -1239,7 +1240,7 @@ public class PdfDocument implements IEventDispatcher, Closeable {
      * <p>
      * If outlines destination names are the same in different documents, all
      * such outlines will lead to a single location in the resultant document.
-     * In this case iText will log a warning. This can be avoided by renaming
+     * In this case iText will log a warninging. This can be avoided by renaming
      * destinations names in the source document.
      *
      * @param pagesToCopy      list of pages to be copied.
@@ -1319,8 +1320,8 @@ public class PdfDocument implements IEventDispatcher, Closeable {
                             KernelExceptionMessageConstant.TAG_STRUCTURE_COPYING_FAILED_IT_MIGHT_BE_CORRUPTED_IN_ONE_OF_THE_DOCUMENTS, ex);
                 }
             } else {
-                Logger logger = LoggerFactory.getLogger(PdfDocument.class);
-                logger.warn(IoLogMessageConstant.NOT_TAGGED_PAGES_IN_TAGGED_DOCUMENT);
+                Logger logger = Logger.getLogger(PdfDocument.class.getName());
+                logger.warning(IoLogMessageConstant.NOT_TAGGED_PAGES_IN_TAGGED_DOCUMENT);
             }
         }
         if (catalog.isOutlineMode()) {
@@ -1336,7 +1337,7 @@ public class PdfDocument implements IEventDispatcher, Closeable {
      * <p>
      * If outlines destination names are the same in different documents, all
      * such outlines will lead to a single location in the resultant document.
-     * In this case iText will log a warning. This can be avoided by renaming
+     * In this case iText will log a warninging. This can be avoided by renaming
      * destinations names in the source document.
      *
      * @param pagesToCopy list of pages to be copied.
@@ -1354,7 +1355,7 @@ public class PdfDocument implements IEventDispatcher, Closeable {
      * <p>
      * If outlines destination names are the same in different documents, all
      * such outlines will lead to a single location in the resultant document.
-     * In this case iText will log a warning. This can be avoided by renaming
+     * In this case iText will log a warninging. This can be avoided by renaming
      * destinations names in the source document.
      *
      * @param pagesToCopy list of pages to be copied.
@@ -1472,7 +1473,7 @@ public class PdfDocument implements IEventDispatcher, Closeable {
     public void addNamedDestination(String key, PdfObject value) {
         checkClosingStatus();
         if (value.isArray() && ((PdfArray)value).get(0).isNumber())
-            LoggerFactory.getLogger(PdfDocument.class).warn(IoLogMessageConstant.INVALID_DESTINATION_TYPE);
+            Logger.getLogger(PdfDocument.class.getName()).warning(IoLogMessageConstant.INVALID_DESTINATION_TYPE);
         catalog.addNamedDestination(key, value);
     }
 
@@ -1581,8 +1582,8 @@ public class PdfDocument implements IEventDispatcher, Closeable {
      */
     public void addAssociatedFile(String description, PdfFileSpec fs) {
         if (null == ((PdfDictionary) fs.getPdfObject()).get(PdfName.AFRelationship)) {
-            Logger logger = LoggerFactory.getLogger(PdfDocument.class);
-            logger.error(IoLogMessageConstant.ASSOCIATED_FILE_SPEC_SHALL_INCLUDE_AFRELATIONSHIP);
+            Logger logger = Logger.getLogger(PdfDocument.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.ASSOCIATED_FILE_SPEC_SHALL_INCLUDE_AFRELATIONSHIP);
         }
 
         PdfArray afArray = catalog.getPdfObject().getAsArray(PdfName.AF);
@@ -1635,7 +1636,7 @@ public class PdfDocument implements IEventDispatcher, Closeable {
                         }
                     }
                 } catch (PdfException e) {
-                    LoggerFactory.getLogger(getClass()).error(e.getMessage());
+                    Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage());
                 }
             }
         }
@@ -1658,8 +1659,8 @@ public class PdfDocument implements IEventDispatcher, Closeable {
             throw new PdfException(KernelExceptionMessageConstant.CANNOT_SET_ENCRYPTED_PAYLOAD_TO_ENCRYPTED_DOCUMENT);
         }
         if (!PdfName.EncryptedPayload.equals(((PdfDictionary) fs.getPdfObject()).get(PdfName.AFRelationship))) {
-            LoggerFactory.getLogger(getClass())
-                    .error(IoLogMessageConstant.ENCRYPTED_PAYLOAD_FILE_SPEC_SHALL_HAVE_AFRELATIONSHIP_FILED_EQUAL_TO_ENCRYPTED_PAYLOAD);
+            Logger.getLogger(getClass().getName())
+                    .log(Level.SEVERE,IoLogMessageConstant.ENCRYPTED_PAYLOAD_FILE_SPEC_SHALL_HAVE_AFRELATIONSHIP_FILED_EQUAL_TO_ENCRYPTED_PAYLOAD);
         }
         PdfEncryptedPayload encryptedPayload = PdfEncryptedPayload.extractFrom(fs);
         if (encryptedPayload == null) {
@@ -1668,8 +1669,8 @@ public class PdfDocument implements IEventDispatcher, Closeable {
         }
         PdfCollection collection = getCatalog().getCollection();
         if (collection != null) {
-            LoggerFactory.getLogger(getClass())
-                    .warn(IoLogMessageConstant.COLLECTION_DICTIONARY_ALREADY_EXISTS_IT_WILL_BE_MODIFIED);
+            Logger.getLogger(getClass().getName())
+                    .warning(IoLogMessageConstant.COLLECTION_DICTIONARY_ALREADY_EXISTS_IT_WILL_BE_MODIFIED);
         } else {
             collection = new PdfCollection();
             getCatalog().setCollection(collection);
@@ -1794,8 +1795,8 @@ public class PdfDocument implements IEventDispatcher, Closeable {
                 defaultFont = PdfFontFactory.createFont();
                 if (writer != null) defaultFont.makeIndirect(this);
             } catch (IOException e) {
-                Logger logger = LoggerFactory.getLogger(PdfDocument.class);
-                logger.error(IoLogMessageConstant.EXCEPTION_WHILE_CREATING_DEFAULT_FONT, e);
+                Logger logger = Logger.getLogger(PdfDocument.class.getName());
+                logger.log(Level.SEVERE,IoLogMessageConstant.EXCEPTION_WHILE_CREATING_DEFAULT_FONT, e);
                 defaultFont = null;
             }
         }
@@ -2131,8 +2132,8 @@ public class PdfDocument implements IEventDispatcher, Closeable {
                 setXmpMetadata(updateDefaultXmpMetadata());
             }
         } catch (XMPException e) {
-            Logger logger = LoggerFactory.getLogger(PdfDocument.class);
-            logger.error(IoLogMessageConstant.EXCEPTION_WHILE_UPDATING_XMPMETADATA, e);
+            Logger logger = Logger.getLogger(PdfDocument.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.EXCEPTION_WHILE_UPDATING_XMPMETADATA, e);
         }
     }
 
@@ -2251,8 +2252,8 @@ public class PdfDocument implements IEventDispatcher, Closeable {
         } catch (Exception ex) {
             structTreeRoot = null;
             structParentIndex = -1;
-            Logger logger = LoggerFactory.getLogger(PdfDocument.class);
-            logger.error(IoLogMessageConstant.TAG_STRUCTURE_INIT_FAILED, ex);
+            Logger logger = Logger.getLogger(PdfDocument.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.TAG_STRUCTURE_INIT_FAILED, ex);
         }
     }
 
@@ -2481,8 +2482,8 @@ public class PdfDocument implements IEventDispatcher, Closeable {
 
     private void processReadingError(String errorMessage) {
         if (PdfReader.StrictnessLevel.CONSERVATIVE.isStricter(reader.getStrictnessLevel())) {
-            Logger logger = LoggerFactory.getLogger(PdfDocument.class);
-            logger.error(errorMessage);
+            Logger logger = Logger.getLogger(PdfDocument.class.getName());
+            logger.log(Level.SEVERE,errorMessage);
         } else {
             throw new PdfException(errorMessage);
         }
@@ -2490,11 +2491,11 @@ public class PdfDocument implements IEventDispatcher, Closeable {
 
     private static void overrideFullCompressionInWriterProperties(WriterProperties properties, boolean readerHasXrefStream) {
         if (Boolean.TRUE == properties.isFullCompression && !readerHasXrefStream) {
-            Logger logger = LoggerFactory.getLogger(PdfDocument.class);
-            logger.warn(KernelLogMessageConstant.FULL_COMPRESSION_APPEND_MODE_XREF_TABLE_INCONSISTENCY);
+            Logger logger = Logger.getLogger(PdfDocument.class.getName());
+            logger.warning(KernelLogMessageConstant.FULL_COMPRESSION_APPEND_MODE_XREF_TABLE_INCONSISTENCY);
         } else if (Boolean.FALSE == properties.isFullCompression && readerHasXrefStream) {
-            Logger logger = LoggerFactory.getLogger(PdfDocument.class);
-            logger.warn(KernelLogMessageConstant.FULL_COMPRESSION_APPEND_MODE_XREF_STREAM_INCONSISTENCY);
+            Logger logger = Logger.getLogger(PdfDocument.class.getName());
+            logger.warning(KernelLogMessageConstant.FULL_COMPRESSION_APPEND_MODE_XREF_STREAM_INCONSISTENCY);
         }
         properties.isFullCompression = readerHasXrefStream;
     }

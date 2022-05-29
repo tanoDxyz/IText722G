@@ -43,19 +43,17 @@
  */
 package com.tanodxyz.itext722g.layout.element;
 
-import com.itextpdf.layout.properties.Leading;
-import com.itextpdf.layout.properties.ParagraphOrphansControl;
-import com.itextpdf.layout.properties.ParagraphWidowsControl;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.layout.renderer.IRenderer;
-import com.itextpdf.layout.renderer.ParagraphRenderer;
+
 import com.tanodxyz.itext722g.kernel.pdf.tagging.StandardRoles;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.AccessibilityProperties;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.DefaultAccessibilityProperties;
-import com.tanodxyz.itext722g.layout.element.BlockElement;
-import com.tanodxyz.itext722g.layout.element.IBlockElement;
-import com.tanodxyz.itext722g.layout.element.ILeafElement;
+import com.tanodxyz.itext722g.layout.properties.Leading;
+import com.tanodxyz.itext722g.layout.properties.ParagraphOrphansControl;
+import com.tanodxyz.itext722g.layout.properties.ParagraphWidowsControl;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.renderer.ParagraphRenderer;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -142,7 +140,7 @@ public class Paragraph extends BlockElement<Paragraph> {
      * @return this Paragraph
      * @see TabStop
      */
-    public Paragraph addTabStops(com.itextpdf.layout.element.TabStop... tabStops) {
+    public Paragraph addTabStops(TabStop... tabStops) {
         addTabStopsAsProperty(Arrays.asList(tabStops));
         return this;
     }
@@ -154,7 +152,7 @@ public class Paragraph extends BlockElement<Paragraph> {
      * @return this Paragraph
      * @see TabStop
      */
-    public Paragraph addTabStops(java.util.List<com.itextpdf.layout.element.TabStop> tabStops) {
+    public Paragraph addTabStops(java.util.List<TabStop> tabStops) {
         addTabStopsAsProperty(tabStops);
         return this;
     }
@@ -168,7 +166,7 @@ public class Paragraph extends BlockElement<Paragraph> {
      * @see TabStop
      */
     public Paragraph removeTabStop(float tabStopPosition) {
-        Map<Float, com.itextpdf.layout.element.TabStop> tabStops = this.<Map<Float, com.itextpdf.layout.element.TabStop>>getProperty(Property.TAB_STOPS);
+        Map<Float, TabStop> tabStops = this.<Map<Float, TabStop>>getProperty(Property.TAB_STOPS);
         if (tabStops != null) {
             tabStops.remove(tabStopPosition);
         }
@@ -263,13 +261,13 @@ public class Paragraph extends BlockElement<Paragraph> {
         return new ParagraphRenderer(this);
     }
 
-    private void addTabStopsAsProperty(java.util.List<com.itextpdf.layout.element.TabStop> newTabStops) {
-        Map<Float, com.itextpdf.layout.element.TabStop> tabStops = this.<Map<Float, com.itextpdf.layout.element.TabStop>>getProperty(Property.TAB_STOPS);
+    private void addTabStopsAsProperty(java.util.List<TabStop> newTabStops) {
+        Map<Float, TabStop> tabStops = this.<Map<Float, TabStop>>getProperty(Property.TAB_STOPS);
         if (tabStops == null) {
             tabStops = new TreeMap<>();
             setProperty(Property.TAB_STOPS, tabStops);
         }
-        for (com.itextpdf.layout.element.TabStop tabStop : newTabStops) {
+        for (TabStop tabStop : newTabStops) {
             tabStops.put(tabStop.getTabPosition(), tabStop);
         }
     }

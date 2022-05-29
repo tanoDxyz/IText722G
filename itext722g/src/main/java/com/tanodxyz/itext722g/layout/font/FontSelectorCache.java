@@ -40,9 +40,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.layout.font;
-
-import com.tanodxyz.itext722g.layout.font.FontSelector;
+package com.tanodxyz.itext722g.layout.font;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,17 +48,17 @@ import java.util.Map;
 class FontSelectorCache {
 
     private final FontSetSelectors defaultSelectors;
-    private final com.itextpdf.layout.font.FontSet defaultFontSet;
+    private final      FontSet defaultFontSet;
     private final Map<Long, FontSetSelectors> caches = new HashMap<>();
 
-    FontSelectorCache(com.itextpdf.layout.font.FontSet defaultFontSet) {
+    FontSelectorCache(     FontSet defaultFontSet) {
         assert defaultFontSet != null;
         this.defaultSelectors = new FontSetSelectors();
         this.defaultSelectors.update(defaultFontSet);
         this.defaultFontSet = defaultFontSet;
     }
 
-    FontSelector get(com.itextpdf.layout.font.FontSelectorKey key) {
+    FontSelector get(     FontSelectorKey key) {
         if (update(null, null)) {
             return null;
         } else {
@@ -68,7 +66,7 @@ class FontSelectorCache {
         }
     }
 
-    FontSelector get(com.itextpdf.layout.font.FontSelectorKey key, com.itextpdf.layout.font.FontSet additionalFonts) {
+    FontSelector get(     FontSelectorKey key,      FontSet additionalFonts) {
         if (additionalFonts == null) {
             return get(key);
         } else {
@@ -84,13 +82,13 @@ class FontSelectorCache {
         }
     }
 
-    void put(com.itextpdf.layout.font.FontSelectorKey key, FontSelector fontSelector) {
+    void put(     FontSelectorKey key, FontSelector fontSelector) {
         //update defaultSelectors to reset counter before pushing if needed.
         update(null, null);
         defaultSelectors.map.put(key, fontSelector);
     }
 
-    void put(com.itextpdf.layout.font.FontSelectorKey key, FontSelector fontSelector, com.itextpdf.layout.font.FontSet fontSet) {
+    void put(     FontSelectorKey key, FontSelector fontSelector,      FontSet fontSet) {
         if (fontSet == null) {
             put(key, fontSelector);
         } else {
@@ -104,7 +102,7 @@ class FontSelectorCache {
         }
     }
 
-    private boolean update(FontSetSelectors selectors, com.itextpdf.layout.font.FontSet fontSet) {
+    private boolean update(FontSetSelectors selectors,      FontSet fontSet) {
         boolean updated = false;
         if (defaultSelectors.update(defaultFontSet)) {
             updated = true;
@@ -116,10 +114,10 @@ class FontSelectorCache {
     }
 
     private static class FontSetSelectors {
-        final Map<com.itextpdf.layout.font.FontSelectorKey, FontSelector> map = new HashMap<>();
+        final Map<     FontSelectorKey, FontSelector> map = new HashMap<>();
         private int fontSetSize = -1;
 
-        boolean update(com.itextpdf.layout.font.FontSet fontSet) {
+        boolean update(     FontSet fontSet) {
             assert fontSet != null;
             if (fontSetSize == fontSet.size()) {
                 return false;

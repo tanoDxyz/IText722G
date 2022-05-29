@@ -44,8 +44,6 @@
 package com.tanodxyz.itext722g.forms.fields;
 
 
-import android.util.Log;
-
 import com.tanodxyz.itext722g.commons.utils.Base64;
 import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.forms.PdfAcroForm;
@@ -97,6 +95,7 @@ import com.tanodxyz.itext722g.layout.Style;
 import com.tanodxyz.itext722g.layout.borders.Border;
 import com.tanodxyz.itext722g.layout.element.Div;
 import com.tanodxyz.itext722g.layout.element.Paragraph;
+import com.tanodxyz.itext722g.layout.element.Text;
 import com.tanodxyz.itext722g.layout.layout.LayoutArea;
 import com.tanodxyz.itext722g.layout.layout.LayoutContext;
 import com.tanodxyz.itext722g.layout.layout.LayoutResult;

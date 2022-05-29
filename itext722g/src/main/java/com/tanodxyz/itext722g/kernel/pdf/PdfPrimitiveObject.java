@@ -44,10 +44,9 @@
 package com.tanodxyz.itext722g.kernel.pdf;
 
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.logging.Logger;
 
 public abstract class PdfPrimitiveObject extends PdfObject {
 
@@ -92,8 +91,8 @@ public abstract class PdfPrimitiveObject extends PdfObject {
         if (!directOnly) {
             return super.makeIndirect(document, reference);
         } else {
-            Logger logger = LoggerFactory.getLogger(PdfObject.class);
-            logger.warn(IoLogMessageConstant.DIRECTONLY_OBJECT_CANNOT_BE_INDIRECT);
+            Logger logger = Logger.getLogger(PdfObject.class.getName());
+            logger.warning(IoLogMessageConstant.DIRECTONLY_OBJECT_CANNOT_BE_INDIRECT);
         }
         return this;
     }
@@ -103,8 +102,8 @@ public abstract class PdfPrimitiveObject extends PdfObject {
         if (!directOnly) {
             super.setIndirectReference(indirectReference);
         } else {
-            Logger logger = LoggerFactory.getLogger(PdfObject.class);
-            logger.warn(IoLogMessageConstant.DIRECTONLY_OBJECT_CANNOT_BE_INDIRECT);
+            Logger logger = Logger.getLogger(PdfObject.class.getName());
+            logger.warning(IoLogMessageConstant.DIRECTONLY_OBJECT_CANNOT_BE_INDIRECT);
         }
         return this;
     }

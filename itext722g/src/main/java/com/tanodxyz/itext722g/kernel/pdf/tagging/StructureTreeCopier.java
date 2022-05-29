@@ -44,8 +44,8 @@
 package com.tanodxyz.itext722g.kernel.pdf.tagging;
 
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.exceptions.KernelExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
@@ -53,6 +53,7 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfName;
 import com.tanodxyz.itext722g.kernel.pdf.PdfNumber;
 import com.tanodxyz.itext722g.kernel.pdf.PdfObject;
 import com.tanodxyz.itext722g.kernel.pdf.PdfPage;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,8 +65,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
+
 
 /**
  * Internal helper class which is used to copy, clone or move tag structure across documents.
@@ -295,8 +296,8 @@ class StructureTreeCopier {
                     String srcMapping = mappingEntry.getKey() + " -> " + mappingEntry.getValue();
                     String destMapping = mappingEntry.getKey() + " -> " + destRoleMap.get(mappingEntry.getKey());
 
-                    Logger logger = LoggerFactory.getLogger(StructureTreeCopier.class);
-                    logger.warn(MessageFormat.format(
+                    Logger logger = Logger.getLogger(StructureTreeCopier.class.getName());
+                    logger.warning(MessageFormat.format(
                             IoLogMessageConstant.ROLE_MAPPING_FROM_SOURCE_IS_NOT_COPIED_ALREADY_EXIST, srcMapping,
                             destMapping));
                 }
@@ -495,8 +496,8 @@ class StructureTreeCopier {
                         copiedMappingArray.add(copiedNamespace);
                         copiedMapping = copiedMappingArray;
                     } else {
-                        Logger logger = LoggerFactory.getLogger(StructureTreeCopier.class);
-                        logger.warn(MessageFormat.format(
+                        Logger logger = Logger.getLogger(StructureTreeCopier.class.getName());
+                        logger.warning(MessageFormat.format(
                                 IoLogMessageConstant.ROLE_MAPPING_FROM_SOURCE_IS_NOT_COPIED_INVALID,
                                 entry.getKey().toString()));
                         continue;

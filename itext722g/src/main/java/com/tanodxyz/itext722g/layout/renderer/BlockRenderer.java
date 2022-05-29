@@ -43,27 +43,7 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.element.IElement;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.layout.MinMaxWidthLayoutResult;
-import com.itextpdf.layout.layout.PositionedLayoutContext;
-import com.itextpdf.layout.logs.LayoutLogMessageConstant;
-import com.itextpdf.layout.margincollapse.MarginsCollapseHandler;
-import com.itextpdf.layout.margincollapse.MarginsCollapseInfo;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidthUtils;
-import com.itextpdf.layout.properties.AreaBreakType;
-import com.itextpdf.layout.properties.ClearPropertyValue;
-import com.itextpdf.layout.properties.FloatPropertyValue;
-import com.itextpdf.layout.properties.OverflowPropertyValue;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.layout.properties.VerticalAlignment;
-import com.itextpdf.layout.tagging.LayoutTaggingHelper;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.geom.AffineTransform;
 import com.tanodxyz.itext722g.kernel.geom.Point;
@@ -71,9 +51,26 @@ import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.PdfPage;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.TagTreePointer;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.element.IElement;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.layout.MinMaxWidthLayoutResult;
+import com.tanodxyz.itext722g.layout.layout.PositionedLayoutContext;
+import com.tanodxyz.itext722g.layout.logs.LayoutLogMessageConstant;
+import com.tanodxyz.itext722g.layout.margincollapse.MarginsCollapseHandler;
+import com.tanodxyz.itext722g.layout.margincollapse.MarginsCollapseInfo;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidth;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidthUtils;
+import com.tanodxyz.itext722g.layout.properties.AreaBreakType;
+import com.tanodxyz.itext722g.layout.properties.ClearPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.FloatPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.OverflowPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.layout.properties.VerticalAlignment;
+import com.tanodxyz.itext722g.layout.tagging.LayoutTaggingHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -82,6 +79,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 public abstract class BlockRenderer extends AbstractRenderer {
 
@@ -96,8 +94,8 @@ public abstract class BlockRenderer extends AbstractRenderer {
     public LayoutResult layout(LayoutContext layoutContext) {
         this.isLastRendererForModelElement = true;
 
-        Map<Integer, com.itextpdf.layout.renderer.IRenderer> waitingFloatsSplitRenderers = new LinkedHashMap<>();
-        List<com.itextpdf.layout.renderer.IRenderer> waitingOverflowFloatRenderers = new ArrayList<>();
+        Map<Integer,  IRenderer> waitingFloatsSplitRenderers = new LinkedHashMap<>();
+        List< IRenderer> waitingOverflowFloatRenderers = new ArrayList<>();
         boolean floatOverflowedCompletely = false;
         boolean wasHeightClipped = false;
         boolean wasParentsHeightClipped = layoutContext.isClippedHeight();
@@ -122,18 +120,18 @@ public abstract class BlockRenderer extends AbstractRenderer {
         if (rotation != null || isFixedLayout()) {
             parentBBox.moveDown(AbstractRenderer.INF - parentBBox.getHeight()).setHeight(AbstractRenderer.INF);
         }
-        if (rotation != null && !com.itextpdf.layout.renderer.FloatingHelper.isRendererFloating(this, floatPropertyValue)) {
-            blockWidth = com.itextpdf.layout.renderer.RotationUtils.retrieveRotatedLayoutWidth(parentBBox.getWidth(), this);
+        if (rotation != null && ! FloatingHelper.isRendererFloating(this, floatPropertyValue)) {
+            blockWidth =  RotationUtils.retrieveRotatedLayoutWidth(parentBBox.getWidth(), this);
         }
         boolean includeFloatsInOccupiedArea = BlockFormattingContextUtil.isRendererCreateBfc(this);
-        float clearHeightCorrection = com.itextpdf.layout.renderer.FloatingHelper.calculateClearHeightCorrection(this, floatRendererAreas, parentBBox);
-        com.itextpdf.layout.renderer.FloatingHelper.applyClearance(parentBBox, marginsCollapseHandler, clearHeightCorrection, com.itextpdf.layout.renderer.FloatingHelper.isRendererFloating(this));
-        if (com.itextpdf.layout.renderer.FloatingHelper.isRendererFloating(this, floatPropertyValue)) {
-            blockWidth = com.itextpdf.layout.renderer.FloatingHelper.adjustFloatedBlockLayoutBox(this, parentBBox, blockWidth, floatRendererAreas, floatPropertyValue, overflowX);
+        float clearHeightCorrection =  FloatingHelper.calculateClearHeightCorrection(this, floatRendererAreas, parentBBox);
+         FloatingHelper.applyClearance(parentBBox, marginsCollapseHandler, clearHeightCorrection,  FloatingHelper.isRendererFloating(this));
+        if ( FloatingHelper.isRendererFloating(this, floatPropertyValue)) {
+            blockWidth =  FloatingHelper.adjustFloatedBlockLayoutBox(this, parentBBox, blockWidth, floatRendererAreas, floatPropertyValue, overflowX);
             floatRendererAreas = new ArrayList<>();
         }
 
-        boolean isCellRenderer = this instanceof com.itextpdf.layout.renderer.CellRenderer;
+        boolean isCellRenderer = this instanceof  CellRenderer;
         if (marginsCollapsingEnabled) {
             marginsCollapseHandler.startMarginsCollapse(parentBBox);
         }
@@ -165,7 +163,7 @@ public abstract class BlockRenderer extends AbstractRenderer {
         occupiedArea = new LayoutArea(pageNumber, new Rectangle(parentBBox.getX(), parentBBox.getY() + parentBBox.getHeight(), parentBBox.getWidth(), 0));
         shrinkOccupiedAreaForAbsolutePosition();
 
-        com.itextpdf.layout.renderer.TargetCounterHandler.addPageByID(this);
+         TargetCounterHandler.addPageByID(this);
 
         int currentAreaPos = 0;
 
@@ -175,22 +173,22 @@ public abstract class BlockRenderer extends AbstractRenderer {
         Set<Rectangle> nonChildFloatingRendererAreas = new HashSet<>(floatRendererAreas);
 
         // the first renderer (one of childRenderers or their children) to produce LayoutResult.NOTHING
-        com.itextpdf.layout.renderer.IRenderer causeOfNothing = null;
+         IRenderer causeOfNothing = null;
         boolean anythingPlaced = false;
         for (int childPos = 0; childPos < childRenderers.size(); childPos++) {
-            com.itextpdf.layout.renderer.IRenderer childRenderer = childRenderers.get(childPos);
+             IRenderer childRenderer = childRenderers.get(childPos);
             LayoutResult result;
             childRenderer.setParent(this);
             MarginsCollapseInfo childMarginsInfo = null;
 
-            if (floatOverflowedCompletely && com.itextpdf.layout.renderer.FloatingHelper.isRendererFloating(childRenderer)) {
+            if (floatOverflowedCompletely &&  FloatingHelper.isRendererFloating(childRenderer)) {
                 waitingFloatsSplitRenderers.put(childPos, null);
                 waitingOverflowFloatRenderers.add(childRenderer);
                 continue;
             }
 
-            if (!waitingOverflowFloatRenderers.isEmpty() && com.itextpdf.layout.renderer.FloatingHelper.isClearanceApplied(waitingOverflowFloatRenderers, childRenderer.<ClearPropertyValue>getProperty(Property.CLEAR))) {
-                if (com.itextpdf.layout.renderer.FloatingHelper.isRendererFloating(childRenderer)) {
+            if (!waitingOverflowFloatRenderers.isEmpty() &&  FloatingHelper.isClearanceApplied(waitingOverflowFloatRenderers, childRenderer.<ClearPropertyValue>getProperty(Property.CLEAR))) {
+                if ( FloatingHelper.isRendererFloating(childRenderer)) {
                     waitingFloatsSplitRenderers.put(childPos, null);
                     waitingOverflowFloatRenderers.add(childRenderer);
                     floatOverflowedCompletely = true;
@@ -200,7 +198,7 @@ public abstract class BlockRenderer extends AbstractRenderer {
                     marginsCollapseHandler.endMarginsCollapse(layoutBox);
                 }
 
-                com.itextpdf.layout.renderer.FloatingHelper.includeChildFloatsInOccupiedArea(floatRendererAreas, this, nonChildFloatingRendererAreas);
+                 FloatingHelper.includeChildFloatsInOccupiedArea(floatRendererAreas, this, nonChildFloatingRendererAreas);
                 fixOccupiedAreaIfOverflowedX(overflowX, layoutBox);
 
                 result = new LayoutResult(LayoutResult.NOTHING, null, null, childRenderer);
@@ -223,11 +221,11 @@ public abstract class BlockRenderer extends AbstractRenderer {
                 applyMargins(occupiedArea.getBBox(), true);
 
                 if (Boolean.TRUE.equals(getPropertyAsBoolean(Property.FORCED_PLACEMENT)) || wasHeightClipped) {
-                    LayoutArea editedArea = com.itextpdf.layout.renderer.FloatingHelper.adjustResultOccupiedAreaForFloatAndClear(this, layoutContext.getFloatRendererAreas(), layoutContext.getArea().getBBox(), clearHeightCorrection, marginsCollapsingEnabled);
+                    LayoutArea editedArea =  FloatingHelper.adjustResultOccupiedAreaForFloatAndClear(this, layoutContext.getFloatRendererAreas(), layoutContext.getArea().getBBox(), clearHeightCorrection, marginsCollapsingEnabled);
                     return new LayoutResult(LayoutResult.FULL, editedArea, splitRenderer, null, null);
                 } else {
                     if (layoutResult != LayoutResult.NOTHING) {
-                        LayoutArea editedArea = com.itextpdf.layout.renderer.FloatingHelper.adjustResultOccupiedAreaForFloatAndClear(this, layoutContext.getFloatRendererAreas(), layoutContext.getArea().getBBox(), clearHeightCorrection, marginsCollapsingEnabled);
+                        LayoutArea editedArea =  FloatingHelper.adjustResultOccupiedAreaForFloatAndClear(this, layoutContext.getFloatRendererAreas(), layoutContext.getArea().getBBox(), clearHeightCorrection, marginsCollapsingEnabled);
                         return new LayoutResult(layoutResult, editedArea, splitRenderer, overflowRenderer, null).setAreaBreak(result.getAreaBreak());
                     } else {
                         floatRendererAreas.retainAll(nonChildFloatingRendererAreas);
@@ -260,7 +258,7 @@ public abstract class BlockRenderer extends AbstractRenderer {
                     marginsCollapseHandler.endChildMarginsHandling(layoutBox);
                 }
 
-                if (com.itextpdf.layout.renderer.FloatingHelper.isRendererFloating(childRenderer)) {
+                if ( FloatingHelper.isRendererFloating(childRenderer)) {
                     // Check if current block is empty, kid returns nothing and neither floats nor content
                     // were met on root area (e.g. page area) - return NOTHING, don't layout other kids,
                     // expect FORCED_PLACEMENT to be set.
@@ -281,7 +279,7 @@ public abstract class BlockRenderer extends AbstractRenderer {
                 }
 
                 // On page split, content will be drawn on next page, i.e. under all floats on this page
-                com.itextpdf.layout.renderer.FloatingHelper.includeChildFloatsInOccupiedArea(floatRendererAreas, this, nonChildFloatingRendererAreas);
+                 FloatingHelper.includeChildFloatsInOccupiedArea(floatRendererAreas, this, nonChildFloatingRendererAreas);
                 fixOccupiedAreaIfOverflowedX(overflowX, layoutBox);
 
                 if (result.getSplitRenderer() != null) {
@@ -331,7 +329,7 @@ public abstract class BlockRenderer extends AbstractRenderer {
             anythingPlaced = anythingPlaced || result.getStatus() != LayoutResult.NOTHING;
 
             // The second condition check (after &&) is needed only if margins collapsing is enabled
-            if (result.getOccupiedArea() != null && (!com.itextpdf.layout.renderer.FloatingHelper.isRendererFloating(childRenderer) || includeFloatsInOccupiedArea)) {
+            if (result.getOccupiedArea() != null && (! FloatingHelper.isRendererFloating(childRenderer) || includeFloatsInOccupiedArea)) {
                 recalculateOccupiedAreaAfterChildLayout(result.getOccupiedArea().getBBox(), blockMaxHeight);
                 fixOccupiedAreaIfOverflowedX(overflowX, layoutBox);
             }
@@ -355,7 +353,7 @@ public abstract class BlockRenderer extends AbstractRenderer {
         }
 
         if (includeFloatsInOccupiedArea) {
-            com.itextpdf.layout.renderer.FloatingHelper.includeChildFloatsInOccupiedArea(floatRendererAreas, this, nonChildFloatingRendererAreas);
+             FloatingHelper.includeChildFloatsInOccupiedArea(floatRendererAreas, this, nonChildFloatingRendererAreas);
             fixOccupiedAreaIfOverflowedX(overflowX, layoutBox);
         }
         if (wasHeightClipped) {
@@ -400,7 +398,7 @@ public abstract class BlockRenderer extends AbstractRenderer {
             }
             overflowRenderer.getChildRenderers().addAll(waitingOverflowFloatRenderers);
             if (layoutResult == LayoutResult.PARTIAL && !minHeightOverflow && !includeFloatsInOccupiedArea) {
-                com.itextpdf.layout.renderer.FloatingHelper.removeParentArtifactsOnPageSplitIfOnlyFloatsOverflow(overflowRenderer);
+                 FloatingHelper.removeParentArtifactsOnPageSplitIfOnlyFloatsOverflow(overflowRenderer);
             }
         }
         AbstractRenderer splitRenderer = this;
@@ -419,7 +417,7 @@ public abstract class BlockRenderer extends AbstractRenderer {
         }
 
         if (positionedRenderers.size() > 0) {
-            for (com.itextpdf.layout.renderer.IRenderer childPositionedRenderer : positionedRenderers) {
+            for ( IRenderer childPositionedRenderer : positionedRenderers) {
                 Rectangle fullBbox = occupiedArea.getBBox().clone();
 
                 // Use that value so that layout is independent of whether we are in the bottom of the page or in the top of the page
@@ -458,10 +456,10 @@ public abstract class BlockRenderer extends AbstractRenderer {
         }
         applyVerticalAlignment();
 
-        com.itextpdf.layout.renderer.FloatingHelper.removeFloatsAboveRendererBottom(floatRendererAreas, this);
+         FloatingHelper.removeFloatsAboveRendererBottom(floatRendererAreas, this);
 
         if (layoutResult != LayoutResult.NOTHING) {
-            LayoutArea editedArea = com.itextpdf.layout.renderer.FloatingHelper.adjustResultOccupiedAreaForFloatAndClear(this, layoutContext.getFloatRendererAreas(), layoutContext.getArea().getBBox(), clearHeightCorrection, marginsCollapsingEnabled);
+            LayoutArea editedArea =  FloatingHelper.adjustResultOccupiedAreaForFloatAndClear(this, layoutContext.getFloatRendererAreas(), layoutContext.getArea().getBBox(), clearHeightCorrection, marginsCollapsingEnabled);
             return new LayoutResult(layoutResult, editedArea, splitRenderer, overflowRenderer, causeOfNothing);
         } else {
             if (positionedRenderers.size() > 0) {
@@ -473,7 +471,7 @@ public abstract class BlockRenderer extends AbstractRenderer {
     }
 
     @Override
-    public void draw(com.itextpdf.layout.renderer.DrawContext drawContext) {
+    public void draw( DrawContext drawContext) {
         Logger logger = LoggerFactory.getLogger(BlockRenderer.class);
         if (occupiedArea == null) {
             logger.error(MessageFormatUtil.format(IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED,
@@ -610,19 +608,19 @@ public abstract class BlockRenderer extends AbstractRenderer {
         occupiedArea.setBBox(Rectangle.getCommonRectangle(occupiedArea.getBBox(), resultBBox));
     }
     
-    MarginsCollapseInfo startChildMarginsHandling(com.itextpdf.layout.renderer.IRenderer childRenderer,
+    MarginsCollapseInfo startChildMarginsHandling( IRenderer childRenderer,
                                                   Rectangle layoutBox, MarginsCollapseHandler marginsCollapseHandler) {
         return marginsCollapseHandler.startChildMarginsHandling(childRenderer, layoutBox);
     }
 
     Rectangle recalculateLayoutBoxBeforeChildLayout(Rectangle layoutBox,
-                                                    com.itextpdf.layout.renderer.IRenderer childRenderer, Rectangle initialLayoutBox) {
+                                                     IRenderer childRenderer, Rectangle initialLayoutBox) {
         return layoutBox;
     }
 
     AbstractRenderer[] createSplitAndOverflowRenderers(int childPos, int layoutStatus, LayoutResult childResult,
-                                                       Map<Integer, com.itextpdf.layout.renderer.IRenderer> waitingFloatsSplitRenderers,
-                                                       List<com.itextpdf.layout.renderer.IRenderer> waitingOverflowFloatRenderers) {
+                                                       Map<Integer,  IRenderer> waitingFloatsSplitRenderers,
+                                                       List< IRenderer> waitingOverflowFloatRenderers) {
         AbstractRenderer splitRenderer = createSplitRenderer(layoutStatus);
         splitRenderer.childRenderers = new ArrayList<>(childRenderers.subList(0, childPos));
         if (childResult.getStatus() == LayoutResult.PARTIAL && childResult.getSplitRenderer() != null) {
@@ -631,7 +629,7 @@ public abstract class BlockRenderer extends AbstractRenderer {
 
 
         replaceSplitRendererKidFloats(waitingFloatsSplitRenderers, splitRenderer);
-        for (com.itextpdf.layout.renderer.IRenderer renderer : splitRenderer.childRenderers) {
+        for ( IRenderer renderer : splitRenderer.childRenderers) {
             renderer.setParent(splitRenderer);
         }
 
@@ -657,9 +655,9 @@ public abstract class BlockRenderer extends AbstractRenderer {
         }
 
         float lowestChildBottom = Float.MAX_VALUE;
-        if (com.itextpdf.layout.renderer.FloatingHelper.isRendererFloating(this) || this instanceof com.itextpdf.layout.renderer.CellRenderer) {
+        if ( FloatingHelper.isRendererFloating(this) || this instanceof  CellRenderer) {
             // include floats in vertical alignment
-            for (com.itextpdf.layout.renderer.IRenderer child : childRenderers) {
+            for ( IRenderer child : childRenderers) {
                 if (child.getOccupiedArea().getBBox().getBottom() < lowestChildBottom) {
                     lowestChildBottom = child.getOccupiedArea().getBBox().getBottom();
                 }
@@ -667,8 +665,8 @@ public abstract class BlockRenderer extends AbstractRenderer {
         } else {
             int lastChildIndex = childRenderers.size() - 1;
             while (lastChildIndex >= 0) {
-                com.itextpdf.layout.renderer.IRenderer child = childRenderers.get(lastChildIndex--);
-                if (!com.itextpdf.layout.renderer.FloatingHelper.isRendererFloating(child)) {
+                 IRenderer child = childRenderers.get(lastChildIndex--);
+                if (! FloatingHelper.isRendererFloating(child)) {
                     lowestChildBottom = child.getOccupiedArea().getBBox().getBottom();
                     break;
                 }
@@ -685,12 +683,12 @@ public abstract class BlockRenderer extends AbstractRenderer {
         }
         switch (verticalAlignment) {
             case BOTTOM:
-                for (com.itextpdf.layout.renderer.IRenderer child : childRenderers) {
+                for ( IRenderer child : childRenderers) {
                     child.move(0, -deltaY);
                 }
                 break;
             case MIDDLE:
-                for (com.itextpdf.layout.renderer.IRenderer child : childRenderers) {
+                for ( IRenderer child : childRenderers) {
                     child.move(0, -deltaY / 2);
                 }
                 break;
@@ -807,12 +805,12 @@ public abstract class BlockRenderer extends AbstractRenderer {
     }
 
     LayoutResult processNotFullChildResult(LayoutContext layoutContext,
-                                           Map<Integer, com.itextpdf.layout.renderer.IRenderer> waitingFloatsSplitRenderers,
-                                           List<com.itextpdf.layout.renderer.IRenderer> waitingOverflowFloatRenderers, boolean wasHeightClipped,
+                                           Map<Integer,  IRenderer> waitingFloatsSplitRenderers,
+                                           List< IRenderer> waitingOverflowFloatRenderers, boolean wasHeightClipped,
                                            List<Rectangle> floatRendererAreas, boolean marginsCollapsingEnabled,
                                            float clearHeightCorrection, Border[] borders, UnitValue[] paddings,
                                            List<Rectangle> areas, int currentAreaPos, Rectangle layoutBox,
-                                           Set<Rectangle> nonChildFloatingRendererAreas, com.itextpdf.layout.renderer.IRenderer causeOfNothing,
+                                           Set<Rectangle> nonChildFloatingRendererAreas,  IRenderer causeOfNothing,
                                            boolean anythingPlaced, int childPos, LayoutResult result) {
         if (result.getStatus() == LayoutResult.PARTIAL) {
             if (currentAreaPos + 1 == areas.size()) {
@@ -830,7 +828,7 @@ public abstract class BlockRenderer extends AbstractRenderer {
 
                 correctFixedLayout(layoutBox);
 
-                LayoutArea editedArea = com.itextpdf.layout.renderer.FloatingHelper.adjustResultOccupiedAreaForFloatAndClear(this, layoutContext.getFloatRendererAreas(), layoutContext.getArea().getBBox(), clearHeightCorrection, marginsCollapsingEnabled);
+                LayoutArea editedArea =  FloatingHelper.adjustResultOccupiedAreaForFloatAndClear(this, layoutContext.getFloatRendererAreas(), layoutContext.getArea().getBBox(), clearHeightCorrection, marginsCollapsingEnabled);
                 if (wasHeightClipped) {
                     return new LayoutResult(LayoutResult.FULL, editedArea, splitRenderer, null);
                 } else {
@@ -872,11 +870,11 @@ public abstract class BlockRenderer extends AbstractRenderer {
             applyAbsolutePositionIfNeeded(layoutContext);
 
             if (Boolean.TRUE.equals(getPropertyAsBoolean(Property.FORCED_PLACEMENT)) || wasHeightClipped) {
-                LayoutArea editedArea = com.itextpdf.layout.renderer.FloatingHelper.adjustResultOccupiedAreaForFloatAndClear(this, layoutContext.getFloatRendererAreas(), layoutContext.getArea().getBBox(), clearHeightCorrection, marginsCollapsingEnabled);
+                LayoutArea editedArea =  FloatingHelper.adjustResultOccupiedAreaForFloatAndClear(this, layoutContext.getFloatRendererAreas(), layoutContext.getArea().getBBox(), clearHeightCorrection, marginsCollapsingEnabled);
                 return new LayoutResult(LayoutResult.FULL, editedArea, splitRenderer, null, null);
             } else {
                 if (layoutResult != LayoutResult.NOTHING) {
-                    LayoutArea editedArea = com.itextpdf.layout.renderer.FloatingHelper.adjustResultOccupiedAreaForFloatAndClear(this, layoutContext.getFloatRendererAreas(), layoutContext.getArea().getBBox(), clearHeightCorrection, marginsCollapsingEnabled);
+                    LayoutArea editedArea =  FloatingHelper.adjustResultOccupiedAreaForFloatAndClear(this, layoutContext.getFloatRendererAreas(), layoutContext.getArea().getBBox(), clearHeightCorrection, marginsCollapsingEnabled);
                     return new LayoutResult(layoutResult, editedArea, splitRenderer, overflowRenderer, null).setAreaBreak(result.getAreaBreak());
                 } else {
                     floatRendererAreas.retainAll(nonChildFloatingRendererAreas);
@@ -887,7 +885,7 @@ public abstract class BlockRenderer extends AbstractRenderer {
         return null;
     }
 
-    void decreaseLayoutBoxAfterChildPlacement(Rectangle layoutBox, LayoutResult result, com.itextpdf.layout.renderer.IRenderer childRenderer) {
+    void decreaseLayoutBoxAfterChildPlacement(Rectangle layoutBox, LayoutResult result,  IRenderer childRenderer) {
         layoutBox.setHeight(result.getOccupiedArea().getBBox().getY() - layoutBox.getY());
     }
 
@@ -1000,11 +998,11 @@ public abstract class BlockRenderer extends AbstractRenderer {
             Float minWidth = hasAbsoluteUnitValue(Property.MIN_WIDTH) ? retrieveMinWidth(0) : null;
             Float maxWidth = hasAbsoluteUnitValue(Property.MAX_WIDTH) ? retrieveMaxWidth(0) : null;
             if (minWidth == null || maxWidth == null) {
-                AbstractWidthHandler handler = new com.itextpdf.layout.renderer.MaxMaxWidthHandler(minMaxWidth);
+                AbstractWidthHandler handler = new  MaxMaxWidthHandler(minMaxWidth);
                 int epsilonNum = 0;
                 int curEpsNum = 0;
                 float previousFloatingChildWidth = 0;
-                for (com.itextpdf.layout.renderer.IRenderer childRenderer : childRenderers) {
+                for ( IRenderer childRenderer : childRenderers) {
                     MinMaxWidth childMinMaxWidth;
                     childRenderer.setParent(this);
                     if (childRenderer instanceof AbstractRenderer) {
@@ -1012,10 +1010,10 @@ public abstract class BlockRenderer extends AbstractRenderer {
                     } else {
                         childMinMaxWidth = MinMaxWidthUtils.countDefaultMinMaxWidth(childRenderer);
                     }
-                    handler.updateMaxChildWidth(childMinMaxWidth.getMaxWidth() + (com.itextpdf.layout.renderer.FloatingHelper.isRendererFloating(childRenderer) ? previousFloatingChildWidth : 0));
+                    handler.updateMaxChildWidth(childMinMaxWidth.getMaxWidth() + ( FloatingHelper.isRendererFloating(childRenderer) ? previousFloatingChildWidth : 0));
                     handler.updateMinChildWidth(childMinMaxWidth.getMinWidth());
-                    previousFloatingChildWidth = com.itextpdf.layout.renderer.FloatingHelper.isRendererFloating(childRenderer) ? previousFloatingChildWidth + childMinMaxWidth.getMaxWidth() : 0;
-                    if (com.itextpdf.layout.renderer.FloatingHelper.isRendererFloating(childRenderer)) {
+                    previousFloatingChildWidth =  FloatingHelper.isRendererFloating(childRenderer) ? previousFloatingChildWidth + childMinMaxWidth.getMaxWidth() : 0;
+                    if ( FloatingHelper.isRendererFloating(childRenderer)) {
                         curEpsNum++;
                     } else {
                         epsilonNum = Math.max(epsilonNum, curEpsNum);
@@ -1041,14 +1039,14 @@ public abstract class BlockRenderer extends AbstractRenderer {
         }
 
         if (this.getPropertyAsFloat(Property.ROTATION_ANGLE) != null) {
-            return com.itextpdf.layout.renderer.RotationUtils.countRotationMinMaxWidth(minMaxWidth, this);
+            return  RotationUtils.countRotationMinMaxWidth(minMaxWidth, this);
         }
 
         return minMaxWidth;
     }
 
-    private void replaceSplitRendererKidFloats(Map<Integer, com.itextpdf.layout.renderer.IRenderer> waitingFloatsSplitRenderers, com.itextpdf.layout.renderer.IRenderer splitRenderer) {
-        for (Map.Entry<Integer, com.itextpdf.layout.renderer.IRenderer> waitingSplitRenderer : waitingFloatsSplitRenderers.entrySet()) {
+    private void replaceSplitRendererKidFloats(Map<Integer,  IRenderer> waitingFloatsSplitRenderers,  IRenderer splitRenderer) {
+        for (Map.Entry<Integer,  IRenderer> waitingSplitRenderer : waitingFloatsSplitRenderers.entrySet()) {
             if (waitingSplitRenderer.getValue() != null) {
                 splitRenderer.getChildRenderers().set(waitingSplitRenderer.getKey(), waitingSplitRenderer.getValue());
             } else {

@@ -43,10 +43,10 @@
 package com.tanodxyz.itext722g.kernel.pdf;
 
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class VersionConforming {
 
@@ -55,11 +55,11 @@ public class VersionConforming {
     public static final String DEPRECATED_NEED_APPEARANCES_IN_ACROFORM = "NeedAppearances has been deprecated in PDF 2.0. Appearance streams are required in PDF 2.0.";
     public static final String DEPRECATED_XFA_FORMS = "XFA is deprecated in PDF 2.0. The XFA form will not be written to the document";
 
-    private static final Logger logger = LoggerFactory.getLogger(VersionConforming.class);
+    private static final Logger logger = Logger.getLogger(VersionConforming.class.getName());
 
     public static boolean validatePdfVersionForDictEntry(PdfDocument document, PdfVersion expectedVersion, PdfName entryKey, PdfName dictType) {
         if (document != null && document.getPdfVersion().compareTo(expectedVersion) < 0) {
-            logger.warn(
+            logger.warning(
                     MessageFormat.format(IoLogMessageConstant.VERSION_INCOMPATIBILITY_FOR_DICTIONARY_ENTRY, entryKey,
                             dictType, expectedVersion, document.getPdfVersion()));
             return true;
@@ -70,7 +70,7 @@ public class VersionConforming {
 
     public static boolean validatePdfVersionForDeprecatedFeatureLogWarn(PdfDocument document, PdfVersion expectedVersion, String deprecatedFeatureLogMessage) {
         if (document.getPdfVersion().compareTo(expectedVersion) >= 0) {
-            logger.warn(deprecatedFeatureLogMessage);
+            logger.warning(deprecatedFeatureLogMessage);
             return true;
         } else {
             return false;
@@ -79,7 +79,7 @@ public class VersionConforming {
 
     public static boolean validatePdfVersionForDeprecatedFeatureLogError(PdfDocument document, PdfVersion expectedVersion, String deprecatedFeatureLogMessage) {
         if (document.getPdfVersion().compareTo(expectedVersion) >= 0) {
-            logger.error(deprecatedFeatureLogMessage);
+            logger.log(Level.SEVERE,deprecatedFeatureLogMessage);
             return true;
         } else {
             return false;

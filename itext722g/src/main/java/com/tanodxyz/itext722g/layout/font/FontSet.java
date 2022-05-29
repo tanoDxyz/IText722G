@@ -42,17 +42,13 @@
  */
 package com.tanodxyz.itext722g.layout.font;
 
-import com.itextpdf.commons.utils.FileUtil;
+import com.tanodxyz.itext722g.commons.utils.FileUtil;
 import com.tanodxyz.itext722g.io.font.FontProgram;
 import com.tanodxyz.itext722g.io.font.FontProgramDescriptor;
 import com.tanodxyz.itext722g.io.font.PdfEncodings;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.font.PdfFont;
 import com.tanodxyz.itext722g.kernel.font.Type3Font;
-import com.tanodxyz.itext722g.layout.font.FontInfo;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -63,6 +59,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Reusable font set for FontProgram related data.
@@ -150,8 +148,8 @@ public final class FontSet {
             return false;
         }
         if (fontProgram instanceof Type3Font) {
-            Logger logger = LoggerFactory.getLogger(FontSet.class);
-            logger.error(IoLogMessageConstant.TYPE3_FONT_CANNOT_BE_ADDED);
+            Logger logger = Logger.getLogger(FontSet.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.TYPE3_FONT_CANNOT_BE_ADDED);
             return false;
         }
         FontInfo fi = FontInfo.create(fontProgram, encoding, alias, unicodeRange);
@@ -433,7 +431,7 @@ public final class FontSet {
      * @return set of all available and temporary fonts
      */
     public Collection<FontInfo> getFonts(FontSet additionalFonts) {
-        return new com.itextpdf.layout.font.FontSetCollection(fonts, additionalFonts != null ? additionalFonts.fonts : null);
+        return new FontSetCollection(fonts, additionalFonts != null ? additionalFonts.fonts : null);
     }
 
     /**

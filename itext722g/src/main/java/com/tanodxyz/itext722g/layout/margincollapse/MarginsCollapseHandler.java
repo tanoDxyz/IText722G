@@ -42,27 +42,26 @@
  */
 package com.tanodxyz.itext722g.layout.margincollapse;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.properties.FloatPropertyValue;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.layout.renderer.AbstractRenderer;
-import com.itextpdf.layout.renderer.BlockFormattingContextUtil;
-import com.itextpdf.layout.renderer.BlockRenderer;
-import com.itextpdf.layout.renderer.CellRenderer;
-import com.itextpdf.layout.renderer.IRenderer;
-import com.itextpdf.layout.renderer.LineRenderer;
-import com.itextpdf.layout.renderer.TableRenderer;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.layout.IPropertyContainer;
-import com.tanodxyz.itext722g.layout.margincollapse.MarginsCollapse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.properties.FloatPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
+import com.tanodxyz.itext722g.layout.renderer.BlockFormattingContextUtil;
+import com.tanodxyz.itext722g.layout.renderer.BlockRenderer;
+import com.tanodxyz.itext722g.layout.renderer.CellRenderer;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.renderer.LineRenderer;
+import com.tanodxyz.itext722g.layout.renderer.TableRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Rules of the margins collapsing are taken from Mozilla Developer Network:
@@ -72,10 +71,10 @@ import java.util.List;
  */
 public class MarginsCollapseHandler {
     private IRenderer renderer;
-    private com.itextpdf.layout.margincollapse.MarginsCollapseInfo collapseInfo;
+    private   MarginsCollapseInfo collapseInfo;
 
-    private com.itextpdf.layout.margincollapse.MarginsCollapseInfo childMarginInfo;
-    private com.itextpdf.layout.margincollapse.MarginsCollapseInfo prevChildMarginInfo;
+    private   MarginsCollapseInfo childMarginInfo;
+    private   MarginsCollapseInfo prevChildMarginInfo;
     private int firstNotEmptyKidIndex = 0;
 
     private int processedChildrenNum = 0;
@@ -84,13 +83,13 @@ public class MarginsCollapseHandler {
     // Layout box and collapse info are saved before processing the next kid, in order to be able to restore it in case
     // the next kid is not placed. These values are not null only between startChildMarginsHandling and endChildMarginsHandling calls.
     private Rectangle backupLayoutBox;
-    private com.itextpdf.layout.margincollapse.MarginsCollapseInfo backupCollapseInfo;
+    private   MarginsCollapseInfo backupCollapseInfo;
 
     private boolean lastKidCollapsedAfterHasClearanceApplied;
 
-    public MarginsCollapseHandler(IRenderer renderer, com.itextpdf.layout.margincollapse.MarginsCollapseInfo marginsCollapseInfo) {
+    public MarginsCollapseHandler(IRenderer renderer,   MarginsCollapseInfo marginsCollapseInfo) {
         this.renderer = renderer;
-        this.collapseInfo = marginsCollapseInfo != null ? marginsCollapseInfo : new com.itextpdf.layout.margincollapse.MarginsCollapseInfo();
+        this.collapseInfo = marginsCollapseInfo != null ? marginsCollapseInfo : new   MarginsCollapseInfo();
     }
 
     public void processFixedHeightAdjustment(float heightDelta) {
@@ -98,7 +97,7 @@ public class MarginsCollapseHandler {
         collapseInfo.setBufferSpaceOnBottom(collapseInfo.getBufferSpaceOnBottom() + heightDelta);
     }
 
-    public com.itextpdf.layout.margincollapse.MarginsCollapseInfo startChildMarginsHandling(IRenderer child, Rectangle layoutBox) {
+    public   MarginsCollapseInfo startChildMarginsHandling(IRenderer child, Rectangle layoutBox) {
         if (backupLayoutBox != null) {
             // this should happen only if previous kid was floated
             restoreLayoutBoxAfterFailedLayoutAttempt(layoutBox);
@@ -115,7 +114,7 @@ public class MarginsCollapseHandler {
         boolean childIsBlockElement = !rendererIsFloated(child) && isBlockElement(child);
 
         backupLayoutBox = layoutBox.clone();
-        backupCollapseInfo = new com.itextpdf.layout.margincollapse.MarginsCollapseInfo();
+        backupCollapseInfo = new   MarginsCollapseInfo();
         collapseInfo.copyTo(backupCollapseInfo);
 
         prepareBoxForLayoutAttempt(layoutBox, childIndex, childIsBlockElement);
@@ -134,7 +133,7 @@ public class MarginsCollapseHandler {
         collapseInfo.getCollapseBefore().joinMargin(clearHeightCorrection);
     }
 
-    private com.itextpdf.layout.margincollapse.MarginsCollapseInfo createMarginsInfoForBlockChild(int childIndex) {
+    private   MarginsCollapseInfo createMarginsInfoForBlockChild(int childIndex) {
         boolean ignoreChildTopMargin = false;
         // always assume that current child might be the last on this area
         boolean ignoreChildBottomMargin = lastChildMarginAdjoinedToParent(renderer);
@@ -153,7 +152,7 @@ public class MarginsCollapseHandler {
 
         MarginsCollapse parentCollapseAfter = collapseInfo.getCollapseAfter().clone();
         MarginsCollapse childCollapseAfter = ignoreChildBottomMargin ? parentCollapseAfter : new MarginsCollapse();
-        com.itextpdf.layout.margincollapse.MarginsCollapseInfo childMarginsInfo = new com.itextpdf.layout.margincollapse.MarginsCollapseInfo(ignoreChildTopMargin, ignoreChildBottomMargin, childCollapseBefore, childCollapseAfter);
+          MarginsCollapseInfo childMarginsInfo = new   MarginsCollapseInfo(ignoreChildTopMargin, ignoreChildBottomMargin, childCollapseBefore, childCollapseAfter);
         if (ignoreChildTopMargin && childIndex == firstNotEmptyKidIndex) {
             childMarginsInfo.setBufferSpaceOnTop(collapseInfo.getBufferSpaceOnTop());
         }
@@ -596,8 +595,8 @@ public class MarginsCollapseHandler {
     private static float defineMarginValueForCollapse(IRenderer renderer, int property) {
         UnitValue marginUV = renderer.getModelElement().<UnitValue>getProperty(property);
         if (null != marginUV && !marginUV.isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(MarginsCollapseHandler.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(MarginsCollapseHandler.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     property));
         }
         return marginUV != null && !(renderer instanceof CellRenderer) ? marginUV.getValue() : 0;
@@ -610,8 +609,8 @@ public class MarginsCollapseHandler {
     private static boolean hasPadding(IRenderer renderer, int property) {
         UnitValue padding = renderer.getModelElement().<UnitValue>getProperty(property);
         if (null != padding && !padding.isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(MarginsCollapseHandler.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(MarginsCollapseHandler.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     property));
         }
         return padding != null && padding.getValue() > 0;

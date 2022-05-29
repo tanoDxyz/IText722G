@@ -43,23 +43,22 @@
  */
 package com.tanodxyz.itext722g.layout.properties;
 
-import com.itextpdf.layout.borders.Border;
 
 /**
  * Represents a border radius.
  */
 public class BorderRadius {
     /** The horizontal semi-major axis of the ellipse to use for the border in that corner. */
-    private com.itextpdf.layout.properties.UnitValue horizontalRadius;
+    private    UnitValue horizontalRadius;
     /** The vertical semi-major axis of the ellipse to use for the border in that corner. */
-    private com.itextpdf.layout.properties.UnitValue verticalRadius;
+    private    UnitValue verticalRadius;
 
     /**
      * Creates a {@link BorderRadius border radius} with given value.
      *
      * @param radius the radius
      */
-    public BorderRadius(com.itextpdf.layout.properties.UnitValue radius) {
+    public BorderRadius(   UnitValue radius) {
         this.horizontalRadius = radius;
         this.verticalRadius = radius;
     }
@@ -70,7 +69,7 @@ public class BorderRadius {
      * @param radius the radius
      */
     public BorderRadius(float radius) {
-        this.horizontalRadius = com.itextpdf.layout.properties.UnitValue.createPointValue(radius);
+        this.horizontalRadius =    UnitValue.createPointValue(radius);
         this.verticalRadius = this.horizontalRadius;
     }
 
@@ -80,7 +79,7 @@ public class BorderRadius {
      * @param horizontalRadius the horizontal radius of the corner
      * @param verticalRadius the vertical radius of the corner
      */
-    public BorderRadius(com.itextpdf.layout.properties.UnitValue horizontalRadius, com.itextpdf.layout.properties.UnitValue verticalRadius) {
+    public BorderRadius(   UnitValue horizontalRadius,    UnitValue verticalRadius) {
         this.horizontalRadius = horizontalRadius;
         this.verticalRadius = verticalRadius;
     }
@@ -92,8 +91,8 @@ public class BorderRadius {
      * @param verticalRadius the vertical radius of the corner
      */
     public BorderRadius(float horizontalRadius, float verticalRadius) {
-        this.horizontalRadius = com.itextpdf.layout.properties.UnitValue.createPointValue(horizontalRadius);
-        this.verticalRadius = com.itextpdf.layout.properties.UnitValue.createPointValue(verticalRadius);
+        this.horizontalRadius =    UnitValue.createPointValue(horizontalRadius);
+        this.verticalRadius =    UnitValue.createPointValue(verticalRadius);
     }
 
     /**
@@ -101,7 +100,7 @@ public class BorderRadius {
      *
      * @return the horizontal radius
      */
-    public com.itextpdf.layout.properties.UnitValue getHorizontalRadius() {
+    public    UnitValue getHorizontalRadius() {
         return horizontalRadius;
     }
 
@@ -110,7 +109,7 @@ public class BorderRadius {
      *
      * @return the vertical radius
      */
-    public com.itextpdf.layout.properties.UnitValue getVerticalRadius() {
+    public    UnitValue getVerticalRadius() {
         return verticalRadius;
     }
 }

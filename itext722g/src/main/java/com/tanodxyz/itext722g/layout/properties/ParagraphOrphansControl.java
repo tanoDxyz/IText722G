@@ -22,12 +22,12 @@
  */
 package com.tanodxyz.itext722g.layout.properties;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.renderer.ParagraphRenderer;
+import com.tanodxyz.itext722g.layout.renderer.ParagraphRenderer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
+
 
 /**
  * A specialized class holding configurable parameters related to {@link com.itextpdf.layout.element.Paragraph}'s
@@ -74,14 +74,14 @@ public class ParagraphOrphansControl {
      * @param message  {@link String} explaining the reason for violation
      */
     public void handleViolatedOrphans(ParagraphRenderer renderer, String message) {
-        Logger logger = LoggerFactory.getLogger(ParagraphOrphansControl.class);
+        Logger logger = Logger.getLogger(ParagraphOrphansControl.class.getName());
         if (renderer.getOccupiedArea() != null && renderer.getLines() != null) {
             int pageNumber = renderer.getOccupiedArea().getPageNumber();
             String warnText = MessageFormatUtil.format(IoLogMessageConstant.ORPHANS_CONSTRAINT_VIOLATED, pageNumber,
                     minOrphans, renderer.getLines().size(), message);
-            logger.warn(warnText);
+            logger.warning(warnText);
         } else {
-            logger.warn(IoLogMessageConstant.PREMATURE_CALL_OF_HANDLE_VIOLATION_METHOD);
+            logger.warning(IoLogMessageConstant.PREMATURE_CALL_OF_HANDLE_VIOLATION_METHOD);
         }
     }
 }

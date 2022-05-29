@@ -50,8 +50,8 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfName;
 import com.tanodxyz.itext722g.kernel.pdf.PdfNumber;
 import com.tanodxyz.itext722g.kernel.pdf.PdfObject;
 import com.tanodxyz.itext722g.kernel.pdf.PdfString;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.logging.Logger;
 
 /**
  * This is a super class for the annotations which are defined as markup annotations
@@ -237,8 +237,8 @@ public abstract class PdfMarkupAnnotation extends PdfAnnotation {
             if ( popupObject != null ) {
                 PdfAnnotation annotation = makeAnnotation(popupObject);
                 if (!(annotation instanceof PdfPopupAnnotation)) {
-                    Logger logger = LoggerFactory.getLogger(PdfMarkupAnnotation.class);
-                    logger.warn(IoLogMessageConstant.POPUP_ENTRY_IS_NOT_POPUP_ANNOTATION);
+                    Logger logger = Logger.getLogger(PdfMarkupAnnotation.class.getName());
+                    logger.warning(IoLogMessageConstant.POPUP_ENTRY_IS_NOT_POPUP_ANNOTATION);
                     return null;
                 }
                 popup = (PdfPopupAnnotation) annotation;

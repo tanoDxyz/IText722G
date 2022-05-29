@@ -43,7 +43,8 @@
  */
 package com.tanodxyz.itext722g.layout.properties;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 
 /**
  * A specialized class that holds a value and the unit it is measured in.

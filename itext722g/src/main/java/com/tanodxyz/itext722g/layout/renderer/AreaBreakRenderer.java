@@ -43,11 +43,12 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.layout.element.AreaBreak;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
+
 import com.tanodxyz.itext722g.layout.IPropertyContainer;
+import com.tanodxyz.itext722g.layout.element.AreaBreak;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
 
 import java.util.List;
 
@@ -55,7 +56,7 @@ import java.util.List;
  * Renderer object for the {@link AreaBreak} layout element. Will terminate the
  * current content area and initialize a new one.
  */
-public class AreaBreakRenderer implements com.itextpdf.layout.renderer.IRenderer {
+public class AreaBreakRenderer implements  IRenderer {
 
     protected AreaBreak areaBreak;
 
@@ -75,7 +76,7 @@ public class AreaBreakRenderer implements com.itextpdf.layout.renderer.IRenderer
      * @param renderer {@inheritDoc}
      */
     @Override
-    public void addChild(com.itextpdf.layout.renderer.IRenderer renderer) {
+    public void addChild( IRenderer renderer) {
         throw new UnsupportedOperationException();
     }
 
@@ -91,7 +92,7 @@ public class AreaBreakRenderer implements com.itextpdf.layout.renderer.IRenderer
      * @param drawContext {@inheritDoc}
      */
     @Override
-    public void draw(com.itextpdf.layout.renderer.DrawContext drawContext) {
+    public void draw( DrawContext drawContext) {
         throw new UnsupportedOperationException();
     }
 
@@ -162,7 +163,7 @@ public class AreaBreakRenderer implements com.itextpdf.layout.renderer.IRenderer
     }
 
     @Override
-    public com.itextpdf.layout.renderer.IRenderer setParent(com.itextpdf.layout.renderer.IRenderer parent) {
+    public  IRenderer setParent( IRenderer parent) {
         return this;
     }
 
@@ -172,10 +173,10 @@ public class AreaBreakRenderer implements com.itextpdf.layout.renderer.IRenderer
     }
 
     @Override
-    public com.itextpdf.layout.renderer.IRenderer getParent() { return null; }
+    public  IRenderer getParent() { return null; }
 
     @Override
-    public List<com.itextpdf.layout.renderer.IRenderer> getChildRenderers() {
+    public List< IRenderer> getChildRenderers() {
         return null;
     }
 
@@ -197,7 +198,7 @@ public class AreaBreakRenderer implements com.itextpdf.layout.renderer.IRenderer
     }
 
     @Override
-    public com.itextpdf.layout.renderer.IRenderer getNextRenderer() {
+    public  IRenderer getNextRenderer() {
         return null;
     }
 }

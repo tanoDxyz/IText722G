@@ -43,14 +43,13 @@
  */
 package com.tanodxyz.itext722g.layout.element;
 
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.renderer.IRenderer;
-import com.itextpdf.layout.renderer.LineSeparatorRenderer;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.draw.ILineDrawer;
 import com.tanodxyz.itext722g.kernel.pdf.tagging.StandardRoles;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.AccessibilityProperties;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.DefaultAccessibilityProperties;
-import com.tanodxyz.itext722g.layout.element.BlockElement;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.renderer.LineSeparatorRenderer;
 
 /**
  * This is a line separator element which is basically just a horizontal line with

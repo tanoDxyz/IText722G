@@ -43,34 +43,8 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.element.IElement;
-import com.itextpdf.layout.exceptions.LayoutExceptionMessageConstant;
-import com.itextpdf.layout.font.FontCharacteristics;
-import com.itextpdf.layout.font.FontProvider;
-import com.itextpdf.layout.font.FontSelector;
-import com.itextpdf.layout.font.FontSet;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutPosition;
-import com.itextpdf.layout.layout.PositionedLayoutContext;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidthUtils;
-import com.itextpdf.layout.properties.Background;
-import com.itextpdf.layout.properties.BackgroundBox;
-import com.itextpdf.layout.properties.BackgroundImage;
-import com.itextpdf.layout.properties.BaseDirection;
-import com.itextpdf.layout.properties.BlendMode;
-import com.itextpdf.layout.properties.BorderRadius;
-import com.itextpdf.layout.properties.BoxSizingPropertyValue;
-import com.itextpdf.layout.properties.HorizontalAlignment;
-import com.itextpdf.layout.properties.OverflowPropertyValue;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.Transform;
-import com.itextpdf.layout.properties.TransparentColor;
-import com.itextpdf.layout.properties.UnitValue;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.util.NumberUtil;
 import com.tanodxyz.itext722g.kernel.colors.Color;
@@ -95,9 +69,33 @@ import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfFormXObject;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfXObject;
 import com.tanodxyz.itext722g.layout.Document;
 import com.tanodxyz.itext722g.layout.IPropertyContainer;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.element.Div;
+import com.tanodxyz.itext722g.layout.element.IElement;
+import com.tanodxyz.itext722g.layout.exceptions.LayoutExceptionMessageConstant;
+import com.tanodxyz.itext722g.layout.font.FontCharacteristics;
+import com.tanodxyz.itext722g.layout.font.FontProvider;
+import com.tanodxyz.itext722g.layout.font.FontSelector;
+import com.tanodxyz.itext722g.layout.font.FontSet;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutPosition;
+import com.tanodxyz.itext722g.layout.layout.PositionedLayoutContext;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidth;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidthUtils;
+import com.tanodxyz.itext722g.layout.properties.Background;
+import com.tanodxyz.itext722g.layout.properties.BackgroundBox;
+import com.tanodxyz.itext722g.layout.properties.BackgroundImage;
+import com.tanodxyz.itext722g.layout.properties.BaseDirection;
+import com.tanodxyz.itext722g.layout.properties.BlendMode;
+import com.tanodxyz.itext722g.layout.properties.BorderRadius;
+import com.tanodxyz.itext722g.layout.properties.BoxSizingPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.HorizontalAlignment;
+import com.tanodxyz.itext722g.layout.properties.OverflowPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.Transform;
+import com.tanodxyz.itext722g.layout.properties.TransparentColor;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -106,13 +104,15 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Defines the most common properties and behavior that are shared by most
  * {@link IRenderer} implementations. All default Renderers are subclasses of
  * this default implementation.
  */
-public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.IRenderer {
+public abstract class AbstractRenderer implements  IRenderer {
     public static final float OVERLAP_EPSILON = 1e-4f;
 
 
@@ -157,12 +157,12 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
 
     private static final int ARC_QUARTER_CLOCKWISE_EXTENT = -90;
 
-    protected List<com.itextpdf.layout.renderer.IRenderer> childRenderers = new ArrayList<>();
-    protected List<com.itextpdf.layout.renderer.IRenderer> positionedRenderers = new ArrayList<>();
+    protected List< IRenderer> childRenderers = new ArrayList<>();
+    protected List< IRenderer> positionedRenderers = new ArrayList<>();
     protected IPropertyContainer modelElement;
     protected boolean flushed = false;
     protected LayoutArea occupiedArea;
-    protected com.itextpdf.layout.renderer.IRenderer parent;
+    protected  IRenderer parent;
     protected Map<Integer, Object> properties = new HashMap<>();
     protected boolean isLastRendererForModelElement = true;
 
@@ -196,7 +196,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      * {@inheritDoc}
      */
     @Override
-    public void addChild(com.itextpdf.layout.renderer.IRenderer renderer) {
+    public void addChild( IRenderer renderer) {
         // https://www.webkit.org/blog/116/webcore-rendering-iii-layout-basics
         // "The rules can be summarized as follows:"...
         Integer positioning = renderer.<Integer>getProperty(Property.POSITION);
@@ -219,7 +219,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
             AbstractRenderer positionedParent = this;
             boolean noPositionInfo = AbstractRenderer.noAbsolutePositionInfo(renderer);
             while (!positionedParent.isPositioned() && !noPositionInfo) {
-                com.itextpdf.layout.renderer.IRenderer parent = positionedParent.parent;
+                 IRenderer parent = positionedParent.parent;
                 if (parent instanceof AbstractRenderer) {
                     positionedParent = (AbstractRenderer) parent;
                 } else {
@@ -239,7 +239,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
             // the content should be displayed in the flow of the current content, not overlapping it.
             // The behavior is just if it would be statically positioned except it does not affect other elements
             int pos = 0;
-            List<com.itextpdf.layout.renderer.IRenderer> childPositionedRenderers = ((AbstractRenderer) renderer).positionedRenderers;
+            List< IRenderer> childPositionedRenderers = ((AbstractRenderer) renderer).positionedRenderers;
             while (pos < childPositionedRenderers.size()) {
                 if (AbstractRenderer.noAbsolutePositionInfo(childPositionedRenderers.get(pos))) {
                     pos++;
@@ -263,7 +263,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      * {@inheritDoc}
      */
     @Override
-    public List<com.itextpdf.layout.renderer.IRenderer> getChildRenderers() {
+    public List< IRenderer> getChildRenderers() {
         return childRenderers;
     }
 
@@ -466,7 +466,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (com.itextpdf.layout.renderer.IRenderer renderer : childRenderers) {
+        for ( IRenderer renderer : childRenderers) {
             sb.append(renderer.toString());
         }
         return sb.toString();
@@ -484,7 +484,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      * {@inheritDoc}
      */
     @Override
-    public void draw(com.itextpdf.layout.renderer.DrawContext drawContext) {
+    public void draw( DrawContext drawContext) {
         applyDestinationsAndAnnotation(drawContext);
 
         boolean relativePosition = isRelativePosition();
@@ -506,7 +506,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
         flushed = true;
     }
 
-    protected void beginElementOpacityApplying(com.itextpdf.layout.renderer.DrawContext drawContext) {
+    protected void beginElementOpacityApplying( DrawContext drawContext) {
         Float opacity = this.getPropertyAsFloat(Property.OPACITY);
         if (opacity != null && opacity < 1f) {
             PdfExtGState extGState = new PdfExtGState();
@@ -519,7 +519,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
         }
     }
 
-    protected void endElementOpacityApplying(com.itextpdf.layout.renderer.DrawContext drawContext) {
+    protected void endElementOpacityApplying( DrawContext drawContext) {
         Float opacity = this.getPropertyAsFloat(Property.OPACITY);
         if (opacity != null && opacity < 1f) {
             drawContext.getCanvas().restoreState();
@@ -532,7 +532,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      *
      * @param drawContext the context (canvas, document, etc) of this drawing operation.
      */
-    public void drawBackground(com.itextpdf.layout.renderer.DrawContext drawContext) {
+    public void drawBackground( DrawContext drawContext) {
         final Background background = this.<Background>getProperty(Property.BACKGROUND);
         final List<BackgroundImage>  backgroundImagesList = this.<List<BackgroundImage>>getProperty(Property.BACKGROUND_IMAGE);
 
@@ -544,7 +544,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
             }
             Rectangle backgroundArea = getBackgroundArea(applyMargins(bBox, false));
             if (backgroundArea.getWidth() <= 0 || backgroundArea.getHeight() <= 0) {
-                Logger logger = LoggerFactory.getLogger(AbstractRenderer.class);
+                Logger logger =  Logger.getLogger(AbstractRenderer.class.getName());
                 logger.info(MessageFormatUtil.format(
                         IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, "background"));
             } else {
@@ -570,7 +570,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
         }
     }
 
-    private void drawColorBackground(Background background, com.itextpdf.layout.renderer.DrawContext drawContext, Rectangle colorBackgroundArea) {
+    private void drawColorBackground(Background background,  DrawContext drawContext, Rectangle colorBackgroundArea) {
         final TransparentColor backgroundColor = new TransparentColor(background.getColor(),
                 background.getOpacity());
         drawContext.getCanvas().saveState().setFillColor(backgroundColor.getColor());
@@ -594,7 +594,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
     }
 
     private boolean drawBackgroundImagesList(final List<BackgroundImage> backgroundImagesList,
-                                             boolean backgroundAreaIsClipped, final com.itextpdf.layout.renderer.DrawContext drawContext,
+                                             boolean backgroundAreaIsClipped, final  DrawContext drawContext,
                                              final Rectangle backgroundArea) {
         for (int i = backgroundImagesList.size() - 1; i >= 0; i--) {
             final BackgroundImage backgroundImage = backgroundImagesList.get(i);
@@ -610,10 +610,10 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
     }
 
     private void drawBackgroundImage(BackgroundImage backgroundImage,
-                                     com.itextpdf.layout.renderer.DrawContext drawContext, Rectangle backgroundArea) {
+                                      DrawContext drawContext, Rectangle backgroundArea) {
         Rectangle originBackgroundArea = applyBackgroundBoxProperty(backgroundArea.clone(),
                 backgroundImage.getBackgroundOrigin());
-        float[] imageWidthAndHeight = com.itextpdf.layout.renderer.BackgroundSizeCalculationUtil.calculateBackgroundImageSize(
+        float[] imageWidthAndHeight =  BackgroundSizeCalculationUtil.calculateBackgroundImageSize(
                 backgroundImage, originBackgroundArea.getWidth(), originBackgroundArea.getHeight());
         PdfXObject backgroundXObject = backgroundImage.getImage();
         if (backgroundXObject == null) {
@@ -642,7 +642,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
                     imageWidthAndHeight[0], imageWidthAndHeight[1]);
         }
         if (imageRectangle.getWidth() <= 0 || imageRectangle.getHeight() <= 0) {
-            Logger logger = LoggerFactory.getLogger(AbstractRenderer.class);
+            Logger logger =  Logger.getLogger(AbstractRenderer.class.getName());
             logger.info(MessageFormatUtil.format(
                     IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES,
                     "background-image"));
@@ -661,7 +661,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
     }
 
     private static void drawPdfXObject(final Rectangle imageRectangle, final BackgroundImage backgroundImage,
-                                       final com.itextpdf.layout.renderer.DrawContext drawContext, final PdfXObject backgroundXObject,
+                                       final  DrawContext drawContext, final PdfXObject backgroundXObject,
                                        final Rectangle backgroundArea, Rectangle originBackgroundArea) {
         BlendMode blendMode = backgroundImage.getBlendMode();
         if (blendMode != BlendMode.NORMAL) {
@@ -694,7 +694,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
     }
 
     private static void drawPdfXObjectHorizontally(Rectangle imageRectangle, BackgroundImage backgroundImage,
-                                                   com.itextpdf.layout.renderer.DrawContext drawContext, PdfXObject backgroundXObject,
+                                                    DrawContext drawContext, PdfXObject backgroundXObject,
                                                    Rectangle backgroundArea, boolean firstDraw, final float xWhitespace) {
         boolean isItFirstDraw = firstDraw;
         int counterX = 1;
@@ -753,19 +753,19 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
         return occupiedAreaWithMargins;
     }
 
-    protected boolean clipBorderArea(com.itextpdf.layout.renderer.DrawContext drawContext, Rectangle outerBorderBox) {
+    protected boolean clipBorderArea( DrawContext drawContext, Rectangle outerBorderBox) {
         return clipArea(drawContext, outerBorderBox, true, true, false, true);
     }
 
-    protected boolean clipBackgroundArea(com.itextpdf.layout.renderer.DrawContext drawContext, Rectangle outerBorderBox) {
+    protected boolean clipBackgroundArea( DrawContext drawContext, Rectangle outerBorderBox) {
         return clipArea(drawContext, outerBorderBox, true, false, false, false);
     }
 
-    protected boolean clipBackgroundArea(com.itextpdf.layout.renderer.DrawContext drawContext, Rectangle outerBorderBox, boolean considerBordersBeforeClipping) {
+    protected boolean clipBackgroundArea( DrawContext drawContext, Rectangle outerBorderBox, boolean considerBordersBeforeClipping) {
         return clipArea(drawContext, outerBorderBox, true, false, considerBordersBeforeClipping, false);
     }
 
-    private boolean clipArea(com.itextpdf.layout.renderer.DrawContext drawContext, Rectangle outerBorderBox, boolean clipOuter, boolean clipInner, boolean considerBordersBeforeOuterClipping, boolean considerBordersBeforeInnerClipping) {
+    private boolean clipArea( DrawContext drawContext, Rectangle outerBorderBox, boolean clipOuter, boolean clipInner, boolean considerBordersBeforeOuterClipping, boolean considerBordersBeforeInnerClipping) {
         // border widths should be considered only once
         assert false == considerBordersBeforeOuterClipping || false == considerBordersBeforeInnerClipping;
 
@@ -1048,18 +1048,18 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      *
      * @param drawContext the context (canvas, document, etc) of this drawing operation.
      */
-    public void drawChildren(com.itextpdf.layout.renderer.DrawContext drawContext) {
-        List<com.itextpdf.layout.renderer.IRenderer> waitingRenderers = new ArrayList<>();
-        for (com.itextpdf.layout.renderer.IRenderer child : childRenderers) {
+    public void drawChildren( DrawContext drawContext) {
+        List< IRenderer> waitingRenderers = new ArrayList<>();
+        for ( IRenderer child : childRenderers) {
             Transform transformProp = child.<Transform>getProperty(Property.TRANSFORM);
-            com.itextpdf.layout.renderer.RootRenderer rootRenderer = getRootRenderer();
-            List<com.itextpdf.layout.renderer.IRenderer> waiting = (rootRenderer != null && !rootRenderer.waitingDrawingElements.contains(child)) ? rootRenderer.waitingDrawingElements : waitingRenderers;
+             RootRenderer rootRenderer = getRootRenderer();
+            List< IRenderer> waiting = (rootRenderer != null && !rootRenderer.waitingDrawingElements.contains(child)) ? rootRenderer.waitingDrawingElements : waitingRenderers;
             processWaitingDrawing(child, transformProp, waiting);
-            if (!com.itextpdf.layout.renderer.FloatingHelper.isRendererFloating(child) && transformProp == null) {
+            if (! FloatingHelper.isRendererFloating(child) && transformProp == null) {
                 child.draw(drawContext);
             }
         }
-        for (com.itextpdf.layout.renderer.IRenderer waitingRenderer : waitingRenderers) {
+        for ( IRenderer waitingRenderer : waitingRenderers) {
             waitingRenderer.draw(drawContext);
         }
     }
@@ -1071,7 +1071,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      *
      * @param drawContext the context (canvas, document, etc) of this drawing operation.
      */
-    public void drawBorder(com.itextpdf.layout.renderer.DrawContext drawContext) {
+    public void drawBorder( DrawContext drawContext) {
         Border[] borders = getBorders();
         boolean gotBorders = false;
 
@@ -1086,8 +1086,8 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
 
             Rectangle bBox = getBorderAreaBBox();
             if (bBox.getWidth() < 0 || bBox.getHeight() < 0) {
-                Logger logger = LoggerFactory.getLogger(AbstractRenderer.class);
-                logger.error(MessageFormatUtil.format(IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, "border"));
+                Logger logger =  Logger.getLogger(AbstractRenderer.class.getName());
+                logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, "border"));
                 return;
             }
             float x1 = bBox.getX();
@@ -1166,7 +1166,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      * {@inheritDoc}
      */
     @Override
-    public com.itextpdf.layout.renderer.IRenderer setParent(com.itextpdf.layout.renderer.IRenderer parent) {
+    public  IRenderer setParent( IRenderer parent) {
         this.parent = parent;
         return this;
     }
@@ -1175,7 +1175,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      * {@inheritDoc}
      */
     @Override
-    public com.itextpdf.layout.renderer.IRenderer getParent() {
+    public  IRenderer getParent() {
         return parent;
     }
 
@@ -1186,10 +1186,10 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
     public void move(float dxRight, float dyUp) {
         occupiedArea.getBBox().moveRight(dxRight);
         occupiedArea.getBBox().moveUp(dyUp);
-        for (com.itextpdf.layout.renderer.IRenderer childRenderer : childRenderers) {
+        for ( IRenderer childRenderer : childRenderers) {
             childRenderer.move(dxRight, dyUp);
         }
-        for (com.itextpdf.layout.renderer.IRenderer childRenderer : positionedRenderers) {
+        for ( IRenderer childRenderer : positionedRenderers) {
             childRenderer.move(dxRight, dyUp);
         }
     }
@@ -1295,13 +1295,13 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
         return isFirstOnRootArea(false);
     }
 
-    protected void applyDestinationsAndAnnotation(com.itextpdf.layout.renderer.DrawContext drawContext) {
+    protected void applyDestinationsAndAnnotation( DrawContext drawContext) {
         applyDestination(drawContext.getDocument());
         applyAction(drawContext.getDocument());
         applyLinkAnnotation(drawContext.getDocument());
     }
 
-    protected static boolean isBorderBoxSizing(com.itextpdf.layout.renderer.IRenderer renderer) {
+    protected static boolean isBorderBoxSizing( IRenderer renderer) {
         BoxSizingPropertyValue boxSizing = renderer.<BoxSizingPropertyValue>getProperty(Property.BOX_SIZING);
         return boxSizing != null && boxSizing.equals(BoxSizingPropertyValue.BORDER_BOX);
     }
@@ -1310,7 +1310,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
         return isOverflowProperty(equalsTo, this.<OverflowPropertyValue>getProperty(overflowProperty));
     }
 
-    protected static boolean isOverflowProperty(OverflowPropertyValue equalsTo, com.itextpdf.layout.renderer.IRenderer renderer, int overflowProperty) {
+    protected static boolean isOverflowProperty(OverflowPropertyValue equalsTo,  IRenderer renderer, int overflowProperty) {
         return isOverflowProperty(equalsTo, renderer.<OverflowPropertyValue>getProperty(overflowProperty));
     }
 
@@ -1371,8 +1371,8 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
         return null;
     }
 
-    static void processWaitingDrawing(com.itextpdf.layout.renderer.IRenderer child, Transform transformProp, List<com.itextpdf.layout.renderer.IRenderer> waitingDrawing) {
-        if (com.itextpdf.layout.renderer.FloatingHelper.isRendererFloating(child) || transformProp != null) {
+    static void processWaitingDrawing( IRenderer child, Transform transformProp, List< IRenderer> waitingDrawing) {
+        if ( FloatingHelper.isRendererFloating(child) || transformProp != null) {
             waitingDrawing.add(child);
         }
         Border outlineProp = child.<Border>getProperty(Property.OUTLINE);
@@ -1388,7 +1388,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
             float offset = outlines.<Border>getProperty(Property.BORDER).getWidth();
             if (abstractChild.getPropertyAsFloat(Property.OUTLINE_OFFSET) != null)
                 offset += (float) abstractChild.getPropertyAsFloat(Property.OUTLINE_OFFSET);
-            com.itextpdf.layout.renderer.DivRenderer div = new com.itextpdf.layout.renderer.DivRenderer(outlines);
+             DivRenderer div = new  DivRenderer(outlines);
             div.setParent(abstractChild.getParent());
             Rectangle divOccupiedArea = abstractChild.applyMargins(abstractChild.occupiedArea.clone().getBBox(), false).moveLeft(offset).moveDown(offset);
             divOccupiedArea.setWidth(divOccupiedArea.getWidth() + 2 * offset).setHeight(divOccupiedArea.getHeight() + 2 * offset);
@@ -1713,8 +1713,8 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
     protected Float retrieveUnitValue(float baseValue, int property, boolean pointOnly) {
         UnitValue value = this.<UnitValue>getProperty(property);
         if (pointOnly && value.getUnitType() == UnitValue.POINT) {
-            Logger logger = LoggerFactory.getLogger(AbstractRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, property));
+            Logger logger =  Logger.getLogger(AbstractRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, property));
         }
         if (value != null) {
             if (value.getUnitType() == UnitValue.PERCENT) {
@@ -1758,7 +1758,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
             return null;
         }
         for (int i = childRenderers.size() - 1; i >= 0; i--) {
-            com.itextpdf.layout.renderer.IRenderer child = childRenderers.get(i);
+             IRenderer child = childRenderers.get(i);
             if (child instanceof AbstractRenderer) {
                 Float lastYLine = ((AbstractRenderer) child).getLastYLineRecursively();
                 if (lastYLine != null) {
@@ -1785,23 +1785,23 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      */
     protected Rectangle applyMargins(Rectangle rect, UnitValue[] margins, boolean reverse) {
         if (!margins[TOP_SIDE].isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(AbstractRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger =  Logger.getLogger(AbstractRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.MARGIN_TOP));
         }
         if (!margins[RIGHT_SIDE].isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(AbstractRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger =  Logger.getLogger(AbstractRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.MARGIN_RIGHT));
         }
         if (!margins[BOTTOM_SIDE].isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(AbstractRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger =  Logger.getLogger(AbstractRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.MARGIN_BOTTOM));
         }
         if (!margins[LEFT_SIDE].isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(AbstractRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger =  Logger.getLogger(AbstractRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.MARGIN_LEFT));
         }
         return rect.applyMargins(
@@ -1840,23 +1840,23 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      */
     protected Rectangle applyPaddings(Rectangle rect, UnitValue[] paddings, boolean reverse) {
         if (!paddings[0].isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(AbstractRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger =  Logger.getLogger(AbstractRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.PADDING_TOP));
         }
         if (!paddings[1].isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(AbstractRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger =  Logger.getLogger(AbstractRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.PADDING_RIGHT));
         }
         if (!paddings[2].isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(AbstractRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger =  Logger.getLogger(AbstractRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.PADDING_BOTTOM));
         }
         if (!paddings[3].isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(AbstractRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger =  Logger.getLogger(AbstractRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.PADDING_LEFT));
         }
         return rect.applyMargins(paddings[0].getValue(), paddings[1].getValue(), paddings[2].getValue(), paddings[3].getValue(), reverse);
@@ -1910,8 +1910,8 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
                 move(0, parentRect.getBottom() + (float) bottom - occupiedArea.getBBox().getBottom());
             }
         } catch (Exception exc) {
-            Logger logger = LoggerFactory.getLogger(AbstractRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED,
+            Logger logger =  Logger.getLogger(AbstractRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED,
                     "Absolute positioning might be applied incorrectly."));
         }
     }
@@ -1936,9 +1936,9 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
         if (destination != null) {
             int pageNumber = occupiedArea.getPageNumber();
             if (pageNumber < 1 || pageNumber > document.getNumberOfPages()) {
-                Logger logger = LoggerFactory.getLogger(AbstractRenderer.class);
+                Logger logger =  Logger.getLogger(AbstractRenderer.class.getName());
                 String logMessageArg = "Property.DESTINATION, which specifies this element location as destination, see ElementPropertyContainer.setDestination.";
-                logger.warn(MessageFormatUtil.format(
+                logger.warning(MessageFormatUtil.format(
                         IoLogMessageConstant.UNABLE_TO_APPLY_PAGE_DEPENDENT_PROP_UNKNOWN_PAGE_ON_WHICH_ELEMENT_IS_DRAWN,
                         logMessageArg));
                 return;
@@ -1974,13 +1974,13 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
     }
 
     protected void applyLinkAnnotation(PdfDocument document) {
-        Logger logger = LoggerFactory.getLogger(AbstractRenderer.class);
+        Logger logger =  Logger.getLogger(AbstractRenderer.class.getName());
         PdfLinkAnnotation linkAnnotation = this.<PdfLinkAnnotation>getProperty(Property.LINK_ANNOTATION);
         if (linkAnnotation != null) {
             int pageNumber = occupiedArea.getPageNumber();
             if (pageNumber < 1 || pageNumber > document.getNumberOfPages()) {
                 String logMessageArg = "Property.LINK_ANNOTATION, which specifies a link associated with this element content area, see com.itextpdf.layout.element.Link.";
-                logger.warn(MessageFormatUtil.format(
+                logger.warning(MessageFormatUtil.format(
                         IoLogMessageConstant.UNABLE_TO_APPLY_PAGE_DEPENDENT_PROP_UNKNOWN_PAGE_ON_WHICH_ELEMENT_IS_DRAWN,
                         logMessageArg));
                 return;
@@ -1997,7 +1997,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
             // TODO DEVSIX-1655 This check is necessary because, in some cases, our renderer's hierarchy may contain
             //  a renderer from the different page that was already flushed
             if (page.isFlushed()) {
-                logger.error(MessageFormatUtil.format(
+                logger.log(Level.SEVERE,MessageFormatUtil.format(
                         IoLogMessageConstant.PAGE_WAS_FLUSHED_ACTION_WILL_NOT_BE_PERFORMED, "link annotation applying"));
             } else {
                 page.addAnnotation(linkAnnotation);
@@ -2047,8 +2047,8 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
     void updateHeightsOnSplit(float usedHeight, boolean wasHeightClipped, AbstractRenderer splitRenderer, AbstractRenderer overflowRenderer, boolean enlargeOccupiedAreaOnHeightWasClipped) {
         if (wasHeightClipped) {
             // if height was clipped, max height exists and can be resolved
-            Logger logger = LoggerFactory.getLogger(com.itextpdf.layout.renderer.BlockRenderer.class);
-            logger.warn(IoLogMessageConstant.CLIP_ELEMENT);
+            Logger logger = Logger.getLogger( BlockRenderer.class.getName());
+            logger.warning(IoLogMessageConstant.CLIP_ELEMENT);
 
             if (enlargeOccupiedAreaOnHeightWasClipped) {
                 Float maxHeight = retrieveMaxHeight();
@@ -2190,15 +2190,15 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
         return isKeepTogether(null);
     }
 
-    boolean isKeepTogether(com.itextpdf.layout.renderer.IRenderer causeOfNothing) {
+    boolean isKeepTogether( IRenderer causeOfNothing) {
         return Boolean.TRUE.equals(getPropertyAsBoolean(Property.KEEP_TOGETHER))
-                && !(causeOfNothing instanceof com.itextpdf.layout.renderer.AreaBreakRenderer);
+                && !(causeOfNothing instanceof  AreaBreakRenderer);
     }
 
     // Note! The second parameter is here on purpose. Currently occupied area is passed as a value of this parameter in
     // BlockRenderer, but actually, the block can have many areas, and occupied area will be the common area of sub-areas,
     // whereas child element alignment should be performed area-wise.
-    protected void alignChildHorizontally(com.itextpdf.layout.renderer.IRenderer childRenderer, Rectangle currentArea) {
+    protected void alignChildHorizontally( IRenderer childRenderer, Rectangle currentArea) {
         float availableWidth = currentArea.getWidth();
         HorizontalAlignment horizontalAlignment = childRenderer.<HorizontalAlignment>getProperty(Property.HORIZONTAL_ALIGNMENT);
         if (horizontalAlignment != null && horizontalAlignment != HorizontalAlignment.LEFT) {
@@ -2214,8 +2214,8 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
                             break;
                     }
                 } catch (NullPointerException e) {
-                    Logger logger = LoggerFactory.getLogger(AbstractRenderer.class);
-                    logger.error(MessageFormatUtil.format(IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED,
+                    Logger logger =  Logger.getLogger(AbstractRenderer.class.getName());
+                    logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED,
                             "Some of the children might not end up aligned horizontally."));
                 }
             }
@@ -2278,17 +2278,17 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
         List<Point> contentBoxPoints = rectangleToPointsList(contentBox);
         AbstractRenderer renderer = this;
         while (renderer.parent != null) {
-            if (renderer instanceof com.itextpdf.layout.renderer.BlockRenderer) {
+            if (renderer instanceof  BlockRenderer) {
                 Float angle = renderer.<Float>getProperty(Property.ROTATION_ANGLE);
                 if (angle != null) {
-                    com.itextpdf.layout.renderer.BlockRenderer blockRenderer = (com.itextpdf.layout.renderer.BlockRenderer) renderer;
+                     BlockRenderer blockRenderer = ( BlockRenderer) renderer;
                     AffineTransform rotationTransform = blockRenderer.createRotationTransformInsideOccupiedArea();
                     transformPoints(contentBoxPoints, rotationTransform);
                 }
             }
 
             if (renderer.<Transform>getProperty(Property.TRANSFORM) != null) {
-                if (renderer instanceof com.itextpdf.layout.renderer.BlockRenderer || renderer instanceof com.itextpdf.layout.renderer.ImageRenderer || renderer instanceof com.itextpdf.layout.renderer.TableRenderer) {
+                if (renderer instanceof  BlockRenderer || renderer instanceof  ImageRenderer || renderer instanceof  TableRenderer) {
                     AffineTransform rotationTransform = renderer.createTransformationInsideOccupiedArea();
                     transformPoints(contentBoxPoints, rotationTransform);
                 }
@@ -2368,11 +2368,11 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
 
     boolean isFirstOnRootArea(boolean checkRootAreaOnly) {
         boolean isFirstOnRootArea = true;
-        com.itextpdf.layout.renderer.IRenderer ancestor = this;
+         IRenderer ancestor = this;
         while (isFirstOnRootArea && ancestor.getParent() != null) {
-            com.itextpdf.layout.renderer.IRenderer parent = ancestor.getParent();
-            if (parent instanceof com.itextpdf.layout.renderer.RootRenderer) {
-                isFirstOnRootArea = ((com.itextpdf.layout.renderer.RootRenderer) parent).currentArea.isEmptyArea();
+             IRenderer parent = ancestor.getParent();
+            if (parent instanceof  RootRenderer) {
+                isFirstOnRootArea = (( RootRenderer) parent).currentArea.isEmptyArea();
             } else if (parent.getOccupiedArea() == null) {
                 break;
             } else if (!checkRootAreaOnly) {
@@ -2389,22 +2389,22 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      * @return PdfDocument, or null if there are no document
      */
     PdfDocument getPdfDocument() {
-        com.itextpdf.layout.renderer.RootRenderer renderer = getRootRenderer();
-        if (renderer instanceof com.itextpdf.layout.renderer.DocumentRenderer) {
-            final Document document = ((com.itextpdf.layout.renderer.DocumentRenderer) renderer).document;
+         RootRenderer renderer = getRootRenderer();
+        if (renderer instanceof  DocumentRenderer) {
+            final Document document = (( DocumentRenderer) renderer).document;
             return document.getPdfDocument();
-        } else if (renderer instanceof com.itextpdf.layout.renderer.CanvasRenderer) {
-            return ((com.itextpdf.layout.renderer.CanvasRenderer) renderer).canvas.getPdfDocument();
+        } else if (renderer instanceof  CanvasRenderer) {
+            return (( CanvasRenderer) renderer).canvas.getPdfDocument();
         } else {
             return null;
         }
     }
 
-    com.itextpdf.layout.renderer.RootRenderer getRootRenderer() {
-        com.itextpdf.layout.renderer.IRenderer currentRenderer = this;
+     RootRenderer getRootRenderer() {
+         IRenderer currentRenderer = this;
         while (currentRenderer instanceof AbstractRenderer) {
-            if (currentRenderer instanceof com.itextpdf.layout.renderer.RootRenderer) {
-                return (com.itextpdf.layout.renderer.RootRenderer) currentRenderer;
+            if (currentRenderer instanceof  RootRenderer) {
+                return ( RootRenderer) currentRenderer;
             }
             currentRenderer = ((AbstractRenderer) currentRenderer).getParent();
         }
@@ -2419,11 +2419,11 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
         return dummy.getWidth();
     }
 
-    static boolean noAbsolutePositionInfo(com.itextpdf.layout.renderer.IRenderer renderer) {
+    static boolean noAbsolutePositionInfo( IRenderer renderer) {
         return !renderer.hasProperty(Property.TOP) && !renderer.hasProperty(Property.BOTTOM) && !renderer.hasProperty(Property.LEFT) && !renderer.hasProperty(Property.RIGHT);
     }
 
-    static Float getPropertyAsFloat(com.itextpdf.layout.renderer.IRenderer renderer, int property) {
+    static Float getPropertyAsFloat( IRenderer renderer, int property) {
         return NumberUtil.asFloat(renderer.<Object>getProperty(property));
     }
 
@@ -2434,7 +2434,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      * @param property key for the property to retrieve
      * @return A UnitValue if the property is present and is a UnitValue, null otherwise
      */
-    static UnitValue getPropertyAsUnitValue(com.itextpdf.layout.renderer.IRenderer renderer, int property) {
+    static UnitValue getPropertyAsUnitValue( IRenderer renderer, int property) {
         UnitValue result = renderer.<UnitValue>getProperty(property);
         return result;
 
@@ -2453,8 +2453,8 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
         }
     }
 
-    void drawPositionedChildren(com.itextpdf.layout.renderer.DrawContext drawContext) {
-        for (com.itextpdf.layout.renderer.IRenderer positionedChild : positionedRenderers) {
+    void drawPositionedChildren( DrawContext drawContext) {
+        for ( IRenderer positionedChild : positionedRenderers) {
             positionedChild.draw(drawContext);
         }
     }
@@ -2516,7 +2516,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
         return provider.getPdfFont(fontSelector.bestMatch(), additionalFonts);
     }
 
-    static Border[] getBorders(com.itextpdf.layout.renderer.IRenderer renderer) {
+    static Border[] getBorders( IRenderer renderer) {
         Border border = renderer.<Border>getProperty(Property.BORDER);
         Border topBorder = renderer.<Border>getProperty(Property.BORDER_TOP);
         Border rightBorder = renderer.<Border>getProperty(Property.BORDER_RIGHT);
@@ -2547,7 +2547,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
         }
     }
 
-    void preparePositionedRendererAndAreaForLayout(com.itextpdf.layout.renderer.IRenderer childPositionedRenderer, Rectangle fullBbox, Rectangle parentBbox) {
+    void preparePositionedRendererAndAreaForLayout( IRenderer childPositionedRenderer, Rectangle fullBbox, Rectangle parentBbox) {
         Float left = getPropertyAsFloat(childPositionedRenderer, Property.LEFT);
         Float right = getPropertyAsFloat(childPositionedRenderer, Property.RIGHT);
         Float top = getPropertyAsFloat(childPositionedRenderer, Property.TOP);
@@ -2560,7 +2560,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
         }
     }
 
-    private void updateMinHeightForAbsolutelyPositionedRenderer(com.itextpdf.layout.renderer.IRenderer renderer, Rectangle parentRendererBox, Float top, Float bottom) {
+    private void updateMinHeightForAbsolutelyPositionedRenderer( IRenderer renderer, Rectangle parentRendererBox, Float top, Float bottom) {
         if (top != null && bottom != null && !renderer.hasProperty(Property.HEIGHT)) {
             UnitValue currentMaxHeight = getPropertyAsUnitValue(renderer, Property.MAX_HEIGHT);
             UnitValue currentMinHeight = getPropertyAsUnitValue(renderer, Property.MIN_HEIGHT);
@@ -2585,7 +2585,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
         }
     }
 
-    private void adjustPositionedRendererLayoutBoxWidth(com.itextpdf.layout.renderer.IRenderer renderer, Rectangle fullBbox, Float left, Float right) {
+    private void adjustPositionedRendererLayoutBoxWidth( IRenderer renderer, Rectangle fullBbox, Float left, Float right) {
         if (left != null) {
             fullBbox.setWidth(fullBbox.getWidth() - (float) left).setX(fullBbox.getX() + (float) left);
         }
@@ -2595,7 +2595,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
 
         if (left == null && right == null && !renderer.hasProperty(Property.WIDTH)) {
             // Other, non-block renderers won't occupy full width anyway
-            MinMaxWidth minMaxWidth = renderer instanceof com.itextpdf.layout.renderer.BlockRenderer ? ((com.itextpdf.layout.renderer.BlockRenderer) renderer).getMinMaxWidth() : null;
+            MinMaxWidth minMaxWidth = renderer instanceof  BlockRenderer ? (( BlockRenderer) renderer).getMinMaxWidth() : null;
             if (minMaxWidth != null && minMaxWidth.getMaxWidth() < fullBbox.getWidth()) {
                 fullBbox.setWidth(minMaxWidth.getMaxWidth() + AbstractRenderer.EPS);
             }
@@ -2656,7 +2656,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      *
      * @param child the {@link IRenderer child renderer} to be add
      */
-    void addChildRenderer(com.itextpdf.layout.renderer.IRenderer child) {
+    void addChildRenderer( IRenderer child) {
         child.setParent(this);
         this.childRenderers.add(child);
     }
@@ -2667,7 +2667,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      *
      * @param children the collection of {@link IRenderer child renderers} to be add
      */
-    void addAllChildRenderers(List<com.itextpdf.layout.renderer.IRenderer> children) {
+    void addAllChildRenderers(List< IRenderer> children) {
         if (children == null) {
             return;
         }
@@ -2682,7 +2682,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      * @param index index at which to insert the first element from the specified collection
      * @param children the collection of {@link IRenderer child renderers} to be add
      */
-    void addAllChildRenderers(int index, List<com.itextpdf.layout.renderer.IRenderer> children) {
+    void addAllChildRenderers(int index, List< IRenderer> children) {
         setThisAsParent(children);
         this.childRenderers.addAll(index, children);
     }
@@ -2696,7 +2696,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      *
      * @param children the collection of children {@link IRenderer renderers} to be set
      */
-    void setChildRenderers(List<com.itextpdf.layout.renderer.IRenderer> children) {
+    void setChildRenderers(List< IRenderer> children) {
         removeThisFromParents(this.childRenderers);
         this.childRenderers.clear();
         addAllChildRenderers(children);
@@ -2710,8 +2710,8 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      * @param index the index of the renderer to be removed
      * @return the removed renderer
      */
-    com.itextpdf.layout.renderer.IRenderer removeChildRenderer(int index) {
-        final com.itextpdf.layout.renderer.IRenderer removed = this.childRenderers.remove(index);
+     IRenderer removeChildRenderer(int index) {
+        final  IRenderer removed = this.childRenderers.remove(index);
         removeThisFromParent(removed);
         return removed;
     }
@@ -2724,7 +2724,7 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      * @param children the collections of renderers to be removed from children list
      * @return {@code true} if the children list has been changed
      */
-    boolean removeAllChildRenderers(Collection<com.itextpdf.layout.renderer.IRenderer> children) {
+    boolean removeAllChildRenderers(Collection< IRenderer> children) {
         removeThisFromParents(children);
         return this.childRenderers.removeAll(children);
     }
@@ -2738,11 +2738,11 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      * @param child the renderer to be set
      * @return the removed renderer
      */
-    com.itextpdf.layout.renderer.IRenderer setChildRenderer(int index, com.itextpdf.layout.renderer.IRenderer child) {
+     IRenderer setChildRenderer(int index,  IRenderer child) {
         if (child != null) {
             child.setParent(this);
         }
-        final com.itextpdf.layout.renderer.IRenderer removedElement = this.childRenderers.set(index, child);
+        final  IRenderer removedElement = this.childRenderers.set(index, child);
         removeThisFromParent(removedElement);
         return removedElement;
     }
@@ -2751,43 +2751,43 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
      * Sets current {@link AbstractRenderer} as parent to renderers in specified collection.
      * @param children the collection of renderers to set the parent renderer on
      */
-    void setThisAsParent(Collection<com.itextpdf.layout.renderer.IRenderer> children) {
-        for (final com.itextpdf.layout.renderer.IRenderer child : children) {
+    void setThisAsParent(Collection< IRenderer> children) {
+        for (final  IRenderer child : children) {
             child.setParent(this);
         }
     }
 
     boolean logWarningIfGetNextRendererNotOverridden(Class<?> baseClass, Class<?> rendererClass) {
         if (baseClass != rendererClass) {
-            final Logger logger = LoggerFactory.getLogger(baseClass);
-            logger.warn(MessageFormatUtil.format(IoLogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN));
+            final Logger logger = Logger.getLogger(baseClass.getName());
+            logger.warning(MessageFormatUtil.format(IoLogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN));
             return false;
         } else {
             return true;
         }
     }
 
-    private void removeThisFromParent(com.itextpdf.layout.renderer.IRenderer toRemove) {
+    private void removeThisFromParent( IRenderer toRemove) {
         // we need to be sure that the removed element has no other entries in child renderers list
         if (toRemove != null && this == toRemove.getParent() && !this.childRenderers.contains(toRemove)) {
             toRemove.setParent(null);
         }
     }
 
-    private void removeThisFromParents(Collection<com.itextpdf.layout.renderer.IRenderer> children) {
-        for (final com.itextpdf.layout.renderer.IRenderer child : children) {
+    private void removeThisFromParents(Collection< IRenderer> children) {
+        for (final  IRenderer child : children) {
             if (child != null && this == child.getParent()) {
                 child.setParent(null);
             }
         }
     }
 
-    private static UnitValue[] getMargins(com.itextpdf.layout.renderer.IRenderer renderer) {
+    private static UnitValue[] getMargins( IRenderer renderer) {
         return new UnitValue[]{renderer.<UnitValue>getProperty(Property.MARGIN_TOP), renderer.<UnitValue>getProperty(Property.MARGIN_RIGHT),
                 renderer.<UnitValue>getProperty(Property.MARGIN_BOTTOM), renderer.<UnitValue>getProperty(Property.MARGIN_LEFT)};
     }
 
-    private static BorderRadius[] getBorderRadii(com.itextpdf.layout.renderer.IRenderer renderer) {
+    private static BorderRadius[] getBorderRadii( IRenderer renderer) {
         BorderRadius radius = renderer.<BorderRadius>getProperty(Property.BORDER_RADIUS);
         BorderRadius topLeftRadius = renderer.<BorderRadius>getProperty(Property.BORDER_TOP_LEFT_RADIUS);
         BorderRadius topRightRadius = renderer.<BorderRadius>getProperty(Property.BORDER_TOP_RIGHT_RADIUS);
@@ -2812,12 +2812,12 @@ public abstract class AbstractRenderer implements com.itextpdf.layout.renderer.I
         return borderRadii;
     }
 
-    private static UnitValue[] getPaddings(com.itextpdf.layout.renderer.IRenderer renderer) {
+    private static UnitValue[] getPaddings( IRenderer renderer) {
         return new UnitValue[]{renderer.<UnitValue>getProperty(Property.PADDING_TOP), renderer.<UnitValue>getProperty(Property.PADDING_RIGHT),
                 renderer.<UnitValue>getProperty(Property.PADDING_BOTTOM), renderer.<UnitValue>getProperty(Property.PADDING_LEFT)};
     }
 
-    private static boolean hasOwnOrModelProperty(com.itextpdf.layout.renderer.IRenderer renderer, int property) {
+    private static boolean hasOwnOrModelProperty( IRenderer renderer, int property) {
         return renderer.hasOwnProperty(property) || (null != renderer.getModelElement() && renderer.getModelElement().hasProperty(property));
     }
 }

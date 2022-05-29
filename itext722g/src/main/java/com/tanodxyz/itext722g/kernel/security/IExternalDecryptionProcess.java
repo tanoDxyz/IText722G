@@ -44,8 +44,8 @@
 package com.tanodxyz.itext722g.kernel.security;
 
 
-import org.bouncycastle.cms.Recipient;
-import org.bouncycastle.cms.RecipientId;
+import org.spongycastle.cms.Recipient;
+import org.spongycastle.cms.RecipientId;
 
 /**
  * Interface to externalize the retrieval of the CMS recipient info.

@@ -43,15 +43,14 @@
  */
 package com.tanodxyz.itext722g.layout.element;
 
-import com.itextpdf.layout.properties.ListNumberingType;
-import com.itextpdf.layout.properties.ListSymbolPosition;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.renderer.IRenderer;
-import com.itextpdf.layout.renderer.ListItemRenderer;
 import com.tanodxyz.itext722g.kernel.pdf.tagging.StandardRoles;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.AccessibilityProperties;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.DefaultAccessibilityProperties;
-import com.tanodxyz.itext722g.layout.element.Div;
+import com.tanodxyz.itext722g.layout.properties.ListNumberingType;
+import com.tanodxyz.itext722g.layout.properties.ListSymbolPosition;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.renderer.ListItemRenderer;
 
 /**
  * A list item is a layout element that is one entry in a {@link List}. The list
