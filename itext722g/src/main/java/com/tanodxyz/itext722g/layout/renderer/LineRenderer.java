@@ -43,29 +43,10 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.commons.actions.contexts.IMetaInfo;
-import com.itextpdf.commons.actions.sequence.SequenceId;
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.element.TabStop;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.layout.LineLayoutContext;
-import com.itextpdf.layout.layout.LineLayoutResult;
-import com.itextpdf.layout.layout.MinMaxWidthLayoutResult;
-import com.itextpdf.layout.layout.TextLayoutResult;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidthUtils;
-import com.itextpdf.layout.properties.BaseDirection;
-import com.itextpdf.layout.properties.FloatPropertyValue;
-import com.itextpdf.layout.properties.Leading;
-import com.itextpdf.layout.properties.OverflowPropertyValue;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.RenderingMode;
-import com.itextpdf.layout.properties.TabAlignment;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.layout.renderer.TextSequenceWordWrapping.LastFittingChildRendererData;
-import com.itextpdf.layout.renderer.TextSequenceWordWrapping.MinMaxWidthOfTextRendererSequenceHelper;
+
+import com.tanodxyz.itext722g.commons.actions.contexts.IMetaInfo;
+import com.tanodxyz.itext722g.commons.actions.sequence.SequenceId;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.font.otf.Glyph;
 import com.tanodxyz.itext722g.io.font.otf.GlyphLine;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
@@ -73,14 +54,24 @@ import com.tanodxyz.itext722g.io.util.ArrayUtil;
 import com.tanodxyz.itext722g.io.util.TextUtil;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
-import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
-import com.tanodxyz.itext722g.layout.renderer.AbstractWidthHandler;
-import com.tanodxyz.itext722g.layout.renderer.FloatingHelper;
-import com.tanodxyz.itext722g.layout.renderer.IRenderer;
-import com.tanodxyz.itext722g.layout.renderer.LineHeightHelper;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.element.TabStop;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.layout.LineLayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LineLayoutResult;
+import com.tanodxyz.itext722g.layout.layout.MinMaxWidthLayoutResult;
+import com.tanodxyz.itext722g.layout.layout.TextLayoutResult;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidth;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidthUtils;
+import com.tanodxyz.itext722g.layout.properties.BaseDirection;
+import com.tanodxyz.itext722g.layout.properties.FloatPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Leading;
+import com.tanodxyz.itext722g.layout.properties.OverflowPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.RenderingMode;
+import com.tanodxyz.itext722g.layout.properties.TabAlignment;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -89,13 +80,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NavigableMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LineRenderer extends AbstractRenderer {
 
     // AbstractRenderer.EPS is not enough here
     private static final float MIN_MAX_WIDTH_CORRECTION_EPS = 0.001f;
 
-    private static final Logger logger = LoggerFactory.getLogger(LineRenderer.class);
+    private static final Logger logger = Logger.getLogger(LineRenderer.class.getName());
 
     protected float maxAscent;
     protected float maxDescent;
@@ -148,7 +141,7 @@ public class LineRenderer extends AbstractRenderer {
 
         updateChildrenParent();
 
-        com.itextpdf.layout.renderer.TargetCounterHandler.addPageByID(this);
+        TargetCounterHandler.addPageByID(this);
 
         float curWidth = 0;
         if (RenderingMode.HTML_MODE.equals(this.<RenderingMode>getProperty(Property.RENDERING_MODE))
@@ -170,9 +163,9 @@ public class LineRenderer extends AbstractRenderer {
         MinMaxWidth minMaxWidth = new MinMaxWidth();
         AbstractWidthHandler widthHandler;
         if (noSoftWrap) {
-            widthHandler = new com.itextpdf.layout.renderer.SumSumWidthHandler(minMaxWidth);
+            widthHandler = new SumSumWidthHandler(minMaxWidth);
         } else {
-            widthHandler = new com.itextpdf.layout.renderer.MaxSumWidthHandler(minMaxWidth);
+            widthHandler = new MaxSumWidthHandler(minMaxWidth);
         }
 
         resolveChildrenFonts();
@@ -199,7 +192,7 @@ public class LineRenderer extends AbstractRenderer {
         Map<Integer, float[]> textRendererSequenceAscentDescent = new HashMap<>();
         LineAscentDescentState lineAscentDescentStateBeforeTextRendererSequence = null;
 
-        MinMaxWidthOfTextRendererSequenceHelper minMaxWidthOfTextRendererSequenceHelper = null;
+        TextSequenceWordWrapping.MinMaxWidthOfTextRendererSequenceHelper minMaxWidthOfTextRendererSequenceHelper = null;
 
         while (childPos < getChildRenderers().size()) {
             IRenderer childRenderer = getChildRenderers().get(childPos);
@@ -208,22 +201,22 @@ public class LineRenderer extends AbstractRenderer {
 
             RenderingMode childRenderingMode = childRenderer.<RenderingMode>getProperty(Property.RENDERING_MODE);
 
-            if (com.itextpdf.layout.renderer.TextSequenceWordWrapping.isTextRendererAndRequiresSpecialScriptPreLayoutProcessing(childRenderer)
-                    && com.itextpdf.layout.renderer.TypographyUtils.isPdfCalligraphAvailable()) {
-                com.itextpdf.layout.renderer.TextSequenceWordWrapping.processSpecialScriptPreLayout(this, childPos);
+            if (TextSequenceWordWrapping.isTextRendererAndRequiresSpecialScriptPreLayoutProcessing(childRenderer)
+                    && TypographyUtils.isPdfCalligraphAvailable()) {
+                TextSequenceWordWrapping.processSpecialScriptPreLayout(this, childPos);
             }
-            com.itextpdf.layout.renderer.TextSequenceWordWrapping.resetTextSequenceIfItEnded(
+            TextSequenceWordWrapping.resetTextSequenceIfItEnded(
                     specialScriptLayoutResults, true, childRenderer, childPos,
                     minMaxWidthOfTextRendererSequenceHelper, noSoftWrap, widthHandler);
-            com.itextpdf.layout.renderer.TextSequenceWordWrapping.resetTextSequenceIfItEnded(
+            TextSequenceWordWrapping.resetTextSequenceIfItEnded(
                     textRendererLayoutResults, false, childRenderer, childPos,
                     minMaxWidthOfTextRendererSequenceHelper, noSoftWrap, widthHandler);
 
-            if (childRenderer instanceof com.itextpdf.layout.renderer.TextRenderer) {
+            if (childRenderer instanceof TextRenderer) {
                 // Delete these properties in case of relayout. We might have applied them during justify().
                 childRenderer.deleteOwnProperty(Property.CHARACTER_SPACING);
                 childRenderer.deleteOwnProperty(Property.WORD_SPACING);
-            } else if (childRenderer instanceof com.itextpdf.layout.renderer.TabRenderer) {
+            } else if (childRenderer instanceof TabRenderer) {
                 if (hangingTabStop != null) {
                     IRenderer tabRenderer = getChildRenderers().get(childPos - 1);
                     tabRenderer.layout(new LayoutContext(new LayoutArea(layoutContext.getArea().getPageNumber(), bbox), wasParentsHeightClipped));
@@ -241,7 +234,7 @@ public class LineRenderer extends AbstractRenderer {
             }
 
             if (hangingTabStop != null && hangingTabStop.getTabAlignment() == TabAlignment.ANCHOR
-                    && childRenderer instanceof com.itextpdf.layout.renderer.TextRenderer) {
+                    && childRenderer instanceof TextRenderer) {
                 childRenderer.setProperty(Property.TAB_ANCHOR, hangingTabStop.getTabAnchor());
             }
 
@@ -312,7 +305,7 @@ public class LineRenderer extends AbstractRenderer {
                 } else if (childResult.getStatus() == LayoutResult.PARTIAL) {
                     floatsPlacedInLine = true;
 
-                    if (childRenderer instanceof com.itextpdf.layout.renderer.TextRenderer) {
+                    if (childRenderer instanceof TextRenderer) {
                         // This code is specifically for floating inline text elements:
                         // inline elements cannot have fixed width, also they progress horizontally, which means
                         // that if they don't fit in one line, they will definitely be moved onto the new line (and also
@@ -321,9 +314,9 @@ public class LineRenderer extends AbstractRenderer {
                         // not evenly.
                         LineRenderer[] split = splitNotFittingFloat(childPos, childResult);
                         IRenderer splitRenderer = childResult.getSplitRenderer();
-                        if (splitRenderer instanceof com.itextpdf.layout.renderer.TextRenderer) {
-                            ((com.itextpdf.layout.renderer.TextRenderer) splitRenderer).trimFirst();
-                            ((com.itextpdf.layout.renderer.TextRenderer) splitRenderer).trimLast();
+                        if (splitRenderer instanceof TextRenderer) {
+                            ((TextRenderer) splitRenderer).trimFirst();
+                            ((TextRenderer) splitRenderer).trimLast();
                         }
                         // ensure no other thing (like text wrapping the float) will occupy the line
                         splitRenderer.getOccupiedArea().getBBox().setWidth(layoutContext.getArea().getBBox().getWidth());
@@ -337,9 +330,9 @@ public class LineRenderer extends AbstractRenderer {
                 } else {
                     floatsPlacedInLine = true;
 
-                    if (childRenderer instanceof com.itextpdf.layout.renderer.TextRenderer) {
-                        ((com.itextpdf.layout.renderer.TextRenderer) childRenderer).trimFirst();
-                        ((com.itextpdf.layout.renderer.TextRenderer) childRenderer).trimLast();
+                    if (childRenderer instanceof TextRenderer) {
+                        ((TextRenderer) childRenderer).trimFirst();
+                        ((TextRenderer) childRenderer).trimLast();
                     }
 
                     adjustLineOnFloatPlaced(layoutBox, childPos, kidFloatPropertyVal, childRenderer.getOccupiedArea().getBBox());
@@ -377,9 +370,7 @@ public class LineRenderer extends AbstractRenderer {
                         bbox.setWidth(inlineBlockWidth);
 
                         if (childBlockMinMaxWidth.getMinWidth() > bbox.getWidth()) {
-                            if (logger.isWarnEnabled()) {
-                                logger.warn(IoLogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED);
-                            }
+                            logger.warning(IoLogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED);
                             childRenderer.setProperty(Property.FORCED_PLACEMENT, true);
                         }
                     }
@@ -392,12 +383,12 @@ public class LineRenderer extends AbstractRenderer {
             boolean shouldBreakLayouting = false;
 
             if (childResult == null) {
-                boolean setOverflowFitCausedBySpecialScripts = childRenderer instanceof com.itextpdf.layout.renderer.TextRenderer
-                        && ((com.itextpdf.layout.renderer.TextRenderer) childRenderer).textContainsSpecialScriptGlyphs(true);
+                boolean setOverflowFitCausedBySpecialScripts = childRenderer instanceof TextRenderer
+                        && ((TextRenderer) childRenderer).textContainsSpecialScriptGlyphs(true);
 
                 boolean setOverflowFitCausedByTextRendererInHtmlMode = RenderingMode.HTML_MODE == childRenderingMode
-                        && childRenderer instanceof com.itextpdf.layout.renderer.TextRenderer
-                        && !((com.itextpdf.layout.renderer.TextRenderer) childRenderer).textContainsSpecialScriptGlyphs(true);
+                        && childRenderer instanceof TextRenderer
+                        && !((TextRenderer) childRenderer).textContainsSpecialScriptGlyphs(true);
 
                 if (!wasXOverflowChanged
                         && (childPos > 0 || setOverflowFitCausedBySpecialScripts || setOverflowFitCausedByTextRendererInHtmlMode)
@@ -407,18 +398,18 @@ public class LineRenderer extends AbstractRenderer {
                     setProperty(Property.OVERFLOW_X, OverflowPropertyValue.FIT);
                 }
 
-                com.itextpdf.layout.renderer.TextSequenceWordWrapping.preprocessTextSequenceOverflowX(this, textSequenceOverflowXProcessing,
+                TextSequenceWordWrapping.preprocessTextSequenceOverflowX(this, textSequenceOverflowXProcessing,
                         childRenderer, wasXOverflowChanged, oldXOverflow);
 
                 childResult = childRenderer.layout(new LayoutContext(new LayoutArea(layoutContext.getArea().getPageNumber(), bbox), wasParentsHeightClipped));
 
-                shouldBreakLayouting = com.itextpdf.layout.renderer.TextSequenceWordWrapping.postprocessTextSequenceOverflowX(
+                shouldBreakLayouting = TextSequenceWordWrapping.postprocessTextSequenceOverflowX(
                         this, textSequenceOverflowXProcessing,
                         childPos, childRenderer, childResult, wasXOverflowChanged);
 
-                com.itextpdf.layout.renderer.TextSequenceWordWrapping.updateTextSequenceLayoutResults(
+                TextSequenceWordWrapping.updateTextSequenceLayoutResults(
                         textRendererLayoutResults, false, childRenderer, childPos, childResult);
-                com.itextpdf.layout.renderer.TextSequenceWordWrapping.updateTextSequenceLayoutResults(
+                TextSequenceWordWrapping.updateTextSequenceLayoutResults(
                         specialScriptLayoutResults, true, childRenderer, childPos, childResult);
 
                 // it means that we've already increased layout area by MIN_MAX_WIDTH_CORRECTION_EPS
@@ -454,12 +445,12 @@ public class LineRenderer extends AbstractRenderer {
                     childRenderingMode, isInlineBlockChild);
 
             lineAscentDescentStateBeforeTextRendererSequence =
-                    com.itextpdf.layout.renderer.TextSequenceWordWrapping.updateTextRendererSequenceAscentDescent(
+                    TextSequenceWordWrapping.updateTextRendererSequenceAscentDescent(
                             this, textRendererSequenceAscentDescent, childPos, childAscentDescent,
                             lineAscentDescentStateBeforeTextRendererSequence);
 
             minMaxWidthOfTextRendererSequenceHelper =
-                    com.itextpdf.layout.renderer.TextSequenceWordWrapping.updateTextRendererSequenceMinMaxWidth(
+                    TextSequenceWordWrapping.updateTextRendererSequenceMinMaxWidth(
                             this, widthHandler, childPos,
                             minMaxWidthOfTextRendererSequenceHelper, anythingPlaced, textRendererLayoutResults,
                             specialScriptLayoutResults, lineLayoutContext.getTextIndent());
@@ -476,8 +467,8 @@ public class LineRenderer extends AbstractRenderer {
             if (shouldBreakLayoutingOnTextRenderer) {
                 boolean isWordHasBeenSplitLayoutRenderingMode = ((TextLayoutResult) childResult).isWordHasBeenSplit()
                         && RenderingMode.HTML_MODE != childRenderingMode
-                        && !((com.itextpdf.layout.renderer.TextRenderer) childRenderer).textContainsSpecialScriptGlyphs(true);
-                boolean enableSpecialScriptsWrapping = ((com.itextpdf.layout.renderer.TextRenderer) getChildRenderers().get(childPos))
+                        && !((TextRenderer) childRenderer).textContainsSpecialScriptGlyphs(true);
+                boolean enableSpecialScriptsWrapping = ((TextRenderer) getChildRenderers().get(childPos))
                         .textContainsSpecialScriptGlyphs(true)
                         && !textSequenceOverflowXProcessing && !newLineOccurred;
                 boolean enableTextSequenceWrapping = RenderingMode.HTML_MODE == childRenderingMode && !newLineOccurred
@@ -491,8 +482,8 @@ public class LineRenderer extends AbstractRenderer {
                     boolean isOverflowFit = wasXOverflowChanged
                             ? (oldXOverflow == OverflowPropertyValue.FIT)
                             : isOverflowFit(this.<OverflowPropertyValue>getProperty(Property.OVERFLOW_X));
-                    LastFittingChildRendererData lastFittingChildRendererData =
-                            com.itextpdf.layout.renderer.TextSequenceWordWrapping.getIndexAndLayoutResultOfTheLastTextRendererContainingSpecialScripts(
+                    TextSequenceWordWrapping.LastFittingChildRendererData lastFittingChildRendererData =
+                            TextSequenceWordWrapping.getIndexAndLayoutResultOfTheLastTextRendererContainingSpecialScripts(
                                     this, childPos,
                                     specialScriptLayoutResults, wasParentsHeightClipped,
                                     isOverflowFit);
@@ -502,7 +493,7 @@ public class LineRenderer extends AbstractRenderer {
                         shouldBreakLayouting = false;
                         firstChildToRelayout = childPos;
                     } else {
-                        curWidth -= com.itextpdf.layout.renderer.TextSequenceWordWrapping.getCurWidthRelayoutedTextSequenceDecrement(childPos,
+                        curWidth -= TextSequenceWordWrapping.getCurWidthRelayoutedTextSequenceDecrement(childPos,
                                 lastFittingChildRendererData.childIndex, specialScriptLayoutResults);
                         childPos = lastFittingChildRendererData.childIndex;
                         childResult = lastFittingChildRendererData.childLayoutResult;
@@ -516,8 +507,8 @@ public class LineRenderer extends AbstractRenderer {
                     boolean isOverflowFit = wasXOverflowChanged
                             ? (oldXOverflow == OverflowPropertyValue.FIT)
                             : isOverflowFit(this.<OverflowPropertyValue>getProperty(Property.OVERFLOW_X));
-                    LastFittingChildRendererData lastFittingChildRendererData =
-                            com.itextpdf.layout.renderer.TextSequenceWordWrapping.getIndexAndLayoutResultOfTheLastTextRendererWithNoSpecialScripts(
+                    TextSequenceWordWrapping.LastFittingChildRendererData lastFittingChildRendererData =
+                            TextSequenceWordWrapping.getIndexAndLayoutResultOfTheLastTextRendererWithNoSpecialScripts(
                                     this, childPos,
                                     textRendererLayoutResults, wasParentsHeightClipped,
                                     isOverflowFit, floatsPlacedInLine || floatsPlacedBeforeLine);
@@ -526,7 +517,7 @@ public class LineRenderer extends AbstractRenderer {
                         shouldBreakLayouting = false;
                         firstChildToRelayout = childPos;
                     } else {
-                        curWidth -= com.itextpdf.layout.renderer.TextSequenceWordWrapping.getCurWidthRelayoutedTextSequenceDecrement(childPos,
+                        curWidth -= TextSequenceWordWrapping.getCurWidthRelayoutedTextSequenceDecrement(childPos,
                                 lastFittingChildRendererData.childIndex, textRendererLayoutResults);
                         childAscentDescent =
                                 updateAscentDescentAfterTextRendererSequenceProcessing(
@@ -559,10 +550,10 @@ public class LineRenderer extends AbstractRenderer {
 
                 float currChildTextIndent = anythingPlaced ? 0 : lineLayoutContext.getTextIndent();
                 if (hangingTabStop != null && (
-                        TabAlignment.LEFT == hangingTabStop.getTabAlignment() 
-                                || shouldBreakLayouting 
-                                || getChildRenderers().size() - 1 == childPos 
-                                || getChildRenderers().get(childPos + 1) instanceof com.itextpdf.layout.renderer.TabRenderer)) {
+                        TabAlignment.LEFT == hangingTabStop.getTabAlignment()
+                                || shouldBreakLayouting
+                                || getChildRenderers().size() - 1 == childPos
+                                || getChildRenderers().get(childPos + 1) instanceof TabRenderer)) {
                     IRenderer tabRenderer = getChildRenderers().get(lastTabIndex);
                     List<IRenderer> affectedRenderers = new ArrayList<>();
                     affectedRenderers.addAll(getChildRenderers().subList(lastTabIndex + 1, childPos + 1));
@@ -626,9 +617,9 @@ public class LineRenderer extends AbstractRenderer {
                         } else if (isInlineBlockChild
                                 && childResult.getOverflowRenderer().getChildRenderers().isEmpty()
                                 && childResult.getStatus() == LayoutResult.PARTIAL) {
-                            if (logger.isWarnEnabled()) {
-                                logger.warn(IoLogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED);
-                            }
+
+                            logger.warning(IoLogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED);
+
                         } else {
                             split[1].addChildRenderer(childResult.getOverflowRenderer());
                         }
@@ -844,6 +835,7 @@ public class LineRenderer extends AbstractRenderer {
     /**
      * Gets the total lengths of characters in this line. Other elements (images, tables) are not taken
      * into account.
+     *
      * @return the total lengths of characters in this line.
      */
     protected int length() {
@@ -858,6 +850,7 @@ public class LineRenderer extends AbstractRenderer {
 
     /**
      * Returns the number of base characters, i.e. non-mark characters
+     *
      * @return the number of base non-mark characters
      */
     protected int baseCharactersCount() {
@@ -981,7 +974,7 @@ public class LineRenderer extends AbstractRenderer {
             case Leading.MULTIPLIED:
                 UnitValue fontSize = this.<UnitValue>getProperty(Property.FONT_SIZE, UnitValue.createPointValue(0f));
                 if (!fontSize.isPointValue()) {
-                    logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+                    logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                             Property.FONT_SIZE));
                 }
                 // In HTML, depending on whether <!DOCTYPE html> is present or not, and if present then depending on the version,
@@ -1003,7 +996,7 @@ public class LineRenderer extends AbstractRenderer {
             case Leading.MULTIPLIED:
                 UnitValue fontSize = this.<UnitValue>getProperty(Property.FONT_SIZE, UnitValue.createPointValue(0f));
                 if (!fontSize.isPointValue()) {
-                    logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+                    logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                             Property.FONT_SIZE));
                 }
                 // In HTML, depending on whether <!DOCTYPE html> is present or not, and if present then depending on the version,
@@ -1072,7 +1065,7 @@ public class LineRenderer extends AbstractRenderer {
                     continue;
                 }
                 if (reversed) {
-                    newRenderer.initReversedRanges().add(new int[] {initialPos - offset, pos - offset});
+                    newRenderer.initReversedRanges().add(new int[]{initialPos - offset, pos - offset});
                     reversed = false;
                 }
                 initialPos = pos + 1;
@@ -1090,21 +1083,21 @@ public class LineRenderer extends AbstractRenderer {
                 if (child instanceof TextRenderer) {
                     currentWidth = ((TextRenderer) child).calculateLineWidth();
                     UnitValue[] margins = ((TextRenderer) child).getMargins();
-                    if (!margins[1].isPointValue() && logger.isErrorEnabled()) {
-                        logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+                    if (!margins[1].isPointValue()) {
+                        logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                                 "right margin"));
                     }
-                    if (!margins[3].isPointValue() && logger.isErrorEnabled()) {
-                        logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+                    if (!margins[3].isPointValue()) {
+                        logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                                 "left margin"));
                     }
                     UnitValue[] paddings = ((TextRenderer) child).getPaddings();
-                    if (!paddings[1].isPointValue() && logger.isErrorEnabled()) {
-                        logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+                    if (!paddings[1].isPointValue()) {
+                        logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                                 "right padding"));
                     }
-                    if (!paddings[3].isPointValue() && logger.isErrorEnabled()) {
-                        logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+                    if (!paddings[3].isPointValue()) {
+                        logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                                 "left padding"));
                     }
                     currentWidth += margins[1].getValue() + margins[3].getValue() + paddings[1].getValue() + paddings[3].getValue();
@@ -1340,14 +1333,14 @@ public class LineRenderer extends AbstractRenderer {
     /**
      * Checks if the word that's been split when has been layouted on this line can fit the next line without splitting.
      *
-     * @param childRenderer the childRenderer containing the split word
-     * @param wasXOverflowChanged true if {@link Property#OVERFLOW_X} has been changed
-     *                            during layouting of {@link LineRenderer}
-     * @param oldXOverflow the value of {@link Property#OVERFLOW_X} before it's been changed
-     *                     during layouting of {@link LineRenderer}
-     *                     or null if {@link Property#OVERFLOW_X} hasn't been changed
-     * @param layoutContext {@link LayoutContext}
-     * @param layoutBox current layoutBox
+     * @param childRenderer           the childRenderer containing the split word
+     * @param wasXOverflowChanged     true if {@link Property#OVERFLOW_X} has been changed
+     *                                during layouting of {@link LineRenderer}
+     * @param oldXOverflow            the value of {@link Property#OVERFLOW_X} before it's been changed
+     *                                during layouting of {@link LineRenderer}
+     *                                or null if {@link Property#OVERFLOW_X} hasn't been changed
+     * @param layoutContext           {@link LayoutContext}
+     * @param layoutBox               current layoutBox
      * @param wasParentsHeightClipped true if layoutBox's height has been clipped
      * @return true if the split word can fit the next line without splitting
      */
@@ -1370,8 +1363,8 @@ public class LineRenderer extends AbstractRenderer {
     /**
      * Extracts ascender and descender of an already layouted {@link IRenderer childRenderer}.
      *
-     * @param childRenderer an already layouted child who's ascender and descender are to be extracted
-     * @param childResult {@link LayoutResult} of the childRenderer based on which ascender and descender are defined
+     * @param childRenderer      an already layouted child who's ascender and descender are to be extracted
+     * @param childResult        {@link LayoutResult} of the childRenderer based on which ascender and descender are defined
      * @param childRenderingMode {@link RenderingMode rendering mode}
      * @param isInlineBlockChild true if childRenderer {@link #isInlineBlockChild(IRenderer)}
      * @return a two-element float array where first element is ascender value and second element is descender value
@@ -1402,7 +1395,7 @@ public class LineRenderer extends AbstractRenderer {
             }
         }
 
-        return new float[] {childAscent, childDescent};
+        return new float[]{childAscent, childDescent};
     }
 
     /**
@@ -1422,7 +1415,7 @@ public class LineRenderer extends AbstractRenderer {
      *                                                         maxTextDescent of the corresponding {@link TextRenderer}
      *                                                         children.
      * @return a two-element float array where first element is a new {@link LineRenderer}'s ascender
-     *         and second element is a new {@link LineRenderer}'s descender
+     * and second element is a new {@link LineRenderer}'s descender
      */
     float[] updateAscentDescentAfterTextRendererSequenceProcessing(
             int newChildPos, LineAscentDescentState lineAscentDescentStateBeforeTextRendererSequence,
@@ -1445,7 +1438,7 @@ public class LineRenderer extends AbstractRenderer {
         this.maxTextAscent = maxTextAscentUpdated;
         this.maxTextDescent = maxTextDescentUpdated;
 
-        return new float[] {this.maxAscent, this.maxDescent};
+        return new float[]{this.maxAscent, this.maxDescent};
     }
 
     /**
@@ -1455,8 +1448,8 @@ public class LineRenderer extends AbstractRenderer {
      *
      * @param childAscentDescent a two-element float array where first element is ascender of a layouted child
      *                           and second element is descender of a layouted child
-     * @param childRenderer the layouted {@link IRenderer childRenderer} of current {@link LineRenderer}
-     * @param isChildFloating true if {@link #isChildFloating(IRenderer)}
+     * @param childRenderer      the layouted {@link IRenderer childRenderer} of current {@link LineRenderer}
+     * @param isChildFloating    true if {@link #isChildFloating(IRenderer)}
      */
     void updateAscentDescentAfterChildLayout(float[] childAscentDescent, IRenderer childRenderer,
                                              boolean isChildFloating) {

@@ -44,12 +44,13 @@
 package com.tanodxyz.itext722g.layout;
 
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.layout.RootLayoutArea;
-import com.itextpdf.layout.properties.AreaBreakType;
-import com.itextpdf.layout.renderer.DocumentRenderer;
-import com.itextpdf.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.layout.RootLayoutArea;
+import com.tanodxyz.itext722g.layout.properties.AreaBreakType;
+import com.tanodxyz.itext722g.layout.renderer.DocumentRenderer;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+
 
 /**
  * This class is used for convenient multi-column Document Layouting

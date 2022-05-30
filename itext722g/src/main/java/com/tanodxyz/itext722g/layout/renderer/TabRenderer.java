@@ -43,22 +43,22 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.element.Tab;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.CanvasArtifact;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.draw.ILineDrawer;
-import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
-import com.tanodxyz.itext722g.layout.renderer.DrawContext;
+import com.tanodxyz.itext722g.layout.element.Tab;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class TabRenderer extends AbstractRenderer {
     /**
@@ -78,7 +78,7 @@ public class TabRenderer extends AbstractRenderer {
         occupiedArea = new LayoutArea(area.getPageNumber(),
                 new Rectangle(area.getBBox().getX(), area.getBBox().getY() + area.getBBox().getHeight(),(float)  width, (float) height.getValue()));
 
-        com.itextpdf.layout.renderer.TargetCounterHandler.addPageByID(this);
+        TargetCounterHandler.addPageByID(this);
 
         return new LayoutResult(LayoutResult.FULL, occupiedArea, null, null);
     }
@@ -86,8 +86,8 @@ public class TabRenderer extends AbstractRenderer {
     @Override
     public void draw(DrawContext drawContext) {
         if (occupiedArea == null) {
-            Logger logger = LoggerFactory.getLogger(TabRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED,
+            Logger logger = Logger.getLogger(TabRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED,
                     "Drawing won't be performed."));
             return;
         }

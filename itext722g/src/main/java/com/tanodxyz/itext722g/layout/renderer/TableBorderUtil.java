@@ -42,9 +42,10 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.properties.Property;
+
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.element.Cell;
+import com.tanodxyz.itext722g.layout.properties.Property;
 
 import java.util.ArrayList;
 import java.util.List;

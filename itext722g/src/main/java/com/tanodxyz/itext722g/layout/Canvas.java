@@ -50,13 +50,15 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
 import com.tanodxyz.itext722g.kernel.pdf.PdfPage;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfFormXObject;
-import com.itextpdf.layout.element.IElement;
-import com.itextpdf.layout.exceptions.LayoutExceptionMessageConstant;
-import com.itextpdf.layout.renderer.CanvasRenderer;
-import com.itextpdf.layout.renderer.IRenderer;
-import com.itextpdf.layout.renderer.RootRenderer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.element.IElement;
+import com.tanodxyz.itext722g.layout.exceptions.LayoutExceptionMessageConstant;
+import com.tanodxyz.itext722g.layout.renderer.CanvasRenderer;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.renderer.RootRenderer;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  * This class is used for adding content directly onto a specified {@link PdfCanvas}.
@@ -179,8 +181,8 @@ public class Canvas extends RootElement<Canvas> {
      */
     public void enableAutoTagging(PdfPage page) {
         if (isCanvasOfPage() && this.page != page) {
-            Logger logger = LoggerFactory.getLogger(Canvas.class);
-            logger.error(IoLogMessageConstant.PASSED_PAGE_SHALL_BE_ON_WHICH_CANVAS_WILL_BE_RENDERED);
+            Logger logger = Logger.getLogger(Canvas.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.PASSED_PAGE_SHALL_BE_ON_WHICH_CANVAS_WILL_BE_RENDERED);
         }
         this.page = page;
     }

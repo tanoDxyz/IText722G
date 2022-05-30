@@ -22,12 +22,12 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.layout.properties.LineHeight;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.RenderingMode;
+
 import com.tanodxyz.itext722g.io.font.FontProgram;
 import com.tanodxyz.itext722g.kernel.font.PdfFont;
-import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
+import com.tanodxyz.itext722g.layout.properties.LineHeight;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.RenderingMode;
 
 class LineHeightHelper {
     private static float DEFAULT_LINE_HEIGHT_COEFF = 1.15f;
@@ -43,16 +43,16 @@ class LineHeightHelper {
         float leading = lineHeight - (fontAscenderDescender[0] - fontAscenderDescender[1]);
         ascender = fontAscenderDescender[0] + leading / 2f;
         descender = fontAscenderDescender[1] - leading / 2f;
-        return new float[] {ascender, descender};
+        return new float[]{ascender, descender};
     }
 
     static float[] getFontAscenderDescenderNormalized(AbstractRenderer renderer) {
         PdfFont font = renderer.resolveFirstPdfFont();
         float fontSize = renderer.getPropertyAsUnitValue(Property.FONT_SIZE).getValue();
-        float[] fontAscenderDescenderFromMetrics = com.itextpdf.layout.renderer.TextRenderer.calculateAscenderDescender(font, RenderingMode.HTML_MODE);
+        float[] fontAscenderDescenderFromMetrics = TextRenderer.calculateAscenderDescender(font, RenderingMode.HTML_MODE);
         float fontAscender = fontAscenderDescenderFromMetrics[0] / FontProgram.UNITS_NORMALIZATION * fontSize;
         float fontDescender = fontAscenderDescenderFromMetrics[1] / FontProgram.UNITS_NORMALIZATION * fontSize;
-        return new float[] {fontAscender, fontDescender};
+        return new float[]{fontAscender, fontDescender};
     }
 
     static float calculateLineHeight(AbstractRenderer renderer) {

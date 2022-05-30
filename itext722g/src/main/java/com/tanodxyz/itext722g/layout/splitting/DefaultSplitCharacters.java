@@ -48,7 +48,7 @@ import com.tanodxyz.itext722g.io.font.otf.GlyphLine;
 /**
  * The default implementation of {@link ISplitCharacters} interface.
  */
-public class DefaultSplitCharacters implements com.itextpdf.layout.splitting.ISplitCharacters {
+public class DefaultSplitCharacters implements ISplitCharacters {
 
     @Override
     public boolean isSplitCharacter(GlyphLine text, int glyphPos) {

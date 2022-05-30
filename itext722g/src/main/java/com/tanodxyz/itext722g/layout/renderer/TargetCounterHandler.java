@@ -22,9 +22,7 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.layout.properties.Property;
-import com.tanodxyz.itext722g.layout.renderer.DocumentRenderer;
-import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.properties.Property;
 
 import java.util.HashMap;
 import java.util.Map;

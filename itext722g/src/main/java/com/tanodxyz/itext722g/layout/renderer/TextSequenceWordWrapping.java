@@ -22,22 +22,17 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.layout.TextLayoutResult;
-import com.itextpdf.layout.properties.OverflowPropertyValue;
-import com.itextpdf.layout.properties.OverflowWrapPropertyValue;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.renderer.LineRenderer.LineAscentDescentState;
+
 import com.tanodxyz.itext722g.io.font.otf.ActualTextIterator;
 import com.tanodxyz.itext722g.io.font.otf.GlyphLine;
 import com.tanodxyz.itext722g.io.util.TextUtil;
-import com.tanodxyz.itext722g.layout.renderer.AbstractWidthHandler;
-import com.tanodxyz.itext722g.layout.renderer.IRenderer;
-import com.tanodxyz.itext722g.layout.renderer.ImageRenderer;
-import com.tanodxyz.itext722g.layout.renderer.LineRenderer;
-import com.tanodxyz.itext722g.layout.renderer.TextRenderer;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.layout.TextLayoutResult;
+import com.tanodxyz.itext722g.layout.properties.OverflowPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.OverflowWrapPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Property;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +86,7 @@ final class TextSequenceWordWrapping {
         int numberOfSequentialTextRenderers = info.numberOfSequentialTextRenderers;
         String sequentialTextContent = info.sequentialTextContent;
         List<Integer> indicesOfFloating = info.indicesOfFloating;
-        List<Integer> possibleBreakPointsGlobal = com.itextpdf.layout.renderer.TypographyUtils.getPossibleBreaks(sequentialTextContent);
+        List<Integer> possibleBreakPointsGlobal =  TypographyUtils.getPossibleBreaks(sequentialTextContent);
 
         distributePossibleBreakPointsOverSequentialTextRenderers(lineRenderer, childPos,
                 numberOfSequentialTextRenderers,
@@ -136,16 +131,16 @@ final class TextSequenceWordWrapping {
         }
     }
 
-    public static LineAscentDescentState updateTextRendererSequenceAscentDescent(LineRenderer lineRenderer,
-            Map<Integer, float[]> textRendererSequenceAscentDescent,
-            int childPos, float[] childAscentDescent,
-            LineAscentDescentState preTextSequenceAscentDescent) {
+    public static LineRenderer.LineAscentDescentState updateTextRendererSequenceAscentDescent(LineRenderer lineRenderer,
+                                                                                              Map<Integer, float[]> textRendererSequenceAscentDescent,
+                                                                                              int childPos, float[] childAscentDescent,
+                                                                                              LineRenderer.LineAscentDescentState preTextSequenceAscentDescent) {
 
         IRenderer childRenderer = lineRenderer.childRenderers.get(childPos);
         if (childRenderer instanceof TextRenderer
                 && !((TextRenderer) childRenderer).textContainsSpecialScriptGlyphs(true)) {
             if (textRendererSequenceAscentDescent.isEmpty()) {
-                preTextSequenceAscentDescent = new LineAscentDescentState(lineRenderer.maxAscent,
+                preTextSequenceAscentDescent = new LineRenderer.LineAscentDescentState(lineRenderer.maxAscent,
                         lineRenderer.maxDescent,
                         lineRenderer.maxTextAscent, lineRenderer.maxTextDescent);
             }

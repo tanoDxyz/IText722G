@@ -43,39 +43,29 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.margincollapse.MarginsCollapseHandler;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidthUtils;
-import com.itextpdf.layout.properties.BorderCollapsePropertyValue;
-import com.itextpdf.layout.properties.CaptionSide;
-import com.itextpdf.layout.properties.FloatPropertyValue;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.layout.properties.VerticalAlignment;
-import com.itextpdf.layout.tagging.LayoutTaggingHelper;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.CanvasArtifact;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.TagTreePointer;
-import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
-import com.tanodxyz.itext722g.layout.renderer.CellRenderer;
-import com.tanodxyz.itext722g.layout.renderer.CollapsedTableBorders;
-import com.tanodxyz.itext722g.layout.renderer.DivRenderer;
-import com.tanodxyz.itext722g.layout.renderer.FloatingHelper;
-import com.tanodxyz.itext722g.layout.renderer.IRenderer;
-import com.tanodxyz.itext722g.layout.renderer.SeparatedTableBorders;
-import com.tanodxyz.itext722g.layout.renderer.TableBorders;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.element.Cell;
+import com.tanodxyz.itext722g.layout.element.Div;
+import com.tanodxyz.itext722g.layout.element.Table;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.margincollapse.MarginsCollapseHandler;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidth;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidthUtils;
+import com.tanodxyz.itext722g.layout.properties.BorderCollapsePropertyValue;
+import com.tanodxyz.itext722g.layout.properties.CaptionSide;
+import com.tanodxyz.itext722g.layout.properties.FloatPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.layout.properties.VerticalAlignment;
+import com.tanodxyz.itext722g.layout.tagging.LayoutTaggingHelper;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -84,6 +74,8 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class represents the {@link IRenderer renderer} object for a {@link Table}
@@ -144,8 +136,8 @@ public class TableRenderer extends AbstractRenderer {
             Cell cell = (Cell) renderer.getModelElement();
             rows.get(cell.getRow() - rowRange.getStartRow() + cell.getRowspan() - 1)[cell.getCol()] = (CellRenderer) renderer;
         } else {
-            Logger logger = LoggerFactory.getLogger(TableRenderer.class);
-            logger.error("Only CellRenderer could be added");
+            Logger logger = Logger.getLogger(TableRenderer.class.getName());
+            logger.log(Level.SEVERE,"Only CellRenderer could be added");
         }
     }
 
@@ -382,7 +374,7 @@ public class TableRenderer extends AbstractRenderer {
 
         occupiedArea = new LayoutArea(area.getPageNumber(), new Rectangle(layoutBox.getX(), layoutBox.getY() + layoutBox.getHeight(), (float) tableWidth, 0));
 
-        com.itextpdf.layout.renderer.TargetCounterHandler.addPageByID(this);
+         TargetCounterHandler.addPageByID(this);
 
         if (footerRenderer != null) {
             // apply the difference to set footer and table left/right margins identical
@@ -950,8 +942,8 @@ public class TableRenderer extends AbstractRenderer {
                     if ((status == LayoutResult.NOTHING && Boolean.TRUE.equals(getPropertyAsBoolean(Property.FORCED_PLACEMENT)))
                             || wasHeightClipped) {
                         if (wasHeightClipped) {
-                            Logger logger = LoggerFactory.getLogger(TableRenderer.class);
-                            logger.warn(IoLogMessageConstant.CLIP_ELEMENT);
+                            Logger logger = Logger.getLogger(TableRenderer.class.getName());
+                            logger.warning(IoLogMessageConstant.CLIP_ELEMENT);
                             // Process borders
                             if (status == LayoutResult.NOTHING) {
                                 bordersHandler.applyTopTableBorder(occupiedArea.getBBox(), layoutBox, 0 == childRenderers.size(), true, false);
@@ -999,8 +991,8 @@ public class TableRenderer extends AbstractRenderer {
                 lastInRow--;
             }
             if (lastInRow < 0 || lastRow.length != lastInRow + (int) lastRow[lastInRow].getPropertyAsInteger(Property.COLSPAN)) {
-                Logger logger = LoggerFactory.getLogger(TableRenderer.class);
-                logger.warn(IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE);
+                Logger logger = Logger.getLogger(TableRenderer.class.getName());
+                logger.warning(IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE);
             }
         }
 
@@ -1368,14 +1360,14 @@ public class TableRenderer extends AbstractRenderer {
         float minWidth = isOriginalNonSplitRenderer ? tableWidths.getMinWidth() : maxColTotalWidth;
         UnitValue marginRightUV = this.getPropertyAsUnitValue(Property.MARGIN_RIGHT);
         if (!marginRightUV.isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(TableRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(TableRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.MARGIN_RIGHT));
         }
         UnitValue marginLefttUV = this.getPropertyAsUnitValue(Property.MARGIN_LEFT);
         if (!marginLefttUV.isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(TableRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(TableRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.MARGIN_LEFT));
         }
         float additionalWidth = marginLefttUV.getValue() + marginRightUV.getValue() + rightMaxBorder / 2 + leftMaxBorder / 2;
@@ -1442,8 +1434,8 @@ public class TableRenderer extends AbstractRenderer {
         if (hasProperty(Property.MARGIN_TOP)) {
             UnitValue topMargin = this.getPropertyAsUnitValue(Property.MARGIN_TOP);
             if (null != topMargin && !topMargin.isPointValue()) {
-                Logger logger = LoggerFactory.getLogger(TableRenderer.class);
-                logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+                Logger logger = Logger.getLogger(TableRenderer.class.getName());
+                logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                         Property.MARGIN_LEFT));
             }
             startY -= null == topMargin ? 0 : topMargin.getValue();
@@ -1451,8 +1443,8 @@ public class TableRenderer extends AbstractRenderer {
         if (hasProperty(Property.MARGIN_LEFT)) {
             UnitValue leftMargin = this.getPropertyAsUnitValue(Property.MARGIN_LEFT);
             if (null != leftMargin && !leftMargin.isPointValue()) {
-                Logger logger = LoggerFactory.getLogger(TableRenderer.class);
-                logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+                Logger logger = Logger.getLogger(TableRenderer.class.getName());
+                logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                         Property.MARGIN_LEFT));
             }
             startX += +(null == leftMargin ? 0 : leftMargin.getValue());
@@ -1729,8 +1721,8 @@ public class TableRenderer extends AbstractRenderer {
 
             // TODO Remove try-catch when DEVSIX-1655 is resolved.
             } catch (NullPointerException e) {
-                Logger logger = LoggerFactory.getLogger(TableRenderer.class);
-                logger.error(MessageFormatUtil.format(IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED,
+                Logger logger = Logger.getLogger(TableRenderer.class.getName());
+                logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED,
                         "Some of the cell's content might not end up placed correctly."));
             }
         }
@@ -1986,24 +1978,24 @@ public class TableRenderer extends AbstractRenderer {
     void applyMarginsAndPaddingsAndCalculateColumnWidths(Rectangle layoutBox) {
         UnitValue[] margins = getMargins();
         if (!margins[1].isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(TableRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(TableRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.MARGIN_RIGHT));
         }
         if (!margins[3].isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(TableRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(TableRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.MARGIN_LEFT));
         }
         UnitValue[] paddings = getPaddings();
         if (!paddings[1].isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(TableRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(TableRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.PADDING_RIGHT));
         }
         if (!paddings[3].isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(TableRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(TableRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.PADDING_LEFT));
         }
         calculateColumnWidths(layoutBox.getWidth()

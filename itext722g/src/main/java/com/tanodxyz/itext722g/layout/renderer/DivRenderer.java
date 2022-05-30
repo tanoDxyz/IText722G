@@ -43,9 +43,8 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.tanodxyz.itext722g.layout.renderer.BlockRenderer;
+
+import com.tanodxyz.itext722g.layout.element.Div;
 
 public class DivRenderer extends BlockRenderer {
 
@@ -70,7 +69,7 @@ public class DivRenderer extends BlockRenderer {
      * @return new renderer instance
      */
     @Override
-    public com.itextpdf.layout.renderer.IRenderer getNextRenderer() {
+    public IRenderer getNextRenderer() {
         logWarningIfGetNextRendererNotOverridden(DivRenderer.class, this.getClass());
         return new DivRenderer((Div) modelElement);
     }

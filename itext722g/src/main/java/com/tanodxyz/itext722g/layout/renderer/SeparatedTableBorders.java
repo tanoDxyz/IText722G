@@ -42,21 +42,19 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.properties.Property;
+
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
-import com.tanodxyz.itext722g.layout.renderer.CellRenderer;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.element.Cell;
+import com.tanodxyz.itext722g.layout.properties.Property;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
-class SeparatedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
+class SeparatedTableBorders extends  TableBorders {
     public SeparatedTableBorders(List<CellRenderer[]> rows, int numberOfColumns, Border[] tableBoundingBorders) {
         super(rows, numberOfColumns, tableBoundingBorders);
     }
@@ -66,22 +64,22 @@ class SeparatedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
     }
 
     @Override
-    protected com.itextpdf.layout.renderer.TableBorders drawHorizontalBorder(PdfCanvas canvas, com.itextpdf.layout.renderer.TableBorderDescriptor borderDescriptor) {
+    protected  TableBorders drawHorizontalBorder(PdfCanvas canvas,  TableBorderDescriptor borderDescriptor) {
         return this;
     }
 
     @Override
-    protected com.itextpdf.layout.renderer.TableBorders drawVerticalBorder(PdfCanvas canvas, com.itextpdf.layout.renderer.TableBorderDescriptor borderDescriptor) {
+    protected  TableBorders drawVerticalBorder(PdfCanvas canvas,  TableBorderDescriptor borderDescriptor) {
         return this;
     }
 
     @Override
-    protected com.itextpdf.layout.renderer.TableBorders applyTopTableBorder(Rectangle occupiedBox, Rectangle layoutBox, boolean isEmpty, boolean force, boolean reverse) {
+    protected  TableBorders applyTopTableBorder(Rectangle occupiedBox, Rectangle layoutBox, boolean isEmpty, boolean force, boolean reverse) {
         return applyTopTableBorder(occupiedBox, layoutBox, reverse);
     }
 
     @Override
-    protected com.itextpdf.layout.renderer.TableBorders applyTopTableBorder(Rectangle occupiedBox, Rectangle layoutBox, boolean reverse) {
+    protected  TableBorders applyTopTableBorder(Rectangle occupiedBox, Rectangle layoutBox, boolean reverse) {
         float topIndent = (reverse ? -1 : 1) * getMaxTopWidth();
         layoutBox.decreaseHeight(topIndent);
         occupiedBox.moveDown(topIndent).increaseHeight(topIndent);
@@ -89,12 +87,12 @@ class SeparatedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
     }
 
     @Override
-    protected com.itextpdf.layout.renderer.TableBorders applyBottomTableBorder(Rectangle occupiedBox, Rectangle layoutBox, boolean isEmpty, boolean force, boolean reverse) {
+    protected  TableBorders applyBottomTableBorder(Rectangle occupiedBox, Rectangle layoutBox, boolean isEmpty, boolean force, boolean reverse) {
         return applyBottomTableBorder(occupiedBox, layoutBox, reverse);
     }
 
     @Override
-    protected com.itextpdf.layout.renderer.TableBorders applyBottomTableBorder(Rectangle occupiedBox, Rectangle layoutBox, boolean reverse) {
+    protected  TableBorders applyBottomTableBorder(Rectangle occupiedBox, Rectangle layoutBox, boolean reverse) {
         float bottomTableBorderWidth = (reverse ? -1 : 1) * getMaxBottomWidth();
         layoutBox.decreaseHeight(bottomTableBorderWidth);
         occupiedBox.moveDown(bottomTableBorderWidth).increaseHeight(bottomTableBorderWidth);
@@ -102,7 +100,7 @@ class SeparatedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
     }
 
     @Override
-    protected com.itextpdf.layout.renderer.TableBorders applyLeftAndRightTableBorder(Rectangle layoutBox, boolean reverse) {
+    protected  TableBorders applyLeftAndRightTableBorder(Rectangle layoutBox, boolean reverse) {
         if (null != layoutBox) {
             layoutBox.applyMargins(0, rightBorderMaxWidth, 0, leftBorderMaxWidth, reverse);
         }
@@ -111,33 +109,33 @@ class SeparatedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
     }
 
     @Override
-    protected com.itextpdf.layout.renderer.TableBorders skipFooter(Border[] borders) {
+    protected  TableBorders skipFooter(Border[] borders) {
         setTableBoundingBorders(borders);
         return this;
     }
 
     @Override
-    protected com.itextpdf.layout.renderer.TableBorders skipHeader(Border[] borders) {
+    protected  TableBorders skipHeader(Border[] borders) {
         return this;
     }
 
     @Override
-    protected com.itextpdf.layout.renderer.TableBorders collapseTableWithFooter(com.itextpdf.layout.renderer.TableBorders footerBordersHandler, boolean hasContent) {
+    protected  TableBorders collapseTableWithFooter( TableBorders footerBordersHandler, boolean hasContent) {
         return this;
     }
 
     @Override
-    protected com.itextpdf.layout.renderer.TableBorders collapseTableWithHeader(com.itextpdf.layout.renderer.TableBorders headerBordersHandler, boolean updateBordersHandler) {
+    protected  TableBorders collapseTableWithHeader( TableBorders headerBordersHandler, boolean updateBordersHandler) {
         return this;
     }
 
     @Override
-    protected com.itextpdf.layout.renderer.TableBorders fixHeaderOccupiedArea(Rectangle occupiedBox, Rectangle layoutBox) {
+    protected  TableBorders fixHeaderOccupiedArea(Rectangle occupiedBox, Rectangle layoutBox) {
         return this;
     }
 
     @Override
-    protected com.itextpdf.layout.renderer.TableBorders applyCellIndents(Rectangle box, float topIndent, float rightIndent, float bottomIndent, float leftIndent, boolean reverse) {
+    protected  TableBorders applyCellIndents(Rectangle box, float topIndent, float rightIndent, float bottomIndent, float leftIndent, boolean reverse) {
         box.applyMargins(topIndent, rightIndent, bottomIndent, leftIndent, false);
         return this;
     }
@@ -158,7 +156,7 @@ class SeparatedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
     }
 
     @Override
-    protected com.itextpdf.layout.renderer.TableBorders updateBordersOnNewPage(boolean isOriginalNonSplitRenderer, boolean isFooterOrHeader, com.itextpdf.layout.renderer.TableRenderer currentRenderer, com.itextpdf.layout.renderer.TableRenderer headerRenderer, com.itextpdf.layout.renderer.TableRenderer footerRenderer) {
+    protected  TableBorders updateBordersOnNewPage(boolean isOriginalNonSplitRenderer, boolean isFooterOrHeader,  TableRenderer currentRenderer,  TableRenderer headerRenderer,  TableRenderer footerRenderer) {
         if (!isFooterOrHeader) {
             // collapse all cell borders
             if (isOriginalNonSplitRenderer) {
@@ -229,15 +227,15 @@ class SeparatedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
         if (neighbour == null) {
             borders.set(j, borderToAdd);
         } else {
-            Logger logger = LoggerFactory.getLogger(com.itextpdf.layout.renderer.TableRenderer.class);
-            logger.warn(IoLogMessageConstant.UNEXPECTED_BEHAVIOUR_DURING_TABLE_ROW_COLLAPSING);
+            Logger logger = Logger.getLogger( TableRenderer.class.getName());
+            logger.warning(IoLogMessageConstant.UNEXPECTED_BEHAVIOUR_DURING_TABLE_ROW_COLLAPSING);
         }
 
         return true;
     }
 
     @Override
-    protected com.itextpdf.layout.renderer.TableBorders initializeBorders() {
+    protected  TableBorders initializeBorders() {
         List<Border> tempBorders;
         // initialize vertical borders
         while (2 * Math.max(numberOfColumns, 1) > verticalBorders.size()) {

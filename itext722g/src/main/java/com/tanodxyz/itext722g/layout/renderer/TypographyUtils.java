@@ -43,15 +43,15 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.commons.actions.contexts.IMetaInfo;
-import com.itextpdf.commons.actions.sequence.SequenceId;
-import com.itextpdf.layout.properties.BaseDirection;
-import com.itextpdf.layout.renderer.typography.AbstractTypographyApplier;
-import com.itextpdf.layout.renderer.typography.DefaultTypographyApplier;
+
+import com.tanodxyz.itext722g.commons.actions.contexts.IMetaInfo;
+import com.tanodxyz.itext722g.commons.actions.sequence.SequenceId;
 import com.tanodxyz.itext722g.io.font.FontProgram;
 import com.tanodxyz.itext722g.io.font.TrueTypeFont;
 import com.tanodxyz.itext722g.io.font.otf.GlyphLine;
-import com.tanodxyz.itext722g.layout.renderer.LineRenderer;
+import com.tanodxyz.itext722g.layout.properties.BaseDirection;
+import com.tanodxyz.itext722g.layout.renderer.typography.AbstractTypographyApplier;
+import com.tanodxyz.itext722g.layout.renderer.typography.DefaultTypographyApplier;
 
 import java.io.IOException;
 import java.lang.Character.UnicodeScript;
@@ -119,7 +119,7 @@ public final class TypographyUtils {
     }
 
     static void applyOtfScript(FontProgram fontProgram, GlyphLine text, UnicodeScript script, Object typographyConfig,
-            SequenceId sequenceId, IMetaInfo metaInfo) {
+                               SequenceId sequenceId, IMetaInfo metaInfo) {
         applierInstance.applyOtfScript((TrueTypeFont) fontProgram, text, script, typographyConfig,
                 sequenceId, metaInfo);
     }
@@ -129,7 +129,7 @@ public final class TypographyUtils {
     }
 
     static byte[] getBidiLevels(BaseDirection baseDirection, int[] unicodeIds,
-            SequenceId sequenceId, IMetaInfo metaInfo) {
+                                SequenceId sequenceId, IMetaInfo metaInfo) {
         return applierInstance.getBidiLevels(baseDirection, unicodeIds, sequenceId, metaInfo);
     }
 

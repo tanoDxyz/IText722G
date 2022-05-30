@@ -42,28 +42,24 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidthUtils;
-import com.itextpdf.layout.properties.BorderCollapsePropertyValue;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.util.ArrayUtil;
-import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
-import com.tanodxyz.itext722g.layout.renderer.CellRenderer;
-import com.tanodxyz.itext722g.layout.renderer.SeparatedTableBorders;
-import com.tanodxyz.itext722g.layout.renderer.TableRenderer;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.element.Cell;
+import com.tanodxyz.itext722g.layout.element.Table;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidth;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidthUtils;
+import com.tanodxyz.itext722g.layout.properties.BorderCollapsePropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 final class TableWidths {
 
@@ -735,8 +731,8 @@ final class TableWidths {
     }
 
     private void warn100percent() {
-        Logger logger = LoggerFactory.getLogger(TableWidths.class);
-        logger.warn(IoLogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100);
+        Logger logger = Logger.getLogger(TableWidths.class.getName());
+        logger.warning(IoLogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100);
     }
 
     private float[] extractWidths() {
@@ -750,8 +746,8 @@ final class TableWidths {
             layoutMinWidth += widths[i].min + horizontalBorderSpacing;
         }
         if (actualWidth > tableWidth + MinMaxWidthUtils.getEps() * widths.length) {
-            Logger logger = LoggerFactory.getLogger(TableWidths.class);
-            logger.warn(IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH);
+            Logger logger =  Logger.getLogger(TableWidths.class.getName());
+            logger.warning(IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH);
         }
         return columnWidths;
     }
@@ -879,13 +875,13 @@ final class TableWidths {
                 }
                 UnitValue[] paddings = cell.getPaddings();
                 if (!paddings[1].isPointValue()) {
-                    Logger logger = LoggerFactory.getLogger(TableWidths.class);
-                    logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+                    Logger logger =  Logger.getLogger(TableWidths.class.getName());
+                    logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                             Property.PADDING_LEFT));
                 }
                 if (!paddings[3].isPointValue()) {
-                    Logger logger = LoggerFactory.getLogger(TableWidths.class);
-                    logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+                    Logger logger =  Logger.getLogger(TableWidths.class.getName());
+                    logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                             Property.PADDING_RIGHT));
                 }
                 widthValue.setValue(widthValue.getValue() + paddings[1].getValue() + paddings[3].getValue());

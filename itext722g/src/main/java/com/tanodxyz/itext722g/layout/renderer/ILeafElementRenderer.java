@@ -42,7 +42,7 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-public interface ILeafElementRenderer extends com.itextpdf.layout.renderer.IRenderer {
+public interface ILeafElementRenderer extends IRenderer {
 
     /**
      * Gets the maximum offset above the base line that this {@link ILeafElementRenderer} extends to.

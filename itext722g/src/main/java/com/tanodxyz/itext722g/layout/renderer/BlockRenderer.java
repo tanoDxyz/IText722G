@@ -79,6 +79,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class BlockRenderer extends AbstractRenderer {
@@ -445,8 +446,8 @@ public abstract class BlockRenderer extends AbstractRenderer {
             applyRotationLayout(layoutContext.getArea().getBBox().clone());
             if (isNotFittingLayoutArea(layoutContext.getArea())) {
                 if (isNotFittingWidth(layoutContext.getArea()) && !isNotFittingHeight(layoutContext.getArea())) {
-                    LoggerFactory.getLogger(getClass())
-                            .warn(MessageFormatUtil.format(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA,
+                    Logger.getLogger(getClass().getName())
+                            .warning(MessageFormatUtil.format(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA,
                                     "It fits by height so it will be forced placed"));
                 } else if (!Boolean.TRUE.equals(getPropertyAsBoolean(Property.FORCED_PLACEMENT))) {
                     floatRendererAreas.retainAll(nonChildFloatingRendererAreas);
@@ -472,9 +473,9 @@ public abstract class BlockRenderer extends AbstractRenderer {
 
     @Override
     public void draw( DrawContext drawContext) {
-        Logger logger = LoggerFactory.getLogger(BlockRenderer.class);
+        Logger logger = Logger.getLogger(BlockRenderer.class.getName());
         if (occupiedArea == null) {
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED,
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED,
                     "Drawing won't be performed."));
             return;
         }
@@ -525,7 +526,7 @@ public abstract class BlockRenderer extends AbstractRenderer {
                 // TODO DEVSIX-1655 This check is necessary because, in some cases, our renderer's hierarchy may contain
                 //  a renderer from the different page that was already flushed
                 if (page.isFlushed()) {
-                    logger.error(MessageFormatUtil.format(
+                    logger.log(Level.SEVERE,MessageFormatUtil.format(
                             IoLogMessageConstant.PAGE_WAS_FLUSHED_ACTION_WILL_NOT_BE_PERFORMED,
                             "area clipping"));
                     clippedArea = new Rectangle(-INF / 2 , -INF / 2, INF, INF);
@@ -574,8 +575,8 @@ public abstract class BlockRenderer extends AbstractRenderer {
         Float rotationAngle = this.<Float>getProperty(Property.ROTATION_ANGLE);
         if (rotationAngle != null) {
             if (!hasOwnProperty(Property.ROTATION_INITIAL_WIDTH) || !hasOwnProperty(Property.ROTATION_INITIAL_HEIGHT)) {
-                Logger logger = LoggerFactory.getLogger(BlockRenderer.class);
-                logger.error(
+                Logger logger = Logger.getLogger(BlockRenderer.class.getName());
+                logger.log(Level.SEVERE,
                         MessageFormatUtil.format(IoLogMessageConstant.ROTATION_WAS_NOT_CORRECTLY_PROCESSED_FOR_RENDERER,
                                 getClass().getSimpleName()));
             } else {
@@ -782,8 +783,8 @@ public abstract class BlockRenderer extends AbstractRenderer {
         Float angle = this.getPropertyAsFloat(Property.ROTATION_ANGLE);
         if (angle != null) {
             if (!hasOwnProperty(Property.ROTATION_INITIAL_HEIGHT)) {
-                Logger logger = LoggerFactory.getLogger(BlockRenderer.class);
-                logger.error(
+                Logger logger = Logger.getLogger(BlockRenderer.class.getName());
+                logger.log(Level.SEVERE,
                         MessageFormatUtil.format(IoLogMessageConstant.ROTATION_WAS_NOT_CORRECTLY_PROCESSED_FOR_RENDERER,
                                 getClass().getSimpleName()));
             } else {

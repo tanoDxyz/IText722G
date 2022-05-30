@@ -46,17 +46,15 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
 import com.tanodxyz.itext722g.kernel.pdf.tagging.StandardRoles;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.TagTreePointer;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.WaitingTagsManager;
-import com.tanodxyz.itext722g.layout.tagging.ITaggingRule;
-import com.tanodxyz.itext722g.layout.tagging.LayoutTaggingHelper;
 
 import java.util.HashSet;
 import java.util.Set;
 
 class TableTaggingPriorToOneFiveVersionRule implements ITaggingRule {
-    private Set<com.itextpdf.layout.tagging.TaggingHintKey> finishForbidden = new HashSet<>();
+    private Set< TaggingHintKey> finishForbidden = new HashSet<>();
 
     @Override
-    public boolean onTagFinish(LayoutTaggingHelper taggingHelper, com.itextpdf.layout.tagging.TaggingHintKey taggingHintKey) {
+    public boolean onTagFinish(LayoutTaggingHelper taggingHelper,  TaggingHintKey taggingHintKey) {
         if (taggingHintKey.getAccessibleElement() != null) {
             String role = taggingHintKey.getAccessibleElement().getAccessibilityProperties().getRole();
             if (StandardRoles.THEAD.equals(role) || StandardRoles.TFOOT.equals(role)) {
@@ -65,7 +63,7 @@ class TableTaggingPriorToOneFiveVersionRule implements ITaggingRule {
             }
         }
 
-        for (com.itextpdf.layout.tagging.TaggingHintKey hint : taggingHelper.getAccessibleKidsHint(taggingHintKey)) {
+        for ( TaggingHintKey hint : taggingHelper.getAccessibleKidsHint(taggingHintKey)) {
             String role = hint.getAccessibleElement().getAccessibilityProperties().getRole();
             if (StandardRoles.TBODY.equals(role) || StandardRoles.THEAD.equals(role) || StandardRoles.TFOOT.equals(role)) {
                 // THead and TFoot are not finished thanks to this rule logic, TBody not finished because it's dummy and Table itself not finished
@@ -75,7 +73,7 @@ class TableTaggingPriorToOneFiveVersionRule implements ITaggingRule {
         return true;
     }
 
-    private void removeTagUnavailableInPriorToOneDotFivePdf(com.itextpdf.layout.tagging.TaggingHintKey taggingHintKey, LayoutTaggingHelper taggingHelper) {
+    private void removeTagUnavailableInPriorToOneDotFivePdf( TaggingHintKey taggingHintKey, LayoutTaggingHelper taggingHelper) {
         taggingHelper.replaceKidHint(taggingHintKey, taggingHelper.getAccessibleKidsHint(taggingHintKey));
         PdfDocument pdfDocument = taggingHelper.getPdfDocument();
         WaitingTagsManager waitingTagsManager = pdfDocument.getTagStructureContext().getWaitingTagsManager();

@@ -43,18 +43,20 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.layout.RootLayoutArea;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.Transform;
+
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.TagTreePointer;
 import com.tanodxyz.itext722g.layout.Canvas;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.layout.RootLayoutArea;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.Transform;
 
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
-public class CanvasRenderer extends com.itextpdf.layout.renderer.RootRenderer {
+
+public class CanvasRenderer extends RootRenderer {
 
     protected Canvas canvas;
 
@@ -82,9 +84,9 @@ public class CanvasRenderer extends com.itextpdf.layout.renderer.RootRenderer {
     }
 
     @Override
-    public void addChild(com.itextpdf.layout.renderer.IRenderer renderer) {
+    public void addChild(IRenderer renderer) {
         if (Boolean.TRUE.equals(getPropertyAsBoolean(Property.FULL))) {
-            LoggerFactory.getLogger(CanvasRenderer.class).warn(
+            Logger.getLogger(CanvasRenderer.class.getName()).warning(
                     IoLogMessageConstant.CANVAS_ALREADY_FULL_ELEMENT_WILL_BE_SKIPPED);
         } else {
             super.addChild(renderer);
@@ -95,13 +97,13 @@ public class CanvasRenderer extends com.itextpdf.layout.renderer.RootRenderer {
      * {@inheritDoc}
      */
     @Override
-    protected void flushSingleRenderer(com.itextpdf.layout.renderer.IRenderer resultRenderer) {
+    protected void flushSingleRenderer(IRenderer resultRenderer) {
         linkRenderToDocument(resultRenderer, canvas.getPdfDocument());
 
         Transform transformProp = resultRenderer.<Transform>getProperty(Property.TRANSFORM);
         if (!waitingDrawingElements.contains(resultRenderer)) {
             processWaitingDrawing(resultRenderer, transformProp, waitingDrawingElements);
-            if (com.itextpdf.layout.renderer.FloatingHelper.isRendererFloating(resultRenderer) || transformProp != null)
+            if (FloatingHelper.isRendererFloating(resultRenderer) || transformProp != null)
                 return;
         }
 
@@ -123,7 +125,7 @@ public class CanvasRenderer extends com.itextpdf.layout.renderer.RootRenderer {
                     tagPointer.setContentStreamForTagging(canvas.getPdfCanvas().getContentStream());
                 }
             }
-            resultRenderer.draw(new com.itextpdf.layout.renderer.DrawContext(canvas.getPdfDocument(), canvas.getPdfCanvas(), toTag));
+            resultRenderer.draw(new DrawContext(canvas.getPdfDocument(), canvas.getPdfCanvas(), toTag));
             if (toTag) {
                 tagPointer.setContentStreamForTagging(null);
             }
@@ -151,7 +153,7 @@ public class CanvasRenderer extends com.itextpdf.layout.renderer.RootRenderer {
      * @return relayout renderer.
      */
     @Override
-    public com.itextpdf.layout.renderer.IRenderer getNextRenderer() {
+    public IRenderer getNextRenderer() {
         return new CanvasRenderer(canvas, immediateFlush);
     }
 }

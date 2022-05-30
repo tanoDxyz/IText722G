@@ -43,22 +43,20 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.margincollapse.MarginsCollapseHandler;
-import com.itextpdf.layout.margincollapse.MarginsCollapseInfo;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidthUtils;
-import com.itextpdf.layout.properties.OverflowPropertyValue;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
+
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
-import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
-import com.tanodxyz.itext722g.layout.renderer.AbstractWidthHandler;
-import com.tanodxyz.itext722g.layout.renderer.DivRenderer;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.element.Div;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.margincollapse.MarginsCollapseHandler;
+import com.tanodxyz.itext722g.layout.margincollapse.MarginsCollapseInfo;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidth;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidthUtils;
+import com.tanodxyz.itext722g.layout.properties.OverflowPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +65,7 @@ import java.util.Set;
 
 public class FlexContainerRenderer extends DivRenderer {
 
-    private List<List<com.itextpdf.layout.renderer.FlexItemInfo>> lines;
+    private List<List< FlexItemInfo>> lines;
 
     /**
      * Creates a FlexContainerRenderer from its corresponding layout object.
@@ -89,7 +87,7 @@ public class FlexContainerRenderer extends DivRenderer {
      * @return new renderer instance
      */
     @Override
-    public com.itextpdf.layout.renderer.IRenderer getNextRenderer() {
+    public  IRenderer getNextRenderer() {
         logWarningIfGetNextRendererNotOverridden(FlexContainerRenderer.class, this.getClass());
         return new FlexContainerRenderer((Div) modelElement);
     }
@@ -101,12 +99,12 @@ public class FlexContainerRenderer extends DivRenderer {
     public LayoutResult layout(LayoutContext layoutContext) {
         Rectangle layoutContextRectangle = layoutContext.getArea().getBBox();
         setThisAsParent(getChildRenderers());
-        lines = com.itextpdf.layout.renderer.FlexUtil.calculateChildrenRectangles(layoutContextRectangle, this);
+        lines =  FlexUtil.calculateChildrenRectangles(layoutContextRectangle, this);
         final List<UnitValue> previousWidths = new ArrayList<>();
         final List<UnitValue> previousHeights = new ArrayList<>();
         final List<UnitValue> previousMinHeights = new ArrayList<>();
-        for (final List<com.itextpdf.layout.renderer.FlexItemInfo> line : lines) {
-            for (final com.itextpdf.layout.renderer.FlexItemInfo itemInfo : line) {
+        for (final List< FlexItemInfo> line : lines) {
+            for (final  FlexItemInfo itemInfo : line) {
                 final Rectangle rectangleWithoutBordersMarginsPaddings;
                 if (AbstractRenderer.isBorderBoxSizing(itemInfo.getRenderer())) {
                     rectangleWithoutBordersMarginsPaddings =
@@ -137,8 +135,8 @@ public class FlexContainerRenderer extends DivRenderer {
         // If flex-grow is less than 1, layout algorithm increases the width of the element based on the initial width
         // And if we would not set back widths, every layout flex-item width will grow.
         int counter = 0;
-        for (final List<com.itextpdf.layout.renderer.FlexItemInfo> line : lines) {
-            for (final com.itextpdf.layout.renderer.FlexItemInfo itemInfo : line) {
+        for (final List< FlexItemInfo> line : lines) {
+            for (final  FlexItemInfo itemInfo : line) {
                 itemInfo.getRenderer().setProperty(Property.WIDTH, previousWidths.get(counter));
                 itemInfo.getRenderer().setProperty(Property.HEIGHT, previousHeights.get(counter));
                 itemInfo.getRenderer().setProperty(Property.MIN_HEIGHT, previousMinHeights.get(counter));
@@ -154,7 +152,7 @@ public class FlexContainerRenderer extends DivRenderer {
     @Override
     public MinMaxWidth getMinMaxWidth() {
         final MinMaxWidth minMaxWidth = new MinMaxWidth(calculateAdditionalWidth(this));
-        final AbstractWidthHandler minMaxWidthHandler = new com.itextpdf.layout.renderer.MaxMaxWidthHandler(minMaxWidth);
+        final AbstractWidthHandler minMaxWidthHandler = new  MaxMaxWidthHandler(minMaxWidth);
         if (!setMinMaxWidthBasedOnFixedWidth(minMaxWidth)) {
             final Float minWidth = hasAbsoluteUnitValue(Property.MIN_WIDTH) ? retrieveMinWidth(0) : null;
             final Float maxWidth = hasAbsoluteUnitValue(Property.MAX_WIDTH) ? retrieveMaxWidth(0) : null;
@@ -175,7 +173,7 @@ public class FlexContainerRenderer extends DivRenderer {
         }
 
         if (this.getPropertyAsFloat(Property.ROTATION_ANGLE) != null) {
-            return com.itextpdf.layout.renderer.RotationUtils.countRotationMinMaxWidth(minMaxWidth, this);
+            return  RotationUtils.countRotationMinMaxWidth(minMaxWidth, this);
         }
 
         return minMaxWidth;
@@ -186,17 +184,17 @@ public class FlexContainerRenderer extends DivRenderer {
      */
     @Override
     AbstractRenderer[] createSplitAndOverflowRenderers(int childPos, int layoutStatus, LayoutResult childResult,
-                                                       Map<Integer, com.itextpdf.layout.renderer.IRenderer> waitingFloatsSplitRenderers,
-                                                       List<com.itextpdf.layout.renderer.IRenderer> waitingOverflowFloatRenderers) {
+                                                       Map<Integer,  IRenderer> waitingFloatsSplitRenderers,
+                                                       List< IRenderer> waitingOverflowFloatRenderers) {
         final AbstractRenderer splitRenderer = createSplitRenderer(layoutStatus);
         final AbstractRenderer overflowRenderer = createOverflowRenderer(layoutStatus);
-        final com.itextpdf.layout.renderer.IRenderer childRenderer = getChildRenderers().get(childPos);
+        final  IRenderer childRenderer = getChildRenderers().get(childPos);
         final boolean forcedPlacement = Boolean.TRUE.equals(this.<Boolean>getProperty(Property.FORCED_PLACEMENT));
         boolean metChildRenderer = false;
-        for (final List<com.itextpdf.layout.renderer.FlexItemInfo> line : lines) {
+        for (final List< FlexItemInfo> line : lines) {
             metChildRenderer = metChildRenderer ||
                     line.stream().anyMatch(flexItem -> flexItem.getRenderer() == childRenderer);
-            for (final com.itextpdf.layout.renderer.FlexItemInfo itemInfo : line) {
+            for (final  FlexItemInfo itemInfo : line) {
                 if (metChildRenderer && !forcedPlacement) {
                     overflowRenderer.addChildRenderer(itemInfo.getRenderer());
                 } else {
@@ -212,12 +210,12 @@ public class FlexContainerRenderer extends DivRenderer {
 
     @Override
     LayoutResult processNotFullChildResult(LayoutContext layoutContext,
-                                           Map<Integer, com.itextpdf.layout.renderer.IRenderer> waitingFloatsSplitRenderers,
-                                           List<com.itextpdf.layout.renderer.IRenderer> waitingOverflowFloatRenderers, boolean wasHeightClipped,
+                                           Map<Integer,  IRenderer> waitingFloatsSplitRenderers,
+                                           List< IRenderer> waitingOverflowFloatRenderers, boolean wasHeightClipped,
                                            List<Rectangle> floatRendererAreas, boolean marginsCollapsingEnabled,
                                            float clearHeightCorrection, Border[] borders, UnitValue[] paddings,
                                            List<Rectangle> areas, int currentAreaPos, Rectangle layoutBox,
-                                           Set<Rectangle> nonChildFloatingRendererAreas, com.itextpdf.layout.renderer.IRenderer causeOfNothing,
+                                           Set<Rectangle> nonChildFloatingRendererAreas,  IRenderer causeOfNothing,
                                            boolean anythingPlaced, int childPos, LayoutResult result) {
 
         final boolean keepTogether = isKeepTogether(causeOfNothing);
@@ -265,7 +263,7 @@ public class FlexContainerRenderer extends DivRenderer {
     }
 
     // TODO DEVSIX-5238 Consider this fix (perhaps it should be improved or unified) while working on the ticket
-    LayoutArea getOccupiedAreaInCaseNothingWasWrappedWithFull(LayoutResult result, com.itextpdf.layout.renderer.IRenderer splitRenderer) {
+    LayoutArea getOccupiedAreaInCaseNothingWasWrappedWithFull(LayoutResult result,  IRenderer splitRenderer) {
         return null != result.getOccupiedArea() ? result.getOccupiedArea() : splitRenderer.getOccupiedArea();
     }
 
@@ -296,13 +294,13 @@ public class FlexContainerRenderer extends DivRenderer {
     }
 
     @Override
-    MarginsCollapseInfo startChildMarginsHandling(com.itextpdf.layout.renderer.IRenderer childRenderer,
+    MarginsCollapseInfo startChildMarginsHandling( IRenderer childRenderer,
                                                   Rectangle layoutBox, MarginsCollapseHandler marginsCollapseHandler) {
         return marginsCollapseHandler.startChildMarginsHandling(null, layoutBox);
     }
 
     @Override
-    void decreaseLayoutBoxAfterChildPlacement(Rectangle layoutBox, LayoutResult result, com.itextpdf.layout.renderer.IRenderer childRenderer) {
+    void decreaseLayoutBoxAfterChildPlacement(Rectangle layoutBox, LayoutResult result,  IRenderer childRenderer) {
         // TODO DEVSIX-5086 When flex-wrap will be fully supported
         //  we'll need to decrease layout box with respect to the lines
         layoutBox.decreaseWidth(result.getOccupiedArea().getBBox().getRight() - layoutBox.getLeft());
@@ -311,10 +309,10 @@ public class FlexContainerRenderer extends DivRenderer {
 
     @Override
     Rectangle recalculateLayoutBoxBeforeChildLayout(Rectangle layoutBox,
-                                                    com.itextpdf.layout.renderer.IRenderer childRenderer, Rectangle initialLayoutBox) {
+                                                     IRenderer childRenderer, Rectangle initialLayoutBox) {
         Rectangle layoutBoxCopy = layoutBox.clone();
         if (childRenderer instanceof AbstractRenderer) {
-            com.itextpdf.layout.renderer.FlexItemInfo childFlexItemInfo = findFlexItemInfo((AbstractRenderer) childRenderer);
+             FlexItemInfo childFlexItemInfo = findFlexItemInfo((AbstractRenderer) childRenderer);
             if (childFlexItemInfo != null) {
                 layoutBoxCopy.decreaseWidth(childFlexItemInfo.getRectangle().getX());
                 layoutBoxCopy.moveRight(childFlexItemInfo.getRectangle().getX());
@@ -325,9 +323,9 @@ public class FlexContainerRenderer extends DivRenderer {
         return layoutBoxCopy;
     }
 
-    private com.itextpdf.layout.renderer.FlexItemInfo findFlexItemInfo(AbstractRenderer renderer) {
-        for (List<com.itextpdf.layout.renderer.FlexItemInfo> line : lines) {
-            for (com.itextpdf.layout.renderer.FlexItemInfo itemInfo : line) {
+    private  FlexItemInfo findFlexItemInfo(AbstractRenderer renderer) {
+        for (List< FlexItemInfo> line : lines) {
+            for ( FlexItemInfo itemInfo : line) {
                 if (itemInfo.getRenderer().equals(renderer)) {
                     return itemInfo;
                 }
@@ -346,7 +344,7 @@ public class FlexContainerRenderer extends DivRenderer {
      * {@inheritDoc}
      */
     @Override
-    public void addChild(com.itextpdf.layout.renderer.IRenderer renderer) {
+    public void addChild( IRenderer renderer) {
         // TODO DEVSIX-5087 Since overflow-fit is an internal iText overflow value, we do not need to support if
         // for html/css objects, such as flex. As for now we will set VISIBLE by default, however, while working
         // on the ticket one may come to some more satifactory approach
@@ -358,7 +356,7 @@ public class FlexContainerRenderer extends DivRenderer {
                                                                    AbstractWidthHandler minMaxWidthHandler) {
         // TODO DEVSIX-5086 When flex-wrap will be fully supported we'll find min/max width with respect to the lines
         setThisAsParent(getChildRenderers());
-        for (final com.itextpdf.layout.renderer.IRenderer childRenderer : getChildRenderers()) {
+        for (final  IRenderer childRenderer : getChildRenderers()) {
             MinMaxWidth childMinMaxWidth;
             childRenderer.setParent(this);
             if (childRenderer instanceof AbstractRenderer) {

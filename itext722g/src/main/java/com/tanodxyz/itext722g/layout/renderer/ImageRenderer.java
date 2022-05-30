@@ -43,23 +43,8 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.element.Image;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.layout.MinMaxWidthLayoutResult;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidthUtils;
-import com.itextpdf.layout.properties.FloatPropertyValue;
-import com.itextpdf.layout.properties.ObjectFit;
-import com.itextpdf.layout.properties.OverflowPropertyValue;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.layout.renderer.objectfit.ObjectFitApplyingResult;
-import com.itextpdf.layout.renderer.objectfit.ObjectFitCalculator;
-import com.itextpdf.layout.tagging.LayoutTaggingHelper;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.geom.AffineTransform;
 import com.tanodxyz.itext722g.kernel.geom.Point;
@@ -70,16 +55,26 @@ import com.tanodxyz.itext722g.kernel.pdf.tagutils.TagTreePointer;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfFormXObject;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfImageXObject;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfXObject;
-import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
-import com.tanodxyz.itext722g.layout.renderer.AccessibleAttributesApplier;
-import com.tanodxyz.itext722g.layout.renderer.DrawContext;
-import com.tanodxyz.itext722g.layout.renderer.FloatingHelper;
-import com.tanodxyz.itext722g.layout.renderer.ILeafElementRenderer;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.element.Image;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.layout.MinMaxWidthLayoutResult;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidth;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidthUtils;
+import com.tanodxyz.itext722g.layout.properties.FloatPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.ObjectFit;
+import com.tanodxyz.itext722g.layout.properties.OverflowPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.layout.renderer.objectfit.ObjectFitApplyingResult;
+import com.tanodxyz.itext722g.layout.renderer.objectfit.ObjectFitCalculator;
+import com.tanodxyz.itext722g.layout.tagging.LayoutTaggingHelper;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ImageRenderer extends AbstractRenderer implements ILeafElementRenderer {
 
@@ -126,7 +121,7 @@ public class ImageRenderer extends AbstractRenderer implements ILeafElementRende
                 : OverflowPropertyValue.FIT;
 
         boolean nowrap = false;
-        if (parent instanceof com.itextpdf.layout.renderer.LineRenderer) {
+        if (parent instanceof  LineRenderer) {
             nowrap = Boolean.TRUE.equals(this.parent.<Boolean>getOwnProperty(Property.NO_SOFT_WRAP_INLINE));
         }
 
@@ -157,7 +152,7 @@ public class ImageRenderer extends AbstractRenderer implements ILeafElementRende
         }
         occupiedArea = new LayoutArea(area.getPageNumber(), new Rectangle(layoutBox.getX(), layoutBox.getY() + layoutBox.getHeight(), 0, 0));
 
-        com.itextpdf.layout.renderer.TargetCounterHandler.addPageByID(this);
+         TargetCounterHandler.addPageByID(this);
 
         float imageContainerWidth = (float) width;
         float imageContainerHeight = (float) height;
@@ -224,14 +219,14 @@ public class ImageRenderer extends AbstractRenderer implements ILeafElementRende
 
         UnitValue leftMargin = this.getPropertyAsUnitValue(Property.MARGIN_LEFT);
         if (!leftMargin.isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(ImageRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(ImageRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.MARGIN_LEFT));
         }
         UnitValue topMargin = this.getPropertyAsUnitValue(Property.MARGIN_TOP);
         if (!topMargin.isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(ImageRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(ImageRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.MARGIN_TOP));
         }
 
@@ -275,8 +270,8 @@ public class ImageRenderer extends AbstractRenderer implements ILeafElementRende
     @Override
     public void draw(DrawContext drawContext) {
         if (occupiedArea == null) {
-            Logger logger = LoggerFactory.getLogger(ImageRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED,
+            Logger logger = Logger.getLogger(ImageRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED,
                     "Drawing won't be performed."));
             return;
         }
@@ -380,7 +375,7 @@ public class ImageRenderer extends AbstractRenderer implements ILeafElementRende
     }
 
     @Override
-    public com.itextpdf.layout.renderer.IRenderer getNextRenderer() {
+    public  IRenderer getNextRenderer() {
         return null;
     }
 

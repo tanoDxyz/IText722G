@@ -43,38 +43,33 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.commons.actions.EventManager;
-import com.itextpdf.commons.actions.sequence.AbstractIdentifiableElement;
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutPosition;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.layout.PositionedLayoutContext;
-import com.itextpdf.layout.layout.RootLayoutArea;
-import com.itextpdf.layout.logs.LayoutLogMessageConstant;
-import com.itextpdf.layout.margincollapse.MarginsCollapseHandler;
-import com.itextpdf.layout.margincollapse.MarginsCollapseInfo;
-import com.itextpdf.layout.properties.ClearPropertyValue;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.tagging.LayoutTaggingHelper;
+
+import com.tanodxyz.itext722g.commons.actions.EventManager;
+import com.tanodxyz.itext722g.commons.actions.sequence.AbstractIdentifiableElement;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.actions.events.LinkDocumentIdEvent;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
 import com.tanodxyz.itext722g.layout.IPropertyContainer;
-import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
-import com.tanodxyz.itext722g.layout.renderer.FloatingHelper;
-import com.tanodxyz.itext722g.layout.renderer.IRenderer;
-import com.tanodxyz.itext722g.layout.renderer.ImageRenderer;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutPosition;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.layout.PositionedLayoutContext;
+import com.tanodxyz.itext722g.layout.layout.RootLayoutArea;
+import com.tanodxyz.itext722g.layout.logs.LayoutLogMessageConstant;
+import com.tanodxyz.itext722g.layout.margincollapse.MarginsCollapseHandler;
+import com.tanodxyz.itext722g.layout.margincollapse.MarginsCollapseInfo;
+import com.tanodxyz.itext722g.layout.properties.ClearPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.tagging.LayoutTaggingHelper;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 public abstract class RootRenderer extends AbstractRenderer {
 
@@ -121,7 +116,7 @@ public abstract class RootRenderer extends AbstractRenderer {
 
         // Static layout
         for (int i = 0; currentArea != null && i < addedRenderers.size(); i++) {
-            com.itextpdf.layout.renderer.RootRendererAreaStateHandler rootRendererStateHandler = new com.itextpdf.layout.renderer.RootRendererAreaStateHandler();
+              RootRendererAreaStateHandler rootRendererStateHandler = new   RootRendererAreaStateHandler();
 
             renderer = addedRenderers.get(i);
             boolean rendererIsFloat = FloatingHelper.isRendererFloating(renderer);
@@ -142,8 +137,8 @@ public abstract class RootRenderer extends AbstractRenderer {
                 childMarginsInfo = marginsCollapseHandler.startChildMarginsHandling(renderer, currentArea.getBBox());
             }
             while (clearanceOverflowsToNextPage || currentArea != null && renderer != null
-                        && (result = renderer.setParent(this)
-                            .layout(new LayoutContext(currentArea.clone(), childMarginsInfo, floatRendererAreas))).getStatus() != LayoutResult.FULL) {
+                    && (result = renderer.setParent(this)
+                    .layout(new LayoutContext(currentArea.clone(), childMarginsInfo, floatRendererAreas))).getStatus() != LayoutResult.FULL) {
                 boolean currentAreaNeedsToBeUpdated = false;
                 if (clearanceOverflowsToNextPage) {
                     result = new LayoutResult(LayoutResult.NOTHING, null, null, renderer);
@@ -173,8 +168,8 @@ public abstract class RootRenderer extends AbstractRenderer {
                         } else {
                             ((ImageRenderer) result.getOverflowRenderer()).autoScale(currentArea);
                             result.getOverflowRenderer().setProperty(Property.FORCED_PLACEMENT, true);
-                            Logger logger = LoggerFactory.getLogger(RootRenderer.class);
-                            logger.warn(MessageFormatUtil.format(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, ""));
+                            Logger logger = Logger.getLogger(RootRenderer.class.getName());
+                            logger.warning(MessageFormatUtil.format(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, ""));
                         }
                     } else {
                         if (currentArea.isEmptyArea() && result.getAreaBreak() == null) {
@@ -184,7 +179,7 @@ public abstract class RootRenderer extends AbstractRenderer {
                             boolean areKeepTogetherAndForcedPlacementBothNotChanged = !keepTogetherChanged;
                             if (areKeepTogetherAndForcedPlacementBothNotChanged) {
                                 areKeepTogetherAndForcedPlacementBothNotChanged =
-                                        ! updateForcedPlacement(renderer, result.getOverflowRenderer());
+                                        !updateForcedPlacement(renderer, result.getOverflowRenderer());
                             }
 
                             if (areKeepTogetherAndForcedPlacementBothNotChanged) {
@@ -238,8 +233,8 @@ public abstract class RootRenderer extends AbstractRenderer {
             if (renderer != null && result != null) {
                 if (Boolean.TRUE.equals(renderer.<Boolean>getProperty(Property.KEEP_WITH_NEXT))) {
                     if (Boolean.TRUE.equals(renderer.<Boolean>getProperty(Property.FORCED_PLACEMENT))) {
-                        Logger logger = LoggerFactory.getLogger(RootRenderer.class);
-                        logger.warn(IoLogMessageConstant.ELEMENT_WAS_FORCE_PLACED_KEEP_WITH_NEXT_WILL_BE_IGNORED);
+                        Logger logger = Logger.getLogger(RootRenderer.class.getName());
+                        logger.warning(IoLogMessageConstant.ELEMENT_WAS_FORCE_PLACED_KEEP_WITH_NEXT_WILL_BE_IGNORED);
                         shrinkCurrentAreaAndProcessRenderer(renderer, resultRenderers, result);
                     } else {
                         keepWithNextHangingRenderer = renderer;
@@ -282,7 +277,7 @@ public abstract class RootRenderer extends AbstractRenderer {
     /**
      * Draws (flushes) the content.
      *
-     * @see #draw(com.itextpdf.layout.renderer.DrawContext)
+     * @see #draw(  DrawContext)
      */
     public void flush() {
         for (IRenderer resultRenderer : childRenderers) {
@@ -358,8 +353,7 @@ public abstract class RootRenderer extends AbstractRenderer {
 
     void flushWaitingDrawingElements(boolean force) {
         Set<IRenderer> flushedElements = new HashSet<>();
-        for (int i = 0; i < waitingDrawingElements.size(); ++i)
-        {
+        for (int i = 0; i < waitingDrawingElements.size(); ++i) {
             IRenderer waitingDrawingElement = waitingDrawingElements.get(i);
             // TODO Remove checking occupied area to be not null when DEVSIX-1655 is resolved.
             if (force || (null != waitingDrawingElement.getOccupiedArea() && waitingDrawingElement.getOccupiedArea().getPageNumber() < currentArea.getPageNumber())) {
@@ -462,8 +456,8 @@ public abstract class RootRenderer extends AbstractRenderer {
                 }
             }
             if (!ableToProcessKeepWithNext) {
-                Logger logger = LoggerFactory.getLogger(RootRenderer.class);
-                logger.warn(IoLogMessageConstant.RENDERER_WAS_NOT_ABLE_TO_PROCESS_KEEP_WITH_NEXT);
+                Logger logger = Logger.getLogger(RootRenderer.class.getName());
+                logger.warning(IoLogMessageConstant.RENDERER_WAS_NOT_ABLE_TO_PROCESS_KEEP_WITH_NEXT);
                 shrinkCurrentAreaAndProcessRenderer(keepWithNextHangingRenderer, new ArrayList<IRenderer>(), keepWithNextHangingRendererLayoutResult);
             }
             keepWithNextHangingRenderer = null;
@@ -503,16 +497,16 @@ public abstract class RootRenderer extends AbstractRenderer {
             return false;
         } else {
             overflowRenderer.setProperty(Property.FORCED_PLACEMENT, true);
-            Logger logger = LoggerFactory.getLogger(RootRenderer.class);
-            if (logger.isWarnEnabled()) {
-                logger.warn(MessageFormatUtil.format(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, ""));
-            }
+            Logger logger = Logger.getLogger(RootRenderer.class.getName());
+
+            logger.warning(MessageFormatUtil.format(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, ""));
+
             return true;
         }
     }
 
     private boolean tryDisableKeepTogether(LayoutResult result,
-            boolean rendererIsFloat, com.itextpdf.layout.renderer.RootRendererAreaStateHandler rootRendererStateHandler) {
+                                           boolean rendererIsFloat,   RootRendererAreaStateHandler rootRendererStateHandler) {
         IRenderer toDisableKeepTogether = null;
 
         // looking for the most outer keep together element
@@ -533,12 +527,12 @@ public abstract class RootRenderer extends AbstractRenderer {
         // may not lead to overflowRenderer) such approach does not work now. So we
         // disabling keep together on the models layer.
         toDisableKeepTogether.getModelElement().setProperty(Property.KEEP_TOGETHER, false);
-        Logger logger = LoggerFactory.getLogger(RootRenderer.class);
-        if (logger.isWarnEnabled()) {
-            logger.warn(MessageFormatUtil.format(
-                    LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA,
-                    "KeepTogether property will be ignored."));
-        }
+        Logger logger = Logger.getLogger(RootRenderer.class.getName());
+
+        logger.warning(MessageFormatUtil.format(
+                LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA,
+                "KeepTogether property will be ignored."));
+
         if (!rendererIsFloat) {
             rootRendererStateHandler.attemptGoBackToStoredPreviousStateAndStoreNextState(this);
         }

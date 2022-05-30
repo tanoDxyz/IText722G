@@ -43,49 +43,38 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.layout.LineLayoutContext;
-import com.itextpdf.layout.layout.LineLayoutResult;
-import com.itextpdf.layout.layout.MinMaxWidthLayoutResult;
-import com.itextpdf.layout.logs.LayoutLogMessageConstant;
-import com.itextpdf.layout.margincollapse.MarginsCollapseHandler;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidthUtils;
-import com.itextpdf.layout.properties.BaseDirection;
-import com.itextpdf.layout.properties.FloatPropertyValue;
-import com.itextpdf.layout.properties.Leading;
-import com.itextpdf.layout.properties.OverflowPropertyValue;
-import com.itextpdf.layout.properties.ParagraphOrphansControl;
-import com.itextpdf.layout.properties.ParagraphWidowsControl;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.RenderingMode;
-import com.itextpdf.layout.properties.TextAlignment;
-import com.itextpdf.layout.properties.UnitValue;
-import com.tanodxyz.itext722g.kernel.geom.Rectangle;
-import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
-import com.tanodxyz.itext722g.layout.renderer.AbstractWidthHandler;
-import com.tanodxyz.itext722g.layout.renderer.BlockFormattingContextUtil;
-import com.tanodxyz.itext722g.layout.renderer.BlockRenderer;
-import com.tanodxyz.itext722g.layout.renderer.CellRenderer;
-import com.tanodxyz.itext722g.layout.renderer.DrawContext;
-import com.tanodxyz.itext722g.layout.renderer.FloatingHelper;
-import com.tanodxyz.itext722g.layout.renderer.IRenderer;
-import com.tanodxyz.itext722g.layout.renderer.LineRenderer;
-import com.tanodxyz.itext722g.layout.renderer.MaxMaxWidthHandler;
-import com.tanodxyz.itext722g.layout.renderer.OrphansWidowsLayoutHelper;
 
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.kernel.geom.Rectangle;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.element.Paragraph;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.layout.LineLayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LineLayoutResult;
+import com.tanodxyz.itext722g.layout.layout.MinMaxWidthLayoutResult;
+import com.tanodxyz.itext722g.layout.logs.LayoutLogMessageConstant;
+import com.tanodxyz.itext722g.layout.margincollapse.MarginsCollapseHandler;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidth;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidthUtils;
+import com.tanodxyz.itext722g.layout.properties.BaseDirection;
+import com.tanodxyz.itext722g.layout.properties.FloatPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Leading;
+import com.tanodxyz.itext722g.layout.properties.OverflowPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.ParagraphOrphansControl;
+import com.tanodxyz.itext722g.layout.properties.ParagraphWidowsControl;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.RenderingMode;
+import com.tanodxyz.itext722g.layout.properties.TextAlignment;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * This class represents the {@link IRenderer renderer} object for a {@link Paragraph}
@@ -169,7 +158,7 @@ public class ParagraphRenderer extends BlockRenderer {
             parentBBox.moveDown(AbstractRenderer.INF - parentBBox.getHeight()).setHeight(AbstractRenderer.INF);
         }
         if (rotation != null && !FloatingHelper.isRendererFloating(this)) {
-            blockWidth = com.itextpdf.layout.renderer.RotationUtils.retrieveRotatedLayoutWidth(parentBBox.getWidth(), this);
+            blockWidth =  RotationUtils.retrieveRotatedLayoutWidth(parentBBox.getWidth(), this);
         }
 
         if (marginsCollapsingEnabled) {
@@ -203,7 +192,7 @@ public class ParagraphRenderer extends BlockRenderer {
         occupiedArea = new LayoutArea(pageNumber, new Rectangle(parentBBox.getX(), parentBBox.getY() + parentBBox.getHeight(), parentBBox.getWidth(), 0));
         shrinkOccupiedAreaForAbsolutePosition();
 
-        com.itextpdf.layout.renderer.TargetCounterHandler.addPageByID(this);
+         TargetCounterHandler.addPageByID(this);
 
         int currentAreaPos = 0;
         Rectangle layoutBox = areas.get(0).clone();
@@ -494,8 +483,8 @@ public class ParagraphRenderer extends BlockRenderer {
             applyRotationLayout(layoutContext.getArea().getBBox().clone());
             if (isNotFittingLayoutArea(layoutContext.getArea())) {
                 if(isNotFittingWidth(layoutContext.getArea()) && !isNotFittingHeight(layoutContext.getArea())) {
-                    LoggerFactory.getLogger(getClass())
-                            .warn(MessageFormatUtil.format(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA,
+                    Logger.getLogger(getClass().getName())
+                            .warning(MessageFormatUtil.format(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA,
                                     "It fits by height so it will be forced placed"));
                 } else if (!Boolean.TRUE.equals(getPropertyAsBoolean(Property.FORCED_PLACEMENT))) {
                     floatRendererAreas.retainAll(nonChildFloatingRendererAreas);
@@ -685,7 +674,7 @@ public class ParagraphRenderer extends BlockRenderer {
             minMaxWidth.setAdditionalWidth(calculateAdditionalWidth(this));
         }
 
-        return rotation != null ? com.itextpdf.layout.renderer.RotationUtils.countRotationMinMaxWidth(minMaxWidth, this) : minMaxWidth;
+        return rotation != null ?  RotationUtils.countRotationMinMaxWidth(minMaxWidth, this) : minMaxWidth;
     }
 
     protected ParagraphRenderer[] split() {

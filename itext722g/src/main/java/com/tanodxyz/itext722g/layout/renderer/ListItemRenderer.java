@@ -43,37 +43,31 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.element.ListItem;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.properties.BaseDirection;
-import com.itextpdf.layout.properties.ListSymbolAlignment;
-import com.itextpdf.layout.properties.ListSymbolPosition;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.layout.tagging.LayoutTaggingHelper;
-import com.itextpdf.layout.tagging.TaggingDummyElement;
-import com.itextpdf.layout.tagging.TaggingHintKey;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.font.PdfFont;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
 import com.tanodxyz.itext722g.kernel.pdf.PdfPage;
 import com.tanodxyz.itext722g.kernel.pdf.tagging.StandardRoles;
-import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
-import com.tanodxyz.itext722g.layout.renderer.DivRenderer;
-import com.tanodxyz.itext722g.layout.renderer.DrawContext;
-import com.tanodxyz.itext722g.layout.renderer.IRenderer;
-import com.tanodxyz.itext722g.layout.renderer.ImageRenderer;
-import com.tanodxyz.itext722g.layout.renderer.LineRenderer;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.element.ListItem;
+import com.tanodxyz.itext722g.layout.element.Paragraph;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.properties.BaseDirection;
+import com.tanodxyz.itext722g.layout.properties.ListSymbolAlignment;
+import com.tanodxyz.itext722g.layout.properties.ListSymbolPosition;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.layout.tagging.LayoutTaggingHelper;
+import com.tanodxyz.itext722g.layout.tagging.TaggingDummyElement;
+import com.tanodxyz.itext722g.layout.tagging.TaggingHintKey;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ListItemRenderer extends DivRenderer {
 
@@ -112,8 +106,8 @@ public class ListItemRenderer extends DivRenderer {
     @Override
     public void draw(DrawContext drawContext) {
         if (occupiedArea == null) {
-            Logger logger = LoggerFactory.getLogger(ListItemRenderer.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED,
+            Logger logger = Logger.getLogger(ListItemRenderer.class.getName());
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED,
                     "Drawing won't be performed."));
             return;
         }
@@ -148,7 +142,7 @@ public class ListItemRenderer extends DivRenderer {
             boolean isRtl = BaseDirection.RIGHT_TO_LEFT == this.<BaseDirection>getProperty(Property.BASE_DIRECTION);
             symbolRenderer.setParent(this);
             float x = isRtl ? occupiedArea.getBBox().getRight() : occupiedArea.getBBox().getLeft();
-            ListSymbolPosition symbolPosition = (ListSymbolPosition) com.itextpdf.layout.renderer.ListRenderer.getListItemOrListProperty(this, parent, Property.LIST_SYMBOL_POSITION);
+            ListSymbolPosition symbolPosition = (ListSymbolPosition)  ListRenderer.getListItemOrListProperty(this, parent, Property.LIST_SYMBOL_POSITION);
             if (symbolPosition != ListSymbolPosition.DEFAULT) {
                 Float symbolIndent = this.getPropertyAsFloat(Property.LIST_SYMBOL_INDENT);
                 if (isRtl) {
@@ -160,8 +154,8 @@ public class ListItemRenderer extends DivRenderer {
                     if (isRtl) {
                         UnitValue marginRightUV = this.getPropertyAsUnitValue(Property.MARGIN_RIGHT);
                         if (!marginRightUV.isPointValue()) {
-                            Logger logger = LoggerFactory.getLogger(ListItemRenderer.class);
-                            logger.error(
+                            Logger logger = Logger.getLogger(ListItemRenderer.class.getName());
+                            logger.log(Level.SEVERE,
                                     MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                                             Property.MARGIN_RIGHT));
                         }
@@ -169,8 +163,8 @@ public class ListItemRenderer extends DivRenderer {
                     } else {
                         UnitValue marginLeftUV = this.getPropertyAsUnitValue(Property.MARGIN_LEFT);
                         if (!marginLeftUV.isPointValue()) {
-                            Logger logger = LoggerFactory.getLogger(ListItemRenderer.class);
-                            logger.error(
+                            Logger logger = Logger.getLogger(ListItemRenderer.class.getName());
+                            logger.log(Level.SEVERE,
                                     MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                                             Property.MARGIN_LEFT));
                         }
@@ -201,8 +195,8 @@ public class ListItemRenderer extends DivRenderer {
                             (symbolRenderer.getOccupiedArea().getBBox().getY() + symbolRenderer.getOccupiedArea().getBBox().getHeight()));
                 }
             } else {
-                if (symbolRenderer instanceof com.itextpdf.layout.renderer.TextRenderer) {
-                    ((com.itextpdf.layout.renderer.TextRenderer) symbolRenderer).moveYLineTo(occupiedArea.getBBox().getY() + occupiedArea.getBBox().getHeight() - calculateAscenderDescender()[0]);
+                if (symbolRenderer instanceof  TextRenderer) {
+                    (( TextRenderer) symbolRenderer).moveYLineTo(occupiedArea.getBBox().getY() + occupiedArea.getBBox().getHeight() - calculateAscenderDescender()[0]);
                 } else {
                     symbolRenderer.move(0, occupiedArea.getBBox().getY() + occupiedArea.getBBox().getHeight() -
                             symbolRenderer.getOccupiedArea().getBBox().getHeight() - symbolRenderer.getOccupiedArea().getBBox().getY());
@@ -281,11 +275,11 @@ public class ListItemRenderer extends DivRenderer {
 
     private void applyListSymbolPosition() {
         if (symbolRenderer != null) {
-            ListSymbolPosition symbolPosition = (ListSymbolPosition) com.itextpdf.layout.renderer.ListRenderer.getListItemOrListProperty(this, parent, Property.LIST_SYMBOL_POSITION);
+            ListSymbolPosition symbolPosition = (ListSymbolPosition)  ListRenderer.getListItemOrListProperty(this, parent, Property.LIST_SYMBOL_POSITION);
             if (symbolPosition == ListSymbolPosition.INSIDE) {
                 boolean isRtl = BaseDirection.RIGHT_TO_LEFT.equals(this.<BaseDirection>getProperty(Property.BASE_DIRECTION));
-                if (childRenderers.size() > 0 && childRenderers.get(0) instanceof com.itextpdf.layout.renderer.ParagraphRenderer) {
-                    com.itextpdf.layout.renderer.ParagraphRenderer paragraphRenderer = (com.itextpdf.layout.renderer.ParagraphRenderer) childRenderers.get(0);
+                if (childRenderers.size() > 0 && childRenderers.get(0) instanceof  ParagraphRenderer) {
+                     ParagraphRenderer paragraphRenderer = ( ParagraphRenderer) childRenderers.get(0);
                     Float symbolIndent = this.getPropertyAsFloat(Property.LIST_SYMBOL_INDENT);
 
                         if (symbolRenderer instanceof LineRenderer) {
@@ -332,10 +326,10 @@ public class ListItemRenderer extends DivRenderer {
     }
 
     private boolean isListSymbolEmpty(IRenderer listSymbolRenderer) {
-        if (listSymbolRenderer instanceof com.itextpdf.layout.renderer.TextRenderer) {
-            return ((com.itextpdf.layout.renderer.TextRenderer) listSymbolRenderer).getText().toString().length() == 0;
+        if (listSymbolRenderer instanceof  TextRenderer) {
+            return (( TextRenderer) listSymbolRenderer).getText().toString().length() == 0;
         } else if (listSymbolRenderer instanceof LineRenderer) {
-            return ((com.itextpdf.layout.renderer.TextRenderer) listSymbolRenderer.getChildRenderers().get(1)).getText().toString().length() == 0;
+            return (( TextRenderer) listSymbolRenderer.getChildRenderers().get(1)).getText().toString().length() == 0;
         }
         return false;
     }
@@ -345,12 +339,12 @@ public class ListItemRenderer extends DivRenderer {
         UnitValue fontSize = this.getPropertyAsUnitValue(Property.FONT_SIZE);
         if (listItemFont != null && fontSize != null) {
             if (!fontSize.isPointValue()) {
-                Logger logger = LoggerFactory.getLogger(ListItemRenderer.class);
-                logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+                Logger logger = Logger.getLogger(ListItemRenderer.class.getName());
+                logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                         Property.FONT_SIZE));
             }
-            float[] ascenderDescender = com.itextpdf.layout.renderer.TextRenderer.calculateAscenderDescender(listItemFont);
-            return new float[] {fontSize.getValue() * ascenderDescender[0] / com.itextpdf.layout.renderer.TextRenderer.TEXT_SPACE_COEFF, fontSize.getValue() * ascenderDescender[1] / com.itextpdf.layout.renderer.TextRenderer.TEXT_SPACE_COEFF};
+            float[] ascenderDescender =  TextRenderer.calculateAscenderDescender(listItemFont);
+            return new float[] {fontSize.getValue() * ascenderDescender[0] /  TextRenderer.TEXT_SPACE_COEFF, fontSize.getValue() * ascenderDescender[1] /  TextRenderer.TEXT_SPACE_COEFF};
         }
         return new float[] {0, 0};
     }
@@ -370,7 +364,7 @@ public class ListItemRenderer extends DivRenderer {
             pageSize = pdfDocument.getDefaultPageSize();
         }
 
-        com.itextpdf.layout.renderer.RootRenderer rootRenderer = this.getRootRenderer();
+         RootRenderer rootRenderer = this.getRootRenderer();
         //TODO DEVSIX-6372 Obtaining DocumentRenderer's margins results in a ClassCastException
         Float[] margins = new Float[] {rootRenderer.<Float>getProperty(Property.MARGIN_TOP),
                 rootRenderer.<Float>getProperty(Property.MARGIN_RIGHT),

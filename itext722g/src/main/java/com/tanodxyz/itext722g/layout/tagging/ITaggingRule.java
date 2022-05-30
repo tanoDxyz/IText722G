@@ -43,5 +43,5 @@
 package com.tanodxyz.itext722g.layout.tagging;
 
 interface ITaggingRule {
-    boolean onTagFinish(com.itextpdf.layout.tagging.LayoutTaggingHelper taggingHelper, com.itextpdf.layout.tagging.TaggingHintKey taggingHintKey);
+    boolean onTagFinish( LayoutTaggingHelper taggingHelper,  TaggingHintKey taggingHintKey);
 }

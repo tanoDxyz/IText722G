@@ -43,7 +43,6 @@
  */
 package com.tanodxyz.itext722g.layout;
 
-import com.itextpdf.layout.properties.Property;
 
 /**
  * A generic Map-like interface that defines methods for storing and retrieving

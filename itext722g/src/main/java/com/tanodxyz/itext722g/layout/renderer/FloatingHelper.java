@@ -42,29 +42,28 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.borders.SolidBorder;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutPosition;
-import com.itextpdf.layout.margincollapse.MarginsCollapseHandler;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
-import com.itextpdf.layout.properties.ClearPropertyValue;
-import com.itextpdf.layout.properties.FloatPropertyValue;
-import com.itextpdf.layout.properties.OverflowPropertyValue;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.colors.ColorConstants;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
-import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.borders.SolidBorder;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutPosition;
+import com.tanodxyz.itext722g.layout.margincollapse.MarginsCollapseHandler;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidth;
+import com.tanodxyz.itext722g.layout.properties.ClearPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.FloatPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.OverflowPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 class FloatingHelper {
     private FloatingHelper() { }
@@ -142,17 +141,19 @@ class FloatingHelper {
         return null;
     }
 
-    static void adjustFloatedTableLayoutBox(com.itextpdf.layout.renderer.TableRenderer tableRenderer, Rectangle layoutBox, float tableWidth, List<Rectangle> floatRendererAreas, FloatPropertyValue floatPropertyValue) {
+    static void adjustFloatedTableLayoutBox( TableRenderer tableRenderer, Rectangle layoutBox, float tableWidth, List<Rectangle> floatRendererAreas, FloatPropertyValue floatPropertyValue) {
         tableRenderer.setProperty(Property.HORIZONTAL_ALIGNMENT, null);
         UnitValue[] margins = tableRenderer.getMargins();
         if (!margins[1].isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(FloatingHelper.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(FloatingHelper.class.getName());
+
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.MARGIN_RIGHT));
         }
         if (!margins[3].isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(FloatingHelper.class);
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+            Logger logger = Logger.getLogger(FloatingHelper.class.getName());
+
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.MARGIN_LEFT));
         }
         adjustBlockAreaAccordingToFloatRenderers(floatRendererAreas, layoutBox, tableWidth + margins[1].getValue() + margins[3].getValue(), FloatPropertyValue.LEFT.equals(floatPropertyValue));
@@ -234,7 +235,7 @@ class FloatingHelper {
         }
     }
 
-    static void removeFloatsAboveRendererBottom(List<Rectangle> floatRendererAreas, com.itextpdf.layout.renderer.IRenderer renderer) {
+    static void removeFloatsAboveRendererBottom(List<Rectangle> floatRendererAreas,  IRenderer renderer) {
         if (!isRendererFloating(renderer)) {
             float bottom = renderer.getOccupiedArea().getBBox().getBottom();
             for (int i = floatRendererAreas.size() - 1; i >= 0; i--) {
@@ -245,7 +246,7 @@ class FloatingHelper {
         }
     }
 
-    static LayoutArea adjustResultOccupiedAreaForFloatAndClear(com.itextpdf.layout.renderer.IRenderer renderer, List<Rectangle> floatRendererAreas,
+    static LayoutArea adjustResultOccupiedAreaForFloatAndClear( IRenderer renderer, List<Rectangle> floatRendererAreas,
                                                                Rectangle parentBBox, float clearHeightCorrection, boolean marginsCollapsingEnabled) {
         LayoutArea occupiedArea = renderer.getOccupiedArea();
         LayoutArea editedArea = occupiedArea;
@@ -264,7 +265,7 @@ class FloatingHelper {
         return editedArea;
     }
 
-    static void includeChildFloatsInOccupiedArea(List<Rectangle> floatRendererAreas, com.itextpdf.layout.renderer.IRenderer renderer, Set<Rectangle> nonChildFloatingRendererAreas) {
+    static void includeChildFloatsInOccupiedArea(List<Rectangle> floatRendererAreas,  IRenderer renderer, Set<Rectangle> nonChildFloatingRendererAreas) {
         Rectangle commonRectangle = includeChildFloatsInOccupiedArea(floatRendererAreas, renderer.getOccupiedArea().getBBox(), nonChildFloatingRendererAreas);
         renderer.getOccupiedArea().setBBox(commonRectangle);
     }
@@ -293,7 +294,7 @@ class FloatingHelper {
         return kidMinMaxWidth;
     }
 
-    static float calculateClearHeightCorrection(com.itextpdf.layout.renderer.IRenderer renderer, List<Rectangle> floatRendererAreas, Rectangle parentBBox) {
+    static float calculateClearHeightCorrection( IRenderer renderer, List<Rectangle> floatRendererAreas, Rectangle parentBBox) {
         ClearPropertyValue clearPropertyValue = renderer.<ClearPropertyValue>getProperty(Property.CLEAR);
         float clearHeightCorrection = 0;
         if (clearPropertyValue == null || floatRendererAreas.isEmpty()) {
@@ -344,21 +345,21 @@ class FloatingHelper {
         }
     }
 
-    static boolean isRendererFloating(com.itextpdf.layout.renderer.IRenderer renderer) {
+    static boolean isRendererFloating( IRenderer renderer) {
         return isRendererFloating(renderer, renderer.<FloatPropertyValue>getProperty(Property.FLOAT));
     }
 
-    static boolean isRendererFloating(com.itextpdf.layout.renderer.IRenderer renderer, FloatPropertyValue kidFloatPropertyVal) {
+    static boolean isRendererFloating( IRenderer renderer, FloatPropertyValue kidFloatPropertyVal) {
         Integer position = renderer.<Integer>getProperty(Property.POSITION);
         boolean notAbsolutePos = position == null || position != LayoutPosition.ABSOLUTE;
         return notAbsolutePos && kidFloatPropertyVal != null && !kidFloatPropertyVal.equals(FloatPropertyValue.NONE);
     }
 
-    static boolean isClearanceApplied(List<com.itextpdf.layout.renderer.IRenderer> floatingRenderers, ClearPropertyValue clearPropertyValue) {
+    static boolean isClearanceApplied(List< IRenderer> floatingRenderers, ClearPropertyValue clearPropertyValue) {
         if (clearPropertyValue == null || clearPropertyValue.equals(ClearPropertyValue.NONE)) {
             return false;
         }
-        for (com.itextpdf.layout.renderer.IRenderer floatingRenderer : floatingRenderers) {
+        for ( IRenderer floatingRenderer : floatingRenderers) {
             FloatPropertyValue floatPropertyValue = floatingRenderer.<FloatPropertyValue>getProperty(Property.FLOAT);
 
             if (clearPropertyValue.equals(ClearPropertyValue.BOTH)
@@ -370,7 +371,7 @@ class FloatingHelper {
         return false;
     }
 
-    static void removeParentArtifactsOnPageSplitIfOnlyFloatsOverflow(com.itextpdf.layout.renderer.IRenderer overflowRenderer) {
+    static void removeParentArtifactsOnPageSplitIfOnlyFloatsOverflow( IRenderer overflowRenderer) {
         overflowRenderer.setProperty(Property.BACKGROUND, null);
         overflowRenderer.setProperty(Property.BACKGROUND_IMAGE, null);
         overflowRenderer.setProperty(Property.OUTLINE, null);

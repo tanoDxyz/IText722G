@@ -47,15 +47,15 @@ import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.geom.PageSize;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
-import com.itextpdf.layout.element.AreaBreak;
-import com.itextpdf.layout.element.IBlockElement;
-import com.itextpdf.layout.element.IElement;
-import com.itextpdf.layout.element.ILargeElement;
-import com.itextpdf.layout.exceptions.LayoutExceptionMessageConstant;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.renderer.DocumentRenderer;
-import com.itextpdf.layout.renderer.IRenderer;
-import com.itextpdf.layout.renderer.RootRenderer;
+import com.tanodxyz.itext722g.layout.element.AreaBreak;
+import com.tanodxyz.itext722g.layout.element.IBlockElement;
+import com.tanodxyz.itext722g.layout.element.IElement;
+import com.tanodxyz.itext722g.layout.element.ILargeElement;
+import com.tanodxyz.itext722g.layout.exceptions.LayoutExceptionMessageConstant;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.renderer.DocumentRenderer;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.renderer.RootRenderer;
 
 /**
  * Document is the default root element when creating a self-sufficient PDF. It

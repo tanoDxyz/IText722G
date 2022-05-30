@@ -44,21 +44,7 @@
 package com.tanodxyz.itext722g.layout.renderer;
 
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.element.Image;
-import com.itextpdf.layout.element.Text;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidthUtils;
-import com.itextpdf.layout.properties.BaseDirection;
-import com.itextpdf.layout.properties.IListSymbolFactory;
-import com.itextpdf.layout.properties.ListNumberingType;
-import com.itextpdf.layout.properties.ListSymbolPosition;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.layout.tagging.LayoutTaggingHelper;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.font.constants.StandardFonts;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.io.util.TextUtil;
@@ -68,29 +54,35 @@ import com.tanodxyz.itext722g.kernel.numbering.EnglishAlphabetNumbering;
 import com.tanodxyz.itext722g.kernel.numbering.GreekAlphabetNumbering;
 import com.tanodxyz.itext722g.kernel.numbering.RomanNumbering;
 import com.tanodxyz.itext722g.kernel.pdf.tagging.StandardRoles;
-import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
-import com.tanodxyz.itext722g.layout.renderer.BlockRenderer;
-import com.tanodxyz.itext722g.layout.renderer.DrawContext;
-import com.tanodxyz.itext722g.layout.renderer.IRenderer;
-import com.tanodxyz.itext722g.layout.renderer.ImageRenderer;
-import com.tanodxyz.itext722g.layout.renderer.LineRenderer;
-import com.tanodxyz.itext722g.layout.renderer.ListItemRenderer;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.element.Image;
+import com.tanodxyz.itext722g.layout.element.Text;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidth;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidthUtils;
+import com.tanodxyz.itext722g.layout.properties.BaseDirection;
+import com.tanodxyz.itext722g.layout.properties.IListSymbolFactory;
+import com.tanodxyz.itext722g.layout.properties.ListNumberingType;
+import com.tanodxyz.itext722g.layout.properties.ListSymbolPosition;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.layout.tagging.LayoutTaggingHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ListRenderer extends BlockRenderer {
 
     /**
      * Creates a ListRenderer from its corresponding layout object.
      *
-     * @param modelElement the {@link com.itextpdf.layout.element.List} which this object should manage
+     * @param modelElement the {@link  List} which this object should manage
      */
-    public ListRenderer(com.itextpdf.layout.element.List modelElement) {
+    public ListRenderer( com.tanodxyz.itext722g.layout.element.List modelElement) {
         super(modelElement);
     }
 
@@ -126,7 +118,7 @@ public class ListRenderer extends BlockRenderer {
     @Override
     public IRenderer getNextRenderer() {
         logWarningIfGetNextRendererNotOverridden(ListRenderer.class, this.getClass());
-        return new ListRenderer((com.itextpdf.layout.element.List) modelElement);
+        return new ListRenderer(( com.tanodxyz.itext722g.layout.element.List) modelElement);
     }
 
     @Override
@@ -170,7 +162,7 @@ public class ListRenderer extends BlockRenderer {
     private IRenderer createListSymbolRenderer(int index, IRenderer renderer) {
         Object defaultListSymbol = getListItemOrListProperty(renderer, this, Property.LIST_SYMBOL);
         if (defaultListSymbol instanceof Text) {
-            return surroundTextBullet(new com.itextpdf.layout.renderer.TextRenderer((Text) defaultListSymbol));
+            return surroundTextBullet(new  TextRenderer((Text) defaultListSymbol));
         } else if (defaultListSymbol instanceof Image) {
             return new ImageRenderer((Image) defaultListSymbol);
         } else if (defaultListSymbol instanceof ListNumberingType) {
@@ -234,7 +226,7 @@ public class ListRenderer extends BlockRenderer {
                 } catch (IOException exc) {
                 }
             } else {
-                textRenderer = new com.itextpdf.layout.renderer.TextRenderer(textElement);
+                textRenderer = new  TextRenderer(textElement);
             }
            return surroundTextBullet(textRenderer);
         } else if (defaultListSymbol instanceof IListSymbolFactory) {
@@ -252,7 +244,7 @@ public class ListRenderer extends BlockRenderer {
         LineRenderer lineRenderer = new LineRenderer();
         Text zeroWidthJoiner = new Text("\u200D");
         zeroWidthJoiner.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
-        com.itextpdf.layout.renderer.TextRenderer zeroWidthJoinerRenderer = new com.itextpdf.layout.renderer.TextRenderer(zeroWidthJoiner);
+         TextRenderer zeroWidthJoinerRenderer = new  TextRenderer(zeroWidthJoiner);
         lineRenderer.addChild(zeroWidthJoinerRenderer);
         lineRenderer.addChild(bulletRenderer);
         lineRenderer.addChild(zeroWidthJoinerRenderer);
@@ -260,23 +252,23 @@ public class ListRenderer extends BlockRenderer {
     }
 
     /**
-     * Corrects split and overflow renderers when {@link com.itextpdf.layout.properties.Property#FORCED_PLACEMENT} is applied.
+         * Corrects split and overflow renderers when {@link  Property#FORCED_PLACEMENT} is applied.
      * <p>
-     * We assume that {@link com.itextpdf.layout.properties.Property#FORCED_PLACEMENT} is applied when the first
-     * {@link com.itextpdf.layout.renderer.ListItemRenderer} cannot be fully layouted.
+     * We assume that {@link  Property#FORCED_PLACEMENT} is applied when the first
+     * {@link  ListItemRenderer} cannot be fully layouted.
      * This means that the problem has occurred in one of the first list item renderer's children.
      * In that case we force the placement of all first item renderer's children before the one,
-     * which was the cause of {@link com.itextpdf.layout.layout.LayoutResult#NOTHING}, including this child.
+     * which was the cause of {@link com.tanodxyz.itext722g.layout.layout.LayoutResult#NOTHING}, including this child.
      * <p>
-     * Notice that we do not expect {@link com.itextpdf.layout.properties.Property#FORCED_PLACEMENT} to be applied
+     * Notice that we do not expect {@link  Property#FORCED_PLACEMENT} to be applied
      * if we can render the first item renderer and strongly recommend not to set
-     * {@link com.itextpdf.layout.properties.Property#FORCED_PLACEMENT} manually.
+     * {@link  Property#FORCED_PLACEMENT} manually.
      *
      * @param splitRenderer    the {@link IRenderer split renderer} before correction
      * @param overflowRenderer the {@link IRenderer overflow renderer} before correction
      * @param causeOfNothing   the renderer which has produced {@link LayoutResult#NOTHING}
      * @param occupiedArea     the area occupied by layout before correction
-     * @return corrected {@link com.itextpdf.layout.layout.LayoutResult layout result}
+     * @return corrected {@link com.tanodxyz.itext722g.layout.layout.LayoutResult layout result}
      */
     private LayoutResult correctListSplitting(IRenderer splitRenderer, IRenderer overflowRenderer, IRenderer causeOfNothing, LayoutArea occupiedArea) {
         // the first not rendered child
@@ -376,8 +368,8 @@ public class ListRenderer extends BlockRenderer {
                 UnitValue marginToSetUV =
                         childRenderer.<UnitValue>getProperty(marginToSet, UnitValue.createPointValue(0f));
                 if (!marginToSetUV.isPointValue()) {
-                    Logger logger = LoggerFactory.getLogger(ListRenderer.class);
-                    logger.error(MessageFormatUtil.format(
+                    Logger logger = Logger.getLogger(ListRenderer.class.getName());
+                    logger.log(Level.SEVERE,MessageFormatUtil.format(
                             IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                             marginToSet));
                 }
@@ -404,7 +396,7 @@ public class ListRenderer extends BlockRenderer {
         return null;
     }
 
-    private static final class ConstantFontTextRenderer extends com.itextpdf.layout.renderer.TextRenderer {
+    private static final class ConstantFontTextRenderer extends  TextRenderer {
         private String constantFontName;
 
         public ConstantFontTextRenderer(Text textElement, String font) {

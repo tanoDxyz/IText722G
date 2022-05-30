@@ -43,27 +43,24 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.layout.exceptions.LayoutExceptionMessageConstant;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
-import com.itextpdf.layout.properties.AlignmentPropertyValue;
-import com.itextpdf.layout.properties.FlexWrapPropertyValue;
-import com.itextpdf.layout.properties.JustifyContent;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
+
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
-import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
-import com.tanodxyz.itext722g.layout.renderer.FlexContainerRenderer;
-import com.tanodxyz.itext722g.layout.renderer.FlexItemInfo;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.exceptions.LayoutExceptionMessageConstant;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.minmaxwidth.MinMaxWidth;
+import com.tanodxyz.itext722g.layout.properties.AlignmentPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.FlexWrapPropertyValue;
+import com.tanodxyz.itext722g.layout.properties.JustifyContent;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 final class FlexUtil {
 
@@ -73,7 +70,7 @@ final class FlexUtil {
 
     private static final float FLEX_SHRINK_INITIAL_VALUE = 1F;
 
-    private static Logger logger = LoggerFactory.getLogger(FlexUtil.class);
+    private static Logger logger = Logger.getLogger(FlexUtil.class.getName());
 
     private FlexUtil() {
         // Do nothing
@@ -423,7 +420,7 @@ final class FlexUtil {
                 if (result.getStatus() == LayoutResult.FULL) {
                     info.hypotheticalCrossSize = info.getInnerCrossSize(result.getOccupiedArea().getBBox().getHeight());
                 } else {
-                    logger.error(IoLogMessageConstant.FLEX_ITEM_LAYOUT_RESULT_IS_NOT_FULL);
+                    logger.log(Level.SEVERE,IoLogMessageConstant.FLEX_ITEM_LAYOUT_RESULT_IS_NOT_FULL);
                     info.hypotheticalCrossSize = 0;
                 }
             }
@@ -631,9 +628,9 @@ final class FlexUtil {
 
     private static List<FlexItemCalculationInfo> createFlexItemCalculationInfos(
             FlexContainerRenderer flexContainerRenderer, float flexContainerWidth) {
-        final List<com.itextpdf.layout.renderer.IRenderer> childRenderers = flexContainerRenderer.getChildRenderers();
+        final List< IRenderer> childRenderers = flexContainerRenderer.getChildRenderers();
         final List<FlexItemCalculationInfo> flexItems = new ArrayList<>();
-        for (final com.itextpdf.layout.renderer.IRenderer renderer : childRenderers) {
+        for (final  IRenderer renderer : childRenderers) {
             if (renderer instanceof AbstractRenderer) {
                 AbstractRenderer abstractRenderer = (AbstractRenderer) renderer;
 
@@ -667,7 +664,7 @@ final class FlexUtil {
 
     private static float calculateMaxWidth(AbstractRenderer flexItemRenderer, float flexContainerWidth) {
         Float maxWidth;
-        if (flexItemRenderer instanceof com.itextpdf.layout.renderer.TableRenderer) {
+        if (flexItemRenderer instanceof  TableRenderer) {
             // TODO DEVSIX-5214 we can't call TableRenderer#retrieveWidth method as far as it can throw NPE
             maxWidth = flexItemRenderer.getMinMaxWidth().getMaxWidth();
             maxWidth = flexItemRenderer.applyMarginsBordersPaddings(
@@ -679,9 +676,9 @@ final class FlexUtil {
                 maxWidth = flexItemRenderer.retrieveMaxWidth(flexContainerWidth);
             }
             if (maxWidth == null) {
-                if (flexItemRenderer instanceof com.itextpdf.layout.renderer.ImageRenderer) {
+                if (flexItemRenderer instanceof  ImageRenderer) {
                     // TODO DEVSIX-5269 getMinMaxWidth doesn't always return the original image width
-                    maxWidth = ((com.itextpdf.layout.renderer.ImageRenderer) flexItemRenderer).getImageWidth();
+                    maxWidth = (( ImageRenderer) flexItemRenderer).getImageWidth();
                 } else {
                     maxWidth = flexItemRenderer.applyMarginsBordersPaddings(
                             new Rectangle(flexItemRenderer.getMinMaxWidth().getMaxWidth(), 0), false).getWidth();

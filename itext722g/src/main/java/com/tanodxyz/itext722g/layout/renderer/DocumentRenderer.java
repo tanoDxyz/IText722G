@@ -43,15 +43,7 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.layout.element.AreaBreak;
-import com.itextpdf.layout.exceptions.LayoutExceptionMessageConstant;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.layout.RootLayoutArea;
-import com.itextpdf.layout.properties.AreaBreakType;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.Transform;
-import com.itextpdf.layout.tagging.LayoutTaggingHelper;
+
 import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.geom.PageSize;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
@@ -59,15 +51,24 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
 import com.tanodxyz.itext722g.kernel.pdf.PdfPage;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.layout.Document;
+import com.tanodxyz.itext722g.layout.element.AreaBreak;
+import com.tanodxyz.itext722g.layout.exceptions.LayoutExceptionMessageConstant;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.layout.RootLayoutArea;
+import com.tanodxyz.itext722g.layout.properties.AreaBreakType;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.Transform;
+import com.tanodxyz.itext722g.layout.tagging.LayoutTaggingHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DocumentRenderer extends com.itextpdf.layout.renderer.RootRenderer {
+public class DocumentRenderer extends  RootRenderer {
 
     protected Document document;
     protected List<Integer> wrappedContentPage = new ArrayList<>();
-    protected com.itextpdf.layout.renderer.TargetCounterHandler targetCounterHandler = new com.itextpdf.layout.renderer.TargetCounterHandler();
+    protected  TargetCounterHandler targetCounterHandler = new  TargetCounterHandler();
 
     public DocumentRenderer(Document document) {
         this(document, true);
@@ -84,7 +85,7 @@ public class DocumentRenderer extends com.itextpdf.layout.renderer.RootRenderer 
      *
      * @return the {@link TargetCounterHandler} instance
      */
-    public com.itextpdf.layout.renderer.TargetCounterHandler getTargetCounterHandler() {
+    public  TargetCounterHandler getTargetCounterHandler() {
         return targetCounterHandler;
     }
 
@@ -108,9 +109,9 @@ public class DocumentRenderer extends com.itextpdf.layout.renderer.RootRenderer 
      * @return relayout renderer.
      */
     @Override
-    public com.itextpdf.layout.renderer.IRenderer getNextRenderer() {
+    public  IRenderer getNextRenderer() {
         DocumentRenderer renderer = new DocumentRenderer(document, immediateFlush);
-        renderer.targetCounterHandler = new com.itextpdf.layout.renderer.TargetCounterHandler(targetCounterHandler);
+        renderer.targetCounterHandler = new  TargetCounterHandler(targetCounterHandler);
         return renderer;
     }
 
@@ -144,13 +145,13 @@ public class DocumentRenderer extends com.itextpdf.layout.renderer.RootRenderer 
         return (currentArea = new RootLayoutArea(currentPageNumber, getCurrentPageEffectiveArea(lastPageSize)));
     }
 
-    protected void flushSingleRenderer(com.itextpdf.layout.renderer.IRenderer resultRenderer) {
+    protected void flushSingleRenderer( IRenderer resultRenderer) {
         linkRenderToDocument(resultRenderer, document.getPdfDocument());
 
         Transform transformProp = resultRenderer.<Transform>getProperty(Property.TRANSFORM);
         if (!waitingDrawingElements.contains(resultRenderer)) {
             processWaitingDrawing(resultRenderer, transformProp, waitingDrawingElements);
-            if (com.itextpdf.layout.renderer.FloatingHelper.isRendererFloating(resultRenderer) || transformProp != null)
+            if ( FloatingHelper.isRendererFloating(resultRenderer) || transformProp != null)
                 return;
         }
 
@@ -174,7 +175,7 @@ public class DocumentRenderer extends com.itextpdf.layout.renderer.RootRenderer 
             if (pdfDocument.isTagged()) {
                 pdfDocument.getTagStructureContext().getAutoTaggingPointer().setPageForTagging(correspondingPage);
             }
-            resultRenderer.draw(new com.itextpdf.layout.renderer.DrawContext(pdfDocument,
+            resultRenderer.draw(new  DrawContext(pdfDocument,
                     new PdfCanvas(correspondingPage, wrapOldContent), pdfDocument.isTagged()));
         }
     }

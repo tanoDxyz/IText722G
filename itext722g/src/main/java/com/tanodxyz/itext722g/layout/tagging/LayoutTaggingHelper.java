@@ -42,11 +42,7 @@
  */
 package com.tanodxyz.itext722g.layout.tagging;
 
-import com.itextpdf.layout.element.IElement;
-import com.itextpdf.layout.element.ILargeElement;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.renderer.AreaBreakRenderer;
-import com.itextpdf.layout.renderer.IRenderer;
+
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
@@ -57,11 +53,11 @@ import com.tanodxyz.itext722g.kernel.pdf.tagutils.TagStructureContext;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.TagTreePointer;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.WaitingTagsManager;
 import com.tanodxyz.itext722g.layout.IPropertyContainer;
-import com.tanodxyz.itext722g.layout.tagging.IAccessibleElement;
-import com.tanodxyz.itext722g.layout.tagging.ITaggingRule;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.element.IElement;
+import com.tanodxyz.itext722g.layout.element.ILargeElement;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.renderer.AreaBreakRenderer;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -72,20 +68,22 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LayoutTaggingHelper {
     private TagStructureContext context;
     private PdfDocument document;
     private boolean immediateFlush;
 
-    private Map<com.itextpdf.layout.tagging.TaggingHintKey, List<com.itextpdf.layout.tagging.TaggingHintKey>> kidsHints;
-    private Map<com.itextpdf.layout.tagging.TaggingHintKey, com.itextpdf.layout.tagging.TaggingHintKey> parentHints;
+    private Map< TaggingHintKey, List< TaggingHintKey>> kidsHints;
+    private Map< TaggingHintKey,  TaggingHintKey> parentHints;
 
     private Map<IRenderer, TagTreePointer> autoTaggingPointerSavedPosition;
 
     private Map<String, List<ITaggingRule>> taggingRules;
 
-    private Map<PdfObject, com.itextpdf.layout.tagging.TaggingDummyElement> existingTagsDummies;
+    private Map<PdfObject,  TaggingDummyElement> existingTagsDummies;
 
     private final int RETVAL_NO_PARENT = -1;
     private final int RETVAL_PARENT_AND_KID_FINISHED = -2;
@@ -116,19 +114,19 @@ public class LayoutTaggingHelper {
         }
     }
 
-    public static com.itextpdf.layout.tagging.TaggingHintKey getHintKey(IPropertyContainer container) {
-        return container.<com.itextpdf.layout.tagging.TaggingHintKey>getProperty(Property.TAGGING_HINT_KEY);
+    public static  TaggingHintKey getHintKey(IPropertyContainer container) {
+        return container.< TaggingHintKey>getProperty(Property.TAGGING_HINT_KEY);
     }
 
-    public static com.itextpdf.layout.tagging.TaggingHintKey getOrCreateHintKey(IPropertyContainer container) {
+    public static  TaggingHintKey getOrCreateHintKey(IPropertyContainer container) {
         return getOrCreateHintKey(container, true);
     }
 
     public void addKidsHint(TagTreePointer parentPointer, Iterable<? extends IPropertyContainer> newKids) {
         PdfDictionary pointerStructElem = context.getPointerStructElem(parentPointer).getPdfObject();
-        com.itextpdf.layout.tagging.TaggingDummyElement dummy = existingTagsDummies.get(pointerStructElem);
+         TaggingDummyElement dummy = existingTagsDummies.get(pointerStructElem);
         if (dummy == null) {
-            dummy = new com.itextpdf.layout.tagging.TaggingDummyElement(parentPointer.getRole());
+            dummy = new  TaggingDummyElement(parentPointer.getRole());
             existingTagsDummies.put(pointerStructElem, dummy);
         }
         context.getWaitingTagsManager().assignWaitingState(parentPointer, getOrCreateHintKey(dummy));
@@ -144,9 +142,9 @@ public class LayoutTaggingHelper {
             return;
         }
 
-        com.itextpdf.layout.tagging.TaggingHintKey parentKey = getOrCreateHintKey(parent);
+         TaggingHintKey parentKey = getOrCreateHintKey(parent);
 
-        List<com.itextpdf.layout.tagging.TaggingHintKey> newKidsKeys = new ArrayList<>();
+        List< TaggingHintKey> newKidsKeys = new ArrayList<>();
         for (IPropertyContainer kid : newKids) {
             if (kid instanceof AreaBreakRenderer) {
                 return;
@@ -156,11 +154,11 @@ public class LayoutTaggingHelper {
         addKidsHint(parentKey, newKidsKeys, insertIndex);
     }
 
-    public void addKidsHint(com.itextpdf.layout.tagging.TaggingHintKey parentKey, Collection<com.itextpdf.layout.tagging.TaggingHintKey> newKidsKeys) {
+    public void addKidsHint( TaggingHintKey parentKey, Collection< TaggingHintKey> newKidsKeys) {
         addKidsHint(parentKey, newKidsKeys, -1);
     }
 
-    public void addKidsHint(com.itextpdf.layout.tagging.TaggingHintKey parentKey, Collection<com.itextpdf.layout.tagging.TaggingHintKey> newKidsKeys, int insertIndex) {
+    public void addKidsHint( TaggingHintKey parentKey, Collection< TaggingHintKey> newKidsKeys, int insertIndex) {
         addKidsHint(parentKey, newKidsKeys, insertIndex, false);
     }
 
@@ -177,7 +175,7 @@ public class LayoutTaggingHelper {
     }
 
     public boolean isArtifact(IPropertyContainer hintOwner) {
-        com.itextpdf.layout.tagging.TaggingHintKey key = getHintKey(hintOwner);
+         TaggingHintKey key = getHintKey(hintOwner);
         if (key != null) {
             return key.isArtifact();
         } else {
@@ -195,25 +193,25 @@ public class LayoutTaggingHelper {
     }
 
     public void markArtifactHint(IPropertyContainer hintOwner) {
-        com.itextpdf.layout.tagging.TaggingHintKey hintKey = getOrCreateHintKey(hintOwner);
+         TaggingHintKey hintKey = getOrCreateHintKey(hintOwner);
         markArtifactHint(hintKey);
     }
 
-    public void markArtifactHint(com.itextpdf.layout.tagging.TaggingHintKey hintKey) {
+    public void markArtifactHint( TaggingHintKey hintKey) {
         hintKey.setArtifact();
         hintKey.setFinished();
         TagTreePointer existingArtifactTag = new TagTreePointer(document);
         if (context.getWaitingTagsManager().tryMovePointerToWaitingTag(existingArtifactTag, hintKey)) {
-            Logger logger = LoggerFactory.getLogger(LayoutTaggingHelper.class);
-            logger.error(IoLogMessageConstant.ALREADY_TAGGED_HINT_MARKED_ARTIFACT);
+            Logger logger =  Logger.getLogger(LayoutTaggingHelper.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.ALREADY_TAGGED_HINT_MARKED_ARTIFACT);
 
             context.getWaitingTagsManager().removeWaitingState(hintKey);
             if (immediateFlush) {
                 existingArtifactTag.flushParentsIfAllKidsFlushed();
             }
         }
-        List<com.itextpdf.layout.tagging.TaggingHintKey> kidsHint = getKidsHint(hintKey);
-        for (com.itextpdf.layout.tagging.TaggingHintKey kidKey : kidsHint) {
+        List< TaggingHintKey> kidsHint = getKidsHint(hintKey);
+        for ( TaggingHintKey kidKey : kidsHint) {
             markArtifactHint(kidKey);
         }
         removeParentHint(hintKey);
@@ -234,23 +232,23 @@ public class LayoutTaggingHelper {
         }
     }
 
-    public List<com.itextpdf.layout.tagging.TaggingHintKey> getKidsHint(com.itextpdf.layout.tagging.TaggingHintKey parent) {
-        List<com.itextpdf.layout.tagging.TaggingHintKey> kidsHint = kidsHints.get(parent);
+    public List< TaggingHintKey> getKidsHint( TaggingHintKey parent) {
+        List< TaggingHintKey> kidsHint = kidsHints.get(parent);
         if (kidsHint == null) {
-            return Collections.<com.itextpdf.layout.tagging.TaggingHintKey>emptyList();
+            return Collections.< TaggingHintKey>emptyList();
         }
-        return Collections.<com.itextpdf.layout.tagging.TaggingHintKey>unmodifiableList(kidsHint);
+        return Collections.< TaggingHintKey>unmodifiableList(kidsHint);
     }
 
-    public List<com.itextpdf.layout.tagging.TaggingHintKey> getAccessibleKidsHint(com.itextpdf.layout.tagging.TaggingHintKey parent) {
-        List<com.itextpdf.layout.tagging.TaggingHintKey> kidsHint = kidsHints.get(parent);
+    public List< TaggingHintKey> getAccessibleKidsHint( TaggingHintKey parent) {
+        List< TaggingHintKey> kidsHint = kidsHints.get(parent);
         if (kidsHint == null) {
-            return Collections.<com.itextpdf.layout.tagging.TaggingHintKey>emptyList();
+            return Collections.< TaggingHintKey>emptyList();
         }
 
-        List<com.itextpdf.layout.tagging.TaggingHintKey> accessibleKids = new ArrayList<>();
+        List< TaggingHintKey> accessibleKids = new ArrayList<>();
 
-        for (com.itextpdf.layout.tagging.TaggingHintKey kid : kidsHint) {
+        for ( TaggingHintKey kid : kidsHint) {
             if (isNonAccessibleHint(kid)) {
                 accessibleKids.addAll(getAccessibleKidsHint(kid));
             } else {
@@ -261,19 +259,19 @@ public class LayoutTaggingHelper {
         return accessibleKids;
     }
 
-    public com.itextpdf.layout.tagging.TaggingHintKey getParentHint(IPropertyContainer hintOwner) {
-        com.itextpdf.layout.tagging.TaggingHintKey hintKey = getHintKey(hintOwner);
+    public  TaggingHintKey getParentHint(IPropertyContainer hintOwner) {
+         TaggingHintKey hintKey = getHintKey(hintOwner);
         if (hintKey == null) {
             return null;
         }
         return getParentHint(hintKey);
     }
 
-    public com.itextpdf.layout.tagging.TaggingHintKey getParentHint(com.itextpdf.layout.tagging.TaggingHintKey hintKey) {
+    public  TaggingHintKey getParentHint( TaggingHintKey hintKey) {
         return parentHints.get(hintKey);
     }
 
-    public com.itextpdf.layout.tagging.TaggingHintKey getAccessibleParentHint(com.itextpdf.layout.tagging.TaggingHintKey hintKey) {
+    public  TaggingHintKey getAccessibleParentHint( TaggingHintKey hintKey) {
         do {
             hintKey = getParentHint(hintKey);
         } while (hintKey != null && isNonAccessibleHint(hintKey));
@@ -281,25 +279,25 @@ public class LayoutTaggingHelper {
     }
 
     public void releaseFinishedHints() {
-        Set<com.itextpdf.layout.tagging.TaggingHintKey> allHints = new HashSet<>();
-        for (Map.Entry<com.itextpdf.layout.tagging.TaggingHintKey, com.itextpdf.layout.tagging.TaggingHintKey> entry : parentHints.entrySet()) {
+        Set< TaggingHintKey> allHints = new HashSet<>();
+        for (Map.Entry< TaggingHintKey,  TaggingHintKey> entry : parentHints.entrySet()) {
             allHints.add(entry.getKey());
             allHints.add(entry.getValue());
         }
 
-        for (com.itextpdf.layout.tagging.TaggingHintKey hint : allHints) {
-            if (!hint.isFinished() || isNonAccessibleHint(hint) || hint.getAccessibleElement() instanceof com.itextpdf.layout.tagging.TaggingDummyElement) {
+        for ( TaggingHintKey hint : allHints) {
+            if (!hint.isFinished() || isNonAccessibleHint(hint) || hint.getAccessibleElement() instanceof  TaggingDummyElement) {
                 continue;
             }
             finishDummyKids(getKidsHint(hint));
         }
 
-        Set<com.itextpdf.layout.tagging.TaggingHintKey> hintsToBeHeld = new HashSet<>();
-        for (com.itextpdf.layout.tagging.TaggingHintKey hint : allHints) {
+        Set< TaggingHintKey> hintsToBeHeld = new HashSet<>();
+        for ( TaggingHintKey hint : allHints) {
             if (!isNonAccessibleHint(hint)) {
-                List<com.itextpdf.layout.tagging.TaggingHintKey> siblingsHints = getAccessibleKidsHint(hint);
+                List< TaggingHintKey> siblingsHints = getAccessibleKidsHint(hint);
                 boolean holdTheFirstFinishedToBeFound = false;
-                for (com.itextpdf.layout.tagging.TaggingHintKey sibling : siblingsHints) {
+                for ( TaggingHintKey sibling : siblingsHints) {
                     if (!sibling.isFinished()) {
                         holdTheFirstFinishedToBeFound = true;
                     } else if (holdTheFirstFinishedToBeFound) {
@@ -311,7 +309,7 @@ public class LayoutTaggingHelper {
             }
         }
 
-        for (com.itextpdf.layout.tagging.TaggingHintKey hint : allHints) {
+        for ( TaggingHintKey hint : allHints) {
             if (hint.isFinished()) {
                 releaseHint(hint, hintsToBeHeld, true);
             }
@@ -319,7 +317,7 @@ public class LayoutTaggingHelper {
     }
 
     public void releaseAllHints() {
-        for (com.itextpdf.layout.tagging.TaggingDummyElement dummy : existingTagsDummies.values()) {
+        for ( TaggingDummyElement dummy : existingTagsDummies.values()) {
             finishTaggingHint(dummy);
             finishDummyKids(getKidsHint(getHintKey(dummy)));
         }
@@ -327,19 +325,19 @@ public class LayoutTaggingHelper {
 
         releaseFinishedHints();
 
-        Set<com.itextpdf.layout.tagging.TaggingHintKey> hangingHints = new HashSet<>();
-        for (Map.Entry<com.itextpdf.layout.tagging.TaggingHintKey, com.itextpdf.layout.tagging.TaggingHintKey> entry : parentHints.entrySet()) {
+        Set< TaggingHintKey> hangingHints = new HashSet<>();
+        for (Map.Entry< TaggingHintKey,  TaggingHintKey> entry : parentHints.entrySet()) {
             hangingHints.add(entry.getKey());
             hangingHints.add(entry.getValue());
         }
 
-        for (com.itextpdf.layout.tagging.TaggingHintKey hint : hangingHints) {
+        for ( TaggingHintKey hint : hangingHints) {
             // TODO in some situations we need to remove tagging hints of renderers that are thrown away for reasons like:
             // - fixed height clipping
             // - forced placement
             // - some other cases?
 //            if (!hint.isFinished()) {
-//                Logger logger = LoggerFactory.getLogger(LayoutTaggingHelper.class);
+//                Logger logger =  Logger.getLogger(LayoutTaggingHelper.class.getName());
 //                logger.warn(LogMessageConstant.TAGGING_HINT_NOT_FINISHED_BEFORE_CLOSE);
 //            }
             releaseHint(hint, null, false);
@@ -350,7 +348,7 @@ public class LayoutTaggingHelper {
     }
 
     public boolean createTag(IRenderer renderer, TagTreePointer tagPointer) {
-        com.itextpdf.layout.tagging.TaggingHintKey hintKey = getHintKey(renderer);
+         TaggingHintKey hintKey = getHintKey(renderer);
         boolean noHint = hintKey == null;
         if (noHint) {
             hintKey = getOrCreateHintKey(renderer, false);
@@ -363,7 +361,7 @@ public class LayoutTaggingHelper {
         return created;
     }
 
-    public boolean createTag(com.itextpdf.layout.tagging.TaggingHintKey hintKey, TagTreePointer tagPointer) {
+    public boolean createTag( TaggingHintKey hintKey, TagTreePointer tagPointer) {
         if (hintKey.isArtifact()) {
             return false;
         }
@@ -371,9 +369,9 @@ public class LayoutTaggingHelper {
         boolean created = createSingleTag(hintKey, tagPointer);
 
         if (created) {
-            List<com.itextpdf.layout.tagging.TaggingHintKey> kidsHint = getAccessibleKidsHint(hintKey);
-            for (com.itextpdf.layout.tagging.TaggingHintKey hint : kidsHint) {
-                if (hint.getAccessibleElement() instanceof com.itextpdf.layout.tagging.TaggingDummyElement) {
+            List< TaggingHintKey> kidsHint = getAccessibleKidsHint(hintKey);
+            for ( TaggingHintKey hint : kidsHint) {
+                if (hint.getAccessibleElement() instanceof  TaggingDummyElement) {
                     createTag(hint, new TagTreePointer(document));
                 }
             }
@@ -382,7 +380,7 @@ public class LayoutTaggingHelper {
     }
 
     public void finishTaggingHint(IPropertyContainer hintOwner) {
-        com.itextpdf.layout.tagging.TaggingHintKey rendererKey = getHintKey(hintOwner);
+         TaggingHintKey rendererKey = getHintKey(hintOwner);
 
         // artifact is always finished
         if (rendererKey == null || rendererKey.isFinished()) {
@@ -415,14 +413,14 @@ public class LayoutTaggingHelper {
         rendererKey.setFinished();
     }
 
-    public int replaceKidHint(com.itextpdf.layout.tagging.TaggingHintKey kidHintKey, Collection<com.itextpdf.layout.tagging.TaggingHintKey> newKidsHintKeys) {
-        com.itextpdf.layout.tagging.TaggingHintKey parentKey = getParentHint(kidHintKey);
+    public int replaceKidHint( TaggingHintKey kidHintKey, Collection< TaggingHintKey> newKidsHintKeys) {
+         TaggingHintKey parentKey = getParentHint(kidHintKey);
         if (parentKey == null) {
             return -1;
         }
         if (kidHintKey.isFinished()) {
-            Logger logger = LoggerFactory.getLogger(LayoutTaggingHelper.class);
-            logger.error(IoLogMessageConstant.CANNOT_REPLACE_FINISHED_HINT);
+            Logger logger =  Logger.getLogger(LayoutTaggingHelper.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.CANNOT_REPLACE_FINISHED_HINT);
 
             // If kidHintKey is finished you won't be able to add it anywhere after replacing is ended.
             // If kidHintKey might be finished, use moveKidHint instead.
@@ -432,13 +430,13 @@ public class LayoutTaggingHelper {
 
         int kidIndex = removeParentHint(kidHintKey);
 
-        List<com.itextpdf.layout.tagging.TaggingHintKey> kidsToBeAdded = new ArrayList<>();
-        for (com.itextpdf.layout.tagging.TaggingHintKey newKidKey : newKidsHintKeys) {
+        List< TaggingHintKey> kidsToBeAdded = new ArrayList<>();
+        for ( TaggingHintKey newKidKey : newKidsHintKeys) {
             int i = removeParentHint(newKidKey);
             if (i == RETVAL_PARENT_AND_KID_FINISHED
                     || i == RETVAL_NO_PARENT && newKidKey.isFinished()) {
-                Logger logger = LoggerFactory.getLogger(LayoutTaggingHelper.class);
-                logger.error(IoLogMessageConstant.CANNOT_MOVE_FINISHED_HINT);
+                Logger logger =  Logger.getLogger(LayoutTaggingHelper.class.getName());
+                logger.log(Level.SEVERE,IoLogMessageConstant.CANNOT_MOVE_FINISHED_HINT);
                 continue;
             }
             kidsToBeAdded.add(newKidKey);
@@ -449,25 +447,25 @@ public class LayoutTaggingHelper {
         return kidIndex;
     }
 
-    public int moveKidHint(com.itextpdf.layout.tagging.TaggingHintKey hintKeyOfKidToMove, com.itextpdf.layout.tagging.TaggingHintKey newParent) {
+    public int moveKidHint( TaggingHintKey hintKeyOfKidToMove,  TaggingHintKey newParent) {
         return moveKidHint(hintKeyOfKidToMove, newParent, -1);
     }
 
-    public int moveKidHint(com.itextpdf.layout.tagging.TaggingHintKey hintKeyOfKidToMove, com.itextpdf.layout.tagging.TaggingHintKey newParent, int insertIndex) {
+    public int moveKidHint( TaggingHintKey hintKeyOfKidToMove,  TaggingHintKey newParent, int insertIndex) {
         if (newParent.isFinished()) {
-            Logger logger = LoggerFactory.getLogger(LayoutTaggingHelper.class);
-            logger.error(IoLogMessageConstant.CANNOT_MOVE_HINT_TO_FINISHED_PARENT);
+            Logger logger =  Logger.getLogger(LayoutTaggingHelper.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.CANNOT_MOVE_HINT_TO_FINISHED_PARENT);
             return -1;
         }
 
         int removeRes = removeParentHint(hintKeyOfKidToMove);
         if (removeRes == RETVAL_PARENT_AND_KID_FINISHED
                 || removeRes == RETVAL_NO_PARENT && hintKeyOfKidToMove.isFinished()) {
-            Logger logger = LoggerFactory.getLogger(LayoutTaggingHelper.class);
-            logger.error(IoLogMessageConstant.CANNOT_MOVE_FINISHED_HINT);
+            Logger logger =  Logger.getLogger(LayoutTaggingHelper.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.CANNOT_MOVE_FINISHED_HINT);
             return -1;
         }
-        addKidsHint(newParent, Collections.<com.itextpdf.layout.tagging.TaggingHintKey>singletonList(hintKeyOfKidToMove), insertIndex, true);
+        addKidsHint(newParent, Collections.< TaggingHintKey>singletonList(hintKeyOfKidToMove), insertIndex, true);
 
         return removeRes;
     }
@@ -476,8 +474,8 @@ public class LayoutTaggingHelper {
         return document;
     }
 
-    private static com.itextpdf.layout.tagging.TaggingHintKey getOrCreateHintKey(IPropertyContainer hintOwner, boolean setProperty) {
-        com.itextpdf.layout.tagging.TaggingHintKey hintKey = hintOwner.<com.itextpdf.layout.tagging.TaggingHintKey>getProperty(Property.TAGGING_HINT_KEY);
+    private static  TaggingHintKey getOrCreateHintKey(IPropertyContainer hintOwner, boolean setProperty) {
+         TaggingHintKey hintKey = hintOwner.< TaggingHintKey>getProperty(Property.TAGGING_HINT_KEY);
         if (hintKey == null) {
             IAccessibleElement elem = null;
             if (hintOwner instanceof IAccessibleElement) {
@@ -485,7 +483,7 @@ public class LayoutTaggingHelper {
             } else if (hintOwner instanceof IRenderer && ((IRenderer) hintOwner).getModelElement() instanceof IAccessibleElement) {
                 elem = (IAccessibleElement) ((IRenderer) hintOwner).getModelElement();
             }
-            hintKey = new com.itextpdf.layout.tagging.TaggingHintKey(elem, hintOwner instanceof IElement);
+            hintKey = new  TaggingHintKey(elem, hintOwner instanceof IElement);
             if (elem != null && StandardRoles.ARTIFACT.equals(elem.getAccessibilityProperties().getRole())) {
                 hintKey.setArtifact();
                 hintKey.setFinished();
@@ -502,45 +500,45 @@ public class LayoutTaggingHelper {
         return hintKey;
     }
 
-    private void addKidsHint(com.itextpdf.layout.tagging.TaggingHintKey parentKey, Collection<com.itextpdf.layout.tagging.TaggingHintKey> newKidsKeys, int insertIndex, boolean skipFinishedChecks) {
+    private void addKidsHint( TaggingHintKey parentKey, Collection< TaggingHintKey> newKidsKeys, int insertIndex, boolean skipFinishedChecks) {
         if (newKidsKeys.isEmpty()) {
             return;
         }
         if (parentKey.isArtifact()) {
-            for (com.itextpdf.layout.tagging.TaggingHintKey kid : newKidsKeys) {
+            for ( TaggingHintKey kid : newKidsKeys) {
                 markArtifactHint(kid);
             }
             return;
         }
 
         if (!skipFinishedChecks && parentKey.isFinished()) {
-            Logger logger = LoggerFactory.getLogger(LayoutTaggingHelper.class);
-            logger.error(IoLogMessageConstant.CANNOT_ADD_HINTS_TO_FINISHED_PARENT);
+            Logger logger =  Logger.getLogger(LayoutTaggingHelper.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.CANNOT_ADD_HINTS_TO_FINISHED_PARENT);
             return;
         }
 
-        List<com.itextpdf.layout.tagging.TaggingHintKey> kidsHint = kidsHints.get(parentKey);
+        List< TaggingHintKey> kidsHint = kidsHints.get(parentKey);
         if (kidsHint == null) {
             kidsHint = new ArrayList<>();
         }
 
-        com.itextpdf.layout.tagging.TaggingHintKey parentTagHint = isNonAccessibleHint(parentKey) ? getAccessibleParentHint(parentKey) : parentKey;
+         TaggingHintKey parentTagHint = isNonAccessibleHint(parentKey) ? getAccessibleParentHint(parentKey) : parentKey;
         boolean parentTagAlreadyCreated = parentTagHint != null && isTagAlreadyExistsForHint(parentTagHint);
-        for (com.itextpdf.layout.tagging.TaggingHintKey kidKey : newKidsKeys) {
+        for ( TaggingHintKey kidKey : newKidsKeys) {
             if (kidKey.isArtifact()) {
                 continue;
             }
 
-            com.itextpdf.layout.tagging.TaggingHintKey prevParent = getParentHint(kidKey);
+             TaggingHintKey prevParent = getParentHint(kidKey);
             if (prevParent != null) {
                 // TODO seems to be a legit use case to re-add hints to just ensure that hints are added
-//                Logger logger = LoggerFactory.getLogger(LayoutTaggingHelper.class);
-//                logger.error(LogMessageConstant.CANNOT_ADD_KID_HINT_WHICH_IS_ALREADY_ADDED_TO_ANOTHER_PARENT);
+//                Logger logger =  Logger.getLogger(LayoutTaggingHelper.class.getName());
+//                logger.log(Level.SEVERE,LogMessageConstant.CANNOT_ADD_KID_HINT_WHICH_IS_ALREADY_ADDED_TO_ANOTHER_PARENT);
                 continue;
             }
             if (!skipFinishedChecks && kidKey.isFinished()) {
-                Logger logger = LoggerFactory.getLogger(LayoutTaggingHelper.class);
-                logger.error(IoLogMessageConstant.CANNOT_ADD_FINISHED_HINT_AS_A_NEW_KID_HINT);
+                Logger logger =  Logger.getLogger(LayoutTaggingHelper.class.getName());
+                logger.log(Level.SEVERE,IoLogMessageConstant.CANNOT_ADD_FINISHED_HINT_AS_A_NEW_KID_HINT);
                 continue;
             }
             if (insertIndex > -1) {
@@ -551,12 +549,12 @@ public class LayoutTaggingHelper {
             parentHints.put(kidKey, parentKey);
 
             if (parentTagAlreadyCreated) {
-                if (kidKey.getAccessibleElement() instanceof com.itextpdf.layout.tagging.TaggingDummyElement) {
+                if (kidKey.getAccessibleElement() instanceof  TaggingDummyElement) {
                     createTag(kidKey, new TagTreePointer(document));
                 }
                 if (isNonAccessibleHint(kidKey)) {
-                    for (com.itextpdf.layout.tagging.TaggingHintKey nestedKid : getAccessibleKidsHint(kidKey)) {
-                        if (nestedKid.getAccessibleElement() instanceof com.itextpdf.layout.tagging.TaggingDummyElement) {
+                    for ( TaggingHintKey nestedKid : getAccessibleKidsHint(kidKey)) {
+                        if (nestedKid.getAccessibleElement() instanceof  TaggingDummyElement) {
                             createTag(nestedKid, new TagTreePointer(document));
                         }
                         moveKidTagIfCreated(parentTagHint, nestedKid);
@@ -572,17 +570,17 @@ public class LayoutTaggingHelper {
         }
     }
 
-    private boolean createSingleTag(com.itextpdf.layout.tagging.TaggingHintKey hintKey, TagTreePointer tagPointer) {
+    private boolean createSingleTag( TaggingHintKey hintKey, TagTreePointer tagPointer) {
         if (hintKey.isFinished()) {
-            Logger logger = LoggerFactory.getLogger(LayoutTaggingHelper.class);
-            logger.error(IoLogMessageConstant.ATTEMPT_TO_CREATE_A_TAG_FOR_FINISHED_HINT);
+            Logger logger =  Logger.getLogger(LayoutTaggingHelper.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.ATTEMPT_TO_CREATE_A_TAG_FOR_FINISHED_HINT);
             return false;
         }
 
         if (isNonAccessibleHint(hintKey)) {
             // try move pointer to the nearest accessible parent in case any direct content will be
             // tagged with this tagPointer
-            com.itextpdf.layout.tagging.TaggingHintKey parentTagHint = getAccessibleParentHint(hintKey);
+             TaggingHintKey parentTagHint = getAccessibleParentHint(hintKey);
             context.getWaitingTagsManager().tryMovePointerToWaitingTag(tagPointer, parentTagHint);
             return false;
         }
@@ -592,12 +590,12 @@ public class LayoutTaggingHelper {
 
             IAccessibleElement modelElement = hintKey.getAccessibleElement();
 
-            com.itextpdf.layout.tagging.TaggingHintKey parentHint = getAccessibleParentHint(hintKey);
+             TaggingHintKey parentHint = getAccessibleParentHint(hintKey);
             int ind = -1;
             if (parentHint != null) {
                 // if parent tag hasn't been created yet - it's ok, kid tags will be moved on it's creation
                 if (waitingTagsManager.tryMovePointerToWaitingTag(tagPointer, parentHint)) {
-                    List<com.itextpdf.layout.tagging.TaggingHintKey> siblingsHint = getAccessibleKidsHint(parentHint);
+                    List< TaggingHintKey> siblingsHint = getAccessibleKidsHint(parentHint);
                     int i = siblingsHint.indexOf(hintKey);
                     ind = getNearestNextSiblingTagIndex(waitingTagsManager, tagPointer, siblingsHint, i);
                 }
@@ -609,8 +607,8 @@ public class LayoutTaggingHelper {
             }
             waitingTagsManager.assignWaitingState(tagPointer, hintKey);
 
-            List<com.itextpdf.layout.tagging.TaggingHintKey> kidsHint = getAccessibleKidsHint(hintKey);
-            for (com.itextpdf.layout.tagging.TaggingHintKey kidKey : kidsHint) {
+            List< TaggingHintKey> kidsHint = getAccessibleKidsHint(hintKey);
+            for ( TaggingHintKey kidKey : kidsHint) {
                 moveKidTagIfCreated(hintKey, kidKey);
             }
 
@@ -620,14 +618,14 @@ public class LayoutTaggingHelper {
         return false;
     }
 
-    private int removeParentHint(com.itextpdf.layout.tagging.TaggingHintKey hintKey) {
-        com.itextpdf.layout.tagging.TaggingHintKey parentHint = parentHints.get(hintKey);
+    private int removeParentHint( TaggingHintKey hintKey) {
+         TaggingHintKey parentHint = parentHints.get(hintKey);
 
         if (parentHint == null) {
             return RETVAL_NO_PARENT;
         }
 
-        com.itextpdf.layout.tagging.TaggingHintKey accessibleParentHint = getAccessibleParentHint(hintKey);
+         TaggingHintKey accessibleParentHint = getAccessibleParentHint(hintKey);
         if (hintKey.isFinished() && parentHint.isFinished() && (accessibleParentHint == null || accessibleParentHint.isFinished())) {
             return RETVAL_PARENT_AND_KID_FINISHED;
         }
@@ -635,10 +633,10 @@ public class LayoutTaggingHelper {
         return removeParentHint(hintKey, parentHint);
     }
 
-    private int removeParentHint(com.itextpdf.layout.tagging.TaggingHintKey hintKey, com.itextpdf.layout.tagging.TaggingHintKey parentHint) {
+    private int removeParentHint( TaggingHintKey hintKey,  TaggingHintKey parentHint) {
         parentHints.remove(hintKey);
 
-        List<com.itextpdf.layout.tagging.TaggingHintKey> kidsHint = kidsHints.get(parentHint);
+        List< TaggingHintKey> kidsHint = kidsHints.get(parentHint);
         int i;
         int size = kidsHint.size();
         for (i = 0; i < size; ++i) {
@@ -655,9 +653,9 @@ public class LayoutTaggingHelper {
         return i;
     }
 
-    private void finishDummyKids(List<com.itextpdf.layout.tagging.TaggingHintKey> taggingHintKeys) {
-        for (com.itextpdf.layout.tagging.TaggingHintKey hintKey : taggingHintKeys) {
-            boolean isDummy = hintKey.getAccessibleElement() instanceof com.itextpdf.layout.tagging.TaggingDummyElement;
+    private void finishDummyKids(List< TaggingHintKey> taggingHintKeys) {
+        for ( TaggingHintKey hintKey : taggingHintKeys) {
+            boolean isDummy = hintKey.getAccessibleElement() instanceof  TaggingDummyElement;
             if (isDummy) {
                 finishTaggingHint((IPropertyContainer) hintKey.getAccessibleElement());
             }
@@ -667,7 +665,7 @@ public class LayoutTaggingHelper {
         }
     }
 
-    private void moveKidTagIfCreated(com.itextpdf.layout.tagging.TaggingHintKey parentKey, com.itextpdf.layout.tagging.TaggingHintKey kidKey) {
+    private void moveKidTagIfCreated( TaggingHintKey parentKey,  TaggingHintKey kidKey) {
         // both arguments shall be accessible, non-accessible are not handled inside this method
 
         TagTreePointer kidPointer = new TagTreePointer(document);
@@ -688,7 +686,7 @@ public class LayoutTaggingHelper {
         kidPointer.relocate(parentPointer);
     }
 
-    private int getNearestNextSiblingTagIndex(WaitingTagsManager waitingTagsManager, TagTreePointer parentPointer, List<com.itextpdf.layout.tagging.TaggingHintKey> siblingsHint, int start) {
+    private int getNearestNextSiblingTagIndex(WaitingTagsManager waitingTagsManager, TagTreePointer parentPointer, List< TaggingHintKey> siblingsHint, int start) {
         int ind = -1;
         TagTreePointer nextSiblingPointer = new TagTreePointer(document);
         while (++start < siblingsHint.size()) {
@@ -701,17 +699,17 @@ public class LayoutTaggingHelper {
         return ind;
     }
 
-    private static boolean isNonAccessibleHint(com.itextpdf.layout.tagging.TaggingHintKey hintKey) {
+    private static boolean isNonAccessibleHint( TaggingHintKey hintKey) {
         return hintKey.getAccessibleElement() == null || hintKey.getAccessibleElement().getAccessibilityProperties().getRole() == null;
     }
 
-    private boolean isTagAlreadyExistsForHint(com.itextpdf.layout.tagging.TaggingHintKey tagHint) {
+    private boolean isTagAlreadyExistsForHint( TaggingHintKey tagHint) {
         return context.getWaitingTagsManager().isObjectAssociatedWithWaitingTag(tagHint);
     }
 
-    private void releaseHint(com.itextpdf.layout.tagging.TaggingHintKey hint, Set<com.itextpdf.layout.tagging.TaggingHintKey> hintsToBeHeld, boolean checkContextIsFinished) {
-        com.itextpdf.layout.tagging.TaggingHintKey parentHint = parentHints.get(hint);
-        List<com.itextpdf.layout.tagging.TaggingHintKey> kidsHint = kidsHints.get(hint);
+    private void releaseHint( TaggingHintKey hint, Set< TaggingHintKey> hintsToBeHeld, boolean checkContextIsFinished) {
+         TaggingHintKey parentHint = parentHints.get(hint);
+        List< TaggingHintKey> kidsHint = kidsHints.get(hint);
         if (checkContextIsFinished && parentHint != null) {
             if (isSomeParentNotFinished(parentHint)) {
                 return;
@@ -733,7 +731,7 @@ public class LayoutTaggingHelper {
             removeParentHint(hint, parentHint);
         }
         if (kidsHint != null) {
-            for (com.itextpdf.layout.tagging.TaggingHintKey kidHint : kidsHint) {
+            for ( TaggingHintKey kidHint : kidsHint) {
                 parentHints.remove(kidHint);
             }
             kidsHints.remove(hint);
@@ -750,8 +748,8 @@ public class LayoutTaggingHelper {
         }
     }
 
-    private boolean isSomeParentNotFinished(com.itextpdf.layout.tagging.TaggingHintKey parentHint) {
-        com.itextpdf.layout.tagging.TaggingHintKey hintKey = parentHint;
+    private boolean isSomeParentNotFinished( TaggingHintKey parentHint) {
+         TaggingHintKey hintKey = parentHint;
         while (true) {
             if (hintKey == null) {
                 return false;
@@ -766,8 +764,8 @@ public class LayoutTaggingHelper {
         }
     }
 
-    private boolean isSomeKidNotFinished(com.itextpdf.layout.tagging.TaggingHintKey hint) {
-        for (com.itextpdf.layout.tagging.TaggingHintKey kidHint : getKidsHint(hint)) {
+    private boolean isSomeKidNotFinished( TaggingHintKey hint) {
+        for ( TaggingHintKey kidHint : getKidsHint(hint)) {
             if (!kidHint.isFinished()) {
                 return true;
             }
@@ -779,12 +777,12 @@ public class LayoutTaggingHelper {
     }
 
     private void registerRules(PdfVersion pdfVersion) {
-        ITaggingRule tableRule = new com.itextpdf.layout.tagging.TableTaggingRule();
+        ITaggingRule tableRule = new  TableTaggingRule();
         registerSingleRule(StandardRoles.TABLE, tableRule);
         registerSingleRule(StandardRoles.TFOOT, tableRule);
         registerSingleRule(StandardRoles.THEAD, tableRule);
         if (pdfVersion.compareTo(PdfVersion.PDF_1_5) < 0 ) {
-            com.itextpdf.layout.tagging.TableTaggingPriorToOneFiveVersionRule priorToOneFiveRule = new com.itextpdf.layout.tagging.TableTaggingPriorToOneFiveVersionRule();
+             TableTaggingPriorToOneFiveVersionRule priorToOneFiveRule = new  TableTaggingPriorToOneFiveVersionRule();
             registerSingleRule(StandardRoles.TABLE, priorToOneFiveRule);
             registerSingleRule(StandardRoles.THEAD, priorToOneFiveRule);
             registerSingleRule(StandardRoles.TFOOT, priorToOneFiveRule);

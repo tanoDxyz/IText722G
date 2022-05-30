@@ -22,7 +22,8 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.commons.actions.contexts.IMetaInfo;
+
+import com.tanodxyz.itext722g.commons.actions.contexts.IMetaInfo;
 
 /**
  * Class to store metaInfo that will be used for layout renderers.

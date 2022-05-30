@@ -43,13 +43,7 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.exceptions.LayoutExceptionMessageConstant;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.properties.BorderCollapsePropertyValue;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
+
 import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.geom.AffineTransform;
 import com.tanodxyz.itext722g.kernel.geom.Matrix;
@@ -57,8 +51,12 @@ import com.tanodxyz.itext722g.kernel.geom.NoninvertibleTransformException;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.layout.IPropertyContainer;
-import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
-import com.tanodxyz.itext722g.layout.renderer.BlockRenderer;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.element.Cell;
+import com.tanodxyz.itext722g.layout.exceptions.LayoutExceptionMessageConstant;
+import com.tanodxyz.itext722g.layout.properties.BorderCollapsePropertyValue;
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
 
 public class CellRenderer extends BlockRenderer {
     /**
@@ -113,7 +111,7 @@ public class CellRenderer extends BlockRenderer {
     }
 
     @Override
-    public void drawBackground(com.itextpdf.layout.renderer.DrawContext drawContext) {
+    public void drawBackground( DrawContext drawContext) {
         PdfCanvas canvas = drawContext.getCanvas();
         Matrix ctm = canvas.getGraphicsState().getCtm();
 
@@ -150,7 +148,7 @@ public class CellRenderer extends BlockRenderer {
      * {@inheritDoc}
      */
     @Override
-    public void drawBorder(com.itextpdf.layout.renderer.DrawContext drawContext) {
+    public void drawBorder( DrawContext drawContext) {
         if (BorderCollapsePropertyValue.SEPARATE.equals(parent.<BorderCollapsePropertyValue>getProperty(Property.BORDER_COLLAPSE))) {
             super.drawBorder(drawContext);
         } else {
@@ -216,7 +214,7 @@ public class CellRenderer extends BlockRenderer {
      * @return new renderer instance
      */
     @Override
-    public com.itextpdf.layout.renderer.IRenderer getNextRenderer() {
+    public  IRenderer getNextRenderer() {
         logWarningIfGetNextRendererNotOverridden(CellRenderer.class, this.getClass());
         return new CellRenderer((Cell) getModelElement());
     }

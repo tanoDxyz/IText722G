@@ -42,11 +42,10 @@
  */
 package com.tanodxyz.itext722g.layout.tagging;
 
-import com.itextpdf.layout.properties.Property;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.AccessibilityProperties;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.DefaultAccessibilityProperties;
 import com.tanodxyz.itext722g.layout.IPropertyContainer;
-import com.tanodxyz.itext722g.layout.tagging.IAccessibleElement;
+import com.tanodxyz.itext722g.layout.properties.Property;
 
 public class TaggingDummyElement implements IAccessibleElement, IPropertyContainer {
     private DefaultAccessibilityProperties properties;

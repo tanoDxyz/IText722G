@@ -42,11 +42,10 @@
  */
 package com.tanodxyz.itext722g.layout.tagging;
 
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Table;
+
 import com.tanodxyz.itext722g.kernel.pdf.tagging.StandardRoles;
-import com.tanodxyz.itext722g.layout.tagging.ITaggingRule;
-import com.tanodxyz.itext722g.layout.tagging.LayoutTaggingHelper;
+import com.tanodxyz.itext722g.layout.element.Cell;
+import com.tanodxyz.itext722g.layout.element.Table;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -56,20 +55,20 @@ import java.util.TreeMap;
 
 class TableTaggingRule implements ITaggingRule {
 
-    public boolean onTagFinish(LayoutTaggingHelper taggingHelper, com.itextpdf.layout.tagging.TaggingHintKey tableHintKey) {
-        List<com.itextpdf.layout.tagging.TaggingHintKey> kidKeys = taggingHelper.getAccessibleKidsHint(tableHintKey);
+    public boolean onTagFinish(LayoutTaggingHelper taggingHelper,  TaggingHintKey tableHintKey) {
+        List< TaggingHintKey> kidKeys = taggingHelper.getAccessibleKidsHint(tableHintKey);
 
-        Map<Integer, TreeMap<Integer, com.itextpdf.layout.tagging.TaggingHintKey>> tableTags = new TreeMap<>();
-        List<com.itextpdf.layout.tagging.TaggingHintKey> tableCellTagsUnindexed = new ArrayList<>();
-        List<com.itextpdf.layout.tagging.TaggingHintKey> nonCellKids = new ArrayList<>();
-        for (com.itextpdf.layout.tagging.TaggingHintKey kidKey : kidKeys) {
+        Map<Integer, TreeMap<Integer,  TaggingHintKey>> tableTags = new TreeMap<>();
+        List< TaggingHintKey> tableCellTagsUnindexed = new ArrayList<>();
+        List< TaggingHintKey> nonCellKids = new ArrayList<>();
+        for ( TaggingHintKey kidKey : kidKeys) {
             if (StandardRoles.TD.equals(kidKey.getAccessibleElement().getAccessibilityProperties().getRole())
                     || StandardRoles.TH.equals(kidKey.getAccessibleElement().getAccessibilityProperties().getRole())) {
                 if (kidKey.getAccessibleElement() instanceof Cell) {
                     Cell cell = (Cell) kidKey.getAccessibleElement();
                     int rowInd = cell.getRow();
                     int colInd = cell.getCol();
-                    TreeMap<Integer, com.itextpdf.layout.tagging.TaggingHintKey> rowTags = tableTags.get(rowInd);
+                    TreeMap<Integer,  TaggingHintKey> rowTags = tableTags.get(rowInd);
                     if (rowTags == null) {
                         rowTags = new TreeMap<>();
                         tableTags.put(rowInd, rowTags);
@@ -90,42 +89,42 @@ class TableTaggingRule implements ITaggingRule {
             createTBody = modelElement.getHeader() != null && !modelElement.isSkipFirstHeader()
                     || modelElement.getFooter() != null && !modelElement.isSkipLastFooter();
         }
-        com.itextpdf.layout.tagging.TaggingDummyElement tbodyTag = null;
-        tbodyTag = new com.itextpdf.layout.tagging.TaggingDummyElement(createTBody ? StandardRoles.TBODY : null);
+         TaggingDummyElement tbodyTag = null;
+        tbodyTag = new  TaggingDummyElement(createTBody ? StandardRoles.TBODY : null);
 
-        for (com.itextpdf.layout.tagging.TaggingHintKey nonCellKid : nonCellKids) {
+        for ( TaggingHintKey nonCellKid : nonCellKids) {
             String kidRole = nonCellKid.getAccessibleElement().getAccessibilityProperties().getRole();
             if (!StandardRoles.THEAD.equals(kidRole) && !StandardRoles.TFOOT.equals(kidRole)) {
                 taggingHelper.moveKidHint(nonCellKid, tableHintKey);
             }
         }
-        for (com.itextpdf.layout.tagging.TaggingHintKey nonCellKid : nonCellKids) {
+        for ( TaggingHintKey nonCellKid : nonCellKids) {
             String kidRole = nonCellKid.getAccessibleElement().getAccessibilityProperties().getRole();
             if (StandardRoles.THEAD.equals(kidRole)) {
                 taggingHelper.moveKidHint(nonCellKid, tableHintKey);
             }
         }
-        taggingHelper.addKidsHint(tableHintKey, Collections.<com.itextpdf.layout.tagging.TaggingHintKey>singletonList(LayoutTaggingHelper.getOrCreateHintKey(tbodyTag)), -1);
-        for (com.itextpdf.layout.tagging.TaggingHintKey nonCellKid : nonCellKids) {
+        taggingHelper.addKidsHint(tableHintKey, Collections.< TaggingHintKey>singletonList(LayoutTaggingHelper.getOrCreateHintKey(tbodyTag)), -1);
+        for ( TaggingHintKey nonCellKid : nonCellKids) {
             String kidRole = nonCellKid.getAccessibleElement().getAccessibilityProperties().getRole();
             if (StandardRoles.TFOOT.equals(kidRole)) {
                 taggingHelper.moveKidHint(nonCellKid, tableHintKey);
             }
         }
 
-        for (TreeMap<Integer, com.itextpdf.layout.tagging.TaggingHintKey> rowTags : tableTags.values()) {
-            com.itextpdf.layout.tagging.TaggingDummyElement row = new com.itextpdf.layout.tagging.TaggingDummyElement(StandardRoles.TR);
-            com.itextpdf.layout.tagging.TaggingHintKey rowTagHint = LayoutTaggingHelper.getOrCreateHintKey(row);
-            for (com.itextpdf.layout.tagging.TaggingHintKey cellTagHint : rowTags.values()) {
+        for (TreeMap<Integer,  TaggingHintKey> rowTags : tableTags.values()) {
+             TaggingDummyElement row = new  TaggingDummyElement(StandardRoles.TR);
+             TaggingHintKey rowTagHint = LayoutTaggingHelper.getOrCreateHintKey(row);
+            for ( TaggingHintKey cellTagHint : rowTags.values()) {
                 taggingHelper.moveKidHint(cellTagHint, rowTagHint);
             }
             if (tableCellTagsUnindexed != null) {
-                for (com.itextpdf.layout.tagging.TaggingHintKey cellTagHint : tableCellTagsUnindexed) {
+                for ( TaggingHintKey cellTagHint : tableCellTagsUnindexed) {
                     taggingHelper.moveKidHint(cellTagHint, rowTagHint);
                 }
                 tableCellTagsUnindexed = null;
             }
-            taggingHelper.addKidsHint(tbodyTag, Collections.<com.itextpdf.layout.tagging.TaggingDummyElement>singletonList(row), -1);
+            taggingHelper.addKidsHint(tbodyTag, Collections.< TaggingDummyElement>singletonList(row), -1);
         }
 
         return true;

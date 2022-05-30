@@ -50,7 +50,7 @@ import java.util.List;
 /**
  * Represents the result of a line {@link com.itextpdf.layout.renderer.LineRenderer#layout(LayoutContext) layouting}.
  */
-public class LineLayoutResult extends com.itextpdf.layout.layout.MinMaxWidthLayoutResult {
+public class LineLayoutResult extends MinMaxWidthLayoutResult {
 
     /**
      * Indicates whether split was forced by new line symbol or not.

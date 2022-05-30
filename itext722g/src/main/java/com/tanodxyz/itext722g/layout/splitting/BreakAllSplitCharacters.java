@@ -29,7 +29,7 @@ import com.tanodxyz.itext722g.io.util.TextUtil;
 /**
  * The implementation of {@link ISplitCharacters} that allows breaking within words.
  */
-public class BreakAllSplitCharacters implements com.itextpdf.layout.splitting.ISplitCharacters {
+public class BreakAllSplitCharacters implements ISplitCharacters {
 
     @Override
     public boolean isSplitCharacter(GlyphLine text, int glyphPos) {

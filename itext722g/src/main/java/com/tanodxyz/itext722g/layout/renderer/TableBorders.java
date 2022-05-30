@@ -43,19 +43,15 @@
 package com.tanodxyz.itext722g.layout.renderer;
 
 
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.properties.Property;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
-import com.tanodxyz.itext722g.layout.renderer.CellRenderer;
-import com.tanodxyz.itext722g.layout.renderer.TableBorderDescriptor;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.properties.Property;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 abstract class TableBorders {
     /**
@@ -180,7 +176,7 @@ abstract class TableBorders {
 
     protected abstract void buildBordersArrays(CellRenderer cell, int row, int col, int[] rowspansToDeduct);
 
-    protected abstract TableBorders updateBordersOnNewPage(boolean isOriginalNonSplitRenderer, boolean isFooterOrHeader, com.itextpdf.layout.renderer.TableRenderer currentRenderer, com.itextpdf.layout.renderer.TableRenderer headerRenderer, com.itextpdf.layout.renderer.TableRenderer footerRenderer);
+    protected abstract TableBorders updateBordersOnNewPage(boolean isOriginalNonSplitRenderer, boolean isFooterOrHeader,  TableRenderer currentRenderer,  TableRenderer headerRenderer,  TableRenderer footerRenderer);
     // endregion
 
     protected TableBorders processAllBordersAndEmptyRows() {
@@ -197,8 +193,8 @@ abstract class TableBorders {
                         if (rowspansToDeduct[col] > 0) {
                             int rowspan = (int) currentRow[col].getPropertyAsInteger(Property.ROWSPAN) - rowspansToDeduct[col];
                             if (rowspan < 1) {
-                                Logger logger = LoggerFactory.getLogger(com.itextpdf.layout.renderer.TableRenderer.class);
-                                logger.warn(IoLogMessageConstant.UNEXPECTED_BEHAVIOUR_DURING_TABLE_ROW_COLLAPSING);
+                                Logger logger = Logger.getLogger( TableRenderer.class.getName());
+                                logger.warning(IoLogMessageConstant.UNEXPECTED_BEHAVIOUR_DURING_TABLE_ROW_COLLAPSING);
                                 rowspan = 1;
                             }
                             currentRow[col].setProperty(Property.ROWSPAN, rowspan);
@@ -227,8 +223,8 @@ abstract class TableBorders {
                         rows.remove(row - rowspansToDeduct[0]);
                         setFinishRow(finishRow - 1);
 
-                        Logger logger = LoggerFactory.getLogger(com.itextpdf.layout.renderer.TableRenderer.class);
-                        logger.warn(IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE);
+                        Logger logger = Logger.getLogger( TableRenderer.class.getName());
+                        logger.warning(IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE);
                     } else {
                         for (int i = 0; i < numberOfColumns; i++) {
                             rowspansToDeduct[i]++;
@@ -352,19 +348,19 @@ abstract class TableBorders {
     }
 
     public Border getWidestVerticalBorder(int col) {
-        return com.itextpdf.layout.renderer.TableBorderUtil.getWidestBorder(getVerticalBorder(col));
+        return  TableBorderUtil.getWidestBorder(getVerticalBorder(col));
     }
 
     public Border getWidestVerticalBorder(int col, int start, int end) {
-        return com.itextpdf.layout.renderer.TableBorderUtil.getWidestBorder(getVerticalBorder(col), start, end);
+        return  TableBorderUtil.getWidestBorder(getVerticalBorder(col), start, end);
     }
 
     public Border getWidestHorizontalBorder(int row) {
-        return com.itextpdf.layout.renderer.TableBorderUtil.getWidestBorder(getHorizontalBorder(row));
+        return  TableBorderUtil.getWidestBorder(getHorizontalBorder(row));
     }
 
     public Border getWidestHorizontalBorder(int row, int start, int end) {
-        return com.itextpdf.layout.renderer.TableBorderUtil.getWidestBorder(getHorizontalBorder(row), start, end);
+        return  TableBorderUtil.getWidestBorder(getHorizontalBorder(row), start, end);
     }
 
     public List<Border> getFirstHorizontalBorder() {

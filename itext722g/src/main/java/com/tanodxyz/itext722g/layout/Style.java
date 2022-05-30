@@ -43,11 +43,10 @@
  */
 package com.tanodxyz.itext722g.layout;
 
-import com.itextpdf.layout.element.AbstractElement;
-import com.itextpdf.layout.element.BlockElement;
-import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.layout.properties.VerticalAlignment;
+
+import com.tanodxyz.itext722g.layout.properties.Property;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.layout.properties.VerticalAlignment;
 
 /**
  * Container object for style properties of an element. A style can be used as

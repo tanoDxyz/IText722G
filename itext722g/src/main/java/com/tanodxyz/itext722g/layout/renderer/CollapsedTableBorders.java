@@ -42,20 +42,20 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.properties.Property;
+
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
-import com.tanodxyz.itext722g.layout.renderer.CellRenderer;
+import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.element.Cell;
+import com.tanodxyz.itext722g.layout.element.Table;
+import com.tanodxyz.itext722g.layout.properties.Property;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-class CollapsedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
+class CollapsedTableBorders extends  TableBorders {
     /**
      * Horizontal borders to be collapsed with
      * the first-on-the-area row's cell top borders of this TableRenderer instance.
@@ -157,11 +157,11 @@ class CollapsedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
     @Override
     public List<Border> getVerticalBorder(int index) {
         if (index == 0) {
-            List<Border> borderList = com.itextpdf.layout.renderer.TableBorderUtil
+            List<Border> borderList =  TableBorderUtil
                     .createAndFillBorderList(null, tableBoundingBorders[3], verticalBorders.get(0).size());
             return getCollapsedList(verticalBorders.get(0), borderList);
         } else if (index == numberOfColumns) {
-            List<Border> borderList = com.itextpdf.layout.renderer.TableBorderUtil.createAndFillBorderList(null, tableBoundingBorders[1],
+            List<Border> borderList =  TableBorderUtil.createAndFillBorderList(null, tableBoundingBorders[1],
                     verticalBorders.get(verticalBorders.size() - 1).size());
             return getCollapsedList(verticalBorders.get(verticalBorders.size() - 1), borderList);
         } else {
@@ -172,7 +172,7 @@ class CollapsedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
 
     public List<Border> getHorizontalBorder(int index) {
         if (index == startRow) {
-            List<Border> firstBorderOnCurrentPage = com.itextpdf.layout.renderer.TableBorderUtil.createAndFillBorderList(topBorderCollapseWith, tableBoundingBorders[0], numberOfColumns);
+            List<Border> firstBorderOnCurrentPage =  TableBorderUtil.createAndFillBorderList(topBorderCollapseWith, tableBoundingBorders[0], numberOfColumns);
             if (index == largeTableIndexOffset) {
                 return getCollapsedList(horizontalBorders.get(index - largeTableIndexOffset), firstBorderOnCurrentPage);
             }
@@ -183,7 +183,7 @@ class CollapsedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
                     if (null != rows.get(row - largeTableIndexOffset)[col] &&
                             row - index + 1 <= (int) ((Cell) rows.get(row - largeTableIndexOffset)[col].getModelElement()).getRowspan()) {
                         CellRenderer cell = rows.get(row - largeTableIndexOffset)[col];
-                        Border cellModelTopBorder = com.itextpdf.layout.renderer.TableBorderUtil.getCellSideBorder(((Cell) cell.getModelElement()), Property.BORDER_TOP);
+                        Border cellModelTopBorder =  TableBorderUtil.getCellSideBorder(((Cell) cell.getModelElement()), Property.BORDER_TOP);
                         int colspan = (int) cell.getPropertyAsInteger(Property.COLSPAN);
                         if (null == firstBorderOnCurrentPage.get(col) || (null != cellModelTopBorder && cellModelTopBorder.getWidth() > firstBorderOnCurrentPage.get(col).getWidth())) {
                             for (int i = col; i < col + colspan; i++) {
@@ -203,7 +203,7 @@ class CollapsedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
             return firstBorderOnCurrentPage;
 
         } else if ((index == finishRow + 1)) {
-            List<Border> lastBorderOnCurrentPage = com.itextpdf.layout.renderer.TableBorderUtil.createAndFillBorderList(bottomBorderCollapseWith, tableBoundingBorders[2], numberOfColumns);
+            List<Border> lastBorderOnCurrentPage =  TableBorderUtil.createAndFillBorderList(bottomBorderCollapseWith, tableBoundingBorders[2], numberOfColumns);
             if (index - largeTableIndexOffset == horizontalBorders.size() - 1) {
                 return getCollapsedList(horizontalBorders.get(index - largeTableIndexOffset), lastBorderOnCurrentPage);
             }
@@ -213,7 +213,7 @@ class CollapsedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
                 while (col < numberOfColumns) {
                     if (null != rows.get(row - largeTableIndexOffset)[col]) {
                         CellRenderer cell = rows.get(row - largeTableIndexOffset)[col];
-                        Border cellModelBottomBorder = com.itextpdf.layout.renderer.TableBorderUtil.getCellSideBorder(((Cell) cell.getModelElement()), Property.BORDER_BOTTOM);
+                        Border cellModelBottomBorder =  TableBorderUtil.getCellSideBorder(((Cell) cell.getModelElement()), Property.BORDER_BOTTOM);
                         int colspan = (int) cell.getPropertyAsInteger(Property.COLSPAN);
                         if (null == lastBorderOnCurrentPage.get(col) || (null != cellModelBottomBorder && cellModelBottomBorder.getWidth() > lastBorderOnCurrentPage.get(col).getWidth())) {
                             for (int i = col; i < col + colspan; i++) {
@@ -389,7 +389,7 @@ class CollapsedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
     // endregion
 
     // region draw
-    protected com.itextpdf.layout.renderer.TableBorders drawHorizontalBorder(PdfCanvas canvas, com.itextpdf.layout.renderer.TableBorderDescriptor borderDescriptor) {
+    protected  TableBorders drawHorizontalBorder(PdfCanvas canvas,  TableBorderDescriptor borderDescriptor) {
         int i = borderDescriptor.getBorderIndex();
         float startX = borderDescriptor.getMainCoordinateStart();
         float y1 = borderDescriptor.getCrossCoordinate();
@@ -447,7 +447,7 @@ class CollapsedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
         return this;
     }
 
-    protected com.itextpdf.layout.renderer.TableBorders drawVerticalBorder(PdfCanvas canvas, com.itextpdf.layout.renderer.TableBorderDescriptor borderDescriptor) {
+    protected  TableBorders drawVerticalBorder(PdfCanvas canvas,  TableBorderDescriptor borderDescriptor) {
         int i = borderDescriptor.getBorderIndex();
         float startY = borderDescriptor.getMainCoordinateStart();
         float x1 = borderDescriptor.getCrossCoordinate();
@@ -554,7 +554,7 @@ class CollapsedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
 
     // region occupation
 
-    protected com.itextpdf.layout.renderer.TableBorders applyLeftAndRightTableBorder(Rectangle layoutBox, boolean reverse) {
+    protected  TableBorders applyLeftAndRightTableBorder(Rectangle layoutBox, boolean reverse) {
         if (null != layoutBox) {
             layoutBox.applyMargins(0, rightBorderMaxWidth / 2, 0, leftBorderMaxWidth / 2, reverse);
         }
@@ -562,7 +562,7 @@ class CollapsedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
         return this;
     }
 
-    protected com.itextpdf.layout.renderer.TableBorders applyTopTableBorder(Rectangle occupiedBox, Rectangle layoutBox, boolean isEmpty, boolean force, boolean reverse) {
+    protected  TableBorders applyTopTableBorder(Rectangle occupiedBox, Rectangle layoutBox, boolean isEmpty, boolean force, boolean reverse) {
         if (!isEmpty) {
             return applyTopTableBorder(occupiedBox, layoutBox, reverse);
         } else if (force) {
@@ -573,7 +573,7 @@ class CollapsedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
         return this;
     }
 
-    protected com.itextpdf.layout.renderer.TableBorders applyBottomTableBorder(Rectangle occupiedBox, Rectangle layoutBox, boolean isEmpty, boolean force, boolean reverse) {
+    protected  TableBorders applyBottomTableBorder(Rectangle occupiedBox, Rectangle layoutBox, boolean isEmpty, boolean force, boolean reverse) {
         if (!isEmpty) {
             return applyBottomTableBorder(occupiedBox, layoutBox, reverse);
         } else if (force) {
@@ -584,14 +584,14 @@ class CollapsedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
         return this;
     }
 
-    protected com.itextpdf.layout.renderer.TableBorders applyTopTableBorder(Rectangle occupiedBox, Rectangle layoutBox, boolean reverse) {
+    protected  TableBorders applyTopTableBorder(Rectangle occupiedBox, Rectangle layoutBox, boolean reverse) {
         float topIndent = (reverse ? -1 : 1) * getMaxTopWidth();
         layoutBox.decreaseHeight(topIndent / 2);
         occupiedBox.moveDown(topIndent / 2).increaseHeight(topIndent / 2);
         return this;
     }
 
-    protected com.itextpdf.layout.renderer.TableBorders applyBottomTableBorder(Rectangle occupiedBox, Rectangle layoutBox, boolean reverse) {
+    protected  TableBorders applyBottomTableBorder(Rectangle occupiedBox, Rectangle layoutBox, boolean reverse) {
         float bottomTableBorderWidth = (reverse ? -1 : 1) * getMaxBottomWidth();
         layoutBox.decreaseHeight(bottomTableBorderWidth / 2);
         occupiedBox.moveDown(bottomTableBorderWidth / 2).increaseHeight(bottomTableBorderWidth / 2);
@@ -599,7 +599,7 @@ class CollapsedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
     }
 
 
-    protected com.itextpdf.layout.renderer.TableBorders applyCellIndents(Rectangle box, float topIndent, float rightIndent, float bottomIndent, float leftIndent, boolean reverse) {
+    protected  TableBorders applyCellIndents(Rectangle box, float topIndent, float rightIndent, float bottomIndent, float leftIndent, boolean reverse) {
         box.applyMargins(topIndent / 2, rightIndent / 2, bottomIndent / 2, leftIndent / 2, false);
         return this;
     }
@@ -610,7 +610,7 @@ class CollapsedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
     // endregion
 
     // region update, footer/header
-    protected com.itextpdf.layout.renderer.TableBorders updateBordersOnNewPage(boolean isOriginalNonSplitRenderer, boolean isFooterOrHeader, com.itextpdf.layout.renderer.TableRenderer currentRenderer, com.itextpdf.layout.renderer.TableRenderer headerRenderer, com.itextpdf.layout.renderer.TableRenderer footerRenderer) {
+    protected  TableBorders updateBordersOnNewPage(boolean isOriginalNonSplitRenderer, boolean isFooterOrHeader,  TableRenderer currentRenderer,  TableRenderer headerRenderer,  TableRenderer footerRenderer) {
         if (!isFooterOrHeader) {
             // collapse all cell borders
             if (isOriginalNonSplitRenderer) {
@@ -645,19 +645,19 @@ class CollapsedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
         return this;
     }
 
-    protected com.itextpdf.layout.renderer.TableBorders skipFooter(Border[] borders) {
+    protected  TableBorders skipFooter(Border[] borders) {
         setTableBoundingBorders(borders);
         setBottomBorderCollapseWith(null, null);
         return this;
     }
 
-    protected com.itextpdf.layout.renderer.TableBorders skipHeader(Border[] borders) {
+    protected  TableBorders skipHeader(Border[] borders) {
         setTableBoundingBorders(borders);
         setTopBorderCollapseWith(null);
         return this;
     }
 
-    protected com.itextpdf.layout.renderer.TableBorders collapseTableWithFooter(com.itextpdf.layout.renderer.TableBorders footerBordersHandler, boolean hasContent) {
+    protected  TableBorders collapseTableWithFooter( TableBorders footerBordersHandler, boolean hasContent) {
         ((CollapsedTableBorders) footerBordersHandler).setTopBorderCollapseWith(
                 hasContent ? getLastHorizontalBorder() : getTopBorderCollapseWith());
         setBottomBorderCollapseWith(footerBordersHandler.getHorizontalBorder(0),
@@ -665,7 +665,7 @@ class CollapsedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
         return this;
     }
 
-    protected com.itextpdf.layout.renderer.TableBorders collapseTableWithHeader(com.itextpdf.layout.renderer.TableBorders headerBordersHandler, boolean updateBordersHandler) {
+    protected  TableBorders collapseTableWithHeader( TableBorders headerBordersHandler, boolean updateBordersHandler) {
         ((CollapsedTableBorders) headerBordersHandler).setBottomBorderCollapseWith(getHorizontalBorder(startRow),
                 getVerticalBordersCrossingTopHorizontalBorder());
         if (updateBordersHandler) {
@@ -675,7 +675,7 @@ class CollapsedTableBorders extends com.itextpdf.layout.renderer.TableBorders {
         return this;
     }
 
-    protected com.itextpdf.layout.renderer.TableBorders fixHeaderOccupiedArea(Rectangle occupiedBox, Rectangle layoutBox) {
+    protected  TableBorders fixHeaderOccupiedArea(Rectangle occupiedBox, Rectangle layoutBox) {
         float topBorderMaxWidth = getMaxTopWidth();
         layoutBox.increaseHeight(topBorderMaxWidth);
         occupiedBox.moveUp(topBorderMaxWidth).decreaseHeight(topBorderMaxWidth);

@@ -22,16 +22,15 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.margincollapse.MarginsCollapseInfo;
-import com.itextpdf.layout.properties.ParagraphOrphansControl;
-import com.itextpdf.layout.properties.ParagraphWidowsControl;
-import com.itextpdf.layout.properties.Property;
+
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
-import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
-import com.tanodxyz.itext722g.layout.renderer.LineRenderer;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.margincollapse.MarginsCollapseInfo;
+import com.tanodxyz.itext722g.layout.properties.ParagraphOrphansControl;
+import com.tanodxyz.itext722g.layout.properties.ParagraphWidowsControl;
+import com.tanodxyz.itext722g.layout.properties.Property;
 
 import java.util.ArrayList;
 
@@ -39,7 +38,7 @@ class OrphansWidowsLayoutHelper {
 
     private OrphansWidowsLayoutHelper() { }
 
-    static LayoutResult orphansWidowsAwareLayout(com.itextpdf.layout.renderer.ParagraphRenderer renderer, LayoutContext context,
+    static LayoutResult orphansWidowsAwareLayout(  ParagraphRenderer renderer, LayoutContext context,
                                                  ParagraphOrphansControl orphansControl, ParagraphWidowsControl widowsControl) {
         OrphansWidowsLayoutAttempt layoutAttempt = attemptLayout(renderer, context, context.getArea().clone());
 
@@ -48,7 +47,7 @@ class OrphansWidowsLayoutHelper {
             return handleAttemptAsSuccessful(layoutAttempt, context);
         }
 
-        com.itextpdf.layout.renderer.ParagraphRenderer splitRenderer = (com.itextpdf.layout.renderer.ParagraphRenderer) layoutAttempt.attemptResult.getSplitRenderer();
+          ParagraphRenderer splitRenderer = (  ParagraphRenderer) layoutAttempt.attemptResult.getSplitRenderer();
         boolean orphansViolation = orphansControl != null && splitRenderer != null
                 && splitRenderer.getLines().size() < orphansControl.getMinOrphans() && !renderer.isFirstOnRootArea();
         boolean forcedPlacement = Boolean.TRUE.equals(renderer.getPropertyAsBoolean(Property.FORCED_PLACEMENT));
@@ -59,7 +58,7 @@ class OrphansWidowsLayoutHelper {
         if (orphansViolation && !forcedPlacement) {
             layoutAttempt = null;
         } else if (widowsControl != null && splitRenderer != null && layoutAttempt.attemptResult.getOverflowRenderer() != null) {
-            com.itextpdf.layout.renderer.ParagraphRenderer overflowRenderer = (com.itextpdf.layout.renderer.ParagraphRenderer) layoutAttempt.attemptResult.getOverflowRenderer();
+              ParagraphRenderer overflowRenderer = (  ParagraphRenderer) layoutAttempt.attemptResult.getOverflowRenderer();
 
             // Excessively big value to check if widows constraint is violated;
             // Make this value less in order to improve performance if you are sure
@@ -123,7 +122,7 @@ class OrphansWidowsLayoutHelper {
         }
     }
 
-    private static OrphansWidowsLayoutAttempt attemptLayout(com.itextpdf.layout.renderer.ParagraphRenderer renderer, LayoutContext originalContext, LayoutArea attemptArea) {
+    private static OrphansWidowsLayoutAttempt attemptLayout(  ParagraphRenderer renderer, LayoutContext originalContext, LayoutArea attemptArea) {
         OrphansWidowsLayoutAttempt attemptResult = new OrphansWidowsLayoutAttempt();
 
         MarginsCollapseInfo copiedMarginsCollapseInfo = null;

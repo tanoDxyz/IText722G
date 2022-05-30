@@ -22,9 +22,8 @@
  */
 package com.tanodxyz.itext722g.layout.renderer;
 
-import com.itextpdf.layout.layout.RootLayoutArea;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
-import com.tanodxyz.itext722g.layout.renderer.RootRenderer;
+import com.tanodxyz.itext722g.layout.layout.RootLayoutArea;
 
 import java.util.ArrayList;
 import java.util.List;
