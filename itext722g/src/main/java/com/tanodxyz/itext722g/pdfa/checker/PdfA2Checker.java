@@ -43,8 +43,7 @@
  */
 package com.tanodxyz.itext722g.pdfa.checker;
 
-import com.itextpdf.pdfa.exceptions.PdfAConformanceException;
-import com.itextpdf.pdfa.logs.PdfAConformanceLogMessageConstant;
+
 import com.tanodxyz.itext722g.io.colors.IccProfile;
 import com.tanodxyz.itext722g.io.font.FontEncoding;
 import com.tanodxyz.itext722g.io.font.PdfEncodings;
@@ -74,10 +73,8 @@ import com.tanodxyz.itext722g.kernel.pdf.colorspace.PdfDeviceCs;
 import com.tanodxyz.itext722g.kernel.pdf.colorspace.PdfPattern;
 import com.tanodxyz.itext722g.kernel.pdf.colorspace.PdfSpecialCs;
 import com.tanodxyz.itext722g.kernel.pdf.extgstate.PdfExtGState;
-import com.tanodxyz.itext722g.pdfa.checker.PdfA1Checker;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.pdfa.exceptions.PdfAConformanceException;
+import com.tanodxyz.itext722g.pdfa.logs.PdfAConformanceLogMessageConstant;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -87,6 +84,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * PdfA2Checker defines the requirements of the PDF/A-2 standard and contains a
@@ -580,8 +578,8 @@ public class PdfA2Checker extends PdfA1Checker {
                 throw new PdfAConformanceException(PdfAConformanceException.FILE_SPECIFICATION_DICTIONARY_SHALL_CONTAIN_F_KEY_AND_UF_KEY);
             }
             if (!fileSpec.containsKey(PdfName.Desc)) {
-                Logger logger = LoggerFactory.getLogger(com.itextpdf.pdfa.checker.PdfAChecker.class);
-                logger.warn(PdfAConformanceLogMessageConstant.FILE_SPECIFICATION_DICTIONARY_SHOULD_CONTAIN_DESC_KEY);
+                Logger logger =   Logger.getLogger(  PdfAChecker.class.getName());
+                logger.warning(PdfAConformanceLogMessageConstant.FILE_SPECIFICATION_DICTIONARY_SHOULD_CONTAIN_DESC_KEY);
             }
 
             PdfDictionary ef = fileSpec.getAsDictionary(PdfName.EF);
@@ -590,8 +588,8 @@ public class PdfA2Checker extends PdfA1Checker {
                 throw new PdfAConformanceException(PdfAConformanceException.EF_KEY_OF_FILE_SPECIFICATION_DICTIONARY_SHALL_CONTAIN_DICTIONARY_WITH_VALID_F_KEY);
             }
             // iText doesn't check whether provided file is compliant to PDF-A specs.
-            Logger logger = LoggerFactory.getLogger(com.itextpdf.pdfa.checker.PdfAChecker.class);
-            logger.warn(PdfAConformanceLogMessageConstant.EMBEDDED_FILE_SHALL_BE_COMPLIANT_WITH_SPEC);
+            Logger logger =   Logger.getLogger(  PdfAChecker.class.getName());
+            logger.warning(PdfAConformanceLogMessageConstant.EMBEDDED_FILE_SHALL_BE_COMPLIANT_WITH_SPEC);
         }
     }
 
@@ -972,8 +970,8 @@ public class PdfA2Checker extends PdfA1Checker {
     private void checkSeparationInsideDeviceN(PdfArray separation, PdfObject deviceNColorSpace, PdfObject deviceNTintTransform) {
         if (!isAltCSIsTheSame(separation.get(2), deviceNColorSpace) ||
                 !deviceNTintTransform.equals(separation.get(3))) {
-            Logger logger = LoggerFactory.getLogger(com.itextpdf.pdfa.checker.PdfAChecker.class);
-            logger.warn(PdfAConformanceLogMessageConstant.TINT_TRANSFORM_AND_ALTERNATE_SPACE_OF_SEPARATION_ARRAYS_IN_THE_COLORANTS_OF_DEVICE_N_SHOULD_BE_CONSISTENT_WITH_SAME_ATTRIBUTES_OF_DEVICE_N);
+            Logger logger =   Logger.getLogger(  PdfAChecker.class.getName());
+            logger.warning(PdfAConformanceLogMessageConstant.TINT_TRANSFORM_AND_ALTERNATE_SPACE_OF_SEPARATION_ARRAYS_IN_THE_COLORANTS_OF_DEVICE_N_SHOULD_BE_CONSISTENT_WITH_SAME_ATTRIBUTES_OF_DEVICE_N);
         }
         checkSeparationCS(separation);
     }

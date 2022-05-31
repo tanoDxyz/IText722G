@@ -69,17 +69,16 @@ import com.tanodxyz.itext722g.kernel.xmp.XMPException;
 import com.tanodxyz.itext722g.kernel.xmp.XMPMeta;
 import com.tanodxyz.itext722g.kernel.xmp.XMPMetaFactory;
 import com.tanodxyz.itext722g.kernel.xmp.XMPUtils;
-import com.itextpdf.pdfa.checker.PdfA1Checker;
-import com.itextpdf.pdfa.checker.PdfA2Checker;
-import com.itextpdf.pdfa.checker.PdfA3Checker;
-import com.itextpdf.pdfa.checker.PdfAChecker;
-import com.itextpdf.pdfa.exceptions.PdfAConformanceException;
-import com.itextpdf.pdfa.logs.PdfALogMessageConstant;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.pdfa.checker.PdfA1Checker;
+import com.tanodxyz.itext722g.pdfa.checker.PdfA2Checker;
+import com.tanodxyz.itext722g.pdfa.checker.PdfA3Checker;
+import com.tanodxyz.itext722g.pdfa.checker.PdfAChecker;
+import com.tanodxyz.itext722g.pdfa.exceptions.PdfAConformanceException;
+import com.tanodxyz.itext722g.pdfa.logs.PdfALogMessageConstant;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class extends {@link PdfDocument} and is in charge of creating files
@@ -226,7 +225,7 @@ public class PdfADocument extends PdfDocument {
         if (!alreadyLoggedThatPageFlushingWasNotPerformed) {
             alreadyLoggedThatPageFlushingWasNotPerformed = true;
             // This log message will be printed once for one instance of the document.
-            LoggerFactory.getLogger(PdfADocument.class).warn(PdfALogMessageConstant.PDFA_PAGE_FLUSHING_WAS_NOT_PERFORMED);
+            Logger.getLogger(PdfADocument.class.getName()).warning(PdfALogMessageConstant.PDFA_PAGE_FLUSHING_WAS_NOT_PERFORMED);
         }
     }
 
@@ -239,8 +238,8 @@ public class PdfADocument extends PdfDocument {
                     XMPUtils.appendProperties(taggedExtensionMeta, xmpMeta, true, false);
                 }
             } catch (XMPException exc) {
-                Logger logger = LoggerFactory.getLogger(PdfADocument.class);
-                logger.error(IoLogMessageConstant.EXCEPTION_WHILE_UPDATING_XMPMETADATA, exc);
+                Logger logger = Logger.getLogger(PdfADocument.class.getName());
+                logger.log(Level.SEVERE,IoLogMessageConstant.EXCEPTION_WHILE_UPDATING_XMPMETADATA, exc);
             }
         }
     }
@@ -254,8 +253,8 @@ public class PdfADocument extends PdfDocument {
             addCustomMetadataExtensions(xmpMeta);
             setXmpMetadata(xmpMeta);
         } catch (XMPException e) {
-            Logger logger = LoggerFactory.getLogger(PdfADocument.class);
-            logger.error(IoLogMessageConstant.EXCEPTION_WHILE_UPDATING_XMPMETADATA, e);
+            Logger logger = Logger.getLogger(PdfADocument.class.getName());
+            logger.log(Level.SEVERE,IoLogMessageConstant.EXCEPTION_WHILE_UPDATING_XMPMETADATA, e);
         }
     }
 
@@ -272,7 +271,7 @@ public class PdfADocument extends PdfDocument {
         } else if (!alreadyLoggedThatObjectFlushingWasNotPerformed) {
             alreadyLoggedThatObjectFlushingWasNotPerformed = true;
             // This log message will be printed once for one instance of the document.
-            LoggerFactory.getLogger(PdfADocument.class).warn(PdfALogMessageConstant.PDFA_OBJECT_FLUSHING_WAS_NOT_PERFORMED);
+            Logger.getLogger(PdfADocument.class.getName()).warning(PdfALogMessageConstant.PDFA_OBJECT_FLUSHING_WAS_NOT_PERFORMED);
         }
     }
 

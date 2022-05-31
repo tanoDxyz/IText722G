@@ -43,21 +43,20 @@
  */
 package com.tanodxyz.itext722g.pdfa.checker;
 
-import com.itextpdf.pdfa.exceptions.PdfAConformanceException;
-import com.itextpdf.pdfa.logs.PdfAConformanceLogMessageConstant;
+
 import com.tanodxyz.itext722g.kernel.pdf.PdfAConformanceLevel;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDictionary;
 import com.tanodxyz.itext722g.kernel.pdf.PdfName;
 import com.tanodxyz.itext722g.kernel.pdf.PdfObject;
 import com.tanodxyz.itext722g.kernel.pdf.PdfStream;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.pdfa.exceptions.PdfAConformanceException;
+import com.tanodxyz.itext722g.pdfa.logs.PdfAConformanceLogMessageConstant;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * PdfA3Checker defines the requirements of the PDF/A-3 standard and contains a
@@ -117,8 +116,8 @@ public class PdfA3Checker extends PdfA2Checker {
                     throw new PdfAConformanceException(PdfAConformanceException.EMBEDDED_FILE_SHALL_CONTAIN_PARAMS_KEY_WITH_VALID_MODDATE_KEY);
                 }
             } else {
-                Logger logger = LoggerFactory.getLogger(com.itextpdf.pdfa.checker.PdfAChecker.class);
-                logger.warn(PdfAConformanceLogMessageConstant.EMBEDDED_FILE_SHOULD_CONTAIN_PARAMS_KEY);
+                Logger logger = Logger.getLogger(PdfAChecker.class.getName());
+                logger.warning(PdfAConformanceLogMessageConstant.EMBEDDED_FILE_SHOULD_CONTAIN_PARAMS_KEY);
             }
         }
     }

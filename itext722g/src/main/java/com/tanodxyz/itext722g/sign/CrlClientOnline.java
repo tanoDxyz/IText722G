@@ -43,8 +43,8 @@
  */
 package com.tanodxyz.itext722g.sign;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -55,8 +55,7 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 /**
  * An implementation of the CrlClient that fetches the CRL bytes
@@ -69,7 +68,7 @@ public class CrlClientOnline implements ICrlClient {
     /**
      * The Logger instance.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(CrlClientOnline.class);
+    private static final Logger LOGGER = Logger.getLogger(CrlClientOnline.class.getName());
 
     /**
      * The URLs of the CRLs.

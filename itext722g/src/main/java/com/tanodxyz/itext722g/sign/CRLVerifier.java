@@ -43,8 +43,6 @@
  */
 package com.tanodxyz.itext722g.sign;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -54,6 +52,7 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Class that allows you to verify a certificate against
@@ -62,7 +61,7 @@ import java.util.List;
 public class CRLVerifier extends RootStoreVerifier {
 
     /** The Logger instance */
-    protected static final Logger LOGGER = LoggerFactory.getLogger(CRLVerifier.class);
+    protected static final Logger LOGGER = Logger.getLogger(CRLVerifier.class.getName());
 
     /** The list of CRLs to check for revocation date. */
     List<X509CRL> crls;
@@ -183,7 +182,7 @@ public class CRLVerifier extends RootStoreVerifier {
                 crl.verify(crlIssuer.getPublicKey());
                 return true;
             } catch (GeneralSecurityException e) {
-                LOGGER.warn("CRL not issued by the same authority as the certificate that is being checked");
+                LOGGER.warning("CRL not issued by the same authority as the certificate that is being checked");
             }
         }
         // check the CRL against trusted anchors

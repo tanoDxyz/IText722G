@@ -43,13 +43,12 @@
  */
 package com.tanodxyz.itext722g.sign;
 
-import com.itextpdf.commons.utils.DateTimeUtil;
+import com.tanodxyz.itext722g.commons.utils.DateTimeUtil;
 import com.tanodxyz.itext722g.sign.exceptions.SignExceptionMessageConstant;
 import com.tanodxyz.itext722g.sign.logs.SignLogMessageConstant;
-import org.bouncycastle.cert.ocsp.BasicOCSPResp;
-import org.bouncycastle.tsp.TimeStampToken;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import org.spongycastle.cert.ocsp.BasicOCSPResp;
+import org.spongycastle.tsp.TimeStampToken;
 
 import java.security.KeyStore;
 import java.security.cert.CRL;
@@ -59,6 +58,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -72,7 +73,7 @@ public class CertificateVerification {
     /**
      * The Logger instance.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(CertificateVerification.class);
+    private static final Logger LOGGER = Logger.getLogger(CertificateVerification.class.getName());
 
     /**
      * Verifies a single certificate for the current date.
@@ -226,7 +227,7 @@ public class CertificateVerification {
      *
      * @param ocsp     the OCSP response
      * @param keystore the <CODE>KeyStore</CODE>
-     * @param provider the provider or <CODE>null</CODE> to use the BouncyCastle provider
+     * @param provider the provider or <CODE>null</CODE> to use the spongycastle provider
      * @return <CODE>true</CODE> is a certificate was found
      */
     public static boolean verifyOcspCertificates(BasicOCSPResp ocsp, KeyStore keystore, String provider) {
@@ -254,7 +255,7 @@ public class CertificateVerification {
      *
      * @param ts       the time stamp
      * @param keystore the <CODE>KeyStore</CODE>
-     * @param provider the provider or <CODE>null</CODE> to use the BouncyCastle provider
+     * @param provider the provider or <CODE>null</CODE> to use the spongycastle provider
      * @return <CODE>true</CODE> is a certificate was found
      */
     public static boolean verifyTimestampCertificates(TimeStampToken ts, KeyStore keystore, String provider) {
@@ -278,7 +279,7 @@ public class CertificateVerification {
 
     private static void logExceptionMessages(List<Exception> exceptionsThrown) {
         for (Exception ex : exceptionsThrown) {
-            LOGGER.error(ex.getMessage() == null
+            LOGGER.log(Level.SEVERE,ex.getMessage() == null
                         ? SignLogMessageConstant.EXCEPTION_WITHOUT_MESSAGE
                         : ex.getMessage(),
                     ex);

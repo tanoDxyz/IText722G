@@ -43,9 +43,7 @@
  */
 package com.tanodxyz.itext722g.pdfa.checker;
 
-import com.itextpdf.pdfa.exceptions.PdfAConformanceException;
-import com.itextpdf.pdfa.exceptions.PdfaExceptionMessageConstant;
-import com.itextpdf.pdfa.logs.PdfAConformanceLogMessageConstant;
+
 import com.tanodxyz.itext722g.io.font.PdfEncodings;
 import com.tanodxyz.itext722g.io.source.PdfTokenizer;
 import com.tanodxyz.itext722g.io.source.RandomAccessFileOrArray;
@@ -73,9 +71,9 @@ import com.tanodxyz.itext722g.kernel.pdf.colorspace.PdfColorSpace;
 import com.tanodxyz.itext722g.kernel.pdf.colorspace.PdfDeviceCs;
 import com.tanodxyz.itext722g.kernel.pdf.colorspace.PdfPattern;
 import com.tanodxyz.itext722g.kernel.pdf.colorspace.PdfSpecialCs;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.pdfa.exceptions.PdfAConformanceException;
+import com.tanodxyz.itext722g.pdfa.exceptions.PdfaExceptionMessageConstant;
+import com.tanodxyz.itext722g.pdfa.logs.PdfAConformanceLogMessageConstant;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -84,6 +82,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * PdfA1Checker defines the requirements of the PDF/A-1 standard and contains
@@ -91,7 +90,7 @@ import java.util.Set;
  * <p>
  * The specification implemented by this class is ISO 19005-1
  */
-public class PdfA1Checker extends com.itextpdf.pdfa.checker.PdfAChecker {
+public class PdfA1Checker extends  PdfAChecker {
 
     protected static final Set<PdfName> forbiddenAnnotations = Collections
             .unmodifiableSet(new HashSet<>(Arrays.asList(
@@ -469,8 +468,8 @@ public class PdfA1Checker extends com.itextpdf.pdfa.checker.PdfAChecker {
                 throw new PdfAConformanceException(PdfAConformanceException.A_CATALOG_SHALL_INCLUDE_MARK_INFO_DICTIONARY_WITH_MARKED_TRUE_VALUE);
             }
             if (!catalog.containsKey(PdfName.Lang)) {
-                Logger logger = LoggerFactory.getLogger(com.itextpdf.pdfa.checker.PdfAChecker.class);
-                logger.warn(PdfAConformanceLogMessageConstant.CATALOG_SHOULD_CONTAIN_LANG_ENTRY);
+                Logger logger = Logger.getLogger( PdfAChecker.class.getName());
+                logger.warning(PdfAConformanceLogMessageConstant.CATALOG_SHOULD_CONTAIN_LANG_ENTRY);
             }
         }
     }

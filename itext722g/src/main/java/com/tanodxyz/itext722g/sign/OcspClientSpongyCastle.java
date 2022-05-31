@@ -43,9 +43,20 @@
  */
 package com.tanodxyz.itext722g.sign;
 
+import com.tanodxyz.itext722g.commons.utils.DateTimeUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
-import com.itextpdf.commons.utils.DateTimeUtil;
 import com.tanodxyz.itext722g.io.util.StreamUtil;
+
+import org.spongycastle.asn1.ocsp.OCSPResponseStatus;
+import org.spongycastle.cert.ocsp.BasicOCSPResp;
+import org.spongycastle.cert.ocsp.CertificateID;
+import org.spongycastle.cert.ocsp.CertificateStatus;
+import org.spongycastle.cert.ocsp.OCSPException;
+import org.spongycastle.cert.ocsp.OCSPReq;
+import org.spongycastle.cert.ocsp.OCSPResp;
+import org.spongycastle.cert.ocsp.RevokedStatus;
+import org.spongycastle.cert.ocsp.SingleResp;
+import org.spongycastle.operator.OperatorException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -55,30 +66,20 @@ import java.security.GeneralSecurityException;
 import java.security.Security;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
-import org.bouncycastle.asn1.ocsp.OCSPResponseStatus;
-import org.bouncycastle.cert.ocsp.BasicOCSPResp;
-import org.bouncycastle.cert.ocsp.CertificateID;
-import org.bouncycastle.cert.ocsp.CertificateStatus;
-import org.bouncycastle.cert.ocsp.OCSPException;
-import org.bouncycastle.cert.ocsp.OCSPReq;
-import org.bouncycastle.cert.ocsp.OCSPResp;
-import org.bouncycastle.cert.ocsp.RevokedStatus;
-import org.bouncycastle.cert.ocsp.SingleResp;
-import org.bouncycastle.operator.OperatorException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
+
 
 /**
  * OcspClient implementation using BouncyCastle.
  *
  * @author Paulo Soarees
  */
-public class OcspClientBouncyCastle implements IOcspClient {
+public class OcspClientSpongyCastle implements IOcspClient {
 
     /**
      * The Logger instance.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(OcspClientBouncyCastle.class);
+    private static final Logger LOGGER = Logger.getLogger(OcspClientSpongyCastle.class.getName());
 
     private final OCSPVerifier verifier;
 
@@ -89,7 +90,7 @@ public class OcspClientBouncyCastle implements IOcspClient {
      *
      * @see OCSPVerifier
      */
-    public OcspClientBouncyCastle(OCSPVerifier verifier) {
+    public OcspClientSpongyCastle(OCSPVerifier verifier) {
         this.verifier = verifier;
     }
 
@@ -165,7 +166,7 @@ public class OcspClientBouncyCastle implements IOcspClient {
             throws OCSPException, IOException,
             OperatorException, CertificateEncodingException {
         //Add provider BC
-        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+        Security.addProvider(new org.spongycastle.jce.provider.BouncyCastleProvider());
 
         // Generate the id for the certificate we are looking for
         CertificateID id = SignUtils.generateCertificateId(issuerCert, serialNumber, CertificateID.HASH_SHA1);

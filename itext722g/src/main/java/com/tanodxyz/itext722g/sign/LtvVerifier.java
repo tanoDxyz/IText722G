@@ -43,9 +43,10 @@
  */
 package com.tanodxyz.itext722g.sign;
 
-import com.itextpdf.commons.actions.contexts.IMetaInfo;
-import com.itextpdf.commons.utils.DateTimeUtil;
-import com.itextpdf.commons.utils.MessageFormatUtil;
+
+import com.tanodxyz.itext722g.commons.actions.contexts.IMetaInfo;
+import com.tanodxyz.itext722g.commons.utils.DateTimeUtil;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.forms.PdfAcroForm;
 import com.tanodxyz.itext722g.kernel.pdf.DocumentProperties;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
@@ -55,6 +56,10 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfName;
 import com.tanodxyz.itext722g.kernel.pdf.PdfReader;
 import com.tanodxyz.itext722g.kernel.pdf.PdfStream;
 import com.tanodxyz.itext722g.sign.LtvVerification.CertificateOption;
+
+import org.spongycastle.cert.ocsp.BasicOCSPResp;
+import org.spongycastle.cert.ocsp.OCSPException;
+import org.spongycastle.cert.ocsp.OCSPResp;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -66,18 +71,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import org.bouncycastle.cert.ocsp.BasicOCSPResp;
-import org.bouncycastle.cert.ocsp.OCSPException;
-import org.bouncycastle.cert.ocsp.OCSPResp;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 /**
  * Verifies the signatures in an LTV document.
  */
 public class LtvVerifier extends RootStoreVerifier {
     /** The Logger instance */
-    protected static final Logger LOGGER = LoggerFactory.getLogger(LtvVerifier.class);
+    protected static final Logger LOGGER = Logger.getLogger(LtvVerifier.class.getName());
 
     /** Option to specify level of verification; signing certificate only or the entire chain. */
     protected CertificateOption option = CertificateOption.SIGNING_CERTIFICATE;

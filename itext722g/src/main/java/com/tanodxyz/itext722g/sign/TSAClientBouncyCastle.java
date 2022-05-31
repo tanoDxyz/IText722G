@@ -101,7 +101,7 @@ public class TSAClientBouncyCastle implements ITSAClient {
     /**
      * An interface that allows you to inspect the timestamp info.
      */
-    protected ITSAInfoBouncyCastle tsaInfo;
+    protected ITSAInfoSpongyCastle tsaInfo;
     /**
      * Estimate of the received time stamp token
      */
@@ -159,7 +159,7 @@ public class TSAClientBouncyCastle implements ITSAClient {
     /**
      * @param tsaInfo the tsaInfo to set
      */
-    public void setTSAInfo(ITSAInfoBouncyCastle tsaInfo) {
+    public void setTSAInfo(ITSAInfoSpongyCastle tsaInfo) {
         this.tsaInfo = tsaInfo;
     }
 

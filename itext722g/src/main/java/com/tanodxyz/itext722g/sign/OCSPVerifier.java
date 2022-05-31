@@ -333,7 +333,7 @@ public class OCSPVerifier extends RootStoreVerifier {
         if (signCert == null && issuerCert == null) {
             return null;
         }
-        OcspClientBouncyCastle ocsp = new OcspClientBouncyCastle(null);
+        OcspClientSpongyCastle ocsp = new OcspClientSpongyCastle(null);
         BasicOCSPResp ocspResp = ocsp.getBasicOCSPResp(signCert, issuerCert, null);
         if (ocspResp == null) {
             return null;

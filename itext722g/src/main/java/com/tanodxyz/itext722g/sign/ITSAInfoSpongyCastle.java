@@ -41,46 +41,21 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.tanodxyz.itext722g.pdftest;
+package com.tanodxyz.itext722g.sign;
 
-import org.junit.Assert;
+import org.spongycastle.tsp.TimeStampTokenInfo;
 
 /**
- * Utilities class for assertion operation.
+ * Interface you can implement and pass to TSAClientspongycastle in case
+ * you want to do something with the information returned
  */
-public class AssertUtil {
-    private AssertUtil() {
-        // Empty constructor
-    }
+public interface ITSAInfoSpongyCastle {
 
     /**
-     * Asserts that {@link Executor#execute()} method call doesn't produce any
-     * {@link Exception} otherwise test will fail by throwing {@link AssertionError}.
-     *
-     * @param executor the instance of {@link Executor} whose
-     * {@link Executor#execute()} method will be checked for exception throwing
+     * When a timestamp is created using TSAClientspongycastle,
+     * this method is triggered passing an object that contains
+     * info about the timestamp and the time stamping authority.
+     * @param info a TimeStampTokenInfo object
      */
-    public static void doesNotThrow(Executor executor) {
-        try {
-            executor.execute();
-        } catch (Exception ex) {
-            Assert.fail();
-        }
-    }
-
-    /**
-     * Asserts that {@link Executor#execute()} method call doesn't produce any
-     * {@link Exception} otherwise test will fail by throwing {@link AssertionError}.
-     *
-     * @param executor the instance of {@link Executor} whose
-     * {@link Executor#execute()} method will be checked for exception throwing
-     * @param message the identifying message for the {@link AssertionError} may be null
-     */
-    public static void doesNotThrow(Executor executor, String message) {
-        try {
-            executor.execute();
-        } catch (Exception ex) {
-            Assert.fail(message);
-        }
-    }
+    void inspectTimeStampTokenInfo(TimeStampTokenInfo info);
 }
