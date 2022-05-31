@@ -66,6 +66,7 @@ import java.security.GeneralSecurityException;
 import java.security.Security;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -118,7 +119,7 @@ public class OcspClientSpongyCastle implements IOcspClient {
             }
             return basicResponse;
         } catch (Exception ex) {
-            LOGGER.error(ex.getMessage());
+            LOGGER.log(Level.SEVERE,ex.getMessage());
         }
         return null;
     }
@@ -145,7 +146,7 @@ public class OcspClientSpongyCastle implements IOcspClient {
                 }
             }
         } catch (Exception ex) {
-            LOGGER.error(ex.getMessage());
+            LOGGER.log(Level.SEVERE,ex.getMessage());
         }
         return null;
     }

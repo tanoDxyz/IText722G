@@ -43,7 +43,7 @@
  */
 package com.tanodxyz.itext722g.sign;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.sign.exceptions.SignExceptionMessageConstant;
 
 import java.security.GeneralSecurityException;

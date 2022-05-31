@@ -49,7 +49,7 @@ import org.spongycastle.tsp.TimeStampTokenInfo;
  * Interface you can implement and pass to TSAClientspongycastle in case
  * you want to do something with the information returned
  */
-public interface ITSAInfoSpongyCastle {
+public interface ITSAInfoBouncyCastle {
 
     /**
      * When a timestamp is created using TSAClientspongycastle,

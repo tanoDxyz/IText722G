@@ -48,41 +48,41 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfName;
 import com.tanodxyz.itext722g.sign.exceptions.SignExceptionMessageConstant;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
 
-import org.bouncycastle.asn1.ASN1EncodableVector;
-import org.bouncycastle.asn1.ASN1Encoding;
-import org.bouncycastle.asn1.ASN1Enumerated;
-import org.bouncycastle.asn1.ASN1InputStream;
-import org.bouncycastle.asn1.ASN1Integer;
-import org.bouncycastle.asn1.ASN1ObjectIdentifier;
-import org.bouncycastle.asn1.ASN1OctetString;
-import org.bouncycastle.asn1.ASN1OutputStream;
-import org.bouncycastle.asn1.ASN1Primitive;
-import org.bouncycastle.asn1.ASN1Sequence;
-import org.bouncycastle.asn1.ASN1Set;
-import org.bouncycastle.asn1.ASN1TaggedObject;
-import org.bouncycastle.asn1.DERNull;
-import org.bouncycastle.asn1.DEROctetString;
-import org.bouncycastle.asn1.DERSequence;
-import org.bouncycastle.asn1.DERSet;
-import org.bouncycastle.asn1.DERTaggedObject;
-import org.bouncycastle.asn1.cms.Attribute;
-import org.bouncycastle.asn1.cms.AttributeTable;
-import org.bouncycastle.asn1.esf.SignaturePolicyIdentifier;
-import org.bouncycastle.asn1.ess.ESSCertID;
-import org.bouncycastle.asn1.ess.ESSCertIDv2;
-import org.bouncycastle.asn1.ess.SigningCertificate;
-import org.bouncycastle.asn1.ess.SigningCertificateV2;
-import org.bouncycastle.asn1.ocsp.BasicOCSPResponse;
-import org.bouncycastle.asn1.ocsp.OCSPObjectIdentifiers;
-import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
-import org.bouncycastle.asn1.tsp.MessageImprint;
-import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
-import org.bouncycastle.cert.ocsp.BasicOCSPResp;
-import org.bouncycastle.cert.ocsp.CertificateID;
-import org.bouncycastle.cert.ocsp.SingleResp;
-import org.bouncycastle.jce.X509Principal;
-import org.bouncycastle.tsp.TimeStampToken;
-import org.bouncycastle.tsp.TimeStampTokenInfo;
+import org.spongycastle.asn1.ASN1EncodableVector;
+import org.spongycastle.asn1.ASN1Encoding;
+import org.spongycastle.asn1.ASN1Enumerated;
+import org.spongycastle.asn1.ASN1InputStream;
+import org.spongycastle.asn1.ASN1Integer;
+import org.spongycastle.asn1.ASN1ObjectIdentifier;
+import org.spongycastle.asn1.ASN1OctetString;
+import org.spongycastle.asn1.ASN1OutputStream;
+import org.spongycastle.asn1.ASN1Primitive;
+import org.spongycastle.asn1.ASN1Sequence;
+import org.spongycastle.asn1.ASN1Set;
+import org.spongycastle.asn1.ASN1TaggedObject;
+import org.spongycastle.asn1.DERNull;
+import org.spongycastle.asn1.DEROctetString;
+import org.spongycastle.asn1.DERSequence;
+import org.spongycastle.asn1.DERSet;
+import org.spongycastle.asn1.DERTaggedObject;
+import org.spongycastle.asn1.cms.Attribute;
+import org.spongycastle.asn1.cms.AttributeTable;
+import org.spongycastle.asn1.esf.SignaturePolicyIdentifier;
+import org.spongycastle.asn1.ess.ESSCertID;
+import org.spongycastle.asn1.ess.ESSCertIDv2;
+import org.spongycastle.asn1.ess.SigningCertificate;
+import org.spongycastle.asn1.ess.SigningCertificateV2;
+import org.spongycastle.asn1.ocsp.BasicOCSPResponse;
+import org.spongycastle.asn1.ocsp.OCSPObjectIdentifiers;
+import org.spongycastle.asn1.pkcs.PKCSObjectIdentifiers;
+import org.spongycastle.asn1.tsp.MessageImprint;
+import org.spongycastle.asn1.x509.AlgorithmIdentifier;
+import org.spongycastle.cert.ocsp.BasicOCSPResp;
+import org.spongycastle.cert.ocsp.CertificateID;
+import org.spongycastle.cert.ocsp.SingleResp;
+import org.spongycastle.jce.X509Principal;
+import org.spongycastle.tsp.TimeStampToken;
+import org.spongycastle.tsp.TimeStampTokenInfo;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -458,14 +458,14 @@ public class PdfPKCS7 {
                 if (ts != null && ts.getAttrValues().size() > 0) {
                     ASN1Set attributeValues = ts.getAttrValues();
                     ASN1Sequence tokenSequence = ASN1Sequence.getInstance(attributeValues.getObjectAt(0));
-                    org.bouncycastle.asn1.cms.ContentInfo contentInfo
-                            = org.bouncycastle.asn1.cms.ContentInfo.getInstance(tokenSequence);
+                    org.spongycastle.asn1.cms.ContentInfo contentInfo
+                            = org.spongycastle.asn1.cms.ContentInfo.getInstance(tokenSequence);
                     this.timeStampToken = new TimeStampToken(contentInfo);
                 }
             }
             if (isTsp) {
-                org.bouncycastle.asn1.cms.ContentInfo contentInfoTsp
-                        = org.bouncycastle.asn1.cms.ContentInfo.getInstance(signedData);
+                org.spongycastle.asn1.cms.ContentInfo contentInfoTsp
+                        = org.spongycastle.asn1.cms.ContentInfo.getInstance(signedData);
                 this.timeStampToken = new TimeStampToken(contentInfoTsp);
                 TimeStampTokenInfo info = timeStampToken.getTimeStampInfo();
                 String algOID = info.getHashAlgorithm().getAlgorithm().getId();
@@ -783,7 +783,7 @@ public class PdfPKCS7 {
                 digest = sig.sign();
             ByteArrayOutputStream bOut = new ByteArrayOutputStream();
 
-            ASN1OutputStream dout = ASN1OutputStream.create(bOut);
+            ASN1OutputStream dout = new ASN1OutputStream(bOut);
             dout.writeObject(new DEROctetString(digest));
             dout.close();
 
@@ -939,7 +939,7 @@ public class PdfPKCS7 {
 
             ByteArrayOutputStream bOut = new ByteArrayOutputStream();
 
-            ASN1OutputStream dout = ASN1OutputStream.create(bOut);
+            ASN1OutputStream dout = new ASN1OutputStream(bOut);
             dout.writeObject(new DERSequence(whole));
             dout.close();
 
@@ -1338,7 +1338,7 @@ public class PdfPKCS7 {
     // Online Certificate Status Protocol
 
     /**
-     * BouncyCastle BasicOCSPResp
+     * spongycastle BasicOCSPResp
      */
     BasicOCSPResp basicResp;
 
@@ -1430,7 +1430,7 @@ public class PdfPKCS7 {
     private boolean isCades;
 
     /**
-     * BouncyCastle TimeStampToken.
+     * spongycastle TimeStampToken.
      */
     private TimeStampToken timeStampToken;
 

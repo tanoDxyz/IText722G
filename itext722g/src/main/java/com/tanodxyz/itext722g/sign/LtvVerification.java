@@ -60,6 +60,16 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfString;
 import com.tanodxyz.itext722g.kernel.pdf.PdfVersion;
 import com.tanodxyz.itext722g.sign.exceptions.SignExceptionMessageConstant;
 
+import org.spongycastle.asn1.ASN1InputStream;
+import org.spongycastle.asn1.ASN1Primitive;
+import org.spongycastle.asn1.DEROctetString;
+import org.spongycastle.asn1.ocsp.OCSPObjectIdentifiers;
+import org.spongycastle.asn1.ocsp.OCSPResponse;
+import org.spongycastle.asn1.ocsp.OCSPResponseStatus;
+import org.spongycastle.asn1.ocsp.ResponseBytes;
+import org.spongycastle.cert.ocsp.OCSPResp;
+import org.spongycastle.cert.ocsp.OCSPRespBuilder;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -74,17 +84,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import org.bouncycastle.asn1.ASN1InputStream;
-import org.bouncycastle.asn1.ASN1Primitive;
-import org.bouncycastle.asn1.DEROctetString;
-import org.bouncycastle.asn1.ocsp.OCSPObjectIdentifiers;
-import org.bouncycastle.asn1.ocsp.OCSPResponse;
-import org.bouncycastle.asn1.ocsp.OCSPResponseStatus;
-import org.bouncycastle.asn1.ocsp.ResponseBytes;
-import org.bouncycastle.cert.ocsp.OCSPResp;
-import org.bouncycastle.cert.ocsp.OCSPRespBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
+
 
 /**
  * Add verification according to PAdES-LTV (part 4).
@@ -93,7 +94,7 @@ import org.slf4j.LoggerFactory;
  */
 public class LtvVerification {
 
-    private Logger LOGGER = LoggerFactory.getLogger(LtvVerification.class);
+    private Logger LOGGER = Logger.getLogger(LtvVerification.class.getName());
 
     private PdfDocument document;
     private SignatureUtil sgnUtil;

@@ -43,16 +43,16 @@
  */
 package com.tanodxyz.itext722g.sign;
 
+import com.tanodxyz.itext722g.commons.utils.DateTimeUtil;
+import com.tanodxyz.itext722g.commons.utils.FileUtil;
 import com.tanodxyz.itext722g.forms.PdfAcroForm;
 import com.tanodxyz.itext722g.forms.PdfSigFieldLock;
-import com.itextpdf.forms.fields.PdfFormField;
-import com.itextpdf.forms.fields.PdfSignatureFormField;
+import com.tanodxyz.itext722g.forms.fields.PdfFormField;
+import com.tanodxyz.itext722g.forms.fields.PdfSignatureFormField;
 import com.tanodxyz.itext722g.io.source.ByteBuffer;
 import com.tanodxyz.itext722g.io.source.IRandomAccessSource;
 import com.tanodxyz.itext722g.io.source.RASInputStream;
 import com.tanodxyz.itext722g.io.source.RandomAccessSourceFactory;
-import com.itextpdf.commons.utils.DateTimeUtil;
-import com.itextpdf.commons.utils.FileUtil;
 import com.tanodxyz.itext722g.io.util.StreamUtil;
 import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
@@ -77,9 +77,8 @@ import com.tanodxyz.itext722g.kernel.pdf.annot.PdfAnnotation;
 import com.tanodxyz.itext722g.kernel.pdf.annot.PdfWidgetAnnotation;
 import com.tanodxyz.itext722g.pdfa.PdfADocument;
 import com.tanodxyz.itext722g.sign.exceptions.SignExceptionMessageConstant;
-import org.bouncycastle.asn1.esf.SignaturePolicyIdentifier;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import org.spongycastle.asn1.esf.SignaturePolicyIdentifier;
 
 import java.io.ByteArrayOutputStream;
 import java.io.EOFException;

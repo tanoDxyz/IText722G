@@ -43,8 +43,9 @@
  */
 package com.tanodxyz.itext722g.sign;
 
+
 import com.tanodxyz.itext722g.forms.PdfAcroForm;
-import com.itextpdf.forms.fields.PdfFormField;
+import com.tanodxyz.itext722g.forms.fields.PdfFormField;
 import com.tanodxyz.itext722g.io.image.ImageData;
 import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.kernel.font.PdfFont;
@@ -56,11 +57,11 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfStream;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfFormXObject;
 import com.tanodxyz.itext722g.layout.Canvas;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.layout.LayoutArea;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.element.Paragraph;
+import com.tanodxyz.itext722g.layout.layout.LayoutArea;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
+import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
 
 import java.io.IOException;
 import java.security.cert.Certificate;

@@ -43,14 +43,14 @@
  */
 package com.tanodxyz.itext722g.sign;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import org.bouncycastle.asn1.ocsp.OCSPObjectIdentifiers;
-import org.bouncycastle.cert.ocsp.BasicOCSPResp;
-import org.bouncycastle.cert.ocsp.CertificateStatus;
-import org.bouncycastle.cert.ocsp.OCSPException;
-import org.bouncycastle.cert.ocsp.SingleResp;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+
+import org.spongycastle.asn1.ocsp.OCSPObjectIdentifiers;
+import org.spongycastle.cert.ocsp.BasicOCSPResp;
+import org.spongycastle.cert.ocsp.CertificateStatus;
+import org.spongycastle.cert.ocsp.OCSPException;
+import org.spongycastle.cert.ocsp.SingleResp;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -62,6 +62,8 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Class that allows you to verify a certificate against
@@ -70,7 +72,7 @@ import java.util.List;
 public class OCSPVerifier extends RootStoreVerifier {
 
     /** The Logger instance */
-    protected static final Logger LOGGER = LoggerFactory.getLogger(OCSPVerifier.class);
+    protected static final Logger LOGGER = Logger.getLogger(OCSPVerifier.class.getName());
 
     protected final static String id_kp_OCSPSigning = "1.3.6.1.5.5.7.3.9";
 
@@ -274,7 +276,7 @@ public class OCSPVerifier extends RootStoreVerifier {
                             throw new VerificationException(issuerCert, "Authorized OCSP responder certificate was revoked.");
                         }
                     } else {
-                        LOGGER.error("Authorized OCSP responder certificate revocation status cannot be checked");
+                        LOGGER.log(Level.SEVERE,"Authorized OCSP responder certificate revocation status cannot be checked");
                         // TODO DEVSIX-5207 throw exception starting from iText version 7.2, but only after OCSPVerifier
                         // would allow explicit setting revocation check end points/provide revocation data
                     }

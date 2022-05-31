@@ -44,17 +44,18 @@
  */
 package com.tanodxyz.itext722g.sign;
 
-import com.itextpdf.commons.utils.Base64;
 
-import org.bouncycastle.asn1.ASN1ObjectIdentifier;
-import org.bouncycastle.asn1.DERIA5String;
-import org.bouncycastle.asn1.DEROctetString;
-import org.bouncycastle.asn1.esf.OtherHashAlgAndValue;
-import org.bouncycastle.asn1.esf.SigPolicyQualifierInfo;
-import org.bouncycastle.asn1.esf.SignaturePolicyId;
-import org.bouncycastle.asn1.esf.SignaturePolicyIdentifier;
-import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
-import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
+import com.tanodxyz.itext722g.commons.utils.Base64;
+
+import org.spongycastle.asn1.ASN1ObjectIdentifier;
+import org.spongycastle.asn1.DERIA5String;
+import org.spongycastle.asn1.DEROctetString;
+import org.spongycastle.asn1.esf.OtherHashAlgAndValue;
+import org.spongycastle.asn1.esf.SigPolicyQualifierInfo;
+import org.spongycastle.asn1.esf.SignaturePolicyId;
+import org.spongycastle.asn1.esf.SignaturePolicyIdentifier;
+import org.spongycastle.asn1.pkcs.PKCSObjectIdentifiers;
+import org.spongycastle.asn1.x509.AlgorithmIdentifier;
 
 /**
  * Class that encapsulates the signature policy information

@@ -44,7 +44,7 @@
 package com.tanodxyz.itext722g.sign;
 
 import com.tanodxyz.itext722g.forms.PdfAcroForm;
-import com.itextpdf.forms.fields.PdfFormField;
+import com.tanodxyz.itext722g.forms.fields.PdfFormField;
 import com.tanodxyz.itext722g.io.font.PdfEncodings;
 import com.tanodxyz.itext722g.io.source.IRandomAccessSource;
 import com.tanodxyz.itext722g.io.source.PdfTokenizer;

@@ -43,10 +43,20 @@
  */
 package com.tanodxyz.itext722g.sign;
 
-import com.itextpdf.commons.utils.Base64;
-import com.itextpdf.commons.utils.SystemUtil;
+
+import com.tanodxyz.itext722g.commons.utils.Base64;
+import com.tanodxyz.itext722g.commons.utils.SystemUtil;
 import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.sign.exceptions.SignExceptionMessageConstant;
+
+import org.spongycastle.asn1.ASN1ObjectIdentifier;
+import org.spongycastle.asn1.cmp.PKIFailureInfo;
+import org.spongycastle.tsp.TSPException;
+import org.spongycastle.tsp.TimeStampRequest;
+import org.spongycastle.tsp.TimeStampRequestGenerator;
+import org.spongycastle.tsp.TimeStampResponse;
+import org.spongycastle.tsp.TimeStampToken;
+import org.spongycastle.tsp.TimeStampTokenInfo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -54,20 +64,11 @@ import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
-import org.bouncycastle.asn1.ASN1ObjectIdentifier;
-import org.bouncycastle.asn1.cmp.PKIFailureInfo;
-import org.bouncycastle.tsp.TSPException;
-import org.bouncycastle.tsp.TimeStampRequest;
-import org.bouncycastle.tsp.TimeStampRequestGenerator;
-import org.bouncycastle.tsp.TimeStampResponse;
-import org.bouncycastle.tsp.TimeStampToken;
-import org.bouncycastle.tsp.TimeStampTokenInfo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 /**
  * Time Stamp Authority Client interface implementation using Bouncy Castle
- * org.bouncycastle.tsp package.
+ * org.spongycastle.tsp package.
  * <p>
  * Created by Aiken Sam, 2006-11-15, refactored by Martin Brunecky, 07/15/2007
  * for ease of subclassing.
@@ -85,7 +86,7 @@ public class TSAClientBouncyCastle implements ITSAClient {
     /**
      * The Logger instance.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(TSAClientBouncyCastle.class);
+    private static final Logger LOGGER = Logger.getLogger(TSAClientBouncyCastle.class.getName());
     /**
      * URL of the Time Stamp Authority
      */
@@ -101,7 +102,7 @@ public class TSAClientBouncyCastle implements ITSAClient {
     /**
      * An interface that allows you to inspect the timestamp info.
      */
-    protected ITSAInfoSpongyCastle tsaInfo;
+    protected ITSAInfoBouncyCastle tsaInfo;
     /**
      * Estimate of the received time stamp token
      */
@@ -117,7 +118,7 @@ public class TSAClientBouncyCastle implements ITSAClient {
     private String tsaReqPolicy;
 
     /**
-     * Creates an instance of a TSAClient that will use BouncyCastle.
+     * Creates an instance of a TSAClient that will use spongycastle.
      *
      * @param url String - Time Stamp Authority URL (i.e. "http://tsatest1.digistamp.com/TSA")
      */
@@ -159,7 +160,7 @@ public class TSAClientBouncyCastle implements ITSAClient {
     /**
      * @param tsaInfo the tsaInfo to set
      */
-    public void setTSAInfo(ITSAInfoSpongyCastle tsaInfo) {
+    public void setTSAInfo(ITSAInfoBouncyCastle tsaInfo) {
         this.tsaInfo = tsaInfo;
     }
 
