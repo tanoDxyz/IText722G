@@ -42,10 +42,10 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.media;
 
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
-import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import com.tanodxyz.itext722g.styledXmlParser.css.media.MediaDeviceDescription;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssTypesValidationUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssUtils;
 
 import java.util.Objects;
 
@@ -91,8 +91,8 @@ public class MediaExpression {
             this.value = value.trim().toLowerCase();
         }
 
-        String minPref = com.itextpdf.styledxmlparser.css.media.MediaRuleConstants.MIN + "-";
-        String maxPref = com.itextpdf.styledxmlparser.css.media.MediaRuleConstants.MAX + "-";
+        String minPref =  MediaRuleConstants.MIN + "-";
+        String maxPref =  MediaRuleConstants.MAX + "-";
         minPrefix = feature.startsWith(minPref);
         if (minPrefix) {
             this.feature = feature.substring(minPref.length());
@@ -111,7 +111,7 @@ public class MediaExpression {
      */
     public boolean matches(MediaDeviceDescription deviceDescription) {
         switch (feature) {
-            case com.itextpdf.styledxmlparser.css.media.MediaFeature.COLOR: {
+            case  MediaFeature.COLOR: {
                 Integer val = CssDimensionParsingUtils.parseInteger(value);
                 if (minPrefix) {
                     return val != null && deviceDescription.getBitsPerComponent() >= val;
@@ -121,7 +121,7 @@ public class MediaExpression {
                     return val == null ? deviceDescription.getBitsPerComponent() != 0 : val == deviceDescription.getBitsPerComponent();
                 }
             }
-            case com.itextpdf.styledxmlparser.css.media.MediaFeature.COLOR_INDEX: {
+            case  MediaFeature.COLOR_INDEX: {
                 Integer val = CssDimensionParsingUtils.parseInteger(value);
                 if (minPrefix) {
                     return val != null && deviceDescription.getColorIndex() >= val;
@@ -131,7 +131,7 @@ public class MediaExpression {
                     return val == null ? deviceDescription.getColorIndex() != 0 : val == deviceDescription.getColorIndex();
                 }
             }
-            case com.itextpdf.styledxmlparser.css.media.MediaFeature.ASPECT_RATIO: {
+            case  MediaFeature.ASPECT_RATIO: {
                 int[] aspectRatio = CssDimensionParsingUtils.parseAspectRatio(value);
                 if (minPrefix) {
                     return aspectRatio != null && aspectRatio[0] * deviceDescription.getHeight() >= aspectRatio[1] * deviceDescription.getWidth();
@@ -141,17 +141,17 @@ public class MediaExpression {
                     return aspectRatio != null && CssUtils.compareFloats(aspectRatio[0] * deviceDescription.getHeight(), aspectRatio[1] * deviceDescription.getWidth());
                 }
             }
-            case com.itextpdf.styledxmlparser.css.media.MediaFeature.GRID: {
+            case  MediaFeature.GRID: {
                 Integer val = CssDimensionParsingUtils.parseInteger(value);
                 return val != null && val == 0 && !deviceDescription.isGrid() || deviceDescription.isGrid();
             }
-            case com.itextpdf.styledxmlparser.css.media.MediaFeature.SCAN: {
+            case  MediaFeature.SCAN: {
                 return Objects.equals(value, deviceDescription.getScan());
             }
-            case com.itextpdf.styledxmlparser.css.media.MediaFeature.ORIENTATION: {
+            case  MediaFeature.ORIENTATION: {
                 return Objects.equals(value, deviceDescription.getOrientation());
             }
-            case com.itextpdf.styledxmlparser.css.media.MediaFeature.MONOCHROME: {
+            case  MediaFeature.MONOCHROME: {
                 Integer val = CssDimensionParsingUtils.parseInteger(value);
                 if (minPrefix) {
                     return val != null && deviceDescription.getMonochrome() >= val;
@@ -161,7 +161,7 @@ public class MediaExpression {
                     return val == null ? deviceDescription.getMonochrome() > 0 : val == deviceDescription.getMonochrome();
                 }
             }
-            case com.itextpdf.styledxmlparser.css.media.MediaFeature.HEIGHT: {
+            case  MediaFeature.HEIGHT: {
                 float val = parseAbsoluteLength(value);
                 if (minPrefix) {
                     return deviceDescription.getHeight() >= val;
@@ -171,7 +171,7 @@ public class MediaExpression {
                     return deviceDescription.getHeight() > 0;
                 }
             }
-            case com.itextpdf.styledxmlparser.css.media.MediaFeature.WIDTH: {
+            case  MediaFeature.WIDTH: {
                 float val = parseAbsoluteLength(value);
                 if (minPrefix) {
                     return deviceDescription.getWidth() >= val;
@@ -181,7 +181,7 @@ public class MediaExpression {
                     return deviceDescription.getWidth() > 0;
                 }
             }
-            case com.itextpdf.styledxmlparser.css.media.MediaFeature.RESOLUTION: {
+            case  MediaFeature.RESOLUTION: {
                 float val = CssDimensionParsingUtils.parseResolution(value);
                 if (minPrefix) {
                     return deviceDescription.getResolution() >= val;

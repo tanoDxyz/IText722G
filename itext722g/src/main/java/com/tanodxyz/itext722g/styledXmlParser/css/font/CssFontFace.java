@@ -22,10 +22,11 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.font;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.css.CssDeclaration;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import com.itextpdf.styledxmlparser.util.FontFamilySplitterUtil;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssDeclaration;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssUtils;
+import com.tanodxyz.itext722g.styledXmlParser.util.FontFamilySplitterUtil;
 
 import java.util.ArrayList;
 import java.util.List;

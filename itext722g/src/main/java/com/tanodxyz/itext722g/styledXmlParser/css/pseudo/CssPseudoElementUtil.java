@@ -43,7 +43,7 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.pseudo;
 
 
-import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.IElementNode;
 
 /**
  * Utilities class for pseudo elements.

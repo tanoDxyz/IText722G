@@ -22,9 +22,10 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.impl;
 
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
-import com.itextpdf.styledxmlparser.css.CssDeclaration;
-import com.itextpdf.styledxmlparser.css.resolve.shorthand.IShorthandResolver;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssDeclaration;
+import com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.IShorthandResolver;
 
 import java.util.ArrayList;
 import java.util.Arrays;

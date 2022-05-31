@@ -93,7 +93,7 @@ public class MediaQuery {
      * @return true, if successful
      */
     public boolean matches(MediaDeviceDescription deviceDescription) {
-        boolean typeMatches = type == null || com.itextpdf.styledxmlparser.css.media.MediaType.ALL.equals(type) || Objects.equals(type, deviceDescription.getType());
+        boolean typeMatches = type == null || MediaType.ALL.equals(type) || Objects.equals(type, deviceDescription.getType());
 
         boolean matchesExpressions = true;
         for (MediaExpression expression : expressions) {

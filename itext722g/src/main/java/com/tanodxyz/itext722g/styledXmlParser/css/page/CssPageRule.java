@@ -42,15 +42,14 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.page;
 
-import com.itextpdf.styledxmlparser.css.CssDeclaration;
-import com.itextpdf.styledxmlparser.css.CssNestedAtRule;
-import com.itextpdf.styledxmlparser.css.CssRuleName;
-import com.itextpdf.styledxmlparser.css.CssStatement;
-import com.itextpdf.styledxmlparser.css.selector.CssPageSelector;
-import com.itextpdf.styledxmlparser.css.selector.ICssSelector;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import com.tanodxyz.itext722g.styledXmlParser.css.page.CssMarginRule;
-import com.tanodxyz.itext722g.styledXmlParser.css.page.CssNonStandardRuleSet;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.CssDeclaration;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssNestedAtRule;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssRuleName;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssStatement;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.CssPageSelector;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.ICssSelector;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;

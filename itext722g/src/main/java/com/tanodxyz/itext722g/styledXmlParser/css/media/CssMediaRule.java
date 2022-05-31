@@ -42,11 +42,12 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.media;
 
-import com.itextpdf.styledxmlparser.css.CssNestedAtRule;
-import com.itextpdf.styledxmlparser.css.CssRuleName;
-import com.itextpdf.styledxmlparser.css.CssRuleSet;
-import com.itextpdf.styledxmlparser.css.CssStatement;
-import com.itextpdf.styledxmlparser.node.INode;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.CssNestedAtRule;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssRuleName;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssRuleSet;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssStatement;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,7 @@ import java.util.List;
 public class CssMediaRule extends CssNestedAtRule {
 
     /** The media queries. */
-    private List<com.itextpdf.styledxmlparser.css.media.MediaQuery> mediaQueries;
+    private List< MediaQuery> mediaQueries;
 
     /**
      * Creates a {@link CssMediaRule}.
@@ -66,16 +67,16 @@ public class CssMediaRule extends CssNestedAtRule {
      */
     public CssMediaRule(String ruleParameters) {
         super(CssRuleName.MEDIA, ruleParameters);
-        mediaQueries = com.itextpdf.styledxmlparser.css.media.MediaQueryParser.parseMediaQueries(ruleParameters);
+        mediaQueries =  MediaQueryParser.parseMediaQueries(ruleParameters);
     }
 
     /* (non-Javadoc)
-     * @see com.itextpdf.styledxmlparser.css.CssNestedAtRule#getCssRuleSets(com.itextpdf.styledxmlparser.html.node.INode, com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription)
+     * @see com.itextpdf.styledxmlparser.css.CssNestedAtRule#getCssRuleSets(com.itextpdf.styledxmlparser.html.node.INode,  MediaDeviceDescription)
      */
     @Override
-    public List<CssRuleSet> getCssRuleSets(INode element, com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription deviceDescription) {
+    public List<CssRuleSet> getCssRuleSets(INode element,  MediaDeviceDescription deviceDescription) {
         List<CssRuleSet> result = new ArrayList<>();
-        for (com.itextpdf.styledxmlparser.css.media.MediaQuery mediaQuery : mediaQueries) {
+        for ( MediaQuery mediaQuery : mediaQueries) {
             if (mediaQuery.matches(deviceDescription)) {
                 for (CssStatement childStatement : body) {
                     result.addAll(childStatement.getCssRuleSets(element, deviceDescription));
@@ -92,8 +93,8 @@ public class CssMediaRule extends CssNestedAtRule {
      * @param deviceDescription the device description
      * @return true, if successful
      */
-    public boolean matchMediaDevice(com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription deviceDescription) {
-        for (com.itextpdf.styledxmlparser.css.media.MediaQuery mediaQuery : mediaQueries) {
+    public boolean matchMediaDevice( MediaDeviceDescription deviceDescription) {
+        for ( MediaQuery mediaQuery : mediaQueries) {
             if (mediaQuery.matches(deviceDescription)) {
                 return true;
             }

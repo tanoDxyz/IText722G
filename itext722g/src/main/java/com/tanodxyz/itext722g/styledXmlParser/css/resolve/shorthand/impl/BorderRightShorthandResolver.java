@@ -42,7 +42,8 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.impl;
 
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
 
 /**
  * {@link AbstractBorderShorthandResolver} implementation for right borders.

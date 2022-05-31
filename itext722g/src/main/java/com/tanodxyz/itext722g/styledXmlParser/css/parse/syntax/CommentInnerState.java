@@ -45,24 +45,24 @@ package com.tanodxyz.itext722g.styledXmlParser.css.parse.syntax;
 /**
  * {@link IParserState} implementation for the inner comment state.
  */
-class CommentInnerState implements com.itextpdf.styledxmlparser.css.parse.syntax.IParserState {
+class CommentInnerState implements   IParserState {
 
     /**
      * The state machine that parses the CSS.
      */
-    private com.itextpdf.styledxmlparser.css.parse.syntax.CssParserStateController controller;
+    private   CssParserStateController controller;
 
     /**
      * Creates a new {@link CommentInnerState} instance.
      *
      * @param controller the state machine that parses the CSS
      */
-    CommentInnerState(com.itextpdf.styledxmlparser.css.parse.syntax.CssParserStateController controller) {
+    CommentInnerState(  CssParserStateController controller) {
         this.controller = controller;
     }
 
     /* (non-Javadoc)
-     * @see com.itextpdf.styledxmlparser.css.parse.syntax.IParserState#process(char)
+     * @see   IParserState#process(char)
      */
     @Override
     public void process(char ch) {

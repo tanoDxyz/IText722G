@@ -45,24 +45,24 @@ package com.tanodxyz.itext722g.styledXmlParser.css.parse.syntax;
 /**
  * {@link IParserState} implementation for the conditional group At-rule state.
  */
-class ConditionalGroupAtRuleBlockState implements com.itextpdf.styledxmlparser.css.parse.syntax.IParserState {
+class ConditionalGroupAtRuleBlockState implements   IParserState {
 
     /**
      * The state machine that parses the CSS.
      */
-    private com.itextpdf.styledxmlparser.css.parse.syntax.CssParserStateController controller;
+    private   CssParserStateController controller;
 
     /**
      * Creates a new {@link ConditionalGroupAtRuleBlockState} instance.
      *
      * @param controller the state machine that parses the CSS
      */
-    ConditionalGroupAtRuleBlockState(com.itextpdf.styledxmlparser.css.parse.syntax.CssParserStateController controller) {
+    ConditionalGroupAtRuleBlockState(  CssParserStateController controller) {
         this.controller = controller;
     }
 
     /* (non-Javadoc)
-     * @see com.itextpdf.styledxmlparser.css.parse.syntax.IParserState#process(char)
+     * @see   IParserState#process(char)
      */
     @Override
     public void process(char ch) {

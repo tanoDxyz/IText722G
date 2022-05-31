@@ -42,18 +42,18 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.parse;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
-import com.itextpdf.styledxmlparser.css.CssDeclaration;
-import com.itextpdf.styledxmlparser.css.CssRuleSet;
-import com.itextpdf.styledxmlparser.css.selector.CssSelector;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssDeclaration;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssRuleSet;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.CssSelector;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssUtils;
+import com.tanodxyz.itext722g.styledXmlParser.logs.StyledXmlParserLogMessageConstant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Utilities class to parse CSS rule sets.
@@ -63,7 +63,7 @@ public final class CssRuleSetParser {
     /**
      * The logger.
      */
-    private static final Logger logger = LoggerFactory.getLogger(CssRuleSetParser.class);
+    private static final Logger logger = Logger.getLogger(CssRuleSetParser.class.getName());
 
     /**
      * Creates a new {@link CssRuleSetParser} instance.
@@ -157,7 +157,7 @@ public final class CssRuleSetParser {
         String[] result = new String[2];
         int position = property.indexOf(":");
         if (position < 0) {
-            logger.error(MessageFormatUtil.format(StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION,
+            logger.log(Level.SEVERE,MessageFormatUtil.format(StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION,
                     property.trim()));
             return null;
         }

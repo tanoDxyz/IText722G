@@ -42,18 +42,19 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.parse;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.exceptions.StyledXmlParserExceptionMessage;
-import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
-import com.itextpdf.styledxmlparser.css.selector.item.CssAttributeSelectorItem;
-import com.itextpdf.styledxmlparser.css.selector.item.CssClassSelectorItem;
-import com.itextpdf.styledxmlparser.css.selector.item.CssIdSelectorItem;
-import com.itextpdf.styledxmlparser.css.selector.item.CssPseudoElementSelectorItem;
-import com.itextpdf.styledxmlparser.css.selector.item.CssPseudoClassSelectorItem;
-import com.itextpdf.styledxmlparser.css.selector.item.CssSeparatorSelectorItem;
-import com.itextpdf.styledxmlparser.css.selector.item.CssTagSelectorItem;
-import com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssAttributeSelectorItem;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssClassSelectorItem;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssIdSelectorItem;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssPseudoClassSelectorItem;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssPseudoElementSelectorItem;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssSeparatorSelectorItem;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssTagSelectorItem;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.ICssSelectorItem;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssUtils;
+import com.tanodxyz.itext722g.styledXmlParser.exceptions.StyledXmlParserExceptionMessage;
+import com.tanodxyz.itext722g.styledXmlParser.logs.StyledXmlParserLogMessageConstant;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -42,7 +42,8 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.resolve;
 
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
+
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;

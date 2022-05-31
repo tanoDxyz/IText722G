@@ -40,25 +40,24 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.impl;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
-import com.itextpdf.styledxmlparser.css.CssDeclaration;
-import com.itextpdf.styledxmlparser.css.resolve.shorthand.IShorthandResolver;
-import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
-import com.itextpdf.styledxmlparser.css.validate.CssDeclarationValidationMaster;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssDeclaration;
+import com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.IShorthandResolver;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssTypesValidationUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.CssDeclarationValidationMaster;
+import com.tanodxyz.itext722g.styledXmlParser.logs.StyledXmlParserLogMessageConstant;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 public class GapShorthandResolver implements IShorthandResolver {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GapShorthandResolver.class);
+    private static final Logger LOGGER = Logger.getLogger(GapShorthandResolver.class.getName());
 
     /**
      * {@inheritDoc}
@@ -110,7 +109,7 @@ public class GapShorthandResolver implements IShorthandResolver {
 
     private static List<CssDeclaration> handleExpressionError(String logMessage, String attribute,
             String shorthandExpression) {
-        LOGGER.warn(MessageFormatUtil.format(logMessage, attribute, shorthandExpression));
+        LOGGER.warning(MessageFormatUtil.format(logMessage, attribute, shorthandExpression));
         return Collections.<CssDeclaration>emptyList();
     }
 }

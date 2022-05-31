@@ -43,14 +43,14 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.resolve;
 
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.logs.StyledXmlParserLogMessageConstant;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Helper class that allows you to get the default values of CSS properties.
@@ -172,8 +172,8 @@ public class CssDefaults {
     public static String getDefaultValue(String property) {
         String defaultVal = defaultValues.get(property);
         if (defaultVal == null) {
-            Logger logger = LoggerFactory.getLogger(CssDefaults.class);
-            logger.error(
+            Logger logger = Logger.getLogger(CssDefaults.class.getName());
+            logger.log(Level.SEVERE,
                     MessageFormatUtil.format(StyledXmlParserLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN,
                             property));
         }

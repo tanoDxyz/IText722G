@@ -42,9 +42,10 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.page;
 
-import com.itextpdf.styledxmlparser.css.CssDeclaration;
-import com.itextpdf.styledxmlparser.css.CssRuleSet;
-import com.itextpdf.styledxmlparser.css.selector.ICssSelector;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.CssDeclaration;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssRuleSet;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.ICssSelector;
 
 import java.util.List;
 

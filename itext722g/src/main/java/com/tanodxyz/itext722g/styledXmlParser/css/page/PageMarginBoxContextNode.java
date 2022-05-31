@@ -43,11 +43,11 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.page;
 
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
-import com.itextpdf.styledxmlparser.css.CssContextNode;
-import com.itextpdf.styledxmlparser.node.IAttribute;
-import com.itextpdf.styledxmlparser.node.IAttributes;
-import com.itextpdf.styledxmlparser.node.ICustomElementNode;
-import com.itextpdf.styledxmlparser.node.INode;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssContextNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.IAttribute;
+import com.tanodxyz.itext722g.styledXmlParser.node.IAttributes;
+import com.tanodxyz.itext722g.styledXmlParser.node.ICustomElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 import java.util.Collections;
 import java.util.Iterator;

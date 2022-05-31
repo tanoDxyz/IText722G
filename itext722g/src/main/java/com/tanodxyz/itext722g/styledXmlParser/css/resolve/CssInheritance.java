@@ -42,7 +42,8 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.resolve;
 
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -52,7 +53,7 @@ import java.util.Set;
 /**
  * Helper class that allows you to check if a property is inheritable.
  */
-public class CssInheritance implements com.itextpdf.styledxmlparser.css.resolve.IStyleInheritance {
+public class CssInheritance implements IStyleInheritance {
 
     /**
      * Set of inheritable properties

@@ -42,7 +42,6 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.resolve;
 
-import com.itextpdf.styledxmlparser.css.ICssResolver;
 
 /**
  * Container for CSS context properties that influence CSS resolution.

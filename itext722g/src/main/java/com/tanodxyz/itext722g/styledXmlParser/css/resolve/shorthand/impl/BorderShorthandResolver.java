@@ -42,18 +42,17 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.impl;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
-import com.itextpdf.styledxmlparser.css.CssDeclaration;
-import com.itextpdf.styledxmlparser.css.resolve.shorthand.IShorthandResolver;
-import com.itextpdf.styledxmlparser.css.resolve.shorthand.ShorthandResolverFactory;
-import com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.impl.AbstractBorderShorthandResolver;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssDeclaration;
+import com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.IShorthandResolver;
+import com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.ShorthandResolverFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * {@link AbstractBorderShorthandResolver} implementation for borders.
@@ -80,8 +79,8 @@ public class BorderShorthandResolver extends AbstractBorderShorthandResolver {
             if (shorthandResolver != null) {
                 resolvedProps.addAll(shorthandResolver.resolveShorthand(prop.getExpression()));
             } else {
-                Logger logger = LoggerFactory.getLogger(BorderShorthandResolver.class);
-                logger.error(MessageFormatUtil.format("Cannot find a shorthand resolver for the \"{0}\" property. " +
+                Logger logger = Logger.getLogger(BorderShorthandResolver.class.getName());
+                logger.log(Level.SEVERE,MessageFormatUtil.format("Cannot find a shorthand resolver for the \"{0}\" property. " +
                         "Expected border-width, border-style or border-color properties.", prop.getProperty()));
             }
         }

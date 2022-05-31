@@ -43,13 +43,12 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.pseudo;
 
 
-
-import com.itextpdf.styledxmlparser.css.CssContextNode;
-import com.itextpdf.styledxmlparser.node.IAttribute;
-import com.itextpdf.styledxmlparser.node.IAttributes;
-import com.itextpdf.styledxmlparser.node.ICustomElementNode;
-import com.itextpdf.styledxmlparser.node.IElementNode;
-import com.itextpdf.styledxmlparser.node.INode;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssContextNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.IAttribute;
+import com.tanodxyz.itext722g.styledXmlParser.node.IAttributes;
+import com.tanodxyz.itext722g.styledXmlParser.node.ICustomElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.IElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -76,7 +75,7 @@ public class CssPseudoElementNode extends CssContextNode implements IElementNode
     public CssPseudoElementNode(INode parentNode, String pseudoElementName) {
         super(parentNode);
         this.pseudoElementName = pseudoElementName;
-        this.pseudoElementTagName = com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementUtil.createPseudoElementTagName(pseudoElementName);
+        this.pseudoElementTagName =   CssPseudoElementUtil.createPseudoElementTagName(pseudoElementName);
     }
 
     /**

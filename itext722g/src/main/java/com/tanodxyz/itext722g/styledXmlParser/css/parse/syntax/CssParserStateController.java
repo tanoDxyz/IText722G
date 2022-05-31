@@ -42,27 +42,20 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.parse.syntax;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.css.CssDeclaration;
-import com.itextpdf.styledxmlparser.css.CssNestedAtRule;
-import com.itextpdf.styledxmlparser.css.CssNestedAtRuleFactory;
-import com.itextpdf.styledxmlparser.css.CssRuleName;
-import com.itextpdf.styledxmlparser.css.CssRuleSet;
-import com.itextpdf.styledxmlparser.css.CssSemicolonAtRule;
-import com.itextpdf.styledxmlparser.css.CssStyleSheet;
-import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer;
-import com.itextpdf.styledxmlparser.css.parse.CssRuleSetParser;
-import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
-import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
-import com.itextpdf.styledxmlparser.resolver.resource.UriResolver;
-import com.tanodxyz.itext722g.styledXmlParser.css.parse.syntax.AtRuleBlockState;
-import com.tanodxyz.itext722g.styledXmlParser.css.parse.syntax.BlockState;
-import com.tanodxyz.itext722g.styledXmlParser.css.parse.syntax.CommentEndState;
-import com.tanodxyz.itext722g.styledXmlParser.css.parse.syntax.CommentInnerState;
-import com.tanodxyz.itext722g.styledXmlParser.css.parse.syntax.CommentStartState;
-import com.tanodxyz.itext722g.styledXmlParser.css.parse.syntax.ConditionalGroupAtRuleBlockState;
 
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssDeclaration;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssNestedAtRule;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssNestedAtRuleFactory;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssRuleName;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssRuleSet;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssSemicolonAtRule;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssStyleSheet;
+import com.tanodxyz.itext722g.styledXmlParser.css.parse.CssDeclarationValueTokenizer;
+import com.tanodxyz.itext722g.styledXmlParser.css.parse.CssRuleSetParser;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssTypesValidationUtils;
+import com.tanodxyz.itext722g.styledXmlParser.logs.StyledXmlParserLogMessageConstant;
+import com.tanodxyz.itext722g.styledXmlParser.resolver.resource.UriResolver;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -72,6 +65,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * State machine that will parse content into a style sheet.
@@ -79,13 +74,13 @@ import java.util.Stack;
 public final class CssParserStateController {
 
     /** The current state. */
-    private com.itextpdf.styledxmlparser.css.parse.syntax.IParserState currentState;
+    private   IParserState currentState;
 
     /** Indicates if the current rule is supported. */
     private boolean isCurrentRuleSupported = true;
 
     /** The previous active state (excluding comments). */
-    private com.itextpdf.styledxmlparser.css.parse.syntax.IParserState previousActiveState;
+    private   IParserState previousActiveState;
 
     /** A buffer to store temporary results. */
     private StringBuilder buffer = new StringBuilder();
@@ -118,28 +113,28 @@ public final class CssParserStateController {
     )));
 
     /** The comment start state. */
-    private final com.itextpdf.styledxmlparser.css.parse.syntax.IParserState commentStartState;
+    private final   IParserState commentStartState;
 
     /** The commend end state. */
-    private final com.itextpdf.styledxmlparser.css.parse.syntax.IParserState commendEndState;
+    private final   IParserState commendEndState;
 
     /** The commend inner state. */
-    private final com.itextpdf.styledxmlparser.css.parse.syntax.IParserState commendInnerState;
+    private final   IParserState commendInnerState;
 
     /** The unknown state. */
-    private final com.itextpdf.styledxmlparser.css.parse.syntax.IParserState unknownState;
+    private final   IParserState unknownState;
 
     /** The rule state. */
-    private final com.itextpdf.styledxmlparser.css.parse.syntax.IParserState ruleState;
+    private final   IParserState ruleState;
 
     /** The properties state. */
-    private final com.itextpdf.styledxmlparser.css.parse.syntax.IParserState propertiesState;
+    private final   IParserState propertiesState;
 
     /** The conditional group at rule block state. */
-    private final com.itextpdf.styledxmlparser.css.parse.syntax.IParserState conditionalGroupAtRuleBlockState;
+    private final   IParserState conditionalGroupAtRuleBlockState;
 
     /** The At-rule block state. */
-    private final com.itextpdf.styledxmlparser.css.parse.syntax.IParserState atRuleBlockState;
+    private final   IParserState atRuleBlockState;
 
     /** The URI resolver. */
     private UriResolver uriResolver;
@@ -167,8 +162,8 @@ public final class CssParserStateController {
         commentStartState = new CommentStartState(this);
         commendEndState = new CommentEndState(this);
         commendInnerState = new CommentInnerState(this);
-        unknownState = new com.itextpdf.styledxmlparser.css.parse.syntax.UnknownState(this);
-        ruleState = new com.itextpdf.styledxmlparser.css.parse.syntax.RuleState(this);
+        unknownState = new   UnknownState(this);
+        ruleState = new   RuleState(this);
         propertiesState = new BlockState(this);
         atRuleBlockState = new AtRuleBlockState(this);
         conditionalGroupAtRuleBlockState = new ConditionalGroupAtRuleBlockState(this);
@@ -382,7 +377,7 @@ public final class CssParserStateController {
      *
      * @param state the new state
      */
-    private void setState(com.itextpdf.styledxmlparser.css.parse.syntax.IParserState state) {
+    private void setState(  IParserState state) {
         currentState = state;
     }
 
@@ -498,8 +493,8 @@ public final class CssParserStateController {
     private boolean isCurrentRuleSupported() {
         boolean isSupported = nestedAtRules.isEmpty() || SUPPORTED_RULES.contains(nestedAtRules.peek().getRuleName());
         if (!isSupported) {
-            LoggerFactory.getLogger(getClass())
-                    .error(MessageFormatUtil.format(StyledXmlParserLogMessageConstant.RULE_IS_NOT_SUPPORTED,
+            Logger.getLogger(getClass().getName())
+                    .log(Level.SEVERE,MessageFormatUtil.format(StyledXmlParserLogMessageConstant.RULE_IS_NOT_SUPPORTED,
                             nestedAtRules.peek().getRuleName()));
         }
         return isSupported;

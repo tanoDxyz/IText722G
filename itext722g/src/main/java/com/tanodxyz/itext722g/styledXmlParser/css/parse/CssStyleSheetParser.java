@@ -43,8 +43,9 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.parse;
 
 
-import com.itextpdf.styledxmlparser.css.CssStyleSheet;
-import com.itextpdf.styledxmlparser.css.parse.syntax.CssParserStateController;
+import com.tanodxyz.itext722g.styledXmlParser.PortUtil;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssStyleSheet;
+import com.tanodxyz.itext722g.styledXmlParser.css.parse.syntax.CssParserStateController;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -75,7 +76,7 @@ public final class CssStyleSheetParser {
      */
     public static CssStyleSheet parse(InputStream stream, String baseUrl) throws IOException {
         CssParserStateController controller = new CssParserStateController(baseUrl);
-        Reader br = com.tanodxyz.itext722g.styled.PortUtil.wrapInBufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8)); // TODO determine charset correctly DEVSIX-1458
+        Reader br = PortUtil.wrapInBufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8)); // TODO determine charset correctly DEVSIX-1458
         char[] buffer = new char[8192];
         int length;
         while ((length = br.read(buffer, 0, buffer.length)) > 0) {

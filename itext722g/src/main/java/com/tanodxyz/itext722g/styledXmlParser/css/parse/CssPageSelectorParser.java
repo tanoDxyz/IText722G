@@ -42,9 +42,10 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.parse;
 
-import com.itextpdf.styledxmlparser.css.selector.item.CssPagePseudoClassSelectorItem;
-import com.itextpdf.styledxmlparser.css.selector.item.CssPageTypeSelectorItem;
-import com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssPagePseudoClassSelectorItem;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssPageTypeSelectorItem;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.ICssSelectorItem;
 
 import java.util.ArrayList;
 import java.util.List;

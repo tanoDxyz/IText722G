@@ -42,10 +42,11 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.page;
 
-import com.itextpdf.styledxmlparser.css.CssDeclaration;
-import com.itextpdf.styledxmlparser.css.CssNestedAtRule;
-import com.itextpdf.styledxmlparser.css.selector.CssPageMarginBoxSelector;
-import com.itextpdf.styledxmlparser.css.selector.ICssSelector;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.CssDeclaration;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssNestedAtRule;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.CssPageMarginBoxSelector;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.ICssSelector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +75,7 @@ public class CssMarginRule extends CssNestedAtRule {
     public void addBodyCssDeclarations(List<CssDeclaration> cssDeclarations) {
         // TODO DEVSIX-6364 Fix the body declarations duplication for each pageSelector part
         for (ICssSelector pageSelector : pageSelectors) {
-            this.body.add(new com.itextpdf.styledxmlparser.css.page.CssNonStandardRuleSet(new CssPageMarginBoxSelector(getRuleName(), pageSelector), cssDeclarations));
+            this.body.add(new CssNonStandardRuleSet(new CssPageMarginBoxSelector(getRuleName(), pageSelector), cssDeclarations));
         }
     }
 

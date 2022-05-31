@@ -106,7 +106,7 @@ public class MediaDeviceDescription {
      * @return the media device description
      */
     public static MediaDeviceDescription createDefault() {
-        return new MediaDeviceDescription(com.itextpdf.styledxmlparser.css.media.MediaType.ALL);
+        return new MediaDeviceDescription( MediaType.ALL);
     }
 
     /**

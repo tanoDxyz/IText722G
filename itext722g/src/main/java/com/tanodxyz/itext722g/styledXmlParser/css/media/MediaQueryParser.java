@@ -84,12 +84,12 @@ public final class MediaQueryParser {
         mediaQueryStr = mediaQueryStr.trim().toLowerCase();
         boolean only = false;
         boolean not = false;
-        if (mediaQueryStr.startsWith(com.itextpdf.styledxmlparser.css.media.MediaRuleConstants.ONLY)) {
+        if (mediaQueryStr.startsWith( MediaRuleConstants.ONLY)) {
             only = true;
-            mediaQueryStr = mediaQueryStr.substring(com.itextpdf.styledxmlparser.css.media.MediaRuleConstants.ONLY.length()).trim();
-        } else if (mediaQueryStr.startsWith(com.itextpdf.styledxmlparser.css.media.MediaRuleConstants.NOT)) {
+            mediaQueryStr = mediaQueryStr.substring( MediaRuleConstants.ONLY.length()).trim();
+        } else if (mediaQueryStr.startsWith( MediaRuleConstants.NOT)) {
             not = true;
-            mediaQueryStr = mediaQueryStr.substring(com.itextpdf.styledxmlparser.css.media.MediaRuleConstants.NOT.length()).trim();
+            mediaQueryStr = mediaQueryStr.substring( MediaRuleConstants.NOT.length()).trim();
         }
 
         int indexOfSpace = mediaQueryStr.indexOf(' ');
@@ -98,7 +98,7 @@ public final class MediaQueryParser {
         String mediaType = null;
         List<MediaExpression> mediaExpressions = null;
 
-        if (only || not || com.itextpdf.styledxmlparser.css.media.MediaType.isValidMediaType(firstWord)) {
+        if (only || not ||  MediaType.isValidMediaType(firstWord)) {
             mediaType = firstWord;
             mediaExpressions = parseMediaExpressions(mediaQueryStr.substring(firstWord.length()), true);
         } else {
@@ -117,10 +117,10 @@ public final class MediaQueryParser {
      */
     private static List<MediaExpression> parseMediaExpressions(String mediaExpressionsStr, boolean shallStartWithAnd) {
         mediaExpressionsStr = mediaExpressionsStr.trim();
-        boolean startsWithEnd = mediaExpressionsStr.startsWith(com.itextpdf.styledxmlparser.css.media.MediaRuleConstants.AND);
+        boolean startsWithEnd = mediaExpressionsStr.startsWith( MediaRuleConstants.AND);
 
         boolean firstExpression = true;
-        String[] mediaExpressionStrs = mediaExpressionsStr.split(com.itextpdf.styledxmlparser.css.media.MediaRuleConstants.AND);
+        String[] mediaExpressionStrs = mediaExpressionsStr.split( MediaRuleConstants.AND);
         List<MediaExpression> expressions = new ArrayList<>();
         for (String mediaExpressionStr : mediaExpressionStrs) {
             MediaExpression expression = parseMediaExpression(mediaExpressionStr);

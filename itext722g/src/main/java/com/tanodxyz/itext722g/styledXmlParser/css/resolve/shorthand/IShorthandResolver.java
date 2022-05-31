@@ -42,7 +42,8 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand;
 
-import com.itextpdf.styledxmlparser.css.CssDeclaration;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.CssDeclaration;
 
 import java.util.List;
 
