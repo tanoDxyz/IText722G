@@ -43,9 +43,9 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.validate.impl.declaration;
 
 
-import com.itextpdf.styledxmlparser.css.CssDeclaration;
-import com.itextpdf.styledxmlparser.css.validate.ICssDataTypeValidator;
-import com.itextpdf.styledxmlparser.css.validate.ICssDeclarationValidator;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssDeclaration;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.ICssDataTypeValidator;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.ICssDeclarationValidator;
 
 /**
  * {@link ICssDeclarationValidator} implementation to validate a single type.

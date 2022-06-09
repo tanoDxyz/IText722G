@@ -43,7 +43,7 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.validate.impl.datatype;
 
 
-import com.itextpdf.styledxmlparser.css.validate.ICssDataTypeValidator;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.ICssDataTypeValidator;
 
 import java.util.Arrays;
 import java.util.Collection;

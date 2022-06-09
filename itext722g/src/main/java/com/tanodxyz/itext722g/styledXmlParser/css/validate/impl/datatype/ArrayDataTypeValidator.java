@@ -42,9 +42,10 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.validate.impl.datatype;
 
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import com.itextpdf.styledxmlparser.css.validate.ICssDataTypeValidator;
-import com.itextpdf.styledxmlparser.css.validate.ICssDeclarationValidator;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.ICssDataTypeValidator;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.ICssDeclarationValidator;
 
 import java.util.List;
 

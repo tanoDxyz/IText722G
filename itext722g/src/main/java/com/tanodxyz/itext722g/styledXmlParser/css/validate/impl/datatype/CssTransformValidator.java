@@ -43,8 +43,8 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.validate.impl.datatype;
 
 
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
-import com.itextpdf.styledxmlparser.css.validate.ICssDataTypeValidator;
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.ICssDataTypeValidator;
 
 /**
  * {@link ICssDataTypeValidator} implementation for css transform property .

@@ -43,7 +43,7 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.validate;
 
 
-import com.itextpdf.styledxmlparser.css.CssDeclaration;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssDeclaration;
 
 /**
  * Interface for CSS declaration validators.

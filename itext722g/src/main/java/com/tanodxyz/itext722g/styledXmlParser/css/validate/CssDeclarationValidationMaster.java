@@ -43,20 +43,20 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.validate;
 
 
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
-import com.itextpdf.styledxmlparser.css.CssDeclaration;
-import com.itextpdf.styledxmlparser.css.validate.impl.datatype.ArrayDataTypeValidator;
-import com.itextpdf.styledxmlparser.css.validate.impl.datatype.CssBackgroundValidator;
-import com.itextpdf.styledxmlparser.css.validate.impl.datatype.CssBlendModeValidator;
-import com.itextpdf.styledxmlparser.css.validate.impl.datatype.CssColorValidator;
-import com.itextpdf.styledxmlparser.css.validate.impl.datatype.CssEnumValidator;
-import com.itextpdf.styledxmlparser.css.validate.impl.datatype.CssLengthValueValidator;
-import com.itextpdf.styledxmlparser.css.validate.impl.datatype.CssNumberValueValidator;
-import com.itextpdf.styledxmlparser.css.validate.impl.datatype.CssPercentageValueValidator;
-import com.itextpdf.styledxmlparser.css.validate.impl.datatype.CssQuotesValidator;
-import com.itextpdf.styledxmlparser.css.validate.impl.datatype.CssTransformValidator;
-import com.itextpdf.styledxmlparser.css.validate.impl.declaration.MultiTypeDeclarationValidator;
-import com.itextpdf.styledxmlparser.css.validate.impl.declaration.SingleTypeDeclarationValidator;
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssDeclaration;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.impl.datatype.ArrayDataTypeValidator;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.impl.datatype.CssBackgroundValidator;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.impl.datatype.CssBlendModeValidator;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.impl.datatype.CssColorValidator;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.impl.datatype.CssEnumValidator;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.impl.datatype.CssLengthValueValidator;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.impl.datatype.CssNumberValueValidator;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.impl.datatype.CssPercentageValueValidator;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.impl.datatype.CssQuotesValidator;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.impl.datatype.CssTransformValidator;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.impl.declaration.MultiTypeDeclarationValidator;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.impl.declaration.SingleTypeDeclarationValidator;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -70,10 +70,10 @@ public class CssDeclarationValidationMaster {
     /**
      * A map containing all the CSS declaration validators.
      */
-    private static final Map<String, com.itextpdf.styledxmlparser.css.validate.ICssDeclarationValidator> DEFAULT_VALIDATORS;
+    private static final Map<String,ICssDeclarationValidator> DEFAULT_VALIDATORS;
 
     static {
-        com.itextpdf.styledxmlparser.css.validate.ICssDeclarationValidator colorCommonValidator = new MultiTypeDeclarationValidator(
+       ICssDeclarationValidator colorCommonValidator = new MultiTypeDeclarationValidator(
                 new CssEnumValidator(CommonCssConstants.TRANSPARENT, CommonCssConstants.INITIAL,
                         CommonCssConstants.INHERIT, CommonCssConstants.CURRENTCOLOR),
                 new CssColorValidator());
@@ -227,7 +227,7 @@ public class CssDeclarationValidationMaster {
      * @return true, if the validation was successful
      */
     public static boolean checkDeclaration(CssDeclaration declaration) {
-        com.itextpdf.styledxmlparser.css.validate.ICssDeclarationValidator validator = DEFAULT_VALIDATORS.get(declaration.getProperty());
+       ICssDeclarationValidator validator = DEFAULT_VALIDATORS.get(declaration.getProperty());
         return validator == null || validator.isValid(declaration);
     }
 
