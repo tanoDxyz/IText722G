@@ -43,7 +43,7 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.selector;
 
 
-import com.itextpdf.styledxmlparser.node.INode;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 /**
  * Interface for CSS Selector classes.

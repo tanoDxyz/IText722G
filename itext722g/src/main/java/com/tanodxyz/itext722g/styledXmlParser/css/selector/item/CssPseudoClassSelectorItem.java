@@ -42,24 +42,14 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.selector.item;
 
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
-import com.itextpdf.styledxmlparser.css.selector.CssSelector;
-import com.itextpdf.styledxmlparser.node.INode;
-import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssPseudoClassDisabledSelectorItem;
-import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssPseudoClassEmptySelectorItem;
-import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssPseudoClassFirstChildSelectorItem;
-import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssPseudoClassFirstOfTypeSelectorItem;
-import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssPseudoClassLastChildSelectorItem;
-import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssPseudoClassLastOfTypeSelectorItem;
-import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssPseudoClassNotSelectorItem;
-import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssPseudoClassNthChildSelectorItem;
-import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssPseudoClassNthOfTypeSelectorItem;
-import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssPseudoClassRootSelectorItem;
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.CssSelector;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 /**
  * {@link ICssSelectorItem} implementation for pseudo class selectors.
  */
-public abstract class CssPseudoClassSelectorItem implements com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem {
+public abstract class CssPseudoClassSelectorItem implements ICssSelectorItem {
 
     /**
      * The arguments.
@@ -116,8 +106,8 @@ public abstract class CssPseudoClassSelectorItem implements com.itextpdf.styledx
                 return new CssPseudoClassNthOfTypeSelectorItem(arguments);
             case CommonCssConstants.NOT:
                 CssSelector selector = new CssSelector(arguments);
-                for (com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem item : selector.getSelectorItems()) {
-                    if (item instanceof CssPseudoClassNotSelectorItem || item instanceof com.itextpdf.styledxmlparser.css.selector.item.CssPseudoElementSelectorItem) {
+                for (ICssSelectorItem item : selector.getSelectorItems()) {
+                    if (item instanceof CssPseudoClassNotSelectorItem || item instanceof CssPseudoElementSelectorItem) {
                         return null;
                     }
                 }
@@ -160,7 +150,7 @@ public abstract class CssPseudoClassSelectorItem implements com.itextpdf.styledx
          */
     @Override
     public int getSpecificity() {
-        return com.itextpdf.styledxmlparser.css.selector.item.CssSpecificityConstants.CLASS_SPECIFICITY;
+        return CssSpecificityConstants.CLASS_SPECIFICITY;
     }
 
     /* (non-Javadoc)

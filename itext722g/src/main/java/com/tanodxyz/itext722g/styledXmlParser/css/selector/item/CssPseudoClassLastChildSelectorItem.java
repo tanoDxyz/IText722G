@@ -42,11 +42,12 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.selector.item;
 
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
-import com.itextpdf.styledxmlparser.node.ICustomElementNode;
-import com.itextpdf.styledxmlparser.node.IDocumentNode;
-import com.itextpdf.styledxmlparser.node.IElementNode;
-import com.itextpdf.styledxmlparser.node.INode;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.node.ICustomElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.IDocumentNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.IElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 import java.util.List;
 

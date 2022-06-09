@@ -42,9 +42,9 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.selector.item;
 
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
 
-class CssPseudoClassNthChildSelectorItem extends com.itextpdf.styledxmlparser.css.selector.item.CssPseudoClassNthSelectorItem {
+class CssPseudoClassNthChildSelectorItem extends CssPseudoClassNthSelectorItem {
 
     CssPseudoClassNthChildSelectorItem(String arguments) {
         super(CommonCssConstants.NTH_CHILD, arguments);

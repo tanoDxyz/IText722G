@@ -42,19 +42,20 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.selector;
 
-import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
-import com.itextpdf.styledxmlparser.node.INode;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.page.PageMarginBoxContextNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 /**
  * {@link ICssSelector} implementation for CSS page margin box selectors.
  */
-public class CssPageMarginBoxSelector implements com.itextpdf.styledxmlparser.css.selector.ICssSelector {
+public class CssPageMarginBoxSelector implements ICssSelector {
     
     /** The page margin box name. */
     private String pageMarginBoxName;
     
     /** The page selector. */
-    private com.itextpdf.styledxmlparser.css.selector.ICssSelector pageSelector;
+    private ICssSelector pageSelector;
 
     /**
      * Creates a new {@link CssPageMarginBoxSelector} instance.
@@ -62,7 +63,7 @@ public class CssPageMarginBoxSelector implements com.itextpdf.styledxmlparser.cs
      * @param pageMarginBoxName the page margin box name
      * @param pageSelector the page selector
      */
-    public CssPageMarginBoxSelector(String pageMarginBoxName, com.itextpdf.styledxmlparser.css.selector.ICssSelector pageSelector) {
+    public CssPageMarginBoxSelector(String pageMarginBoxName, ICssSelector pageSelector) {
         this.pageMarginBoxName = pageMarginBoxName;
         this.pageSelector = pageSelector;
     }

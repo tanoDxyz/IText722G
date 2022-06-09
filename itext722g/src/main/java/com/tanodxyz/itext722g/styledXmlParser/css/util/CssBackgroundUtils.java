@@ -22,8 +22,8 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.util;
 
-import com.itextpdf.layout.properties.BackgroundRepeat.BackgroundRepeatValue;
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
 
 /**
  * Utilities class for CSS background parsing.
