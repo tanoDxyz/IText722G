@@ -22,12 +22,13 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup;
 
-import com.itextpdf.styledxmlparser.jsoup.helper.DataUtil;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Document;
-import com.itextpdf.styledxmlparser.jsoup.parser.Parser;
-import com.itextpdf.styledxmlparser.jsoup.safety.Cleaner;
-import com.itextpdf.styledxmlparser.jsoup.safety.Safelist;
-import com.itextpdf.styledxmlparser.jsoup.safety.Whitelist;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.DataUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Document;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Parser;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.safety.Cleaner;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.safety.Safelist;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.safety.Whitelist;
 
 import java.io.File;
 import java.io.IOException;

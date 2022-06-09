@@ -22,13 +22,13 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.parser;
 
-import com.itextpdf.styledxmlparser.jsoup.internal.StringUtil;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Attribute;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Attributes;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Document;
-import com.itextpdf.styledxmlparser.jsoup.nodes.DocumentType;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Node;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Attribute;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Attributes;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Document;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.DocumentType;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Node;
 
 import java.util.ArrayList;
 
@@ -99,15 +99,15 @@ abstract class HtmlTreeBuilderState {
         return StringUtil.isBlank(data);
     }
 
-    private static void handleRcData(com.itextpdf.styledxmlparser.jsoup.parser.Token.StartTag startTag, HtmlTreeBuilder tb) {
-        tb.tokeniser.transition(com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState.Rcdata);
+    private static void handleRcData(Token.StartTag startTag, HtmlTreeBuilder tb) {
+        tb.tokeniser.transition( TokeniserState.Rcdata);
         tb.markInsertionMode();
         tb.transition(Text);
         tb.insert(startTag);
     }
 
     private static void handleRawtext(Token.StartTag startTag, HtmlTreeBuilder tb) {
-        tb.tokeniser.transition(com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState.Rawtext);
+        tb.tokeniser.transition( TokeniserState.Rawtext);
         tb.markInsertionMode();
         tb.transition(Text);
         tb.insert(startTag);

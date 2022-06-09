@@ -45,7 +45,7 @@ package com.tanodxyz.itext722g.styledXmlParser.node;
 /**
  * Interface for text nodes.
  */
-public interface ITextNode extends com.itextpdf.styledxmlparser.node.INode {
+public interface ITextNode extends INode {
 
     /**
      * Returns all the text.

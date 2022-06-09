@@ -42,8 +42,7 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.resolver.resource;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.tanodxyz.itext722g.styledXmlParser.resolver.resource.UriEncodeUtil;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 
 import java.net.MalformedURLException;
 import java.net.URI;

@@ -42,39 +42,40 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.node.impl.jsoup;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.jsoup.Jsoup;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Comment;
-import com.itextpdf.styledxmlparser.jsoup.nodes.DataNode;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Document;
-import com.itextpdf.styledxmlparser.jsoup.nodes.DocumentType;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Node;
-import com.itextpdf.styledxmlparser.jsoup.nodes.TextNode;
-import com.itextpdf.styledxmlparser.jsoup.nodes.XmlDeclaration;
-import com.itextpdf.styledxmlparser.jsoup.parser.Parser;
-import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
-import com.itextpdf.styledxmlparser.node.IDocumentNode;
-import com.itextpdf.styledxmlparser.node.INode;
-import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupDataNode;
-import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupDocumentNode;
-import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupDocumentTypeNode;
-import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupElementNode;
-import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupTextNode;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.styledXmlParser.IXmlParser;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.Jsoup;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Comment;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.DataNode;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Document;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.DocumentType;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Node;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.TextNode;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.XmlDeclaration;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Parser;
+import com.tanodxyz.itext722g.styledXmlParser.logs.StyledXmlParserLogMessageConstant;
+import com.tanodxyz.itext722g.styledXmlParser.node.IDocumentNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
+import com.tanodxyz.itext722g.styledXmlParser.node.impl.jsoup.node.JsoupDataNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.impl.jsoup.node.JsoupDocumentNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.impl.jsoup.node.JsoupDocumentTypeNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.impl.jsoup.node.JsoupElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.impl.jsoup.node.JsoupTextNode;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Class that uses JSoup to parse HTML.
  */
-public class JsoupXmlParser implements com.tanodxyz.itext722g.styled.IXmlParser {
+public class JsoupXmlParser implements IXmlParser {
 
     /** The logger. */
-    private static Logger logger = LoggerFactory.getLogger(JsoupXmlParser.class);
+    private static Logger logger = Logger.getLogger(JsoupXmlParser.class.getName());
 
     /* (non-Javadoc)
      * @see com.itextpdf.styledxmlparser.html.IXmlParser#parse(java.io.InputStream, java.lang.String)
@@ -128,7 +129,7 @@ public class JsoupXmlParser implements com.tanodxyz.itext722g.styled.IXmlParser 
         } else if (jsoupNode instanceof Comment || jsoupNode instanceof XmlDeclaration) {
             // Ignore. We should do this to avoid redundant log message
         } else {
-            logger.error(MessageFormatUtil.format(StyledXmlParserLogMessageConstant.ERROR_PARSING_COULD_NOT_MAP_NODE,
+            logger.log(Level.SEVERE,MessageFormatUtil.format(StyledXmlParserLogMessageConstant.ERROR_PARSING_COULD_NOT_MAP_NODE,
                     jsoupNode.getClass()));
         }
 

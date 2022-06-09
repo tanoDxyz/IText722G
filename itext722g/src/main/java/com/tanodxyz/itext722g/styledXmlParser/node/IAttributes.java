@@ -45,7 +45,7 @@ package com.tanodxyz.itext722g.styledXmlParser.node;
 /**
  * Interface for a series of HTML attributes.
  */
-public interface IAttributes extends Iterable<com.itextpdf.styledxmlparser.node.IAttribute> {
+public interface IAttributes extends Iterable<IAttribute> {
 
     /**
      * Gets the value of an attribute, given a key.

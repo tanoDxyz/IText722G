@@ -22,10 +22,10 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.safety;
 
-import com.itextpdf.styledxmlparser.jsoup.nodes.Attribute;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Attributes;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.safety.Safelist;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Attribute;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Attributes;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
 
 /**
  * @deprecated As of release <code>v1.14.1</code>, this class is deprecated in favour of {@link Safelist}. The name has

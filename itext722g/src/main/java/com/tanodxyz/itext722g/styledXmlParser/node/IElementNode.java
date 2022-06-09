@@ -63,7 +63,7 @@ public interface IElementNode extends INode, IStylesContainer {
      *
      * @return the attributes
      */
-    com.itextpdf.styledxmlparser.node.IAttributes getAttributes();
+    IAttributes getAttributes();
 
     /**
      * Gets an attribute.

@@ -22,8 +22,9 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.select;
 
-import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Node;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Node;
 
 /**
  * Collects a list of elements that match the supplied criteria.
@@ -40,18 +41,18 @@ public class Collector {
      @param root root of tree to descend
      @return list of matches; empty if none
      */
-    public static com.itextpdf.styledxmlparser.jsoup.select.Elements collect (com.itextpdf.styledxmlparser.jsoup.select.Evaluator eval, Element root) {
-        com.itextpdf.styledxmlparser.jsoup.select.Elements elements = new com.itextpdf.styledxmlparser.jsoup.select.Elements();
-        com.itextpdf.styledxmlparser.jsoup.select.NodeTraversor.traverse(new Accumulator(root, elements, eval), root);
+    public static  Elements collect ( Evaluator eval, Element root) {
+         Elements elements = new  Elements();
+         NodeTraversor.traverse(new Accumulator(root, elements, eval), root);
         return elements;
     }
 
-    private static class Accumulator implements com.itextpdf.styledxmlparser.jsoup.select.NodeVisitor {
+    private static class Accumulator implements  NodeVisitor {
         private final Element root;
-        private final com.itextpdf.styledxmlparser.jsoup.select.Elements elements;
-        private final com.itextpdf.styledxmlparser.jsoup.select.Evaluator eval;
+        private final  Elements elements;
+        private final  Evaluator eval;
 
-        Accumulator(Element root, com.itextpdf.styledxmlparser.jsoup.select.Elements elements, com.itextpdf.styledxmlparser.jsoup.select.Evaluator eval) {
+        Accumulator(Element root,  Elements elements,  Evaluator eval) {
             this.root = root;
             this.elements = elements;
             this.eval = eval;
@@ -77,19 +78,19 @@ public class Collector {
      @param root root of tree to descend
      @return the first match; {@code null} if none
      */
-    public static Element findFirst(com.itextpdf.styledxmlparser.jsoup.select.Evaluator eval, Element root) {
+    public static Element findFirst( Evaluator eval, Element root) {
         FirstFinder finder = new FirstFinder(root, eval);
-        com.itextpdf.styledxmlparser.jsoup.select.NodeTraversor.filter(finder, root);
+         NodeTraversor.filter(finder, root);
         return finder.match;
     }
 
-    private static class FirstFinder implements com.itextpdf.styledxmlparser.jsoup.select.NodeFilter {
+    private static class FirstFinder implements  NodeFilter {
         Element match = null;
 
         private final Element root;
-        private final com.itextpdf.styledxmlparser.jsoup.select.Evaluator eval;
+        private final  Evaluator eval;
 
-        FirstFinder(Element root, com.itextpdf.styledxmlparser.jsoup.select.Evaluator eval) {
+        FirstFinder(Element root,  Evaluator eval) {
             this.root = root;
             this.eval = eval;
         }

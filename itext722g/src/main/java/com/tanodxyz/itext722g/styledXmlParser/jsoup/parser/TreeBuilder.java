@@ -22,14 +22,12 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.parser;
 
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Attributes;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Document;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Node;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.CharacterReader;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.ParseSettings;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Tokeniser;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Attributes;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Document;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Node;
 
 import java.io.Reader;
 import java.util.ArrayList;

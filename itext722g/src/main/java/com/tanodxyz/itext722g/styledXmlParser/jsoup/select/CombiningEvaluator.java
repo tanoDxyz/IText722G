@@ -22,8 +22,9 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.select;
 
-import com.itextpdf.styledxmlparser.jsoup.internal.StringUtil;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,8 +33,8 @@ import java.util.Collection;
 /**
  * Base combining (and, or) evaluator.
  */
-abstract class CombiningEvaluator extends com.itextpdf.styledxmlparser.jsoup.select.Evaluator {
-    final ArrayList<com.itextpdf.styledxmlparser.jsoup.select.Evaluator> evaluators;
+abstract class CombiningEvaluator extends  Evaluator {
+    final ArrayList< Evaluator> evaluators;
     int num = 0;
 
     CombiningEvaluator() {
@@ -41,17 +42,17 @@ abstract class CombiningEvaluator extends com.itextpdf.styledxmlparser.jsoup.sel
         evaluators = new ArrayList<>();
     }
 
-    CombiningEvaluator(Collection<com.itextpdf.styledxmlparser.jsoup.select.Evaluator> evaluators) {
+    CombiningEvaluator(Collection< Evaluator> evaluators) {
         this();
         this.evaluators.addAll(evaluators);
         updateNumEvaluators();
     }
 
-    com.itextpdf.styledxmlparser.jsoup.select.Evaluator rightMostEvaluator() {
+     Evaluator rightMostEvaluator() {
         return num > 0 ? evaluators.get(num - 1) : null;
     }
     
-    void replaceRightMostEvaluator(com.itextpdf.styledxmlparser.jsoup.select.Evaluator replacement) {
+    void replaceRightMostEvaluator( Evaluator replacement) {
         evaluators.set(num - 1, replacement);
     }
 
@@ -61,11 +62,11 @@ abstract class CombiningEvaluator extends com.itextpdf.styledxmlparser.jsoup.sel
     }
 
     static final class And extends CombiningEvaluator {
-        And(Collection<com.itextpdf.styledxmlparser.jsoup.select.Evaluator> evaluators) {
+        And(Collection< Evaluator> evaluators) {
             super(evaluators);
         }
 
-        And(com.itextpdf.styledxmlparser.jsoup.select.Evaluator... evaluators) {
+        And( Evaluator... evaluators) {
             this(Arrays.asList(evaluators));
         }
 
@@ -73,7 +74,7 @@ abstract class CombiningEvaluator extends com.itextpdf.styledxmlparser.jsoup.sel
         public boolean matches(Element root, Element node) {
             for (int i = num - 1; i >= 0; i--) {
                 // process backwards so that :matchText is evaled earlier, to catch parent query.
-                com.itextpdf.styledxmlparser.jsoup.select.Evaluator s = evaluators.get(i);
+                 Evaluator s = evaluators.get(i);
                 if (!s.matches(root, node))
                     return false;
             }
@@ -91,7 +92,7 @@ abstract class CombiningEvaluator extends com.itextpdf.styledxmlparser.jsoup.sel
          * Create a new Or evaluator. The initial evaluators are ANDed together and used as the first clause of the OR.
          * @param evaluators initial OR clause (these are wrapped into an AND evaluator).
          */
-        Or(Collection<com.itextpdf.styledxmlparser.jsoup.select.Evaluator> evaluators) {
+        Or(Collection< Evaluator> evaluators) {
             super();
             if (num > 1)
                 this.evaluators.add(new And(evaluators));
@@ -100,13 +101,13 @@ abstract class CombiningEvaluator extends com.itextpdf.styledxmlparser.jsoup.sel
             updateNumEvaluators();
         }
 
-        Or(com.itextpdf.styledxmlparser.jsoup.select.Evaluator... evaluators) { this(Arrays.asList(evaluators)); }
+        Or( Evaluator... evaluators) { this(Arrays.asList(evaluators)); }
 
         Or() {
             super();
         }
 
-        public void add(com.itextpdf.styledxmlparser.jsoup.select.Evaluator e) {
+        public void add( Evaluator e) {
             evaluators.add(e);
             updateNumEvaluators();
         }
@@ -114,7 +115,7 @@ abstract class CombiningEvaluator extends com.itextpdf.styledxmlparser.jsoup.sel
         @Override
         public boolean matches(Element root, Element node) {
             for (int i = 0; i < num; i++) {
-                com.itextpdf.styledxmlparser.jsoup.select.Evaluator s = evaluators.get(i);
+                 Evaluator s = evaluators.get(i);
                 if (s.matches(root, node))
                     return true;
             }

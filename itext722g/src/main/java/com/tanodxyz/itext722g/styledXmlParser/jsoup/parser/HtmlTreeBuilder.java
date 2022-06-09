@@ -26,8 +26,12 @@ package com.tanodxyz.itext722g.styledXmlParser.jsoup.parser;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.CDataNode;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Comment;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.DataNode;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Document;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.FormElement;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Node;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.TextNode;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.Elements;
 

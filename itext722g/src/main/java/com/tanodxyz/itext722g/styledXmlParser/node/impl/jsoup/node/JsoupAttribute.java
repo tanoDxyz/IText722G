@@ -43,8 +43,8 @@
 package com.tanodxyz.itext722g.styledXmlParser.node.impl.jsoup.node;
 
 
-import com.itextpdf.styledxmlparser.jsoup.nodes.Attribute;
-import com.itextpdf.styledxmlparser.node.IAttribute;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Attribute;
+import com.tanodxyz.itext722g.styledXmlParser.node.IAttribute;
 
 /**
  * Implementation of the {@link IAttribute} interface; wrapper for the JSoup {@link Attribute} class.

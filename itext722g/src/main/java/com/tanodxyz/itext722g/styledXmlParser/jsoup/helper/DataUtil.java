@@ -28,6 +28,7 @@ import com.tanodxyz.itext722g.styledXmlParser.jsoup.UncheckedIOException;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.ConstrainableInputStream;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.Normalizer;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Comment;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Document;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Node;

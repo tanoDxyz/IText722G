@@ -1,6 +1,7 @@
 package com.tanodxyz.itext722g.styledXmlParser;
 
 import java.io.BufferedReader;
+import java.io.Reader;
 import java.util.regex.Pattern;
 
 /**

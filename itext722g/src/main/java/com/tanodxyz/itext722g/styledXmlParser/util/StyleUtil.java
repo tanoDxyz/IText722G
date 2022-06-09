@@ -23,11 +23,11 @@
 package com.tanodxyz.itext722g.styledXmlParser.util;
 
 import com.tanodxyz.itext722g.io.util.DecimalFormatUtil;
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
-import com.itextpdf.styledxmlparser.css.resolve.CssPropertyMerger;
-import com.itextpdf.styledxmlparser.css.resolve.IStyleInheritance;
-import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.css.resolve.CssPropertyMerger;
+import com.tanodxyz.itext722g.styledXmlParser.css.resolve.IStyleInheritance;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssTypesValidationUtils;
 
 import java.util.ArrayList;
 import java.util.List;

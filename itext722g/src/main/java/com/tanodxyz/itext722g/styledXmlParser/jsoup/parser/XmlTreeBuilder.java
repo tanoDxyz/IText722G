@@ -22,20 +22,17 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.parser;
 
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.nodes.CDataNode;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Comment;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Document;
-import com.itextpdf.styledxmlparser.jsoup.nodes.DocumentType;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Entities;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Node;
-import com.itextpdf.styledxmlparser.jsoup.nodes.TextNode;
-import com.itextpdf.styledxmlparser.jsoup.nodes.XmlDeclaration;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.ParseSettings;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Parser;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Token;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.TreeBuilder;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.CDataNode;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Comment;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Document;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.DocumentType;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Entities;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Node;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.TextNode;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.XmlDeclaration;
 
 import java.io.Reader;
 import java.io.StringReader;

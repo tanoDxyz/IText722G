@@ -43,11 +43,11 @@
 package com.tanodxyz.itext722g.styledXmlParser.node.impl.jsoup.node;
 
 
-import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
-import com.itextpdf.styledxmlparser.node.IAttributes;
-import com.itextpdf.styledxmlparser.node.IElementNode;
-import com.itextpdf.styledxmlparser.node.INode;
-import com.tanodxyz.itext722g.styledXmlParser.node.impl.jsoup.node.JsoupAttributes;
+import com.tanodxyz.itext722g.styledXmlParser.CommonAttributeConstants;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
+import com.tanodxyz.itext722g.styledXmlParser.node.IAttributes;
+import com.tanodxyz.itext722g.styledXmlParser.node.IElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +56,7 @@ import java.util.Map;
 /**
  * Implementation of the {@link IElementNode} interface; wrapper for the JSoup {@link JsoupNode} class.
  */
-public class JsoupElementNode extends com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupNode implements IElementNode {
+public class JsoupElementNode extends  JsoupNode implements IElementNode {
 
     /** The JSoup element. */
     private Element element;
@@ -82,7 +82,7 @@ public class JsoupElementNode extends com.itextpdf.styledxmlparser.node.impl.jso
         super(element);
         this.element = element;
         this.attributes = new JsoupAttributes(element.attributes());
-        this.lang = getAttribute(com.tanodxyz.itext722g.styled.CommonAttributeConstants.LANG);
+        this.lang = getAttribute( CommonAttributeConstants.LANG);
     }
 
     /* (non-Javadoc)

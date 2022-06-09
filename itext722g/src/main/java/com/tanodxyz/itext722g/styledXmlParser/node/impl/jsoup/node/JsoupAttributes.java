@@ -43,11 +43,10 @@
 package com.tanodxyz.itext722g.styledXmlParser.node.impl.jsoup.node;
 
 
-import com.itextpdf.styledxmlparser.jsoup.nodes.Attribute;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Attributes;
-import com.itextpdf.styledxmlparser.node.IAttribute;
-import com.itextpdf.styledxmlparser.node.IAttributes;
-import com.tanodxyz.itext722g.styledXmlParser.node.impl.jsoup.node.JsoupAttribute;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Attribute;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Attributes;
+import com.tanodxyz.itext722g.styledXmlParser.node.IAttribute;
+import com.tanodxyz.itext722g.styledXmlParser.node.IAttributes;
 
 import java.util.Iterator;
 

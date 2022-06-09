@@ -24,6 +24,7 @@ package com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes;
 
 
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.KeyVal;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Tag;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.Elements;
 
 import java.util.ArrayList;

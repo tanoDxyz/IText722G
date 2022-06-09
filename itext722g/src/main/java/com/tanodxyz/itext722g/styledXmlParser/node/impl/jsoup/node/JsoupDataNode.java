@@ -43,13 +43,13 @@
 package com.tanodxyz.itext722g.styledXmlParser.node.impl.jsoup.node;
 
 
-import com.itextpdf.styledxmlparser.jsoup.nodes.DataNode;
-import com.itextpdf.styledxmlparser.node.IDataNode;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.DataNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.IDataNode;
 
 /**
  * Implementation of the {@link IDataNode} interface; wrapper for the JSoup {@link DataNode} class.
  */
-public class JsoupDataNode extends com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupNode implements IDataNode {
+public class JsoupDataNode extends  JsoupNode implements IDataNode {
 
     /** The JSoup data node instance. */
     private DataNode dataNode;

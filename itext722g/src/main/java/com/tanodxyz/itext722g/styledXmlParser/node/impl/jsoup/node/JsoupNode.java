@@ -42,15 +42,16 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.node.impl.jsoup.node;
 
-import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Node;
-import com.itextpdf.styledxmlparser.node.INode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Node;
+import com.tanodxyz.itext722g.styledXmlParser.logs.StyledXmlParserLogMessageConstant;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Implementation of the {@link INode} interface; wrapper for the JSoup {@link Node} class.
@@ -92,8 +93,8 @@ public class JsoupNode implements INode {
             childNodes.add(node);
             ((JsoupNode) node).parentNode = this;
         } else {
-            Logger logger = LoggerFactory.getLogger(JsoupNode.class);
-            logger.error(StyledXmlParserLogMessageConstant.ERROR_ADDING_CHILD_NODE);
+            Logger logger = Logger.getLogger(JsoupNode.class.getName());
+            logger.log(Level.SEVERE,StyledXmlParserLogMessageConstant.ERROR_ADDING_CHILD_NODE);
         }
     }
 

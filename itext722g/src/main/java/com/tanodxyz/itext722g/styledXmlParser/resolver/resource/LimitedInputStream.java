@@ -22,8 +22,9 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.resolver.resource;
 
-import com.itextpdf.styledxmlparser.exceptions.StyledXmlParserExceptionMessage;
-import com.itextpdf.styledxmlparser.exceptions.ReadingByteLimitException;
+
+import com.tanodxyz.itext722g.styledXmlParser.exceptions.ReadingByteLimitException;
+import com.tanodxyz.itext722g.styledXmlParser.exceptions.StyledXmlParserExceptionMessage;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -22,7 +22,8 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.select;
 
-import com.itextpdf.styledxmlparser.jsoup.nodes.Node;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Node;
 
 /**
  * Node filter interface. Provide an implementing class to {@link NodeTraversor} to iterate through nodes.

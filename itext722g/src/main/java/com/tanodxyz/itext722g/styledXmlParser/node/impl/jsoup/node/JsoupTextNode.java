@@ -43,8 +43,8 @@
 package com.tanodxyz.itext722g.styledXmlParser.node.impl.jsoup.node;
 
 
-import com.itextpdf.styledxmlparser.jsoup.nodes.TextNode;
-import com.itextpdf.styledxmlparser.node.ITextNode;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.TextNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.ITextNode;
 
 /**
  * Implementation of the {@link ITextNode} interface; wrapper for the JSoup {@link TextNode} class.

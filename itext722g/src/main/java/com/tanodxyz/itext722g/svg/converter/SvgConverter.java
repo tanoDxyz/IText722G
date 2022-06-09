@@ -42,25 +42,8 @@
  */
 package com.tanodxyz.itext722g.svg.converter;
 
-import com.itextpdf.commons.utils.FileUtil;
-import com.itextpdf.layout.element.Image;
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
-import com.itextpdf.styledxmlparser.node.INode;
-import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupXmlParser;
-import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
-import com.itextpdf.svg.exceptions.SvgExceptionMessageConstant;
-import com.itextpdf.svg.exceptions.SvgProcessingException;
-import com.itextpdf.svg.logs.SvgLogMessageConstant;
-import com.itextpdf.svg.processors.ISvgConverterProperties;
-import com.itextpdf.svg.processors.ISvgProcessor;
-import com.itextpdf.svg.processors.ISvgProcessorResult;
-import com.itextpdf.svg.processors.impl.DefaultSvgProcessor;
-import com.itextpdf.svg.processors.impl.SvgConverterProperties;
-import com.itextpdf.svg.processors.impl.SvgProcessorResult;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
-import com.itextpdf.svg.renderers.impl.PdfRootSvgNodeRenderer;
-import com.itextpdf.svg.utils.SvgCssUtils;
+
+import com.tanodxyz.itext722g.commons.utils.FileUtil;
 import com.tanodxyz.itext722g.kernel.geom.PageSize;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
@@ -71,10 +54,23 @@ import com.tanodxyz.itext722g.kernel.pdf.WriterProperties;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfFormXObject;
 import com.tanodxyz.itext722g.styledXmlParser.IXmlParser;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
+import com.tanodxyz.itext722g.styledXmlParser.node.impl.jsoup.JsoupXmlParser;
+import com.tanodxyz.itext722g.styledXmlParser.resolver.resource.ResourceResolver;
 import com.tanodxyz.itext722g.svg.SvgConstants;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.svg.exceptions.SvgExceptionMessageConstant;
+import com.tanodxyz.itext722g.svg.exceptions.SvgProcessingException;
+import com.tanodxyz.itext722g.svg.logs.SvgLogMessageConstant;
+import com.tanodxyz.itext722g.svg.processors.ISvgConverterProperties;
+import com.tanodxyz.itext722g.svg.processors.ISvgProcessorResult;
+import com.tanodxyz.itext722g.svg.processors.impl.DefaultSvgProcessor;
+import com.tanodxyz.itext722g.svg.processors.impl.SvgConverterProperties;
+import com.tanodxyz.itext722g.svg.processors.impl.SvgProcessorResult;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
+import com.tanodxyz.itext722g.svg.renderers.impl.PdfRootSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.utils.SvgCssUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -83,6 +79,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * This is the main container class for static methods that do high-level
@@ -95,7 +92,7 @@ public final class SvgConverter {
     private SvgConverter() {
     }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SvgConverter.class);
+    private static final Logger LOGGER = Logger.getLogger(SvgConverter.class.getName());
 
 
     private static void checkNull(Object o) {

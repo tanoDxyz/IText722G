@@ -22,19 +22,19 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.safety;
 
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Attribute;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Attributes;
-import com.itextpdf.styledxmlparser.jsoup.nodes.DataNode;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Document;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Node;
-import com.itextpdf.styledxmlparser.jsoup.nodes.TextNode;
-import com.itextpdf.styledxmlparser.jsoup.parser.ParseErrorList;
-import com.itextpdf.styledxmlparser.jsoup.parser.Parser;
-import com.itextpdf.styledxmlparser.jsoup.parser.Tag;
-import com.itextpdf.styledxmlparser.jsoup.select.NodeTraversor;
-import com.itextpdf.styledxmlparser.jsoup.select.NodeVisitor;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Attribute;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Attributes;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.DataNode;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Document;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Node;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.TextNode;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.ParseErrorList;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Parser;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Tag;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.NodeTraversor;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.NodeVisitor;
 
 import java.util.List;
 
@@ -52,14 +52,14 @@ import java.util.List;
  Rather than interacting directly with a Cleaner object, generally see the {@code clean} methods in {@link com.itextpdf.styledxmlparser.jsoup.Jsoup}.
  */
 public class Cleaner {
-    private final com.itextpdf.styledxmlparser.jsoup.safety.Safelist safelist;
+    private final  Safelist safelist;
 
     /**
      * Create a new cleaner, that sanitizes documents using the supplied safelist.
      *
      * @param safelist safe-list to clean with
      */
-    public Cleaner(com.itextpdf.styledxmlparser.jsoup.safety.Safelist safelist) {
+    public Cleaner( Safelist safelist) {
         Validate.notNull(safelist);
         this.safelist = safelist;
     }
@@ -70,7 +70,7 @@ public class Cleaner {
      * @deprecated as of 1.14.1.
      */
     @Deprecated
-    public Cleaner(com.itextpdf.styledxmlparser.jsoup.safety.Whitelist whitelist) {
+    public Cleaner( Whitelist whitelist) {
         Validate.notNull(whitelist);
         this.safelist = whitelist;
     }

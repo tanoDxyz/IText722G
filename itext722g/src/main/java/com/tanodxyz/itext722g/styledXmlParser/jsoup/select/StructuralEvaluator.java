@@ -22,9 +22,9 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.select;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.Evaluator;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
 
 /**
  * Base structural evaluator.

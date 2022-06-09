@@ -22,12 +22,10 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.parser;
 
-import com.itextpdf.styledxmlparser.jsoup.nodes.Document;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Node;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.CharacterReader;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.HtmlTreeBuilder;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.ParseErrorList;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Document;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Node;
 
 import java.io.Reader;
 import java.io.StringReader;
@@ -38,18 +36,18 @@ import java.util.List;
  * in {@link com.itextpdf.styledxmlparser.jsoup.Jsoup}.
  */
 public class Parser {
-    private com.itextpdf.styledxmlparser.jsoup.parser.TreeBuilder treeBuilder;
-    private com.itextpdf.styledxmlparser.jsoup.parser.ParseErrorList errors;
-    private com.itextpdf.styledxmlparser.jsoup.parser.ParseSettings settings;
+    private  TreeBuilder treeBuilder;
+    private  ParseErrorList errors;
+    private  ParseSettings settings;
 
     /**
      * Create a new Parser, using the specified TreeBuilder
      * @param treeBuilder TreeBuilder to use to parse input into Documents.
      */
-    public Parser(com.itextpdf.styledxmlparser.jsoup.parser.TreeBuilder treeBuilder) {
+    public Parser( TreeBuilder treeBuilder) {
         this.treeBuilder = treeBuilder;
         settings = treeBuilder.defaultSettings();
-        errors = com.itextpdf.styledxmlparser.jsoup.parser.ParseErrorList.noTracking();
+        errors =  ParseErrorList.noTracking();
     }
 
     /**
@@ -62,8 +60,8 @@ public class Parser {
 
     private Parser(Parser copy) {
         treeBuilder = copy.treeBuilder.newInstance(); // because extended
-        errors = new com.itextpdf.styledxmlparser.jsoup.parser.ParseErrorList(copy.errors); // only copies size, not contents
-        settings = new com.itextpdf.styledxmlparser.jsoup.parser.ParseSettings(copy.settings);
+        errors = new  ParseErrorList(copy.errors); // only copies size, not contents
+        settings = new  ParseSettings(copy.settings);
     }
     
     public Document parseInput(String html, String baseUri) {
@@ -82,7 +80,7 @@ public class Parser {
      * Get the TreeBuilder currently in use.
      * @return current TreeBuilder.
      */
-    public com.itextpdf.styledxmlparser.jsoup.parser.TreeBuilder getTreeBuilder() {
+    public  TreeBuilder getTreeBuilder() {
         return treeBuilder;
     }
 
@@ -91,7 +89,7 @@ public class Parser {
      * @param treeBuilder current TreeBuilder
      * @return this, for chaining
      */
-    public Parser setTreeBuilder(com.itextpdf.styledxmlparser.jsoup.parser.TreeBuilder treeBuilder) {
+    public Parser setTreeBuilder( TreeBuilder treeBuilder) {
         this.treeBuilder = treeBuilder;
         treeBuilder.parser = this;
         return this;
@@ -123,12 +121,12 @@ public class Parser {
         return errors;
     }
 
-    public Parser settings(com.itextpdf.styledxmlparser.jsoup.parser.ParseSettings settings) {
+    public Parser settings( ParseSettings settings) {
         this.settings = settings;
         return this;
     }
 
-    public com.itextpdf.styledxmlparser.jsoup.parser.ParseSettings settings() {
+    public  ParseSettings settings() {
         return settings;
     }
 
@@ -150,7 +148,7 @@ public class Parser {
      * @return parsed Document
      */
     public static Document parse(String html, String baseUri) {
-        com.itextpdf.styledxmlparser.jsoup.parser.TreeBuilder treeBuilder = new HtmlTreeBuilder();
+         TreeBuilder treeBuilder = new HtmlTreeBuilder();
         return treeBuilder.parse(new StringReader(html), baseUri, new Parser(treeBuilder));
     }
 
@@ -195,7 +193,7 @@ public class Parser {
      * @return list of nodes parsed from the input XML.
      */
     public static List<Node> parseXmlFragment(String fragmentXml, String baseUri) {
-        com.itextpdf.styledxmlparser.jsoup.parser.XmlTreeBuilder treeBuilder = new com.itextpdf.styledxmlparser.jsoup.parser.XmlTreeBuilder();
+         XmlTreeBuilder treeBuilder = new  XmlTreeBuilder();
         return treeBuilder.parseFragment(fragmentXml, baseUri, new Parser(treeBuilder));
     }
 
@@ -228,7 +226,7 @@ public class Parser {
      * @return an unescaped string
      */
     public static String unescapeEntities(String string, boolean inAttribute) {
-        com.itextpdf.styledxmlparser.jsoup.parser.Tokeniser tokeniser = new com.itextpdf.styledxmlparser.jsoup.parser.Tokeniser(new CharacterReader(string), ParseErrorList.noTracking());
+         Tokeniser tokeniser = new  Tokeniser(new CharacterReader(string), ParseErrorList.noTracking());
         return tokeniser.unescapeEntities(inAttribute);
     }
 
@@ -249,6 +247,6 @@ public class Parser {
      * @return a new simple XML parser.
      */
     public static Parser xmlParser() {
-        return new Parser(new com.itextpdf.styledxmlparser.jsoup.parser.XmlTreeBuilder());
+        return new Parser(new  XmlTreeBuilder());
     }
 }

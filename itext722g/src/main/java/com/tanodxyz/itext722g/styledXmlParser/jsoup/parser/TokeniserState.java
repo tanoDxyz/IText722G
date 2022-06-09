@@ -22,7 +22,8 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.parser;
 
-import com.itextpdf.styledxmlparser.jsoup.nodes.DocumentType;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.DocumentType;
 
 /**
  * States and transition activations for the Tokeniser.

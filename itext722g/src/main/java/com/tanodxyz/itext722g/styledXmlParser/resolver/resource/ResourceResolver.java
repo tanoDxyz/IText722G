@@ -42,23 +42,21 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.resolver.resource;
 
-import com.itextpdf.commons.utils.Base64;
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
+
+import com.tanodxyz.itext722g.commons.utils.Base64;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.image.ImageDataFactory;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfFormXObject;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfImageXObject;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfXObject;
-import com.tanodxyz.itext722g.styledXmlParser.resolver.resource.DefaultResourceRetriever;
-import com.tanodxyz.itext722g.styledXmlParser.resolver.resource.IResourceRetriever;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.styledXmlParser.logs.StyledXmlParserLogMessageConstant;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Utilities class to resolve resources.
@@ -75,17 +73,17 @@ public class ResourceResolver {
      */
     public static final String DATA_SCHEMA_PREFIX = "data:";
 
-    private static final Logger logger = LoggerFactory.getLogger(ResourceResolver.class);
+    private static final Logger logger = Logger.getLogger(ResourceResolver.class.getName());
 
     /**
      * The {@link UriResolver} instance.
      */
-    private com.itextpdf.styledxmlparser.resolver.resource.UriResolver uriResolver;
+    private  UriResolver uriResolver;
 
     /**
      * The {@link SimpleImageCache} instance.
      */
-    private com.itextpdf.styledxmlparser.resolver.resource.SimpleImageCache imageCache;
+    private  SimpleImageCache imageCache;
 
     private IResourceRetriever retriever;
 
@@ -120,8 +118,8 @@ public class ResourceResolver {
         if (baseUri == null) {
             baseUri = "";
         }
-        this.uriResolver = new com.itextpdf.styledxmlparser.resolver.resource.UriResolver(baseUri);
-        this.imageCache = new com.itextpdf.styledxmlparser.resolver.resource.SimpleImageCache();
+        this.uriResolver = new  UriResolver(baseUri);
+        this.imageCache = new  SimpleImageCache();
 
         if (retriever == null) {
             this.retriever = new DefaultResourceRetriever();
@@ -175,10 +173,10 @@ public class ResourceResolver {
             }
         }
         if (isDataSrc(src)) {
-            logger.error(MessageFormatUtil.format(
+            logger.log(Level.SEVERE,MessageFormatUtil.format(
                     StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_DATA_URI, src));
         } else {
-            logger.error(MessageFormatUtil.format(
+            logger.log(Level.SEVERE,MessageFormatUtil.format(
                     StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI,
                     uriResolver.getBaseUri(), src));
         }
@@ -202,7 +200,7 @@ public class ResourceResolver {
             URL url = uriResolver.resolveAgainstBaseUri(src);
             return retriever.getByteArrayByUrl(url);
         } catch (Exception e) {
-            logger.error(MessageFormatUtil.format(
+            logger.log(Level.SEVERE,MessageFormatUtil.format(
                     StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI,
                     uriResolver.getBaseUri(), src), e);
             return null;
@@ -225,7 +223,7 @@ public class ResourceResolver {
             URL url = uriResolver.resolveAgainstBaseUri(src);
             return retriever.getInputStreamByUrl(url);
         } catch (Exception e) {
-            logger.error(MessageFormatUtil.format(
+            logger.log(Level.SEVERE,MessageFormatUtil.format(
                     StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI,
                     uriResolver.getBaseUri(), src), e);
             return null;

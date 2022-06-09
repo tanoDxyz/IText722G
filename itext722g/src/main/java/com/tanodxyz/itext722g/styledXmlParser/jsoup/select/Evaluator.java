@@ -22,17 +22,18 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.select;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.internal.Normalizer;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Comment;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Document;
-import com.itextpdf.styledxmlparser.jsoup.nodes.DocumentType;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Node;
-import com.itextpdf.styledxmlparser.jsoup.nodes.PseudoTextElement;
-import com.itextpdf.styledxmlparser.jsoup.nodes.TextNode;
-import com.itextpdf.styledxmlparser.jsoup.nodes.XmlDeclaration;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.Normalizer;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Comment;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Document;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.DocumentType;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Node;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.PseudoTextElement;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.TextNode;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.XmlDeclaration;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -178,8 +179,8 @@ public abstract class Evaluator {
 
         @Override
         public boolean matches(Element root, Element element) {
-            List<com.itextpdf.styledxmlparser.jsoup.nodes.Attribute> values = element.attributes().asList();
-            for (com.itextpdf.styledxmlparser.jsoup.nodes.Attribute attribute : values) {
+            List<com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Attribute> values = element.attributes().asList();
+            for ( com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Attribute attribute : values) {
                 if (Normalizer.lowerCase(attribute.getKey()).startsWith(keyPrefix))
                     return true;
             }
@@ -799,7 +800,7 @@ public abstract class Evaluator {
             List<TextNode> textNodes = element.textNodes();
             for (TextNode textNode : textNodes) {
                 PseudoTextElement pel = new PseudoTextElement(
-                    com.itextpdf.styledxmlparser.jsoup.parser.Tag.valueOf(element.tagName()), element.baseUri(), element.attributes());
+                    com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Tag.valueOf(element.tagName()), element.baseUri(), element.attributes());
                 textNode.replaceWith(pel);
                 pel.appendChild(textNode);
             }

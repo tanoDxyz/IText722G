@@ -22,7 +22,8 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.parser;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 
 /**
  * A Parse Error records an error in the input HTML that occurs in either the tokenisation or the tree building phase.

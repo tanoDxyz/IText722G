@@ -22,12 +22,10 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.select;
 
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Node;
-import com.itextpdf.styledxmlparser.jsoup.select.NodeFilter.FilterResult;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.Elements;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.NodeFilter;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Node;
 
 /**
  * Depth-first node traversor. Use to iterate through all nodes under and including the specified root node.
@@ -40,7 +38,7 @@ public class NodeTraversor {
      * @param visitor Node visitor.
      * @param root the root node point to traverse.
      */
-    public static void traverse(com.itextpdf.styledxmlparser.jsoup.select.NodeVisitor visitor, Node root) {
+    public static void traverse( NodeVisitor visitor, Node root) {
         Node node = root;
         Node parent; // remember parent to find nodes that get replaced in .head
         int depth = 0;
@@ -75,7 +73,7 @@ public class NodeTraversor {
      * @param visitor Node visitor.
      * @param elements Elements to filter.
      */
-    public static void traverse(com.itextpdf.styledxmlparser.jsoup.select.NodeVisitor visitor, Elements elements) {
+    public static void traverse( NodeVisitor visitor, Elements elements) {
         Validate.notNull(visitor);
         Validate.notNull(elements);
         for (Element el : elements)
@@ -86,18 +84,18 @@ public class NodeTraversor {
      * Start a depth-first filtering of the root and all of its descendants.
      * @param filter Node visitor.
      * @param root the root node point to traverse.
-     * @return The filter result of the root node, or {@link FilterResult#STOP}.
+     * @return The filter result of the root node, or {@link NodeFilter.FilterResult#STOP}.
      */
-    public static FilterResult filter(NodeFilter filter, Node root) {
+    public static NodeFilter.FilterResult filter(NodeFilter filter, Node root) {
         Node node = root;
         int depth = 0;
 
         while (node != null) {
-            FilterResult result = filter.head(node, depth);
-            if (result == FilterResult.STOP)
+            NodeFilter.FilterResult result = filter.head(node, depth);
+            if (result == NodeFilter.FilterResult.STOP)
                 return result;
             // Descend into child nodes:
-            if (result == FilterResult.CONTINUE && node.childNodeSize() > 0) {
+            if (result == NodeFilter.FilterResult.CONTINUE && node.childNodeSize() > 0) {
                 node = node.childNode(0);
                 ++depth;
                 continue;
@@ -107,33 +105,33 @@ public class NodeTraversor {
                 assert node != null; // depth > 0, so has parent
                 if (!(node.nextSibling() == null && depth > 0)) break;
                 // 'tail' current node:
-                if (result == FilterResult.CONTINUE || result == FilterResult.SKIP_CHILDREN) {
+                if (result == NodeFilter.FilterResult.CONTINUE || result == NodeFilter.FilterResult.SKIP_CHILDREN) {
                     result = filter.tail(node, depth);
-                    if (result == FilterResult.STOP)
+                    if (result == NodeFilter.FilterResult.STOP)
                         return result;
                 }
                 Node prev = node; // In case we need to remove it below.
                 node = node.parentNode();
                 depth--;
-                if (result == FilterResult.REMOVE)
+                if (result == NodeFilter.FilterResult.REMOVE)
                     prev.remove(); // Remove AFTER finding parent.
-                result = FilterResult.CONTINUE; // Parent was not pruned.
+                result = NodeFilter.FilterResult.CONTINUE; // Parent was not pruned.
             }
             // 'tail' current node, then proceed with siblings:
-            if (result == FilterResult.CONTINUE || result == FilterResult.SKIP_CHILDREN) {
+            if (result == NodeFilter.FilterResult.CONTINUE || result == NodeFilter.FilterResult.SKIP_CHILDREN) {
                 result = filter.tail(node, depth);
-                if (result == FilterResult.STOP)
+                if (result == NodeFilter.FilterResult.STOP)
                     return result;
             }
             if (node == root)
                 return result;
             Node prev = node; // In case we need to remove it below.
             node = node.nextSibling();
-            if (result == FilterResult.REMOVE)
+            if (result == NodeFilter.FilterResult.REMOVE)
                 prev.remove(); // Remove AFTER finding sibling.
         }
         // root == null?
-        return FilterResult.CONTINUE;
+        return NodeFilter.FilterResult.CONTINUE;
     }
 
     /**
@@ -145,7 +143,7 @@ public class NodeTraversor {
         Validate.notNull(filter);
         Validate.notNull(elements);
         for (Element el : elements)
-            if (filter(filter, el) == FilterResult.STOP)
+            if (filter(filter, el) == NodeFilter.FilterResult.STOP)
                 break;
     }
 }

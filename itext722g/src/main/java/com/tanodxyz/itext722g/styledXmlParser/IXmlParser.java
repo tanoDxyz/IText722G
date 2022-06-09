@@ -1,5 +1,10 @@
 package com.tanodxyz.itext722g.styledXmlParser;
 
+import com.tanodxyz.itext722g.io.exceptions.IOException;
+import com.tanodxyz.itext722g.styledXmlParser.node.IDocumentNode;
+
+import java.io.InputStream;
+
 /**
  * Interface for the XML parsing operations that accept XML and return a document node.
  */
@@ -13,7 +18,7 @@ public interface IXmlParser {
      * @return a document node
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    com.itextpdf.styledxmlparser.node.IDocumentNode parse(InputStream XmlStream, String charset) throws IOException;
+     IDocumentNode parse(InputStream XmlStream, String charset) throws IOException, java.io.IOException;
 
     /**
      * Parses XML provided as a {@code String}.
@@ -21,6 +26,6 @@ public interface IXmlParser {
      * @param Xml the Xml string
      * @return a document node
      */
-    com.itextpdf.styledxmlparser.node.IDocumentNode parse(String Xml);
+     IDocumentNode parse(String Xml);
 
 }

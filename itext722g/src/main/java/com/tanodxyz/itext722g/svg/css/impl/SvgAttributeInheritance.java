@@ -42,7 +42,7 @@
  */
 package com.tanodxyz.itext722g.svg.css.impl;
 
-import com.itextpdf.styledxmlparser.css.resolve.IStyleInheritance;
+import com.tanodxyz.itext722g.styledXmlParser.css.resolve.IStyleInheritance;
 import com.tanodxyz.itext722g.svg.SvgConstants;
 
 import java.util.Arrays;

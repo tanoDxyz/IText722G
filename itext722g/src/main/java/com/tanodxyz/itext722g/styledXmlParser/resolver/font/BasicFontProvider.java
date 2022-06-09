@@ -42,8 +42,9 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.resolver.font;
 
-import com.itextpdf.layout.font.FontProvider;
-import com.itextpdf.layout.font.FontSet;
+
+import com.tanodxyz.itext722g.layout.font.FontProvider;
+import com.tanodxyz.itext722g.layout.font.FontSet;
 
 /**
  * A basic {@link FontProvider} that allows configuring in the constructor which fonts are loaded by default.

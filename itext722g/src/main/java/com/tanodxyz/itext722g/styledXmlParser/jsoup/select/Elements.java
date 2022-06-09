@@ -22,14 +22,15 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.select;
 
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.internal.StringUtil;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Comment;
-import com.itextpdf.styledxmlparser.jsoup.nodes.DataNode;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
-import com.itextpdf.styledxmlparser.jsoup.nodes.FormElement;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Node;
-import com.itextpdf.styledxmlparser.jsoup.nodes.TextNode;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Comment;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.DataNode;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.FormElement;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Node;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.TextNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -490,7 +491,7 @@ public class Elements extends ArrayList<Element> {
      * @return the filtered list of elements, or an empty list if none match.
      */
     public Elements select(String query) {
-        return com.itextpdf.styledxmlparser.jsoup.select.Selector.select(query, this);
+        return  Selector.select(query, this);
     }
 
     /**
@@ -504,8 +505,8 @@ public class Elements extends ArrayList<Element> {
      * @return a new elements list that contains only the filtered results
      */
     public Elements not(String query) {
-        Elements out = com.itextpdf.styledxmlparser.jsoup.select.Selector.select(query, this);
-        return com.itextpdf.styledxmlparser.jsoup.select.Selector.filterOut(this, out);
+        Elements out =  Selector.select(query, this);
+        return  Selector.filterOut(this, out);
     }
     
     /**
@@ -525,7 +526,7 @@ public class Elements extends ArrayList<Element> {
      * @return true if at least one element in the list matches the query.
      */
     public boolean is(String query) {
-        com.itextpdf.styledxmlparser.jsoup.select.Evaluator eval = com.itextpdf.styledxmlparser.jsoup.select.QueryParser.parse(query);
+         Evaluator eval =  QueryParser.parse(query);
         for (Element e : this) {
             if (e.is(eval))
                 return true;
@@ -603,7 +604,7 @@ public class Elements extends ArrayList<Element> {
 
     private Elements siblings(String query, boolean next, boolean all) {
         Elements els = new Elements();
-        com.itextpdf.styledxmlparser.jsoup.select.Evaluator eval = query != null? com.itextpdf.styledxmlparser.jsoup.select.QueryParser.parse(query) : null;
+         Evaluator eval = query != null?  QueryParser.parse(query) : null;
         for (Element e : this) {
             Element temp = e;
             do {
@@ -653,8 +654,8 @@ public class Elements extends ArrayList<Element> {
      * @param nodeVisitor the visitor callbacks to perform on each node
      * @return this, for chaining
      */
-    public Elements traverse(com.itextpdf.styledxmlparser.jsoup.select.NodeVisitor nodeVisitor) {
-        com.itextpdf.styledxmlparser.jsoup.select.NodeTraversor.traverse(nodeVisitor, this);
+    public Elements traverse( NodeVisitor nodeVisitor) {
+         NodeTraversor.traverse(nodeVisitor, this);
         return this;
     }
 
@@ -663,8 +664,8 @@ public class Elements extends ArrayList<Element> {
      * @param nodeFilter the filter callbacks to perform on each node
      * @return this, for chaining
      */
-    public Elements filter(com.itextpdf.styledxmlparser.jsoup.select.NodeFilter nodeFilter) {
-        com.itextpdf.styledxmlparser.jsoup.select.NodeTraversor.filter(nodeFilter, this);
+    public Elements filter( NodeFilter nodeFilter) {
+         NodeTraversor.filter(nodeFilter, this);
         return this;
     }
 

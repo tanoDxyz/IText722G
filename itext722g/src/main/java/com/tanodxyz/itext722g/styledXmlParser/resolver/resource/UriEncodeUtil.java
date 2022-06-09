@@ -42,7 +42,8 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.resolver.resource;
 
-import com.itextpdf.styledxmlparser.exceptions.StyledXMLParserException;
+
+import com.tanodxyz.itext722g.styledXmlParser.exceptions.StyledXMLParserException;
 
 import java.io.CharArrayWriter;
 import java.nio.charset.Charset;

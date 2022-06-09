@@ -22,8 +22,8 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.parser;
 
-import com.itextpdf.styledxmlparser.jsoup.internal.Normalizer;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Attributes;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.Normalizer;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Attributes;
 
 /**
  * Controls parser settings, to optionally preserve tag and/or attribute name case.

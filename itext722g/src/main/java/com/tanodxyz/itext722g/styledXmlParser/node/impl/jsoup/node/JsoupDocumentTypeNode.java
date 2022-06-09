@@ -43,13 +43,13 @@
 package com.tanodxyz.itext722g.styledXmlParser.node.impl.jsoup.node;
 
 
-import com.itextpdf.styledxmlparser.jsoup.nodes.DocumentType;
-import com.itextpdf.styledxmlparser.node.IDocumentTypeNode;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.DocumentType;
+import com.tanodxyz.itext722g.styledXmlParser.node.IDocumentTypeNode;
 
 /**
  * Implementation of the {@link IDocumentTypeNode} interface; wrapper for the JSoup {@link DocumentType} class.
  */
-public class JsoupDocumentTypeNode extends com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupNode implements IDocumentTypeNode {
+public class JsoupDocumentTypeNode extends  JsoupNode implements IDocumentTypeNode {
 
     /**
      * Creates a new {@link JsoupDocumentTypeNode} instance.

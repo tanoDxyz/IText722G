@@ -22,10 +22,11 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.parser;
 
-import com.itextpdf.styledxmlparser.jsoup.PortUtil;
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.internal.Normalizer;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Attributes;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.PortUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.Normalizer;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Attributes;
 
 /**
  * Parse tokens for the Tokeniser.

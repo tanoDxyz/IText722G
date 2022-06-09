@@ -22,25 +22,24 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.resolver.resource;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.exceptions.ReadingByteLimitException;
-import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.util.StreamUtil;
 import com.tanodxyz.itext722g.io.util.UrlUtil;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.styledXmlParser.exceptions.ReadingByteLimitException;
+import com.tanodxyz.itext722g.styledXmlParser.logs.StyledXmlParserLogMessageConstant;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.logging.Logger;
 
 /**
  * Default implementation of the {@link IResourceRetriever} interface, which can set a limit
  * on the size of retrieved resources using input stream with a limit on the number of bytes read.
  */
-public class DefaultResourceRetriever implements com.itextpdf.styledxmlparser.resolver.resource.IResourceRetriever {
-    private static final Logger logger = LoggerFactory.getLogger(DefaultResourceRetriever.class);
+public class DefaultResourceRetriever implements IResourceRetriever {
+    private static final Logger logger = Logger.getLogger(DefaultResourceRetriever.class.getName());
 
     private long resourceSizeByteLimit;
 
@@ -71,7 +70,7 @@ public class DefaultResourceRetriever implements com.itextpdf.styledxmlparser.re
      * @param resourceSizeByteLimit the resource size byte limit
      * @return the {@link IResourceRetriever} instance
      */
-    public com.itextpdf.styledxmlparser.resolver.resource.IResourceRetriever setResourceSizeByteLimit(long resourceSizeByteLimit) {
+    public  IResourceRetriever setResourceSizeByteLimit(long resourceSizeByteLimit) {
         this.resourceSizeByteLimit = resourceSizeByteLimit;
         return this;
     }
@@ -85,12 +84,12 @@ public class DefaultResourceRetriever implements com.itextpdf.styledxmlparser.re
      */
     public InputStream getInputStreamByUrl(URL url) throws IOException {
         if (!urlFilter(url)) {
-            logger.warn(
+            logger.warning(
                     MessageFormatUtil.format(StyledXmlParserLogMessageConstant.RESOURCE_WITH_GIVEN_URL_WAS_FILTERED_OUT,
                             url));
             return null;
         }
-        return new com.itextpdf.styledxmlparser.resolver.resource.LimitedInputStream(UrlUtil.getInputStreamOfFinalConnection(url), resourceSizeByteLimit);
+        return new  LimitedInputStream(UrlUtil.getInputStreamOfFinalConnection(url), resourceSizeByteLimit);
     }
 
     /**
@@ -108,7 +107,7 @@ public class DefaultResourceRetriever implements com.itextpdf.styledxmlparser.re
 
             return StreamUtil.inputStreamToArray(stream);
         } catch (ReadingByteLimitException ex) {
-            logger.warn(MessageFormatUtil.format(
+            logger.warning(MessageFormatUtil.format(
                     StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_RESOURCE_WITH_GIVEN_RESOURCE_SIZE_BYTE_LIMIT,
                     url, resourceSizeByteLimit));
         }

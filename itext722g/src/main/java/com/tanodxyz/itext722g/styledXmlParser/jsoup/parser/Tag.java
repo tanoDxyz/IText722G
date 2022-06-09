@@ -22,9 +22,8 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.parser;
 
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.internal.Normalizer;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.ParseSettings;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.Normalizer;
 
 import java.util.HashMap;
 import java.util.Map;

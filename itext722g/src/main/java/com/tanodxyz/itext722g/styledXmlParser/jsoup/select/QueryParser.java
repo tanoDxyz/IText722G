@@ -22,12 +22,11 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.select;
 
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.internal.Normalizer;
-import com.itextpdf.styledxmlparser.jsoup.internal.StringUtil;
-import com.itextpdf.styledxmlparser.jsoup.parser.TokenQueue;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.CombiningEvaluator;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.Evaluator;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.Normalizer;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.TokenQueue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +66,7 @@ public class QueryParser {
             QueryParser p = new QueryParser(query);
             return p.parse();
         } catch (IllegalArgumentException e) {
-            throw new com.itextpdf.styledxmlparser.jsoup.select.Selector.SelectorParseException(e.getMessage());
+            throw new  Selector.SelectorParseException(e.getMessage());
         }
     }
 
@@ -79,7 +78,7 @@ public class QueryParser {
         tq.consumeWhitespace();
 
         if (tq.matchesAny(combinators)) { // if starts with a combinator, use root as elements
-            evals.add(new com.itextpdf.styledxmlparser.jsoup.select.StructuralEvaluator.Root());
+            evals.add(new  StructuralEvaluator.Root());
             combinator(tq.consume());
         } else {
             findElements();
@@ -130,16 +129,16 @@ public class QueryParser {
         // for most combinators: change the current eval into an AND of the current eval and the new eval
         switch (combinator) {
             case '>':
-                currentEval = new CombiningEvaluator.And(new com.itextpdf.styledxmlparser.jsoup.select.StructuralEvaluator.ImmediateParent(currentEval), newEval);
+                currentEval = new CombiningEvaluator.And(new  StructuralEvaluator.ImmediateParent(currentEval), newEval);
                 break;
             case ' ':
-                currentEval = new CombiningEvaluator.And(new com.itextpdf.styledxmlparser.jsoup.select.StructuralEvaluator.Parent(currentEval), newEval);
+                currentEval = new CombiningEvaluator.And(new  StructuralEvaluator.Parent(currentEval), newEval);
                 break;
             case '+':
-                currentEval = new CombiningEvaluator.And(new com.itextpdf.styledxmlparser.jsoup.select.StructuralEvaluator.ImmediatePreviousSibling(currentEval), newEval);
+                currentEval = new CombiningEvaluator.And(new  StructuralEvaluator.ImmediatePreviousSibling(currentEval), newEval);
                 break;
             case '~':
-                currentEval = new CombiningEvaluator.And(new com.itextpdf.styledxmlparser.jsoup.select.StructuralEvaluator.PreviousSibling(currentEval), newEval);
+                currentEval = new CombiningEvaluator.And(new  StructuralEvaluator.PreviousSibling(currentEval), newEval);
                 break;
             case ',':
                 CombiningEvaluator.Or or;
@@ -153,7 +152,7 @@ public class QueryParser {
                 currentEval = or;
                 break;
             default:
-                throw new com.itextpdf.styledxmlparser.jsoup.select.Selector.SelectorParseException("Unknown combinator: " + combinator);
+                throw new  Selector.SelectorParseException("Unknown combinator: " + combinator);
         }
 
         if (replaceRightMost)
@@ -235,7 +234,7 @@ public class QueryParser {
         else if (tq.matchChomp(":matchText"))
             evals.add(new Evaluator.MatchText());
 		else // unhandled
-            throw new com.itextpdf.styledxmlparser.jsoup.select.Selector.SelectorParseException("Could not parse query '{0}': unexpected token at '{1}'", query, tq.remainder());
+            throw new  Selector.SelectorParseException("Could not parse query '{0}': unexpected token at '{1}'", query, tq.remainder());
 
     }
 
@@ -299,7 +298,7 @@ public class QueryParser {
             else if (cq.matchChomp("~="))
                 evals.add(new Evaluator.AttributeWithValueMatching(key, Pattern.compile(cq.remainder())));
             else
-                throw new com.itextpdf.styledxmlparser.jsoup.select.Selector.SelectorParseException("Could not parse attribute query '{0}': unexpected token at '{1}'", query, cq.remainder());
+                throw new  Selector.SelectorParseException("Could not parse attribute query '{0}': unexpected token at '{1}'", query, cq.remainder());
         }
     }
 
@@ -342,7 +341,7 @@ public class QueryParser {
 			a = 0;
 			b = Integer.parseInt(mB.group().replaceFirst("^\\+", ""));
 		} else {
-			throw new com.itextpdf.styledxmlparser.jsoup.select.Selector.SelectorParseException("Could not parse nth-index '{0}': unexpected format", argS);
+			throw new  Selector.SelectorParseException("Could not parse nth-index '{0}': unexpected format", argS);
 		}
 		if (ofType)
 			if (backwards)
@@ -368,7 +367,7 @@ public class QueryParser {
         tq.consume(":has");
         String subQuery = tq.chompBalanced('(', ')');
         Validate.notEmpty(subQuery, ":has(el) subselect must not be empty");
-        evals.add(new com.itextpdf.styledxmlparser.jsoup.select.StructuralEvaluator.Has(parse(subQuery)));
+        evals.add(new  StructuralEvaluator.Has(parse(subQuery)));
     }
 
     // pseudo selector :contains(text), containsOwn(text)
@@ -408,7 +407,7 @@ public class QueryParser {
         String subQuery = tq.chompBalanced('(', ')');
         Validate.notEmpty(subQuery, ":not(selector) subselect must not be empty");
 
-        evals.add(new com.itextpdf.styledxmlparser.jsoup.select.StructuralEvaluator.Not(parse(subQuery)));
+        evals.add(new  StructuralEvaluator.Not(parse(subQuery)));
     }
 
     @Override

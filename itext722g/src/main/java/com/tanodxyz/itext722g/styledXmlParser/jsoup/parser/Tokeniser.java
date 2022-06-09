@@ -22,9 +22,10 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.parser;
 
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.internal.StringUtil;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Entities;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Entities;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,7 +57,7 @@ final class Tokeniser {
     private final CharacterReader reader; // html input
     private final ParseErrorList errors; // errors found while tokenising
 
-    private com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState state = com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState.Data; // current tokenisation state
+    private  TokeniserState state =  TokeniserState.Data; // current tokenisation state
     private Token emitPending; // the token we are about to emit on next read
     private boolean isEmitPending = false;
     private String charsString = null; // characters pending an emit. Will fall to charsBuilder if more than one
@@ -177,15 +178,15 @@ final class Tokeniser {
         emit(charsArray);
     }
 
-    com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState getState() {
+     TokeniserState getState() {
         return state;
     }
 
-    void transition(com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState state) {
+    void transition( TokeniserState state) {
         this.state = state;
     }
 
-    void advanceTransition(com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState state) {
+    void advanceTransition( TokeniserState state) {
         reader.advance();
         this.state = state;
     }
@@ -311,12 +312,12 @@ final class Tokeniser {
         return lastStartTag; // could be null
     }
 
-    void error(com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState state) {
+    void error( TokeniserState state) {
         if (errors.canAddError())
             errors.add(new ParseError(reader.pos(), "Unexpected character '{0}' in input state [{1}]", reader.current(), state));
     }
 
-    void eofError(com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState state) {
+    void eofError( TokeniserState state) {
         if (errors.canAddError())
             errors.add(new ParseError(reader.pos(), "Unexpectedly reached end of file (EOF) in input state [{0}]", state));
     }
