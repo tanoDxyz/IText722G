@@ -42,20 +42,18 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.util;
 
-import com.itextpdf.layout.font.Range;
-import com.itextpdf.layout.font.RangeBuilder;
-import com.itextpdf.layout.properties.BlendMode;
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
-import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer;
-import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer.Token;
-import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer.TokenType;
-import com.itextpdf.styledxmlparser.node.IElementNode;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.layout.font.Range;
+import com.tanodxyz.itext722g.layout.font.RangeBuilder;
+import com.tanodxyz.itext722g.layout.properties.BlendMode;
+import com.tanodxyz.itext722g.styledXmlParser.CommonAttributeConstants;
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.css.parse.CssDeclarationValueTokenizer;
+import com.tanodxyz.itext722g.styledXmlParser.node.IElementNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Utilities class for CSS operations.
@@ -63,7 +61,7 @@ import java.util.List;
 public class CssUtils {
     private static final float EPSILON = 1e-6f;
 
-    private static final  Logger logger = LoggerFactory.getLogger(CssUtils.class);
+    private static final Logger logger = Logger.getLogger(CssUtils.class.getName());
 
     private static final int QUANTITY_OF_PARAMS_WITH_FALLBACK_OR_TYPE = 2;
 
@@ -81,7 +79,7 @@ public class CssUtils {
      * @return the {@link List} of split result
      */
     public static List<String> splitStringWithComma(final String value) {
-        return splitString(value, ',', new com.itextpdf.styledxmlparser.css.util.EscapeGroup('(', ')'));
+        return splitString(value, ',', new EscapeGroup('(', ')'));
     }
 
     /**
@@ -92,7 +90,7 @@ public class CssUtils {
      * @param escapeCharacters escape characters
      * @return the {@link List} of split result
      */
-    public static List<String> splitString(String value, char splitChar, com.itextpdf.styledxmlparser.css.util.EscapeGroup... escapeCharacters) {
+    public static List<String> splitString(String value, char splitChar, EscapeGroup... escapeCharacters) {
         if (value == null) {
             return new ArrayList<>();
         }
@@ -101,7 +99,7 @@ public class CssUtils {
         for (int i = 0; i < value.length(); ++i) {
             final char currentChar = value.charAt(i);
             boolean isEscaped = false;
-            for (final com.itextpdf.styledxmlparser.css.util.EscapeGroup character : escapeCharacters) {
+            for (final EscapeGroup character : escapeCharacters) {
                 if (currentChar == splitChar) {
                     isEscaped = isEscaped || character.isEscaped();
                 } else {
@@ -181,9 +179,9 @@ public class CssUtils {
         List<String> currentLayer = new ArrayList<>();
         CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(str);
 
-        Token currentToken = tokenizer.getNextValidToken();
+        CssDeclarationValueTokenizer.Token currentToken = tokenizer.getNextValidToken();
         while (currentToken != null) {
-            if (currentToken.getType() == TokenType.COMMA) {
+            if (currentToken.getType() == CssDeclarationValueTokenizer.TokenType.COMMA) {
                 result.add(currentLayer);
                 currentLayer = new ArrayList<>();
             } else {
@@ -264,8 +262,8 @@ public class CssUtils {
             String fallback = null;
             String typeOfAttribute = null;
             final String stringToSplit = attrStr.substring(5, attrStr.length() - 1);
-            final List<String> paramsWithFallback = splitString(stringToSplit, ',', new com.itextpdf.styledxmlparser.css.util.EscapeGroup('\"'),
-                    new com.itextpdf.styledxmlparser.css.util.EscapeGroup('\''));
+            final List<String> paramsWithFallback = splitString(stringToSplit, ',', new EscapeGroup('\"'),
+                    new EscapeGroup('\''));
             if (paramsWithFallback.size() > QUANTITY_OF_PARAMS_WITH_FALLBACK_OR_TYPE) {
                 return null;
             }
@@ -396,8 +394,8 @@ public class CssUtils {
      */
     public static boolean isStyleSheetLink(IElementNode headChildElement) {
         return CommonCssConstants.LINK.equals(headChildElement.name())
-                && com.tanodxyz.itext722g.styled.CommonAttributeConstants.STYLESHEET
-                .equals(headChildElement.getAttribute(com.tanodxyz.itext722g.styled.CommonAttributeConstants.REL));
+                && CommonAttributeConstants.STYLESHEET
+                .equals(headChildElement.getAttribute(CommonAttributeConstants.REL));
     }
 
     private static boolean addRange(RangeBuilder builder, String range) {

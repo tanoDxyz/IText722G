@@ -23,7 +23,7 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.util;
 
 import com.tanodxyz.itext722g.kernel.colors.WebColors;
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
 
 /**
  * Utilities class for CSS types validating operations.

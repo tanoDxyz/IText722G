@@ -22,22 +22,22 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.util;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
-import com.itextpdf.styledxmlparser.exceptions.StyledXMLParserException;
-import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.kernel.colors.WebColors;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.exceptions.StyledXMLParserException;
+import com.tanodxyz.itext722g.styledXmlParser.logs.StyledXmlParserLogMessageConstant;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Utilities class for CSS dimension parsing operations.
  */
 public final class CssDimensionParsingUtils {
-    private static final Logger logger = LoggerFactory.getLogger(CssDimensionParsingUtils.class);
+    private static final Logger logger = Logger.getLogger(CssDimensionParsingUtils.class.getName());
 
     /**
      * Creates a new {@link CssDimensionParsingUtils} instance.
@@ -134,7 +134,7 @@ public final class CssDimensionParsingUtils {
             return floatValue;
         }
 
-        logger.error(MessageFormatUtil.format(StyledXmlParserLogMessageConstant.UNKNOWN_METRIC_ANGLE_PARSED,
+        logger.log(Level.SEVERE,MessageFormatUtil.format(StyledXmlParserLogMessageConstant.UNKNOWN_METRIC_ANGLE_PARSED,
                 unit.equals("") ? defaultMetric : unit));
         return floatValue ;
     }
@@ -227,7 +227,7 @@ public final class CssDimensionParsingUtils {
             return (float) (f * 0.75);
         }
 
-        logger.error(MessageFormatUtil.format(StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED,
+        logger.log(Level.SEVERE,MessageFormatUtil.format(StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED,
                 unit.equals("") ? defaultMetric : unit));
         return (float) f;
     }
@@ -282,13 +282,13 @@ public final class CssDimensionParsingUtils {
      */
     public static UnitValue parseLengthValueToPt(final String value, final float emValue, final float remValue) {
         // TODO (DEVSIX-3596) Add support of 'lh' 'ch' units and viewport-relative units
-        if (com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils.isMetricValue(value) || com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils.isNumber(value)) {
+        if ( CssTypesValidationUtils.isMetricValue(value) ||  CssTypesValidationUtils.isNumber(value)) {
             return new UnitValue(UnitValue.POINT, parseAbsoluteLength(value));
         } else if (value != null && value.endsWith(CommonCssConstants.PERCENTAGE)) {
             return new UnitValue(UnitValue.PERCENT, Float.parseFloat(value.substring(0, value.length() - 1)));
-        } else if (com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils.isRemValue(value)) {
+        } else if ( CssTypesValidationUtils.isRemValue(value)) {
             return new UnitValue(UnitValue.POINT, parseRelativeValue(value, remValue));
-        } else if (com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils.isRelativeValue(value)) {
+        } else if ( CssTypesValidationUtils.isRelativeValue(value)) {
             return new UnitValue(UnitValue.POINT, parseRelativeValue(value, emValue));
         }
         return null;
@@ -400,7 +400,7 @@ public final class CssDimensionParsingUtils {
     public static float[] parseRgbaColor(String colorValue) {
         float[] rgbaColor = WebColors.getRGBAColor(colorValue);
         if (rgbaColor == null) {
-            logger.error(MessageFormatUtil.format(IoLogMessageConstant.COLOR_NOT_PARSED, colorValue));
+            logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.COLOR_NOT_PARSED, colorValue));
             rgbaColor = new float[] {0, 0, 0, 1};
         }
         return rgbaColor;

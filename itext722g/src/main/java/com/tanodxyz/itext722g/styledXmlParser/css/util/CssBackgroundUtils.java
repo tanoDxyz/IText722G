@@ -23,6 +23,9 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.util;
 
 
+import static com.tanodxyz.itext722g.styledXmlParser.css.util.CssGradientUtil.isCssLinearGradientValue;
+
+import com.tanodxyz.itext722g.layout.properties.BackgroundRepeat;
 import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
 
 /**
@@ -40,19 +43,19 @@ public final class CssBackgroundUtils {
      * Parses the background repeat string value.
      *
      * @param value the string which stores the background repeat value
-     * @return the background repeat as a {@link BackgroundRepeatValue} instance
+     * @return the background repeat as a {@link BackgroundRepeat.BackgroundRepeatValue} instance
      */
-    public static BackgroundRepeatValue parseBackgroundRepeat(String value) {
+    public static BackgroundRepeat.BackgroundRepeatValue parseBackgroundRepeat(String value) {
         switch (value) {
             case CommonCssConstants.NO_REPEAT:
-                return BackgroundRepeatValue.NO_REPEAT;
+                return BackgroundRepeat.BackgroundRepeatValue.NO_REPEAT;
             case CommonCssConstants.ROUND:
-                return BackgroundRepeatValue.ROUND;
+                return BackgroundRepeat.BackgroundRepeatValue.ROUND;
             case CommonCssConstants.SPACE:
-                return BackgroundRepeatValue.SPACE;
+                return BackgroundRepeat.BackgroundRepeatValue.SPACE;
             case CommonCssConstants.REPEAT:
             default:
-                return BackgroundRepeatValue.REPEAT;
+                return BackgroundRepeat.BackgroundRepeatValue.REPEAT;
         }
     }
 
@@ -101,7 +104,7 @@ public final class CssBackgroundUtils {
                 && value.indexOf(')') == value.length() - 1) {
             return BackgroundPropertyType.BACKGROUND_IMAGE;
         }
-        if (com.itextpdf.styledxmlparser.css.util.CssGradientUtil.isCssLinearGradientValue(value) || CommonCssConstants.NONE.equals(value)) {
+        if (isCssLinearGradientValue(value) || CommonCssConstants.NONE.equals(value)) {
             return BackgroundPropertyType.BACKGROUND_IMAGE;
         }
         if (CommonCssConstants.BACKGROUND_REPEAT_VALUES.contains(value)) {
@@ -121,14 +124,14 @@ public final class CssBackgroundUtils {
         if (CommonCssConstants.CENTER.equals(value)) {
             return BackgroundPropertyType.BACKGROUND_POSITION;
         }
-        if (((Integer) 0).equals(com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils.parseInteger(value))
-                || com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils.isMetricValue(value) || com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils.isRelativeValue(value)) {
+        if (((Integer) 0).equals(CssDimensionParsingUtils.parseInteger(value))
+                || CssTypesValidationUtils.isMetricValue(value) || CssTypesValidationUtils.isRelativeValue(value)) {
             return BackgroundPropertyType.BACKGROUND_POSITION_OR_SIZE;
         }
         if (CommonCssConstants.BACKGROUND_SIZE_VALUES.contains(value)) {
             return BackgroundPropertyType.BACKGROUND_SIZE;
         }
-        if (com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils.isColorProperty(value)) {
+        if (CssTypesValidationUtils.isColorProperty(value)) {
             return BackgroundPropertyType.BACKGROUND_COLOR;
         }
         if (CommonCssConstants.BACKGROUND_ORIGIN_OR_CLIP_VALUES.contains(value)) {

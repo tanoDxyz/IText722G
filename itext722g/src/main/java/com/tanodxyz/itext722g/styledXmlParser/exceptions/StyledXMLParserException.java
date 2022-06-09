@@ -42,7 +42,8 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.exceptions;
 
-import com.itextpdf.commons.exceptions.ITextException;
+
+import com.tanodxyz.itext722g.commons.exceptions.ITextException;
 
 /**
  * Runtime exception that gets thrown if something goes wrong in the HTML to PDF conversion.

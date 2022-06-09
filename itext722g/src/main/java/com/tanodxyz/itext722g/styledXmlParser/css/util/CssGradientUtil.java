@@ -22,13 +22,8 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.util;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
-import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer;
-import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer.Token;
-import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer.TokenType;
-import com.itextpdf.styledxmlparser.exceptions.StyledXMLParserException;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.kernel.colors.gradients.AbstractLinearGradientBuilder;
 import com.tanodxyz.itext722g.kernel.colors.gradients.GradientColorStop;
 import com.tanodxyz.itext722g.kernel.colors.gradients.GradientColorStop.HintOffsetType;
@@ -36,7 +31,10 @@ import com.tanodxyz.itext722g.kernel.colors.gradients.GradientColorStop.OffsetTy
 import com.tanodxyz.itext722g.kernel.colors.gradients.GradientSpreadMethod;
 import com.tanodxyz.itext722g.kernel.colors.gradients.StrategyBasedLinearGradientBuilder;
 import com.tanodxyz.itext722g.kernel.colors.gradients.StrategyBasedLinearGradientBuilder.GradientStrategy;
-import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.css.parse.CssDeclarationValueTokenizer;
+import com.tanodxyz.itext722g.styledXmlParser.exceptions.StyledXMLParserException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,9 +101,9 @@ public final class CssGradientUtil {
                 List<String> argumentsList = new ArrayList<>();
                 StringBuilder buff = new StringBuilder();
                 CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(argumentsPart);
-                Token nextToken;
+                CssDeclarationValueTokenizer.Token nextToken;
                 while ((nextToken = tokenizer.getNextValidToken()) != null) {
-                    if (nextToken.getType() == TokenType.COMMA) {
+                    if (nextToken.getType() == CssDeclarationValueTokenizer.TokenType.COMMA) {
                         if (buff.length() != 0) {
                             argumentsList.add(buff.toString().trim());
                             buff = new StringBuilder();
@@ -136,7 +134,7 @@ public final class CssGradientUtil {
 
         int colorStopListStartIndex;
         String firstArgument = argumentsList.get(0);
-        if (com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils.isAngleValue(firstArgument)) {
+        if ( CssTypesValidationUtils.isAngleValue(firstArgument)) {
             double radAngle = CssDimensionParsingUtils.parseAngle(firstArgument);
             // we need to negate the angle as css specifies the clockwise rotation angle
             builder.setGradientDirectionAsCentralRotationAngle(-radAngle);
@@ -164,7 +162,7 @@ public final class CssGradientUtil {
             String argument = argumentsList.get(i);
             List<String> elementsList = new ArrayList<>();
             CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(argument);
-            Token nextToken;
+            CssDeclarationValueTokenizer.Token nextToken;
             while ((nextToken = tokenizer.getNextValidToken()) != null) {
                 elementsList.add(nextToken.getValue());
             }
@@ -173,7 +171,7 @@ public final class CssGradientUtil {
                 throw new StyledXMLParserException(
                         MessageFormatUtil.format(StyledXMLParserException.INVALID_GRADIENT_COLOR_STOP_VALUE, argument));
             }
-            if (com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils.isColorProperty(elementsList.get(0))) {
+            if ( CssTypesValidationUtils.isColorProperty(elementsList.get(0))) {
                 float[] rgba = CssDimensionParsingUtils.parseRgbaColor(elementsList.get(0));
                 if (elementsList.size() == 1) {
                     UnitValue offset = i == stopsStartIndex
@@ -185,7 +183,7 @@ public final class CssGradientUtil {
                     builder.addColorStop(lastCreatedStopColor);
                 } else {
                     for (int j = 1; j < elementsList.size(); ++j) {
-                        if (com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils.isNumber(elementsList.get(j))) {
+                        if ( CssTypesValidationUtils.isNumber(elementsList.get(j))) {
                             // the numeric value is invalid in linear gradient function.
                             // So check it here as parsing method will use the default pt metric
                             throw new StyledXMLParserException(MessageFormatUtil

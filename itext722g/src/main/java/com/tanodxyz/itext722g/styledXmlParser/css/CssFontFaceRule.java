@@ -42,9 +42,9 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css;
 
-import com.itextpdf.layout.font.Range;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import com.tanodxyz.itext722g.styledXmlParser.css.CssDeclaration;
+
+import com.tanodxyz.itext722g.layout.font.Range;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +52,7 @@ import java.util.List;
 /**
  * Class to store a CSS font face At rule.
  */
-public class CssFontFaceRule extends com.itextpdf.styledxmlparser.css.CssNestedAtRule {
+public class CssFontFaceRule extends CssNestedAtRule {
 
     /**
      * Properties in the form of a list of CSS declarations.
@@ -63,7 +63,7 @@ public class CssFontFaceRule extends com.itextpdf.styledxmlparser.css.CssNestedA
      * Instantiates a new CSS font face rule.
      */
     public CssFontFaceRule() {
-        super(com.itextpdf.styledxmlparser.css.CssRuleName.FONT_FACE, "");
+        super(CssRuleName.FONT_FACE, "");
     }
 
     /**
