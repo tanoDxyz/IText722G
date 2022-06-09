@@ -42,9 +42,10 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
-import com.itextpdf.styledxmlparser.node.INode;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.styledXmlParser.css.media.MediaDeviceDescription;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -61,7 +62,7 @@ public class CssNestedAtRule extends CssAtRule {
     private String ruleParameters;
 
     /** The body. */
-    protected List<com.itextpdf.styledxmlparser.css.CssStatement> body;
+    protected List<CssStatement> body;
 
     /**
      * Creates a {@link CssNestedAtRule} instance
@@ -80,7 +81,7 @@ public class CssNestedAtRule extends CssAtRule {
      *
      * @param statement a CSS statement
      */
-    public void addStatementToBody(com.itextpdf.styledxmlparser.css.CssStatement statement) {
+    public void addStatementToBody(CssStatement statement) {
         this.body.add(statement);
     }
 
@@ -89,7 +90,7 @@ public class CssNestedAtRule extends CssAtRule {
      *
      * @param statements a list of CSS statements
      */
-    public void addStatementsToBody(Collection<com.itextpdf.styledxmlparser.css.CssStatement> statements) {
+    public void addStatementsToBody(Collection<CssStatement> statements) {
         this.body.addAll(statements);
     }
 
@@ -103,12 +104,12 @@ public class CssNestedAtRule extends CssAtRule {
     }
 
     /* (non-Javadoc)
-     * @see com.itextpdf.styledxmlparser.css.CssStatement#getCssRuleSets(com.itextpdf.styledxmlparser.html.node.INode, com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription)
+     * @see CssStatement#getCssRuleSets(com.itextpdf.styledxmlparser.html.node.INode, media.MediaDeviceDescription)
      */
     @Override
-    public List<com.itextpdf.styledxmlparser.css.CssRuleSet> getCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
-        List<com.itextpdf.styledxmlparser.css.CssRuleSet> result = new ArrayList<>();
-        for (com.itextpdf.styledxmlparser.css.CssStatement childStatement : body) {
+    public List<CssRuleSet> getCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
+        List<CssRuleSet> result = new ArrayList<>();
+        for (CssStatement childStatement : body) {
             result.addAll(childStatement.getCssRuleSets(node, deviceDescription));
         }
         return result;
@@ -119,7 +120,7 @@ public class CssNestedAtRule extends CssAtRule {
      *
      * @return the list of CSS statements
      */
-    public List<com.itextpdf.styledxmlparser.css.CssStatement> getStatements() {
+    public List<CssStatement> getStatements() {
         return body;
     }
 

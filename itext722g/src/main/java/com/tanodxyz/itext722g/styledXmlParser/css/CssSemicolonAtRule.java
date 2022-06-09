@@ -42,9 +42,7 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.tanodxyz.itext722g.styledXmlParser.css.CssAtRule;
-import com.tanodxyz.itext722g.styledXmlParser.css.CssNestedAtRuleFactory;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 
 /**
  * A {@link CssAtRule} implementation.

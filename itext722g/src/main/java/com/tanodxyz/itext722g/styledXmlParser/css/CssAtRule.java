@@ -45,7 +45,7 @@ package com.tanodxyz.itext722g.styledXmlParser.css;
 /**
  * Abstract superclass for all CSS at-rules (rules in CSS that start with an @ sign).
  */
-public abstract class CssAtRule extends com.itextpdf.styledxmlparser.css.CssStatement {
+public abstract class CssAtRule extends CssStatement {
 
     /**
      * The rule name.

@@ -42,9 +42,9 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css;
 
-import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
-import com.itextpdf.styledxmlparser.node.INode;
-import com.tanodxyz.itext722g.styledXmlParser.css.CssRuleSet;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.media.MediaDeviceDescription;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 import java.util.Collections;
 import java.util.List;

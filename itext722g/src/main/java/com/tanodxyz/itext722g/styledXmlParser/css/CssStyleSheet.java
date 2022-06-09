@@ -42,25 +42,21 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
-import com.itextpdf.styledxmlparser.css.resolve.shorthand.IShorthandResolver;
-import com.itextpdf.styledxmlparser.css.resolve.shorthand.ShorthandResolverFactory;
-import com.itextpdf.styledxmlparser.css.validate.CssDeclarationValidationMaster;
-import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
-import com.itextpdf.styledxmlparser.node.INode;
-import com.tanodxyz.itext722g.styledXmlParser.css.CssDeclaration;
-import com.tanodxyz.itext722g.styledXmlParser.css.CssRuleSet;
-import com.tanodxyz.itext722g.styledXmlParser.css.CssStatement;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.styledXmlParser.css.media.MediaDeviceDescription;
+import com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.IShorthandResolver;
+import com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.ShorthandResolverFactory;
+import com.tanodxyz.itext722g.styledXmlParser.css.validate.CssDeclarationValidationMaster;
+import com.tanodxyz.itext722g.styledXmlParser.logs.StyledXmlParserLogMessageConstant;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * Class that stores all the CSS statements, and thus acts as a CSS style sheet.
@@ -204,8 +200,8 @@ public class CssStyleSheet {
         if (CssDeclarationValidationMaster.checkDeclaration(cssDeclaration)) {
                 stylesMap.put(cssDeclaration.getProperty(), cssDeclaration);
         } else {
-            Logger logger = LoggerFactory.getLogger(com.itextpdf.styledxmlparser.css.ICssResolver.class);
-            logger.warn(MessageFormatUtil.format(StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION,
+            Logger logger = Logger.getLogger(ICssResolver.class.getName());
+            logger.warning(MessageFormatUtil.format(StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION,
                     cssDeclaration));
         }
     }

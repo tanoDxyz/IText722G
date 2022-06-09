@@ -43,8 +43,8 @@
 package com.tanodxyz.itext722g.styledXmlParser.css;
 
 
-import com.itextpdf.styledxmlparser.node.INode;
-import com.itextpdf.styledxmlparser.node.IStylesContainer;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
+import com.tanodxyz.itext722g.styledXmlParser.node.IStylesContainer;
 
 import java.util.ArrayList;
 import java.util.Collections;

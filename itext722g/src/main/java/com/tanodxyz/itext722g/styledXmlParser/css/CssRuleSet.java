@@ -42,10 +42,10 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css;
 
-import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
-import com.itextpdf.styledxmlparser.css.selector.ICssSelector;
-import com.itextpdf.styledxmlparser.node.INode;
-import com.tanodxyz.itext722g.styledXmlParser.css.CssDeclaration;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.media.MediaDeviceDescription;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.ICssSelector;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,7 +55,7 @@ import java.util.regex.Pattern;
 /**
  * Class to store a CSS rule set.
  */
-public class CssRuleSet extends com.itextpdf.styledxmlparser.css.CssStatement {
+public class CssRuleSet extends CssStatement {
 
     /** Pattern to match "important" in a rule declaration. */
     private static final Pattern importantMatcher = Pattern.compile(".*!\\s*important$");

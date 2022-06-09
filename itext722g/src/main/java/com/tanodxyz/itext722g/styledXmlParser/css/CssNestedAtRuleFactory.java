@@ -43,11 +43,9 @@
 package com.tanodxyz.itext722g.styledXmlParser.css;
 
 
-import com.itextpdf.styledxmlparser.css.media.CssMediaRule;
-import com.itextpdf.styledxmlparser.css.page.CssMarginRule;
-import com.itextpdf.styledxmlparser.css.page.CssPageRule;
-import com.tanodxyz.itext722g.styledXmlParser.css.CssFontFaceRule;
-import com.tanodxyz.itext722g.styledXmlParser.css.CssNestedAtRule;
+import com.tanodxyz.itext722g.styledXmlParser.css.media.CssMediaRule;
+import com.tanodxyz.itext722g.styledXmlParser.css.page.CssMarginRule;
+import com.tanodxyz.itext722g.styledXmlParser.css.page.CssPageRule;
 
 /**
  * A factory for creating {@link CssNestedAtRule} objects.
@@ -72,28 +70,28 @@ public final class CssNestedAtRuleFactory {
         String ruleParameters = ruleDeclaration.substring(ruleName.length()).trim();
         //TODO: DEVSIX-2263 consider media rules in SVG
         switch (ruleName) {
-            case com.itextpdf.styledxmlparser.css.CssRuleName.MEDIA:
+            case CssRuleName.MEDIA:
                 return new CssMediaRule(ruleParameters);
-            case com.itextpdf.styledxmlparser.css.CssRuleName.PAGE:
+            case CssRuleName.PAGE:
                 return new CssPageRule(ruleParameters);
-            case com.itextpdf.styledxmlparser.css.CssRuleName.TOP_LEFT_CORNER:
-            case com.itextpdf.styledxmlparser.css.CssRuleName.TOP_LEFT:
-            case com.itextpdf.styledxmlparser.css.CssRuleName.TOP_CENTER:
-            case com.itextpdf.styledxmlparser.css.CssRuleName.TOP_RIGHT:
-            case com.itextpdf.styledxmlparser.css.CssRuleName.TOP_RIGHT_CORNER:
-            case com.itextpdf.styledxmlparser.css.CssRuleName.LEFT_TOP:
-            case com.itextpdf.styledxmlparser.css.CssRuleName.LEFT_MIDDLE:
-            case com.itextpdf.styledxmlparser.css.CssRuleName.LEFT_BOTTOM:
-            case com.itextpdf.styledxmlparser.css.CssRuleName.RIGHT_TOP:
-            case com.itextpdf.styledxmlparser.css.CssRuleName.RIGHT_MIDDLE:
-            case com.itextpdf.styledxmlparser.css.CssRuleName.RIGHT_BOTTOM:
-            case com.itextpdf.styledxmlparser.css.CssRuleName.BOTTOM_LEFT_CORNER:
-            case com.itextpdf.styledxmlparser.css.CssRuleName.BOTTOM_LEFT:
-            case com.itextpdf.styledxmlparser.css.CssRuleName.BOTTOM_CENTER:
-            case com.itextpdf.styledxmlparser.css.CssRuleName.BOTTOM_RIGHT:
-            case com.itextpdf.styledxmlparser.css.CssRuleName.BOTTOM_RIGHT_CORNER:
+            case CssRuleName.TOP_LEFT_CORNER:
+            case CssRuleName.TOP_LEFT:
+            case CssRuleName.TOP_CENTER:
+            case CssRuleName.TOP_RIGHT:
+            case CssRuleName.TOP_RIGHT_CORNER:
+            case CssRuleName.LEFT_TOP:
+            case CssRuleName.LEFT_MIDDLE:
+            case CssRuleName.LEFT_BOTTOM:
+            case CssRuleName.RIGHT_TOP:
+            case CssRuleName.RIGHT_MIDDLE:
+            case CssRuleName.RIGHT_BOTTOM:
+            case CssRuleName.BOTTOM_LEFT_CORNER:
+            case CssRuleName.BOTTOM_LEFT:
+            case CssRuleName.BOTTOM_CENTER:
+            case CssRuleName.BOTTOM_RIGHT:
+            case CssRuleName.BOTTOM_RIGHT_CORNER:
                 return new CssMarginRule(ruleName);
-            case com.itextpdf.styledxmlparser.css.CssRuleName.FONT_FACE:
+            case CssRuleName.FONT_FACE:
                 return new CssFontFaceRule();
             default:
                 return new CssNestedAtRule(ruleName, ruleParameters);

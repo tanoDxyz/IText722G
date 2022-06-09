@@ -43,8 +43,8 @@
 package com.tanodxyz.itext722g.styledXmlParser.css;
 
 
-import com.itextpdf.styledxmlparser.css.resolve.AbstractCssContext;
-import com.itextpdf.styledxmlparser.node.INode;
+import com.tanodxyz.itext722g.styledXmlParser.css.resolve.AbstractCssContext;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 import java.util.Map;
 

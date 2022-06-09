@@ -42,9 +42,9 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssUtils;
 
 /**
  * Class to store a CSS declaration.

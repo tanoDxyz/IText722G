@@ -42,8 +42,7 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css;
 
-import com.itextpdf.styledxmlparser.css.selector.CssSelectorComparator;
-import com.tanodxyz.itext722g.styledXmlParser.css.CssRuleSet;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.CssSelectorComparator;
 
 import java.util.Comparator;
 
