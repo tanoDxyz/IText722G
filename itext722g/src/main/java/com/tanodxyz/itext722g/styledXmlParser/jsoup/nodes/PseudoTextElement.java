@@ -22,11 +22,12 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes;
 
-import com.itextpdf.styledxmlparser.jsoup.parser.Tag;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Tag;
 
 /**
- * Represents a {@link com.itextpdf.styledxmlparser.jsoup.nodes.TextNode} as an {@link Element}, to enable text nodes to be selected with
- * the {@link com.itextpdf.styledxmlparser.jsoup.select.Selector} {@code :matchText} syntax.
+ * Represents a {@link TextNode} as an {@link Element}, to enable text nodes to be selected with
+ * the {@link .Selector} {@code :matchText} syntax.
  */
 public class PseudoTextElement extends Element {
 

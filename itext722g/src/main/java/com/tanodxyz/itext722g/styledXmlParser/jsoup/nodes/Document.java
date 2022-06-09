@@ -22,14 +22,15 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes;
 
-import com.itextpdf.styledxmlparser.jsoup.helper.DataUtil;
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.internal.StringUtil;
-import com.itextpdf.styledxmlparser.jsoup.parser.ParseSettings;
-import com.itextpdf.styledxmlparser.jsoup.parser.Parser;
-import com.itextpdf.styledxmlparser.jsoup.parser.Tag;
-import com.itextpdf.styledxmlparser.jsoup.select.Elements;
-import com.itextpdf.styledxmlparser.jsoup.select.Evaluator;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.DataUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.ParseSettings;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Parser;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Tag;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.Elements;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.Evaluator;
 
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
@@ -94,7 +95,7 @@ public class Document extends Element {
         for (Node node : childNodes) {
             if (node instanceof DocumentType)
                 return (DocumentType) node;
-            else if (!(node instanceof com.itextpdf.styledxmlparser.jsoup.nodes.LeafNode)) // scans forward across comments, text, processing instructions etc
+            else if (!(node instanceof LeafNode)) // scans forward across comments, text, processing instructions etc
                 break;
         }
         return null;
@@ -208,8 +209,8 @@ public class Document extends Element {
     private void normaliseTextNodes(Element element) {
         List<Node> toMove = new ArrayList<>();
         for (Node node: element.childNodes) {
-            if (node instanceof com.itextpdf.styledxmlparser.jsoup.nodes.TextNode) {
-                com.itextpdf.styledxmlparser.jsoup.nodes.TextNode tn = (com.itextpdf.styledxmlparser.jsoup.nodes.TextNode) node;
+            if (node instanceof TextNode) {
+                TextNode tn = (TextNode) node;
                 if (!tn.isBlank())
                     toMove.add(tn);
             }
@@ -218,7 +219,7 @@ public class Document extends Element {
         for (int i = toMove.size()-1; i >= 0; i--) {
             Node node = toMove.get(i);
             element.removeChild(node);
-            body().prependChild(new com.itextpdf.styledxmlparser.jsoup.nodes.TextNode(" "));
+            body().prependChild(new TextNode(" "));
             body().prependChild(node);
         }
     }
@@ -226,7 +227,7 @@ public class Document extends Element {
     // merge multiple <head> or <body> contents into one, delete the remainder, and ensure they are owned by <html>
     private void normaliseStructure(String tag, Element htmlEl) {
         Elements elements = this.getElementsByTag(tag);
-        com.itextpdf.styledxmlparser.jsoup.nodes.Element master = elements.first(); // will always be available as created above if not existent
+        Element master = elements.first(); // will always be available as created above if not existent
         if (elements.size() > 1) { // dupes, move contents to master
             List<Node> toMove = new ArrayList<>();
             for (int i = 1; i < elements.size(); i++) {
@@ -376,20 +377,20 @@ public class Document extends Element {
                 select("meta[name=charset]").remove(); // Remove obsolete elements
             } else if (syntax == OutputSettings.Syntax.xml) {
                 Node node = ensureChildNodes().get(0);
-                if (node instanceof com.itextpdf.styledxmlparser.jsoup.nodes.XmlDeclaration) {
-                    com.itextpdf.styledxmlparser.jsoup.nodes.XmlDeclaration decl = (com.itextpdf.styledxmlparser.jsoup.nodes.XmlDeclaration) node;
+                if (node instanceof XmlDeclaration) {
+                    XmlDeclaration decl = (XmlDeclaration) node;
                     if (decl.name().equals("xml")) {
                         decl.attr("encoding", charset().displayName());
                         if (decl.hasAttr("version"))
                             decl.attr("version", "1.0");
                     } else {
-                        decl = new com.itextpdf.styledxmlparser.jsoup.nodes.XmlDeclaration("xml", false);
+                        decl = new XmlDeclaration("xml", false);
                         decl.attr("version", "1.0");
                         decl.attr("encoding", charset().displayName());
                         prependChild(decl);
                     }
                 } else {
-                    com.itextpdf.styledxmlparser.jsoup.nodes.XmlDeclaration decl = new com.itextpdf.styledxmlparser.jsoup.nodes.XmlDeclaration("xml", false);
+                    XmlDeclaration decl = new XmlDeclaration("xml", false);
                     decl.attr("version", "1.0");
                     decl.attr("encoding", charset().displayName());
                     prependChild(decl);
@@ -408,10 +409,10 @@ public class Document extends Element {
          */
         public enum Syntax {html, xml}
 
-        private com.itextpdf.styledxmlparser.jsoup.nodes.Entities.EscapeMode escapeMode = com.itextpdf.styledxmlparser.jsoup.nodes.Entities.EscapeMode.base;
+        private Entities.EscapeMode escapeMode = Entities.EscapeMode.base;
         private Charset charset = DataUtil.UTF_8;
         private final ThreadLocal<CharsetEncoder> encoderThreadLocal = new ThreadLocal<>(); // initialized by start of OuterHtmlVisitor
-        com.itextpdf.styledxmlparser.jsoup.nodes.Entities.CoreCharset coreCharset; // fast encoders for ascii and utf8
+        Entities.CoreCharset coreCharset; // fast encoders for ascii and utf8
 
         private boolean prettyPrint = true;
         private boolean outline = false;
@@ -428,7 +429,7 @@ public class Document extends Element {
          * The default escape mode is <code>base</code>.
          * @return the document's current escape mode
          */
-        public com.itextpdf.styledxmlparser.jsoup.nodes.Entities.EscapeMode escapeMode() {
+        public Entities.EscapeMode escapeMode() {
             return escapeMode;
         }
 
@@ -438,7 +439,7 @@ public class Document extends Element {
          * @param escapeMode the new escape mode to use
          * @return the document's output settings, for chaining
          */
-        public OutputSettings escapeMode(com.itextpdf.styledxmlparser.jsoup.nodes.Entities.EscapeMode escapeMode) {
+        public OutputSettings escapeMode(Entities.EscapeMode escapeMode) {
             this.escapeMode = escapeMode;
             return this;
         }
@@ -479,7 +480,7 @@ public class Document extends Element {
             // created at start of OuterHtmlVisitor so each pass has own encoder, so OutputSettings can be shared among threads
             CharsetEncoder encoder = charset.newEncoder();
             encoderThreadLocal.set(encoder);
-            coreCharset = com.itextpdf.styledxmlparser.jsoup.nodes.Entities.getCoreCharsetByName(encoder.charset().name());
+            coreCharset = Entities.getCoreCharsetByName(encoder.charset().name());
             return encoder;
         }
 

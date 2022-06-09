@@ -28,7 +28,7 @@ import java.io.IOException;
  A data node, for contents of style, script tags etc, where contents should not show in text().
 
  @author Jonathan Hedley, jonathan@hedley.net */
-public class DataNode extends com.itextpdf.styledxmlparser.jsoup.nodes.LeafNode {
+public class DataNode extends LeafNode {
 
     /**
      Create a new DataNode.
@@ -60,11 +60,11 @@ public class DataNode extends com.itextpdf.styledxmlparser.jsoup.nodes.LeafNode 
         return this;
     }
 
-	void outerHtmlHead(Appendable accum, int depth, com.itextpdf.styledxmlparser.jsoup.nodes.Document.OutputSettings out) throws IOException {
+	void outerHtmlHead(Appendable accum, int depth,Document.OutputSettings out) throws IOException {
         accum.append(getWholeData()); // data is not escaped in return from data nodes, so " in script, style is plain
     }
 
-	void outerHtmlTail(Appendable accum, int depth, com.itextpdf.styledxmlparser.jsoup.nodes.Document.OutputSettings out) {}
+	void outerHtmlTail(Appendable accum, int depth,Document.OutputSettings out) {}
 
     @Override
     public String toString() {
@@ -85,7 +85,7 @@ public class DataNode extends com.itextpdf.styledxmlparser.jsoup.nodes.LeafNode 
      */
     @Deprecated
     public static DataNode createFromEncoded(String encodedData, String baseUri) {
-        String data = com.itextpdf.styledxmlparser.jsoup.nodes.Entities.unescape(encodedData);
+        String data =Entities.unescape(encodedData);
         return new DataNode(data);
     }
 }

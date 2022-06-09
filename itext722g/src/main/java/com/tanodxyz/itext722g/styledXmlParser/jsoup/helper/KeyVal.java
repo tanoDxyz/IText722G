@@ -40,14 +40,14 @@ public class KeyVal {
     }
 
     private KeyVal(String key, String value) {
-        com.itextpdf.styledxmlparser.jsoup.helper.Validate.notEmpty(key, "Data key must not be empty");
-        com.itextpdf.styledxmlparser.jsoup.helper.Validate.notNull(value, "Data value must not be null");
+        Validate.notEmpty(key, "Data key must not be empty");
+        Validate.notNull(value, "Data value must not be null");
         this.key = key;
         this.value = value;
     }
 
     public KeyVal key(String key) {
-        com.itextpdf.styledxmlparser.jsoup.helper.Validate.notEmpty(key, "Data key must not be empty");
+        Validate.notEmpty(key, "Data key must not be empty");
         this.key = key;
         return this;
     }
@@ -57,7 +57,7 @@ public class KeyVal {
     }
 
     public KeyVal value(String value) {
-        com.itextpdf.styledxmlparser.jsoup.helper.Validate.notNull(value, "Data value must not be null");
+        Validate.notNull(value, "Data value must not be null");
         this.value = value;
         return this;
     }
@@ -67,7 +67,7 @@ public class KeyVal {
     }
 
     public KeyVal inputStream(InputStream inputStream) {
-        com.itextpdf.styledxmlparser.jsoup.helper.Validate.notNull(value, "Data input stream must not be null");
+        Validate.notNull(value, "Data input stream must not be null");
         this.stream = inputStream;
         return this;
     }
@@ -81,7 +81,7 @@ public class KeyVal {
     }
 
     public KeyVal contentType(String contentType) {
-        com.itextpdf.styledxmlparser.jsoup.helper.Validate.notEmpty(contentType);
+        Validate.notEmpty(contentType);
         this.contentType = contentType;
         return this;
     }

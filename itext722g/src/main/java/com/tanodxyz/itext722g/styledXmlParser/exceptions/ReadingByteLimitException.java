@@ -22,7 +22,8 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.exceptions;
 
-import com.itextpdf.commons.exceptions.ITextException;
+
+import com.tanodxyz.itext722g.commons.exceptions.ITextException;
 
 /**
  * Thrown when the limit on the number of bytes read was violated.

@@ -22,7 +22,8 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.internal;
 
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
 
 import java.net.MalformedURLException;
 import java.net.URL;

@@ -22,11 +22,12 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes;
 
-import com.itextpdf.styledxmlparser.jsoup.SerializationException;
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.internal.Normalizer;
-import com.itextpdf.styledxmlparser.jsoup.internal.StringUtil;
-import com.itextpdf.styledxmlparser.jsoup.parser.ParseSettings;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.SerializationException;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.Normalizer;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.ParseSettings;
 
 import java.io.IOException;
 import java.util.AbstractMap;
@@ -361,7 +362,7 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
         return StringUtil.releaseBuilder(sb);
     }
 
-    final void html(final Appendable accum, final com.itextpdf.styledxmlparser.jsoup.nodes.Document.OutputSettings out) throws IOException {
+    final void html(final Appendable accum, final Document.OutputSettings out) throws IOException {
         final int sz = size;
         for (int i = 0; i < sz; i++) {
             if (isInternalKey(keys[i]))
@@ -375,7 +376,7 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
             // collapse checked=null, checked="", checked=checked; write out others
             if (!Attribute.shouldCollapseAttribute(key, val, out)) {
                 accum.append("=\"");
-                com.itextpdf.styledxmlparser.jsoup.nodes.Entities.escape(accum, val == null ? EmptyString : val, out, true, false, false);
+                Entities.escape(accum, val == null ? EmptyString : val, out, true, false, false);
                 accum.append('"');
             }
         }

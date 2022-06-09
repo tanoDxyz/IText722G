@@ -22,9 +22,9 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes;
 
-import com.itextpdf.styledxmlparser.jsoup.helper.KeyVal;
-import com.itextpdf.styledxmlparser.jsoup.parser.Tag;
-import com.itextpdf.styledxmlparser.jsoup.select.Elements;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.KeyVal;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;

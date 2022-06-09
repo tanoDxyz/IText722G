@@ -22,8 +22,8 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes;
 
-import com.itextpdf.styledxmlparser.jsoup.parser.ParseSettings;
-import com.itextpdf.styledxmlparser.jsoup.parser.Parser;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.ParseSettings;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Parser;
 
 import java.io.IOException;
 
@@ -31,7 +31,7 @@ import java.io.IOException;
  A comment node.
 
  @author Jonathan Hedley, jonathan@hedley.net */
-public class Comment extends com.itextpdf.styledxmlparser.jsoup.nodes.LeafNode {
+public class Comment extends LeafNode {
     /**
      Create a new comment node.
      @param data The contents of the comment
@@ -57,7 +57,7 @@ public class Comment extends com.itextpdf.styledxmlparser.jsoup.nodes.LeafNode {
         return this;
     }
 
-	void outerHtmlHead(Appendable accum, int depth, com.itextpdf.styledxmlparser.jsoup.nodes.Document.OutputSettings out) throws IOException {
+	void outerHtmlHead(Appendable accum, int depth, Document.OutputSettings out) throws IOException {
         if (out.prettyPrint() && ((siblingIndex() == 0 && parentNode instanceof Element && ((Element) parentNode).tag().formatAsBlock()) || (out.outline() )))
             indent(accum, depth, out);
         accum
@@ -66,7 +66,7 @@ public class Comment extends com.itextpdf.styledxmlparser.jsoup.nodes.LeafNode {
                 .append("-->");
     }
 
-	void outerHtmlTail(Appendable accum, int depth, com.itextpdf.styledxmlparser.jsoup.nodes.Document.OutputSettings out) {}
+	void outerHtmlTail(Appendable accum, int depth, Document.OutputSettings out) {}
 
     @Override
     public String toString() {
@@ -95,10 +95,10 @@ public class Comment extends com.itextpdf.styledxmlparser.jsoup.nodes.LeafNode {
      * Attempt to cast this comment to an XML Declaration node.
      * @return an XML declaration if it could be parsed as one, null otherwise.
      */
-    public com.itextpdf.styledxmlparser.jsoup.nodes.XmlDeclaration asXmlDeclaration() {
+    public XmlDeclaration asXmlDeclaration() {
         String data = getData();
 
-        com.itextpdf.styledxmlparser.jsoup.nodes.XmlDeclaration decl = null;
+        XmlDeclaration decl = null;
         String declContent = data.substring(1, data.length() - 1);
         // make sure this bogus comment is not immediately followed by another, treat as comment if so
         if (isXmlDeclarationData(declContent))
@@ -106,10 +106,10 @@ public class Comment extends com.itextpdf.styledxmlparser.jsoup.nodes.LeafNode {
 
         String fragment = "<" + declContent + ">";
         // use the HTML parser not XML, so we don't get into a recursive XML Declaration on contrived data
-        com.itextpdf.styledxmlparser.jsoup.nodes.Document doc = Parser.htmlParser().settings(ParseSettings.preserveCase).parseInput(fragment, baseUri());
+        Document doc = Parser.htmlParser().settings(ParseSettings.preserveCase).parseInput(fragment, baseUri());
         if (doc.body().children().size() > 0) {
             Element el = doc.body().child(0);
-            decl = new com.itextpdf.styledxmlparser.jsoup.nodes.XmlDeclaration(com.itextpdf.styledxmlparser.jsoup.nodes.NodeUtils.parser(doc).settings().normalizeTag(el.tagName()), data.startsWith("!"));
+            decl = new XmlDeclaration(NodeUtils.parser(doc).settings().normalizeTag(el.tagName()), data.startsWith("!"));
             decl.attributes().addAll(el.attributes());
         }
         return decl;

@@ -22,7 +22,8 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes;
 
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
 
 import java.util.List;
 

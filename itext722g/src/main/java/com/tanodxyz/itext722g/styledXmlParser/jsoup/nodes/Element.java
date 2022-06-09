@@ -22,21 +22,21 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.jsoup.helper.ChangeNotifyingArrayList;
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.internal.Normalizer;
-import com.itextpdf.styledxmlparser.jsoup.internal.StringUtil;
-import com.itextpdf.styledxmlparser.jsoup.parser.ParseSettings;
-import com.itextpdf.styledxmlparser.jsoup.parser.Tag;
-import com.itextpdf.styledxmlparser.jsoup.select.Collector;
-import com.itextpdf.styledxmlparser.jsoup.select.Elements;
-import com.itextpdf.styledxmlparser.jsoup.select.Evaluator;
-import com.itextpdf.styledxmlparser.jsoup.select.NodeFilter;
-import com.itextpdf.styledxmlparser.jsoup.select.NodeTraversor;
-import com.itextpdf.styledxmlparser.jsoup.select.NodeVisitor;
-import com.itextpdf.styledxmlparser.jsoup.select.QueryParser;
-import com.itextpdf.styledxmlparser.jsoup.select.Selector;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.ChangeNotifyingArrayList;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.Normalizer;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Tag;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.Collector;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.Elements;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.Evaluator;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.NodeFilter;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.NodeTraversor;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.NodeVisitor;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.QueryParser;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.Selector;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -191,7 +191,7 @@ public class Element extends Node {
      */
     public Element tagName(String tagName) {
         Validate.notEmpty(tagName, "Tag name must not be empty.");
-        tag = Tag.valueOf(tagName, com.itextpdf.styledxmlparser.jsoup.nodes.NodeUtils.parser(this).settings()); // maintains the case option of the original parse
+        tag = Tag.valueOf(tagName,NodeUtils.parser(this).settings()); // maintains the case option of the original parse
         return this;
     }
 
@@ -389,11 +389,11 @@ public class Element extends Node {
      *     <li>{@code p.textNodes()} = {@code List<TextNode>["One ", " Three ", " Four"]}
      * </ul>
      */
-    public List<com.itextpdf.styledxmlparser.jsoup.nodes.TextNode> textNodes() {
-        List<com.itextpdf.styledxmlparser.jsoup.nodes.TextNode> textNodes = new ArrayList<>();
+    public List< TextNode> textNodes() {
+        List< TextNode> textNodes = new ArrayList<>();
         for (Node node : childNodes) {
-            if (node instanceof com.itextpdf.styledxmlparser.jsoup.nodes.TextNode)
-                textNodes.add((com.itextpdf.styledxmlparser.jsoup.nodes.TextNode) node);
+            if (node instanceof TextNode)
+                textNodes.add(( TextNode) node);
         }
         return Collections.unmodifiableList(textNodes);
     }

@@ -22,13 +22,13 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes;
 
-import com.itextpdf.styledxmlparser.jsoup.SerializationException;
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.internal.StringUtil;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Document.OutputSettings;
-import com.itextpdf.styledxmlparser.jsoup.parser.CharacterReader;
-import com.itextpdf.styledxmlparser.jsoup.parser.Parser;
+
 import com.tanodxyz.itext722g.io.util.ArrayUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.SerializationException;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.CharacterReader;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Parser;
 
 import java.io.IOException;
 import java.nio.charset.CharsetEncoder;
@@ -45,21 +45,21 @@ public class Entities {
     static final int codepointRadix = 36;
     private static final char[] codeDelims = {',', ';'};
     private static final HashMap<String, String> multipoints = new HashMap<>(); // name -> multiple character references
-    private static final OutputSettings DefaultOutput = new OutputSettings();
+    private static final Document.OutputSettings DefaultOutput = new Document.OutputSettings();
 
     public static class EscapeMode {
         /**
          * Restricted entities suitable for XHTML output: lt, gt, amp, and quot only.
          */
-        public static EscapeMode xhtml = new EscapeMode(com.itextpdf.styledxmlparser.jsoup.nodes.EntitiesData.xmlPoints, 4);
+        public static EscapeMode xhtml = new EscapeMode( EntitiesData.xmlPoints, 4);
         /**
          * Default HTML output entities.
          */
-        public static EscapeMode base = new EscapeMode(com.itextpdf.styledxmlparser.jsoup.nodes.EntitiesData.basePoints, 106);
+        public static EscapeMode base = new EscapeMode( EntitiesData.basePoints, 106);
         /**
          * Complete HTML entities.
          */
-        public static EscapeMode extended = new EscapeMode(com.itextpdf.styledxmlparser.jsoup.nodes.EntitiesData.fullPoints, 2125);
+        public static EscapeMode extended = new EscapeMode( EntitiesData.fullPoints, 2125);
 
         // table of named references to their codepoints. sorted so we can binary search. built by BuildEntities.
         String[] nameKeys;
@@ -156,7 +156,7 @@ public class Entities {
      * @param out the output settings to use
      * @return the escaped string
      */
-    public static String escape(String string, OutputSettings out) {
+    public static String escape(String string, Document.OutputSettings out) {
         if (string == null)
             return "";
         StringBuilder accum = StringUtil.borrowBuilder();
@@ -180,7 +180,7 @@ public class Entities {
     }
 
     // this method is ugly, and does a lot. but other breakups cause rescanning and stringbuilder generations
-    static void escape(Appendable accum, String str, OutputSettings out,
+    static void escape(Appendable accum, String str, Document.OutputSettings out,
                        boolean inAttribute, boolean normaliseWhite, boolean stripLeadingWhite) throws IOException {
 
         boolean lastWasWhite = false;

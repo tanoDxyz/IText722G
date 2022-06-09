@@ -22,17 +22,16 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes;
 
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.internal.StringUtil;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Document.OutputSettings.Syntax;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Document;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
 
 import java.io.IOException;
 
 /**
  * A {@code <!DOCTYPE>} node.
  */
-public class DocumentType extends com.itextpdf.styledxmlparser.jsoup.nodes.LeafNode {
+public class DocumentType extends LeafNode {
     public static final String PUBLIC_KEY = "PUBLIC";
     public static final String SYSTEM_KEY = "SYSTEM";
     private static final String NAME = "name";
@@ -98,7 +97,7 @@ public class DocumentType extends com.itextpdf.styledxmlparser.jsoup.nodes.LeafN
 
     @Override
     void outerHtmlHead(Appendable accum, int depth, Document.OutputSettings out) throws IOException {
-        if (out.syntax() == Syntax.html && !has(PUBLIC_ID) && !has(SYSTEM_ID)) {
+        if (out.syntax() == Document.OutputSettings.Syntax.html && !has(PUBLIC_ID) && !has(SYSTEM_ID)) {
             // looks like a html5 doctype, go lowercase for aesthetics
             accum.append("<!doctype");
         } else {

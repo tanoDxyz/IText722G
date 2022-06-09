@@ -22,18 +22,18 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.helper;
 
-import com.itextpdf.styledxmlparser.jsoup.PortUtil;
-import com.itextpdf.styledxmlparser.jsoup.UncheckedIOException;
-import com.itextpdf.styledxmlparser.jsoup.internal.ConstrainableInputStream;
-import com.itextpdf.styledxmlparser.jsoup.internal.Normalizer;
-import com.itextpdf.styledxmlparser.jsoup.internal.StringUtil;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Comment;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Document;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Node;
-import com.itextpdf.styledxmlparser.jsoup.nodes.XmlDeclaration;
-import com.itextpdf.styledxmlparser.jsoup.parser.Parser;
-import com.itextpdf.styledxmlparser.jsoup.select.Elements;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.PortUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.UncheckedIOException;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.ConstrainableInputStream;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.Normalizer;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Document;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Node;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.XmlDeclaration;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Parser;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.Elements;
 
 import java.io.BufferedReader;
 import java.io.CharArrayReader;
@@ -194,7 +194,7 @@ public final class DataUtil {
                 doc = null;
             }
         } else { // specified by content type header (or by user on file load)
-            com.itextpdf.styledxmlparser.jsoup.helper.Validate.notEmpty(charsetName, "Must set charset arg to character set of file to parse. Set to null to attempt to detect from HTML");
+            Validate.notEmpty(charsetName, "Must set charset arg to character set of file to parse. Set to null to attempt to detect from HTML");
         }
         if (doc == null) {
             if (charsetName == null)
@@ -203,7 +203,7 @@ public final class DataUtil {
             if (bomCharset != null && bomCharset.offset) {
                 // creating the buffered reader ignores the input pos, so must skip here
                 long skipped = reader.skip(1);
-                com.itextpdf.styledxmlparser.jsoup.helper.Validate.isTrue(skipped == 1);
+                Validate.isTrue(skipped == 1);
             }
             try {
                 doc = parser.parseInput(reader, baseUri);
@@ -231,7 +231,7 @@ public final class DataUtil {
      * @throws IOException if an exception occurs whilst reading from the input stream.
      */
     public static ByteBuffer readToByteBuffer(InputStream inStream, int maxSize) throws IOException {
-        com.itextpdf.styledxmlparser.jsoup.helper.Validate.isTrue(maxSize >= 0, "maxSize must be 0 (unlimited) or larger");
+        Validate.isTrue(maxSize >= 0, "maxSize must be 0 (unlimited) or larger");
         final ConstrainableInputStream input = ConstrainableInputStream.wrap(inStream, bufferSize, maxSize);
         return input.readToByteBuffer(maxSize);
     }

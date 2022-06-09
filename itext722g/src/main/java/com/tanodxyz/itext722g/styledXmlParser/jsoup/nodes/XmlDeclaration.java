@@ -22,11 +22,10 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes;
 
-import com.itextpdf.styledxmlparser.jsoup.SerializationException;
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.internal.StringUtil;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Document;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.LeafNode;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.SerializationException;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
 
 import java.io.IOException;
 

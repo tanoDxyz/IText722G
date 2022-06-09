@@ -22,8 +22,9 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.parser;
 
-import com.itextpdf.styledxmlparser.jsoup.UncheckedIOException;
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.UncheckedIOException;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -328,7 +329,7 @@ public final class CharacterReader {
             switch (val[pos]) {
                 case '&':
                 case '<':
-                case com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState.nullChar:
+                case TokeniserState.nullChar:
                     break OUTER;
                 default:
                     pos++;
@@ -349,7 +350,7 @@ public final class CharacterReader {
         OUTER: while (pos < remaining) {
             switch (val[pos]) {
                 case '&':
-                case com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState.nullChar:
+                case TokeniserState.nullChar:
                     break OUTER;
                 case '\'':
                     if (single) break OUTER;
@@ -375,7 +376,7 @@ public final class CharacterReader {
         OUTER: while (pos < remaining) {
             switch (val[pos]) {
                 case '<':
-                case com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState.nullChar:
+                case TokeniserState.nullChar:
                     break OUTER;
                 default:
                     pos++;
@@ -404,7 +405,7 @@ public final class CharacterReader {
                 case '/':
                 case '>':
                 case '<':
-                case com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState.nullChar:
+                case TokeniserState.nullChar:
                     break OUTER;
             }
             pos++;

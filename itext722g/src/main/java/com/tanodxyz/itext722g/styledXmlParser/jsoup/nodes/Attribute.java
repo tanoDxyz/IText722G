@@ -22,9 +22,10 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes;
 
-import com.itextpdf.styledxmlparser.jsoup.SerializationException;
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.internal.StringUtil;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.SerializationException;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -88,7 +89,7 @@ public class Attribute implements Map.Entry<String, String>, Cloneable  {
         Validate.notEmpty(key); // trimming could potentially make empty, so validate here
         if (parent != null) {
             int i = parent.indexOfKey(this.key);
-            if (i != com.itextpdf.styledxmlparser.jsoup.nodes.Attributes.NotFound)
+            if (i != Attributes.NotFound)
                 parent.keys[i] = key;
         }
         this.key = key;
@@ -99,7 +100,7 @@ public class Attribute implements Map.Entry<String, String>, Cloneable  {
      @return the attribute value
      */
     public String getValue() {
-        return com.itextpdf.styledxmlparser.jsoup.nodes.Attributes.checkNotNull(val);
+        return Attributes.checkNotNull(val);
     }
 
     /**
@@ -119,11 +120,11 @@ public class Attribute implements Map.Entry<String, String>, Cloneable  {
         if (parent != null) {
             oldVal = parent.get(this.key); // trust the container more
             int i = parent.indexOfKey(this.key);
-            if (i != com.itextpdf.styledxmlparser.jsoup.nodes.Attributes.NotFound)
+            if (i != Attributes.NotFound)
                 parent.vals[i] = val;
         }
         this.val = val;
-        return com.itextpdf.styledxmlparser.jsoup.nodes.Attributes.checkNotNull(oldVal);
+        return Attributes.checkNotNull(oldVal);
     }
 
     /**
@@ -141,16 +142,16 @@ public class Attribute implements Map.Entry<String, String>, Cloneable  {
         return StringUtil.releaseBuilder(sb);
     }
 
-    protected static void html(String key, String val, Appendable accum, com.itextpdf.styledxmlparser.jsoup.nodes.Document.OutputSettings out) throws IOException {
+    protected static void html(String key, String val, Appendable accum, Document.OutputSettings out) throws IOException {
         accum.append(key);
         if (!shouldCollapseAttribute(key, val, out)) {
             accum.append("=\"");
-            com.itextpdf.styledxmlparser.jsoup.nodes.Entities.escape(accum, com.itextpdf.styledxmlparser.jsoup.nodes.Attributes.checkNotNull(val) , out, true, false, false);
+            Entities.escape(accum, Attributes.checkNotNull(val) , out, true, false, false);
             accum.append('"');
         }
     }
     
-    protected void html(Appendable accum, com.itextpdf.styledxmlparser.jsoup.nodes.Document.OutputSettings out) throws IOException {
+    protected void html(Appendable accum, Document.OutputSettings out) throws IOException {
         html(key, val, accum, out);
     }
 
@@ -170,7 +171,7 @@ public class Attribute implements Map.Entry<String, String>, Cloneable  {
      * @return attribute
      */
     public static Attribute createFromEncoded(String unencodedKey, String encodedValue) {
-        String value = com.itextpdf.styledxmlparser.jsoup.nodes.Entities.unescape(encodedValue, true);
+        String value = Entities.unescape(encodedValue, true);
         return new Attribute(unencodedKey, value, null); // parent will get set when Put
     }
 
@@ -179,7 +180,7 @@ public class Attribute implements Map.Entry<String, String>, Cloneable  {
     }
 
     protected static boolean isDataAttribute(String key) {
-        return key.startsWith(com.itextpdf.styledxmlparser.jsoup.nodes.Attributes.dataPrefix) && key.length() > com.itextpdf.styledxmlparser.jsoup.nodes.Attributes.dataPrefix.length();
+        return key.startsWith(Attributes.dataPrefix) && key.length() > Attributes.dataPrefix.length();
     }
 
     /**
@@ -188,13 +189,13 @@ public class Attribute implements Map.Entry<String, String>, Cloneable  {
      * @param out output settings
      * @return  Returns whether collapsible or not
      */
-    protected final boolean shouldCollapseAttribute(com.itextpdf.styledxmlparser.jsoup.nodes.Document.OutputSettings out) {
+    protected final boolean shouldCollapseAttribute(Document.OutputSettings out) {
         return shouldCollapseAttribute(key, val, out);
     }
 
-    protected static boolean shouldCollapseAttribute(final String key, final String val, final com.itextpdf.styledxmlparser.jsoup.nodes.Document.OutputSettings out) {
+    protected static boolean shouldCollapseAttribute(final String key, final String val, final Document.OutputSettings out) {
         return (
-            out.syntax() == com.itextpdf.styledxmlparser.jsoup.nodes.Document.OutputSettings.Syntax.html &&
+            out.syntax() == Document.OutputSettings.Syntax.html &&
                 (val == null || (val.isEmpty() || val.equalsIgnoreCase(key)) && Attribute.isBooleanAttribute(key)));
     }
 

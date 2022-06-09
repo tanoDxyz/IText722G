@@ -22,14 +22,15 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes;
 
-import com.itextpdf.styledxmlparser.jsoup.UncheckedIOException;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.UncheckedIOException;
 
 import java.io.IOException;
 
 /**
  * A Character Data node, to support CDATA sections.
  */
-public class CDataNode extends com.itextpdf.styledxmlparser.jsoup.nodes.TextNode {
+public class CDataNode extends TextNode {
     public CDataNode(String text) {
         super(text);
     }
@@ -49,14 +50,14 @@ public class CDataNode extends com.itextpdf.styledxmlparser.jsoup.nodes.TextNode
     }
 
     @Override
-    void outerHtmlHead(Appendable accum, int depth, com.itextpdf.styledxmlparser.jsoup.nodes.Document.OutputSettings out) throws IOException {
+    void outerHtmlHead(Appendable accum, int depth, Document.OutputSettings out) throws IOException {
         accum
             .append("<![CDATA[")
             .append(getWholeText());
     }
 
     @Override
-    void outerHtmlTail(Appendable accum, int depth, com.itextpdf.styledxmlparser.jsoup.nodes.Document.OutputSettings out) {
+    void outerHtmlTail(Appendable accum, int depth, Document.OutputSettings out) {
         try {
             accum.append("]]>");
         } catch (IOException e) {

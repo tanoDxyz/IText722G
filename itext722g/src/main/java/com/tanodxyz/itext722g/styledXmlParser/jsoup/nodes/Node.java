@@ -22,13 +22,12 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes;
 
-import com.itextpdf.styledxmlparser.jsoup.SerializationException;
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.internal.StringUtil;
-import com.itextpdf.styledxmlparser.jsoup.select.NodeFilter;
-import com.itextpdf.styledxmlparser.jsoup.select.NodeTraversor;
-import com.itextpdf.styledxmlparser.jsoup.select.NodeVisitor;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Document;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.SerializationException;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.NodeFilter;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.NodeTraversor;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.NodeVisitor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -120,7 +119,7 @@ public abstract class Node implements Cloneable {
      * @return this (for chaining)
      */
     public Node attr(String attributeKey, String attributeValue) {
-        attributeKey = com.itextpdf.styledxmlparser.jsoup.nodes.NodeUtils.parser(this).settings().normalizeAttribute(attributeKey);
+        attributeKey =  NodeUtils.parser(this).settings().normalizeAttribute(attributeKey);
         attributes().putIgnoreCase(attributeKey, attributeValue);
         return this;
     }
@@ -396,7 +395,7 @@ public abstract class Node implements Cloneable {
         Validate.notNull(parentNode);
 
         Element context = parent() instanceof Element ? (Element) parent() : null;
-        List<Node> nodes = com.itextpdf.styledxmlparser.jsoup.nodes.NodeUtils.parser(this).parseFragmentInput(html, context, baseUri());
+        List<Node> nodes =  NodeUtils.parser(this).parseFragmentInput(html, context, baseUri());
         parentNode.addChildren(index, nodes.toArray(new Node[0]));
     }
 
@@ -415,7 +414,7 @@ public abstract class Node implements Cloneable {
             parentNode != null && parentNode instanceof Element ? (Element) parentNode :
                 this instanceof Element ? (Element) this :
                     null;
-        List<Node> wrapChildren = com.itextpdf.styledxmlparser.jsoup.nodes.NodeUtils.parser(this).parseFragmentInput(html, context, baseUri());
+        List<Node> wrapChildren =  NodeUtils.parser(this).parseFragmentInput(html, context, baseUri());
         Node wrapNode = wrapChildren.get(0);
         if (!(wrapNode instanceof Element)) // nothing to wrap with; noop
             return this;
@@ -638,7 +637,7 @@ public abstract class Node implements Cloneable {
      * sibling, returns 0.
      *
      * @return position in node sibling list
-     * @see com.itextpdf.styledxmlparser.jsoup.nodes.Element#elementSiblingIndex()
+     * @see  Element#elementSiblingIndex()
      */
     public int siblingIndex() {
         return siblingIndex;
@@ -686,7 +685,7 @@ public abstract class Node implements Cloneable {
     }
 
     protected void outerHtml(Appendable accum) {
-        NodeTraversor.traverse(new OuterHtmlVisitor(accum, com.itextpdf.styledxmlparser.jsoup.nodes.NodeUtils.outputSettings(this)), this);
+        NodeTraversor.traverse(new OuterHtmlVisitor(accum,  NodeUtils.outputSettings(this)), this);
     }
 
     /**

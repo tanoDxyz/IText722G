@@ -22,9 +22,9 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes;
 
-import com.itextpdf.styledxmlparser.jsoup.parser.HtmlTreeBuilder;
-import com.itextpdf.styledxmlparser.jsoup.parser.Parser;
-import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Document;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.HtmlTreeBuilder;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Parser;
 
 /**
  * Internal helpers for Nodes, to keep the actual node APIs relatively clean. A jsoup internal class, so don't use it as

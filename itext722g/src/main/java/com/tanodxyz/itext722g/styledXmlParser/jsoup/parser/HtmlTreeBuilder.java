@@ -22,17 +22,14 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.parser;
 
-import com.itextpdf.styledxmlparser.jsoup.helper.Validate;
-import com.itextpdf.styledxmlparser.jsoup.internal.StringUtil;
-import com.itextpdf.styledxmlparser.jsoup.nodes.CDataNode;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Comment;
-import com.itextpdf.styledxmlparser.jsoup.nodes.DataNode;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Document;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
-import com.itextpdf.styledxmlparser.jsoup.nodes.FormElement;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Node;
-import com.itextpdf.styledxmlparser.jsoup.nodes.TextNode;
-import com.itextpdf.styledxmlparser.jsoup.select.Elements;
+
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.CDataNode;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.DataNode;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.FormElement;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.TextNode;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.Elements;
 
 import java.io.Reader;
 import java.io.StringReader;
@@ -42,7 +39,7 @@ import java.util.List;
 /**
  * HTML Tree Builder; creates a DOM from Tokens.
  */
-public class HtmlTreeBuilder extends com.itextpdf.styledxmlparser.jsoup.parser.TreeBuilder {
+public class HtmlTreeBuilder extends  TreeBuilder {
     // tag searches. must be sorted, used in StringUtil.inSorted. HtmlTreeBuilderTest validates they're sorted.
     static final String[] TagsSearchInScope = new String[]{"applet", "caption", "html", "marquee", "object", "table", "td", "th"};
     static final String[] TagSearchList = new String[]{"ol", "ul"};
@@ -61,8 +58,8 @@ public class HtmlTreeBuilder extends com.itextpdf.styledxmlparser.jsoup.parser.T
 
     public static final int MaxScopeSearchDepth = 100; // prevents the parser bogging down in exceptionally broken pages
 
-    private com.itextpdf.styledxmlparser.jsoup.parser.HtmlTreeBuilderState state; // the current state
-    private com.itextpdf.styledxmlparser.jsoup.parser.HtmlTreeBuilderState originalState; // original / marked state
+    private  HtmlTreeBuilderState state; // the current state
+    private  HtmlTreeBuilderState originalState; // original / marked state
 
     private boolean baseUriSetFromDoc;
     private Element headElement; // the current head element
@@ -70,18 +67,18 @@ public class HtmlTreeBuilder extends com.itextpdf.styledxmlparser.jsoup.parser.T
     private Element contextElement; // fragment parse context -- could be null even if fragment parsing
     private ArrayList<Element> formattingElements; // active (open) formatting elements
     private List<String> pendingTableCharacters; // chars in table to be shifted out
-    private com.itextpdf.styledxmlparser.jsoup.parser.Token.EndTag emptyEnd; // reused empty end tag
+    private  Token.EndTag emptyEnd; // reused empty end tag
 
     private boolean framesetOk; // if ok to go into frameset
     private boolean fosterInserts; // if next inserts should be fostered
     private boolean fragmentParsing; // if parsing a fragment of html
 
-    com.itextpdf.styledxmlparser.jsoup.parser.ParseSettings defaultSettings() {
-        return com.itextpdf.styledxmlparser.jsoup.parser.ParseSettings.htmlDefault;
+     ParseSettings defaultSettings() {
+        return  ParseSettings.htmlDefault;
     }
 
     @Override
-    com.itextpdf.styledxmlparser.jsoup.parser.TreeBuilder newInstance() {
+     TreeBuilder newInstance() {
         return new HtmlTreeBuilder();
     }
 
@@ -90,7 +87,7 @@ public class HtmlTreeBuilder extends com.itextpdf.styledxmlparser.jsoup.parser.T
         super.initialiseParse(input, baseUri, parser);
 
         // this is a bit mucky.
-        state = com.itextpdf.styledxmlparser.jsoup.parser.HtmlTreeBuilderState.Initial;
+        state =  HtmlTreeBuilderState.Initial;
         originalState = null;
         baseUriSetFromDoc = false;
         headElement = null;
@@ -98,7 +95,7 @@ public class HtmlTreeBuilder extends com.itextpdf.styledxmlparser.jsoup.parser.T
         contextElement = null;
         formattingElements = new ArrayList<>();
         pendingTableCharacters = new ArrayList<>();
-        emptyEnd = new com.itextpdf.styledxmlparser.jsoup.parser.Token.EndTag();
+        emptyEnd = new  Token.EndTag();
         framesetOk = true;
         fosterInserts = false;
         fragmentParsing = false;
@@ -106,7 +103,7 @@ public class HtmlTreeBuilder extends com.itextpdf.styledxmlparser.jsoup.parser.T
 
     List<Node> parseFragment(String inputFragment, Element context, String baseUri, Parser parser) {
         // context may be null
-        state = com.itextpdf.styledxmlparser.jsoup.parser.HtmlTreeBuilderState.Initial;
+        state =  HtmlTreeBuilderState.Initial;
         initialiseParse(new StringReader(inputFragment), baseUri, parser);
         contextElement = context;
         fragmentParsing = true;
@@ -119,19 +116,19 @@ public class HtmlTreeBuilder extends com.itextpdf.styledxmlparser.jsoup.parser.T
             // initialise the tokeniser state:
             String contextTag = context.normalName();
             if (StringUtil.in(contextTag, "title", "textarea"))
-                tokeniser.transition(com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState.Rcdata);
+                tokeniser.transition( TokeniserState.Rcdata);
             else if (StringUtil.in(contextTag, "iframe", "noembed", "noframes", "style", "xmp"))
-                tokeniser.transition(com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState.Rawtext);
+                tokeniser.transition( TokeniserState.Rawtext);
             else if (contextTag.equals("script"))
-                tokeniser.transition(com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState.ScriptData);
+                tokeniser.transition( TokeniserState.ScriptData);
             else if (contextTag.equals(("noscript")))
-                tokeniser.transition(com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState.Data); // if scripting enabled, rawtext
+                tokeniser.transition( TokeniserState.Data); // if scripting enabled, rawtext
             else if (contextTag.equals("plaintext"))
-                tokeniser.transition(com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState.Data);
+                tokeniser.transition( TokeniserState.Data);
             else
-                tokeniser.transition(com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState.Data); // default
+                tokeniser.transition( TokeniserState.Data); // default
 
-            root = new Element(com.itextpdf.styledxmlparser.jsoup.parser.Tag.valueOf(contextTag, settings), baseUri);
+            root = new Element( Tag.valueOf(contextTag, settings), baseUri);
             doc.appendChild(root);
             stack.add(root);
             resetInsertionMode();
@@ -167,16 +164,16 @@ public class HtmlTreeBuilder extends com.itextpdf.styledxmlparser.jsoup.parser.T
         return this.state.process(token, this);
     }
 
-    boolean process(Token token, com.itextpdf.styledxmlparser.jsoup.parser.HtmlTreeBuilderState state) {
+    boolean process(Token token,  HtmlTreeBuilderState state) {
         currentToken = token;
         return state.process(token, this);
     }
 
-    void transition(com.itextpdf.styledxmlparser.jsoup.parser.HtmlTreeBuilderState state) {
+    void transition( HtmlTreeBuilderState state) {
         this.state = state;
     }
 
-    com.itextpdf.styledxmlparser.jsoup.parser.HtmlTreeBuilderState state() {
+     HtmlTreeBuilderState state() {
         return state;
     }
 
@@ -184,7 +181,7 @@ public class HtmlTreeBuilder extends com.itextpdf.styledxmlparser.jsoup.parser.T
         originalState = state;
     }
 
-    com.itextpdf.styledxmlparser.jsoup.parser.HtmlTreeBuilderState originalState() {
+     HtmlTreeBuilderState originalState() {
         return originalState;
     }
 
@@ -220,12 +217,12 @@ public class HtmlTreeBuilder extends com.itextpdf.styledxmlparser.jsoup.parser.T
         return fragmentParsing;
     }
 
-    void error(com.itextpdf.styledxmlparser.jsoup.parser.HtmlTreeBuilderState state) {
+    void error( HtmlTreeBuilderState state) {
         if (parser.getErrors().canAddError())
-            parser.getErrors().add(new com.itextpdf.styledxmlparser.jsoup.parser.ParseError(reader.pos(), "Unexpected token [{0}] when in state [{1}]", currentToken.tokenType(), state));
+            parser.getErrors().add(new  ParseError(reader.pos(), "Unexpected token [{0}] when in state [{1}]", currentToken.tokenType(), state));
     }
 
-    Element insert(final com.itextpdf.styledxmlparser.jsoup.parser.Token.StartTag startTag) {
+    Element insert(final  Token.StartTag startTag) {
         // cleanup duplicate attributes:
         if (startTag.hasAttributes() && !startTag.attributes.isEmpty()) {
             int dupes = startTag.attributes.deduplicate(settings);
@@ -239,18 +236,18 @@ public class HtmlTreeBuilder extends com.itextpdf.styledxmlparser.jsoup.parser.T
         if (startTag.isSelfClosing()) {
             Element el = insertEmpty(startTag);
             stack.add(el);
-            tokeniser.transition(com.itextpdf.styledxmlparser.jsoup.parser.TokeniserState.Data); // handles <script />, otherwise needs breakout steps from script data
-            tokeniser.emit(((com.itextpdf.styledxmlparser.jsoup.parser.Token.Tag) emptyEnd.reset()).name(el.tagName()));  // ensure we get out of whatever state we are in. emitted for yielded processing
+            tokeniser.transition( TokeniserState.Data); // handles <script />, otherwise needs breakout steps from script data
+            tokeniser.emit((( Token.Tag) emptyEnd.reset()).name(el.tagName()));  // ensure we get out of whatever state we are in. emitted for yielded processing
             return el;
         }
 
-        Element el = new Element(com.itextpdf.styledxmlparser.jsoup.parser.Tag.valueOf(startTag.name(), settings), null, settings.normalizeAttributes(startTag.attributes));
+        Element el = new Element( Tag.valueOf(startTag.name(), settings), null, settings.normalizeAttributes(startTag.attributes));
         insert(el);
         return el;
     }
 
     Element insertStartTag(String startTagName) {
-        Element el = new Element(com.itextpdf.styledxmlparser.jsoup.parser.Tag.valueOf(startTagName, settings), null);
+        Element el = new Element( Tag.valueOf(startTagName, settings), null);
         insert(el);
         return el;
     }
@@ -260,8 +257,8 @@ public class HtmlTreeBuilder extends com.itextpdf.styledxmlparser.jsoup.parser.T
         stack.add(el);
     }
 
-    Element insertEmpty(com.itextpdf.styledxmlparser.jsoup.parser.Token.StartTag startTag) {
-        Tag tag = com.itextpdf.styledxmlparser.jsoup.parser.Tag.valueOf(startTag.name(), settings);
+    Element insertEmpty( Token.StartTag startTag) {
+        Tag tag =  Tag.valueOf(startTag.name(), settings);
         Element el = new Element(tag, null, settings.normalizeAttributes(startTag.attributes));
         insertNode(el);
         if (startTag.isSelfClosing()) {
@@ -275,8 +272,8 @@ public class HtmlTreeBuilder extends com.itextpdf.styledxmlparser.jsoup.parser.T
         return el;
     }
 
-    FormElement insertForm(com.itextpdf.styledxmlparser.jsoup.parser.Token.StartTag startTag, boolean onStack) {
-        Tag tag = com.itextpdf.styledxmlparser.jsoup.parser.Tag.valueOf(startTag.name(), settings);
+    FormElement insertForm( Token.StartTag startTag, boolean onStack) {
+        Tag tag =  Tag.valueOf(startTag.name(), settings);
         FormElement el = new FormElement(tag, null, settings.normalizeAttributes(startTag.attributes));
         setFormElement(el);
         insertNode(el);
