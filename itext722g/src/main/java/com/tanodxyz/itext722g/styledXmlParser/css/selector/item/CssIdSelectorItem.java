@@ -42,15 +42,17 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.selector.item;
 
-import com.itextpdf.styledxmlparser.node.ICustomElementNode;
-import com.itextpdf.styledxmlparser.node.IDocumentNode;
-import com.itextpdf.styledxmlparser.node.IElementNode;
-import com.itextpdf.styledxmlparser.node.INode;
+
+import com.tanodxyz.itext722g.styledXmlParser.CommonAttributeConstants;
+import com.tanodxyz.itext722g.styledXmlParser.node.ICustomElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.IDocumentNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.IElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 /**
  * {@link ICssSelectorItem} implementation for id selectors.
  */
-public class CssIdSelectorItem implements com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem {
+public class CssIdSelectorItem implements ICssSelectorItem {
 
     /** The id. */
     private String id;
@@ -69,7 +71,7 @@ public class CssIdSelectorItem implements com.itextpdf.styledxmlparser.css.selec
      */
     @Override
     public int getSpecificity() {
-        return com.itextpdf.styledxmlparser.css.selector.item.CssSpecificityConstants.ID_SPECIFICITY;
+        return CssSpecificityConstants.ID_SPECIFICITY;
     }
 
     /* (non-Javadoc)
@@ -81,7 +83,7 @@ public class CssIdSelectorItem implements com.itextpdf.styledxmlparser.css.selec
             return false;
         }
         IElementNode element = (IElementNode) node;
-        return id.equals(element.getAttribute(com.tanodxyz.itext722g.styled.CommonAttributeConstants.ID));
+        return id.equals(element.getAttribute(CommonAttributeConstants.ID));
     }
 
     /* (non-Javadoc)

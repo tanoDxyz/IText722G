@@ -43,15 +43,16 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.selector.item;
 
 
-import com.itextpdf.styledxmlparser.node.ICustomElementNode;
-import com.itextpdf.styledxmlparser.node.IDocumentNode;
-import com.itextpdf.styledxmlparser.node.IElementNode;
-import com.itextpdf.styledxmlparser.node.INode;
+import com.tanodxyz.itext722g.styledXmlParser.CommonAttributeConstants;
+import com.tanodxyz.itext722g.styledXmlParser.node.ICustomElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.IDocumentNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.IElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 /**
  * {@link ICssSelectorItem} implementation for class selectors.
  */
-public class CssClassSelectorItem implements com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem {
+public class CssClassSelectorItem implements ICssSelectorItem {
 
     /** The class name. */
     private String className;
@@ -70,7 +71,7 @@ public class CssClassSelectorItem implements com.itextpdf.styledxmlparser.css.se
      */
     @Override
     public int getSpecificity() {
-        return com.itextpdf.styledxmlparser.css.selector.item.CssSpecificityConstants.CLASS_SPECIFICITY;
+        return CssSpecificityConstants.CLASS_SPECIFICITY;
     }
 
     /* (non-Javadoc)
@@ -90,7 +91,7 @@ public class CssClassSelectorItem implements com.itextpdf.styledxmlparser.css.se
             return false;
         }
         IElementNode element = (IElementNode) node;
-        String classAttr = element.getAttribute(com.tanodxyz.itext722g.styled.CommonAttributeConstants.CLASS);
+        String classAttr = element.getAttribute(CommonAttributeConstants.CLASS);
         if (classAttr != null && classAttr.length() > 0) {
             String[] classNames = classAttr.split(" ");
             for (String currClassName: classNames)

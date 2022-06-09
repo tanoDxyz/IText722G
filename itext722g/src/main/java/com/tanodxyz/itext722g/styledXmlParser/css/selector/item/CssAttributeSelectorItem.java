@@ -43,6 +43,8 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.selector.item;
 
 
+import static com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssSpecificityConstants.CLASS_SPECIFICITY;
+
 import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.styledXmlParser.node.ICustomElementNode;
 import com.tanodxyz.itext722g.styledXmlParser.node.IDocumentNode;
@@ -54,7 +56,7 @@ import java.util.regex.Pattern;
 /**
  * {@link ICssSelectorItem} implementation for attribute selectors.
  */
-public class CssAttributeSelectorItem implements com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem {
+public class CssAttributeSelectorItem implements ICssSelectorItem {
 
     /** The property. */
     private String property;
@@ -95,7 +97,7 @@ public class CssAttributeSelectorItem implements com.itextpdf.styledxmlparser.cs
      */
     @Override
     public int getSpecificity() {
-        return com.itextpdf.styledxmlparser.css.selector.item.CssSpecificityConstants.CLASS_SPECIFICITY;
+        return CLASS_SPECIFICITY;
     }
 
     /* (non-Javadoc)
