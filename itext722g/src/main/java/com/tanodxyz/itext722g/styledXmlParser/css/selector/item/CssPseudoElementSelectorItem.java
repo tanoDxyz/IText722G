@@ -42,14 +42,14 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.selector.item;
 
-import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementNode;
-import com.itextpdf.styledxmlparser.node.INode;
 
+import com.tanodxyz.itext722g.styledXmlParser.css.pseudo.CssPseudoElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 /**
  * {@link ICssSelectorItem} implementation for pseudo element selectors.
  */
-public class CssPseudoElementSelectorItem implements com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem {
+public class CssPseudoElementSelectorItem implements  ICssSelectorItem {
 
     /** The pseudo element name. */
     private String pseudoElementName;
@@ -68,7 +68,7 @@ public class CssPseudoElementSelectorItem implements com.itextpdf.styledxmlparse
      */
     @Override
     public int getSpecificity() {
-        return com.itextpdf.styledxmlparser.css.selector.item.CssSpecificityConstants.ELEMENT_SPECIFICITY;
+        return  CssSpecificityConstants.ELEMENT_SPECIFICITY;
     }
 
     /* (non-Javadoc)

@@ -42,11 +42,11 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.selector;
 
-import com.itextpdf.styledxmlparser.css.page.PageContextNode;
-import com.itextpdf.styledxmlparser.css.parse.CssPageSelectorParser;
-import com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem;
-import com.itextpdf.styledxmlparser.node.INode;
-import com.tanodxyz.itext722g.styledXmlParser.css.selector.AbstractCssSelector;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.page.PageContextNode;
+import com.tanodxyz.itext722g.styledXmlParser.css.parse.CssPageSelectorParser;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.ICssSelectorItem;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 /**
  * {@link ICssSelector} implementation for CSS page selectors.

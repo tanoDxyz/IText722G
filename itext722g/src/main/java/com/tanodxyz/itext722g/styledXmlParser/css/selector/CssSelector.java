@@ -43,14 +43,13 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.selector;
 
 
-import com.itextpdf.styledxmlparser.css.parse.CssSelectorParser;
-import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementNode;
-import com.itextpdf.styledxmlparser.css.selector.item.CssPseudoElementSelectorItem;
-import com.itextpdf.styledxmlparser.css.selector.item.CssSeparatorSelectorItem;
-import com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem;
-import com.itextpdf.styledxmlparser.node.IElementNode;
-import com.itextpdf.styledxmlparser.node.INode;
-import com.tanodxyz.itext722g.styledXmlParser.css.selector.AbstractCssSelector;
+import com.tanodxyz.itext722g.styledXmlParser.css.parse.CssSelectorParser;
+import com.tanodxyz.itext722g.styledXmlParser.css.pseudo.CssPseudoElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssPseudoElementSelectorItem;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.CssSeparatorSelectorItem;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.ICssSelectorItem;
+import com.tanodxyz.itext722g.styledXmlParser.node.IElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 import java.util.List;
 

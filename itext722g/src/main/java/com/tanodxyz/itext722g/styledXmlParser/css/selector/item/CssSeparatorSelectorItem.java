@@ -42,13 +42,14 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.selector.item;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.node.INode;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 /**
  * {@link ICssSelectorItem} implementation for separator selectors.
  */
-public class CssSeparatorSelectorItem implements com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem {
+public class CssSeparatorSelectorItem implements  ICssSelectorItem {
 
     /** The separator character. */
     private char separator;

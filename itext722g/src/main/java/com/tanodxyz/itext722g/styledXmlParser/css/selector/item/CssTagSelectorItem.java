@@ -43,15 +43,15 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.selector.item;
 
 
-import com.itextpdf.styledxmlparser.node.ICustomElementNode;
-import com.itextpdf.styledxmlparser.node.IDocumentNode;
-import com.itextpdf.styledxmlparser.node.IElementNode;
-import com.itextpdf.styledxmlparser.node.INode;
+import com.tanodxyz.itext722g.styledXmlParser.node.ICustomElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.IDocumentNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.IElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 /**
- * {@link com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem} implementation for tag selectors.
+ * {@link  ICssSelectorItem} implementation for tag selectors.
  */
-public class CssTagSelectorItem implements com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem {
+public class CssTagSelectorItem implements  ICssSelectorItem {
 
     /** The tag name. */
     private String tagName;

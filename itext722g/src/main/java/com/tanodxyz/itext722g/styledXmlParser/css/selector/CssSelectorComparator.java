@@ -47,13 +47,13 @@ import java.util.Comparator;
 /**
  * Comparator class for CSS Selectors.
  */
-public class CssSelectorComparator implements Comparator<com.itextpdf.styledxmlparser.css.selector.ICssSelector> {
+public class CssSelectorComparator implements Comparator<ICssSelector> {
 
     /* (non-Javadoc)
      * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
      */
     @Override
-    public int compare(com.itextpdf.styledxmlparser.css.selector.ICssSelector o1, com.itextpdf.styledxmlparser.css.selector.ICssSelector o2) {
+    public int compare(ICssSelector o1, ICssSelector o2) {
         return o1.calculateSpecificity() - o2.calculateSpecificity();
     }
 

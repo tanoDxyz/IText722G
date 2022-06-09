@@ -42,14 +42,15 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.selector.item;
 
-import com.itextpdf.styledxmlparser.css.page.PageContextConstants;
-import com.itextpdf.styledxmlparser.css.page.PageContextNode;
-import com.itextpdf.styledxmlparser.node.INode;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.page.PageContextConstants;
+import com.tanodxyz.itext722g.styledXmlParser.css.page.PageContextNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 /**
  * {@link ICssSelectorItem} implementation for page pseudo classes selectors.
  */
-public class CssPagePseudoClassSelectorItem implements com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem {
+public class CssPagePseudoClassSelectorItem implements ICssSelectorItem {
 
     /** Indicates if the page pseudo class is a spread pseudo class (left or right). */
     private boolean isSpreadPseudoClass;
@@ -68,15 +69,15 @@ public class CssPagePseudoClassSelectorItem implements com.itextpdf.styledxmlpar
     }
 
     /* (non-Javadoc)
-     * @see com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem#getSpecificity()
+     * @see ICssSelectorItem#getSpecificity()
      */
     @Override
     public int getSpecificity() {
-        return isSpreadPseudoClass ? com.itextpdf.styledxmlparser.css.selector.item.CssSpecificityConstants.ELEMENT_SPECIFICITY : com.itextpdf.styledxmlparser.css.selector.item.CssSpecificityConstants.CLASS_SPECIFICITY;
+        return isSpreadPseudoClass ? CssSpecificityConstants.ELEMENT_SPECIFICITY : CssSpecificityConstants.CLASS_SPECIFICITY;
     }
 
     /* (non-Javadoc)
-     * @see com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem#matches(com.itextpdf.styledxmlparser.html.node.INode)
+     * @see ICssSelectorItem#matches(com.itextpdf.styledxmlparser.html.node.INode)
      */
     @Override
     public boolean matches(INode node) {

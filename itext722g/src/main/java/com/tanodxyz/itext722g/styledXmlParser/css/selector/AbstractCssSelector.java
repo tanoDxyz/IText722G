@@ -43,7 +43,7 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.selector;
 
 
-import com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem;
+import com.tanodxyz.itext722g.styledXmlParser.css.selector.item.ICssSelectorItem;
 
 import java.util.Collections;
 import java.util.List;
@@ -51,7 +51,7 @@ import java.util.List;
 /**
  * Abstract superclass for CSS Selectors.
  */
-public abstract class AbstractCssSelector implements com.itextpdf.styledxmlparser.css.selector.ICssSelector {
+public abstract class AbstractCssSelector implements ICssSelector {
     
     /** The selector items. */
     protected List<ICssSelectorItem> selectorItems;

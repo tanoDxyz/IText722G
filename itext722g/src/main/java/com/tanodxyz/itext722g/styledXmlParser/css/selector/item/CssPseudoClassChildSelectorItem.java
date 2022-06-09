@@ -42,14 +42,15 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.selector.item;
 
-import com.itextpdf.styledxmlparser.node.IElementNode;
-import com.itextpdf.styledxmlparser.node.INode;
+
+import com.tanodxyz.itext722g.styledXmlParser.node.IElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-class CssPseudoClassChildSelectorItem extends com.itextpdf.styledxmlparser.css.selector.item.CssPseudoClassSelectorItem {
+class CssPseudoClassChildSelectorItem extends  CssPseudoClassSelectorItem {
 
     /**
      * Creates a new {@link CssPseudoClassSelectorItem} instance.

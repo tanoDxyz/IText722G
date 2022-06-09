@@ -42,14 +42,15 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.css.selector.item;
 
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
-import com.itextpdf.styledxmlparser.css.page.PageContextNode;
-import com.itextpdf.styledxmlparser.node.INode;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.css.page.PageContextNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 
 /**
  * {@link ICssSelectorItem} implementation for page type selectors.
  */
-public class CssPageTypeSelectorItem implements com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem {
+public class CssPageTypeSelectorItem implements  ICssSelectorItem {
     
     /** The page type name. */
     private String pageTypeName;
@@ -64,15 +65,15 @@ public class CssPageTypeSelectorItem implements com.itextpdf.styledxmlparser.css
     }
 
     /* (non-Javadoc)
-     * @see com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem#getSpecificity()
+     * @see  ICssSelectorItem#getSpecificity()
      */
     @Override
     public int getSpecificity() {
-        return com.itextpdf.styledxmlparser.css.selector.item.CssSpecificityConstants.ID_SPECIFICITY;
+        return  CssSpecificityConstants.ID_SPECIFICITY;
     }
 
     /* (non-Javadoc)
-     * @see com.itextpdf.styledxmlparser.css.selector.item.ICssSelectorItem#matches(com.itextpdf.styledxmlparser.html.node.INode)
+     * @see  ICssSelectorItem#matches(com.itextpdf.styledxmlparser.html.node.INode)
      */
     @Override
     public boolean matches(INode node) {
