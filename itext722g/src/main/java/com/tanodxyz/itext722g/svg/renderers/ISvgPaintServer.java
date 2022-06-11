@@ -63,6 +63,6 @@ public interface ISvgPaintServer extends INoDrawSvgNodeRenderer {
      * @param parentOpacity           current parent opacity modifier
      * @return the created color
      */
-    Color createColor(com.itextpdf.svg.renderers.SvgDrawContext context, Rectangle objectBoundingBox, float objectBoundingBoxMargin,
+    Color createColor(SvgDrawContext context, Rectangle objectBoundingBox, float objectBoundingBoxMargin,
                       float parentOpacity);
 }

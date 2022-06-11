@@ -42,19 +42,7 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.layout.font.FontCharacteristics;
-import com.itextpdf.layout.font.FontInfo;
-import com.itextpdf.layout.font.FontProvider;
-import com.itextpdf.layout.font.FontSet;
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import com.itextpdf.svg.exceptions.SvgExceptionMessageConstant;
-import com.itextpdf.svg.exceptions.SvgProcessingException;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
-import com.itextpdf.svg.utils.SvgCssUtils;
-import com.itextpdf.svg.utils.SvgTextUtil;
-import com.itextpdf.svg.utils.TextRectangle;
+
 import com.tanodxyz.itext722g.kernel.font.PdfFont;
 import com.tanodxyz.itext722g.kernel.font.PdfFontFactory;
 import com.tanodxyz.itext722g.kernel.geom.AffineTransform;
@@ -62,10 +50,19 @@ import com.tanodxyz.itext722g.kernel.geom.Point;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvasConstants;
+import com.tanodxyz.itext722g.layout.font.FontCharacteristics;
+import com.tanodxyz.itext722g.layout.font.FontProvider;
+import com.tanodxyz.itext722g.layout.font.FontSet;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssUtils;
 import com.tanodxyz.itext722g.svg.SvgConstants;
-import com.tanodxyz.itext722g.svg.renderers.impl.AbstractSvgNodeRenderer;
-import com.tanodxyz.itext722g.svg.renderers.impl.ISvgTextNodeRenderer;
-import com.tanodxyz.itext722g.svg.renderers.impl.TextLeafSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.exceptions.SvgExceptionMessageConstant;
+import com.tanodxyz.itext722g.svg.exceptions.SvgProcessingException;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
+import com.tanodxyz.itext722g.svg.utils.SvgCssUtils;
+import com.tanodxyz.itext722g.svg.utils.SvgTextUtil;
+import com.tanodxyz.itext722g.svg.utils.TextRectangle;
 
 import java.io.IOException;
 import java.util.ArrayList;

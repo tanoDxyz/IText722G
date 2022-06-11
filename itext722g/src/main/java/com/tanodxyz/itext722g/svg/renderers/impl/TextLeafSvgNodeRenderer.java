@@ -42,20 +42,19 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.layout.properties.RenderingMode;
-import com.itextpdf.layout.renderer.TextRenderer;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
-import com.itextpdf.svg.utils.SvgTextUtil;
-import com.itextpdf.svg.utils.TextRectangle;
+
 import com.tanodxyz.itext722g.io.font.FontProgram;
 import com.tanodxyz.itext722g.kernel.font.PdfFont;
 import com.tanodxyz.itext722g.kernel.geom.Point;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
+import com.tanodxyz.itext722g.layout.properties.RenderingMode;
+import com.tanodxyz.itext722g.layout.renderer.TextRenderer;
 import com.tanodxyz.itext722g.svg.SvgConstants;
-import com.tanodxyz.itext722g.svg.renderers.impl.AbstractSvgNodeRenderer;
-import com.tanodxyz.itext722g.svg.renderers.impl.ISvgTextNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
+import com.tanodxyz.itext722g.svg.utils.SvgTextUtil;
+import com.tanodxyz.itext722g.svg.utils.TextRectangle;
 
 /**
  * {@link ISvgNodeRenderer} implementation for drawing text to a canvas.
@@ -105,9 +104,9 @@ public class TextLeafSvgNodeRenderer extends AbstractSvgNodeRenderer implements 
 
     @Override
     public TextRectangle getTextRectangle(SvgDrawContext context, Point basePoint) {
-        if (getParent() instanceof com.itextpdf.svg.renderers.impl.TextSvgBranchRenderer && basePoint != null) {
+        if (getParent() instanceof  TextSvgBranchRenderer && basePoint != null) {
             final float parentFontSize = ((AbstractSvgNodeRenderer) getParent()).getCurrentFontSize();
-            final PdfFont parentFont = ((com.itextpdf.svg.renderers.impl.TextSvgBranchRenderer) getParent()).getFont();
+            final PdfFont parentFont = (( TextSvgBranchRenderer) getParent()).getFont();
             final float textLength = getTextContentLength(parentFontSize, parentFont);
             final float[] fontAscenderDescenderFromMetrics = TextRenderer
                     .calculateAscenderDescender(parentFont, RenderingMode.HTML_MODE);

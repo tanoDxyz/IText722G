@@ -42,18 +42,18 @@
  */
 package com.tanodxyz.itext722g.svg.renderers;
 
-import com.itextpdf.layout.font.FontProvider;
-import com.itextpdf.layout.font.FontSet;
-import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
-import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
-import com.itextpdf.svg.css.SvgCssContext;
-import com.itextpdf.svg.exceptions.SvgExceptionMessageConstant;
-import com.itextpdf.svg.exceptions.SvgProcessingException;
+
 import com.tanodxyz.itext722g.kernel.geom.AffineTransform;
 import com.tanodxyz.itext722g.kernel.geom.Matrix;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
-import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.layout.font.FontProvider;
+import com.tanodxyz.itext722g.layout.font.FontSet;
+import com.tanodxyz.itext722g.styledXmlParser.resolver.font.BasicFontProvider;
+import com.tanodxyz.itext722g.styledXmlParser.resolver.resource.ResourceResolver;
+import com.tanodxyz.itext722g.svg.css.SvgCssContext;
+import com.tanodxyz.itext722g.svg.exceptions.SvgExceptionMessageConstant;
+import com.tanodxyz.itext722g.svg.exceptions.SvgProcessingException;
 
 import java.util.Deque;
 import java.util.HashMap;

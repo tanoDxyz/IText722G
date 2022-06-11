@@ -42,12 +42,11 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.path.impl;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
-import com.itextpdf.svg.exceptions.SvgExceptionMessageConstant;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.kernel.geom.Point;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
-import com.tanodxyz.itext722g.svg.renderers.path.impl.AbstractPathShape;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
+import com.tanodxyz.itext722g.svg.exceptions.SvgExceptionMessageConstant;
 
 import java.util.Arrays;
 

@@ -47,7 +47,7 @@ import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 /***
  * Implements closePath(Z) attribute of SVG's path element
  * */
-public class ClosePath extends com.itextpdf.svg.renderers.path.impl.LineTo {
+public class ClosePath extends  LineTo {
     static final int ARGUMENT_SIZE = 0;
 
     public ClosePath() {

@@ -42,8 +42,7 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.path;
 
-import com.itextpdf.svg.renderers.path.impl.PathShapeMapper;
-import com.tanodxyz.itext722g.svg.renderers.path.IPathShape;
+import com.tanodxyz.itext722g.svg.renderers.path.impl.PathShapeMapper;
 
 import java.util.Map;
 

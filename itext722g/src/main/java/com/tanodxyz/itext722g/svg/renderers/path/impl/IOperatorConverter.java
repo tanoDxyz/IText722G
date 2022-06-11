@@ -42,7 +42,8 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.path.impl;
 
-import com.itextpdf.svg.utils.SvgCoordinateUtils;
+
+import com.tanodxyz.itext722g.svg.utils.SvgCoordinateUtils;
 
 /**
  * A locally used strategy for converting relative coordinates to absolute coordinates (in the current SVG coordinate

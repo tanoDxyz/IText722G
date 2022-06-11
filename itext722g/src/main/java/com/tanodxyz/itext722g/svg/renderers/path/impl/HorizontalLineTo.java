@@ -42,13 +42,13 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.path.impl;
 
-import com.itextpdf.svg.utils.SvgCssUtils;
 import com.tanodxyz.itext722g.kernel.geom.Point;
+import com.tanodxyz.itext722g.svg.utils.SvgCssUtils;
 
 /***
  * Implements lineTo(H) attribute of SVG's path element
  * */
-public class HorizontalLineTo extends com.itextpdf.svg.renderers.path.impl.LineTo {
+public class HorizontalLineTo extends LineTo {
 
     static final int ARGUMENT_SIZE = 1;
     /**
@@ -69,7 +69,7 @@ public class HorizontalLineTo extends com.itextpdf.svg.renderers.path.impl.LineT
 
     @Override
     public void setCoordinates(String[] inputCoordinates, Point startPoint) {
-        String[] normalizedCoords = new String[com.itextpdf.svg.renderers.path.impl.LineTo.ARGUMENT_SIZE];
+        String[] normalizedCoords = new String[LineTo.ARGUMENT_SIZE];
         // An H or h command is equivalent to an L or l command with 0 specified for the y coordinate.
         normalizedCoords[0] = inputCoordinates[0];
         normalizedCoords[1] = isRelative() ? "0" : SvgCssUtils.convertDoubleToString(startPoint.getY());

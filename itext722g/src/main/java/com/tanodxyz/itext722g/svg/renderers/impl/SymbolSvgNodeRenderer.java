@@ -22,11 +22,11 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.svg.renderers.INoDrawSvgNodeRenderer;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
+
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
-import com.tanodxyz.itext722g.svg.renderers.impl.AbstractContainerSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.INoDrawSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
 
 public class SymbolSvgNodeRenderer extends AbstractContainerSvgNodeRenderer implements INoDrawSvgNodeRenderer {
     @Override

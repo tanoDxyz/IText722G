@@ -22,8 +22,8 @@
  */
 package com.tanodxyz.itext722g.svg.renderers;
 
-import com.itextpdf.svg.renderers.impl.MarkerSvgNodeRenderer;
 import com.tanodxyz.itext722g.svg.MarkerVertexType;
+import com.tanodxyz.itext722g.svg.renderers.impl.MarkerSvgNodeRenderer;
 
 /**
  * Interface implemented by elements that support marker drawing.
@@ -38,7 +38,7 @@ public interface IMarkerCapable {
      * @param markerVertexType type of marker that determine on which vertices of the given element
      *                         marker should  be drawn
      */
-    void drawMarker(com.itextpdf.svg.renderers.SvgDrawContext context, MarkerVertexType markerVertexType);
+    void drawMarker(SvgDrawContext context, MarkerVertexType markerVertexType);
 
     /**
      * Calculates marker orientation angle if {@code orient} attribute is set to {@code auto}

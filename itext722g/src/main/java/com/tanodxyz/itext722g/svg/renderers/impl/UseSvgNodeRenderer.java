@@ -42,21 +42,22 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import com.itextpdf.svg.css.impl.SvgNodeRendererInheritanceResolver;
-import com.itextpdf.svg.logs.SvgLogMessageConstant;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
-import com.itextpdf.svg.utils.SvgTextUtil;
+
 import com.tanodxyz.itext722g.kernel.geom.AffineTransform;
 import com.tanodxyz.itext722g.kernel.geom.NoninvertibleTransformException;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssUtils;
 import com.tanodxyz.itext722g.svg.SvgConstants;
-import com.tanodxyz.itext722g.svg.renderers.impl.AbstractSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.css.impl.SvgNodeRendererInheritanceResolver;
+import com.tanodxyz.itext722g.svg.logs.SvgLogMessageConstant;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
+import com.tanodxyz.itext722g.svg.utils.SvgTextUtil;
 
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
+
 
 /**
  * Renderer implementing the use tag. This tag allows you to reuse previously defined elements.
@@ -104,8 +105,8 @@ public class UseSvgNodeRenderer extends AbstractSvgNodeRenderer {
                                 try {
                                     inverseMatrix = translation.createInverse();
                                 } catch (NoninvertibleTransformException ex) {
-                                    LoggerFactory.getLogger(UseSvgNodeRenderer.class)
-                                            .warn(SvgLogMessageConstant.NONINVERTIBLE_TRANSFORMATION_MATRIX_USED_IN_CLIP_PATH, ex);
+                                    Logger.getLogger(UseSvgNodeRenderer.class.getName())
+                                            .warning(SvgLogMessageConstant.NONINVERTIBLE_TRANSFORMATION_MATRIX_USED_IN_CLIP_PATH, ex);
                                 }
                             }
                         }

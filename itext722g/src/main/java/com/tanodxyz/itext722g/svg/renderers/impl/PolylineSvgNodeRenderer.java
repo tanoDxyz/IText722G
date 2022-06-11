@@ -42,23 +42,22 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import com.itextpdf.svg.exceptions.SvgExceptionMessageConstant;
-import com.itextpdf.svg.exceptions.SvgProcessingException;
-import com.itextpdf.svg.renderers.IMarkerCapable;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
-import com.itextpdf.svg.utils.SvgCoordinateUtils;
-import com.itextpdf.svg.utils.SvgCssUtils;
+
 import com.tanodxyz.itext722g.kernel.geom.Point;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.geom.Vector;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssUtils;
 import com.tanodxyz.itext722g.svg.MarkerVertexType;
 import com.tanodxyz.itext722g.svg.SvgConstants;
-import com.tanodxyz.itext722g.svg.renderers.impl.AbstractSvgNodeRenderer;
-import com.tanodxyz.itext722g.svg.renderers.impl.MarkerSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.exceptions.SvgExceptionMessageConstant;
+import com.tanodxyz.itext722g.svg.exceptions.SvgProcessingException;
+import com.tanodxyz.itext722g.svg.renderers.IMarkerCapable;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
+import com.tanodxyz.itext722g.svg.utils.SvgCoordinateUtils;
+import com.tanodxyz.itext722g.svg.utils.SvgCssUtils;
 
 import java.util.ArrayList;
 import java.util.List;

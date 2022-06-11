@@ -22,18 +22,18 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
-import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
-import com.itextpdf.svg.exceptions.SvgExceptionMessageConstant;
-import com.itextpdf.svg.renderers.INoDrawSvgNodeRenderer;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
+
 import com.tanodxyz.itext722g.kernel.colors.WebColors;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssTypesValidationUtils;
 import com.tanodxyz.itext722g.svg.SvgConstants;
 import com.tanodxyz.itext722g.svg.SvgConstants.Attributes;
 import com.tanodxyz.itext722g.svg.SvgConstants.Tags;
-import com.tanodxyz.itext722g.svg.renderers.impl.AbstractBranchSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.exceptions.SvgExceptionMessageConstant;
+import com.tanodxyz.itext722g.svg.renderers.INoDrawSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
 
 /**
  * {@link ISvgNodeRenderer} implementation for the gradient &lt;stop&gt; tag.

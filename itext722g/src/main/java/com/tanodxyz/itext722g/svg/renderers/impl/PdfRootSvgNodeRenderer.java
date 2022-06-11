@@ -48,10 +48,10 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfName;
 import com.tanodxyz.itext722g.kernel.pdf.PdfStream;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
-import com.itextpdf.svg.exceptions.SvgExceptionMessageConstant;
-import com.itextpdf.svg.exceptions.SvgProcessingException;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
+import com.tanodxyz.itext722g.svg.exceptions.SvgExceptionMessageConstant;
+import com.tanodxyz.itext722g.svg.exceptions.SvgProcessingException;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
 
 import java.util.Map;
 

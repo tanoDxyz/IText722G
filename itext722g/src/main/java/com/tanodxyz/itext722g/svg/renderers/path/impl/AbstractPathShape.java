@@ -42,11 +42,12 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.path.impl;
 
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import com.itextpdf.svg.renderers.path.IPathShape;
+
 import com.tanodxyz.itext722g.kernel.geom.Point;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssUtils;
+import com.tanodxyz.itext722g.svg.renderers.path.IPathShape;
 
 import java.util.Map;
 
@@ -64,7 +65,7 @@ public abstract class AbstractPathShape implements IPathShape {
      * Whether this is a relative operator or not.
      */
     protected boolean relative;
-    protected final com.itextpdf.svg.renderers.path.impl.IOperatorConverter copier;
+    protected final  IOperatorConverter copier;
     // Original coordinates from path instruction, according to the (x1 y1 x2 y2 x y)+ spec
     protected String[] coordinates;
 
@@ -73,10 +74,10 @@ public abstract class AbstractPathShape implements IPathShape {
     }
 
     public AbstractPathShape(boolean relative) {
-        this(relative, new com.itextpdf.svg.renderers.path.impl.DefaultOperatorConverter());
+        this(relative, new  DefaultOperatorConverter());
     }
 
-    public AbstractPathShape(boolean relative, com.itextpdf.svg.renderers.path.impl.IOperatorConverter copier) {
+    public AbstractPathShape(boolean relative,  IOperatorConverter copier) {
         this.relative = relative;
         this.copier = copier;
     }

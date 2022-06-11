@@ -75,7 +75,7 @@ public interface ISvgNodeRenderer {
      * @param context the object that knows the place to draw this element and
      *                maintains its state
      */
-    void draw(com.itextpdf.svg.renderers.SvgDrawContext context);
+    void draw(SvgDrawContext context);
 
     /**
      * Sets the map of XML node attributes and CSS style properties that this
@@ -125,5 +125,5 @@ public interface ISvgNodeRenderer {
      * @return the {@link Rectangle} representing the current object's bounding box, or null
      * if bounding box is undefined
      */
-    Rectangle getObjectBoundingBox(com.itextpdf.svg.renderers.SvgDrawContext context);
+    Rectangle getObjectBoundingBox(SvgDrawContext context);
 }

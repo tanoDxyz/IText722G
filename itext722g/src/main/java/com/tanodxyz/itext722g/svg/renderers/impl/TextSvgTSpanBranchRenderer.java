@@ -42,16 +42,14 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
 import com.tanodxyz.itext722g.kernel.geom.AffineTransform;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.CanvasGraphicsState;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.kernel.pdf.extgstate.PdfExtGState;
-import com.tanodxyz.itext722g.svg.renderers.impl.ISvgTextNodeRenderer;
-import com.tanodxyz.itext722g.svg.renderers.impl.TextSvgBranchRenderer;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssUtils;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
 
 public class TextSvgTSpanBranchRenderer extends TextSvgBranchRenderer {
 

@@ -42,16 +42,10 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.path.impl;
 
-import com.itextpdf.svg.renderers.impl.PathSvgNodeRenderer;
-import com.itextpdf.svg.renderers.path.IPathShape;
-import com.itextpdf.svg.renderers.path.IPathShapeMapper;
+
 import com.tanodxyz.itext722g.svg.SvgConstants;
-import com.tanodxyz.itext722g.svg.renderers.path.impl.ClosePath;
-import com.tanodxyz.itext722g.svg.renderers.path.impl.CurveTo;
-import com.tanodxyz.itext722g.svg.renderers.path.impl.EllipticalCurveTo;
-import com.tanodxyz.itext722g.svg.renderers.path.impl.HorizontalLineTo;
-import com.tanodxyz.itext722g.svg.renderers.path.impl.LineTo;
-import com.tanodxyz.itext722g.svg.renderers.path.impl.MoveTo;
+import com.tanodxyz.itext722g.svg.renderers.path.IPathShape;
+import com.tanodxyz.itext722g.svg.renderers.path.IPathShapeMapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -67,8 +61,8 @@ public class PathShapeMapper implements IPathShapeMapper {
         Map<String, IPathShape> result = new HashMap<>();
         result.put(SvgConstants.Attributes.PATH_DATA_LINE_TO, new LineTo());
         result.put(SvgConstants.Attributes.PATH_DATA_REL_LINE_TO, new LineTo(true));
-        result.put(SvgConstants.Attributes.PATH_DATA_LINE_TO_V, new com.itextpdf.svg.renderers.path.impl.VerticalLineTo());
-        result.put(SvgConstants.Attributes.PATH_DATA_REL_LINE_TO_V, new com.itextpdf.svg.renderers.path.impl.VerticalLineTo(true));
+        result.put(SvgConstants.Attributes.PATH_DATA_LINE_TO_V, new  VerticalLineTo());
+        result.put(SvgConstants.Attributes.PATH_DATA_REL_LINE_TO_V, new  VerticalLineTo(true));
         result.put(SvgConstants.Attributes.PATH_DATA_LINE_TO_H, new HorizontalLineTo());
         result.put(SvgConstants.Attributes.PATH_DATA_REL_LINE_TO_H, new HorizontalLineTo(true));
         result.put(SvgConstants.Attributes.PATH_DATA_CLOSE_PATH, new ClosePath());
@@ -77,12 +71,12 @@ public class PathShapeMapper implements IPathShapeMapper {
         result.put(SvgConstants.Attributes.PATH_DATA_REL_MOVE_TO, new MoveTo(true));
         result.put(SvgConstants.Attributes.PATH_DATA_CURVE_TO, new CurveTo());
         result.put(SvgConstants.Attributes.PATH_DATA_REL_CURVE_TO, new CurveTo(true));
-        result.put(SvgConstants.Attributes.PATH_DATA_CURVE_TO_S, new com.itextpdf.svg.renderers.path.impl.SmoothSCurveTo());
-        result.put(SvgConstants.Attributes.PATH_DATA_REL_CURVE_TO_S, new com.itextpdf.svg.renderers.path.impl.SmoothSCurveTo(true));
-        result.put(SvgConstants.Attributes.PATH_DATA_QUAD_CURVE_TO, new com.itextpdf.svg.renderers.path.impl.QuadraticCurveTo());
-        result.put(SvgConstants.Attributes.PATH_DATA_REL_QUAD_CURVE_TO, new com.itextpdf.svg.renderers.path.impl.QuadraticCurveTo(true));
-        result.put(SvgConstants.Attributes.PATH_DATA_SHORTHAND_CURVE_TO, new com.itextpdf.svg.renderers.path.impl.QuadraticSmoothCurveTo());
-        result.put(SvgConstants.Attributes.PATH_DATA_REL_SHORTHAND_CURVE_TO, new com.itextpdf.svg.renderers.path.impl.QuadraticSmoothCurveTo(true));
+        result.put(SvgConstants.Attributes.PATH_DATA_CURVE_TO_S, new  SmoothSCurveTo());
+        result.put(SvgConstants.Attributes.PATH_DATA_REL_CURVE_TO_S, new  SmoothSCurveTo(true));
+        result.put(SvgConstants.Attributes.PATH_DATA_QUAD_CURVE_TO, new  QuadraticCurveTo());
+        result.put(SvgConstants.Attributes.PATH_DATA_REL_QUAD_CURVE_TO, new  QuadraticCurveTo(true));
+        result.put(SvgConstants.Attributes.PATH_DATA_SHORTHAND_CURVE_TO, new  QuadraticSmoothCurveTo());
+        result.put(SvgConstants.Attributes.PATH_DATA_REL_SHORTHAND_CURVE_TO, new  QuadraticSmoothCurveTo(true));
         result.put(SvgConstants.Attributes.PATH_DATA_ELLIPTICAL_ARC_A, new EllipticalCurveTo());
         result.put(SvgConstants.Attributes.PATH_DATA_REL_ELLIPTICAL_ARC_A, new EllipticalCurveTo(true));
         return result;
@@ -92,14 +86,14 @@ public class PathShapeMapper implements IPathShapeMapper {
     public Map<String, Integer> getArgumentCount() {
         Map<String, Integer> result = new HashMap<>();
         result.put(SvgConstants.Attributes.PATH_DATA_LINE_TO, LineTo.ARGUMENT_SIZE);
-        result.put(SvgConstants.Attributes.PATH_DATA_LINE_TO_V, com.itextpdf.svg.renderers.path.impl.VerticalLineTo.ARGUMENT_SIZE);
+        result.put(SvgConstants.Attributes.PATH_DATA_LINE_TO_V,  VerticalLineTo.ARGUMENT_SIZE);
         result.put(SvgConstants.Attributes.PATH_DATA_LINE_TO_H, HorizontalLineTo.ARGUMENT_SIZE);
         result.put(SvgConstants.Attributes.PATH_DATA_CLOSE_PATH, ClosePath.ARGUMENT_SIZE);
         result.put(SvgConstants.Attributes.PATH_DATA_MOVE_TO, MoveTo.ARGUMENT_SIZE);
         result.put(SvgConstants.Attributes.PATH_DATA_CURVE_TO, CurveTo.ARGUMENT_SIZE);
-        result.put(SvgConstants.Attributes.PATH_DATA_CURVE_TO_S, com.itextpdf.svg.renderers.path.impl.SmoothSCurveTo.ARGUMENT_SIZE);
-        result.put(SvgConstants.Attributes.PATH_DATA_QUAD_CURVE_TO, com.itextpdf.svg.renderers.path.impl.QuadraticCurveTo.ARGUMENT_SIZE);
-        result.put(SvgConstants.Attributes.PATH_DATA_SHORTHAND_CURVE_TO, com.itextpdf.svg.renderers.path.impl.QuadraticSmoothCurveTo.ARGUMENT_SIZE);
+        result.put(SvgConstants.Attributes.PATH_DATA_CURVE_TO_S,  SmoothSCurveTo.ARGUMENT_SIZE);
+        result.put(SvgConstants.Attributes.PATH_DATA_QUAD_CURVE_TO,  QuadraticCurveTo.ARGUMENT_SIZE);
+        result.put(SvgConstants.Attributes.PATH_DATA_SHORTHAND_CURVE_TO,  QuadraticSmoothCurveTo.ARGUMENT_SIZE);
         result.put(SvgConstants.Attributes.PATH_DATA_ELLIPTICAL_ARC_A, EllipticalCurveTo.ARGUMENT_SIZE);
         return result;
     }

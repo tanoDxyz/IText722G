@@ -42,8 +42,8 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.path.impl;
 
-import com.itextpdf.svg.utils.SvgCssUtils;
 import com.tanodxyz.itext722g.kernel.geom.Point;
+import com.tanodxyz.itext722g.svg.utils.SvgCssUtils;
 
 /***
  * Implements lineTo(V) attribute of SVG's path element

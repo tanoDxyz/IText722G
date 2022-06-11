@@ -42,14 +42,15 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.svg.renderers.IMarkerCapable;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
+
 import com.tanodxyz.itext722g.kernel.geom.Point;
+import com.tanodxyz.itext722g.svg.renderers.IMarkerCapable;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
 
 /**
  * {@link ISvgNodeRenderer} implementation for the &lt;polygon&gt; tag.
  */
-public class PolygonSvgNodeRenderer extends com.itextpdf.svg.renderers.impl.PolylineSvgNodeRenderer implements IMarkerCapable {
+public class PolygonSvgNodeRenderer extends  PolylineSvgNodeRenderer implements IMarkerCapable {
 
     /**
      * Calls setPoints(String) to set {@link PolylineSvgNodeRenderer#points}
