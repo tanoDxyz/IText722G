@@ -42,11 +42,11 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
+
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
-import com.tanodxyz.itext722g.svg.renderers.impl.AbstractBranchSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
 
 /**
  * This renderer represents a branch in an SVG tree. It doesn't do anything aside from calling the superclass doDraw.

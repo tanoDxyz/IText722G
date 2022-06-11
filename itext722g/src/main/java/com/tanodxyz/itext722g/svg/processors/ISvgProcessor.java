@@ -43,10 +43,8 @@
 package com.tanodxyz.itext722g.svg.processors;
 
 
-import com.itextpdf.styledxmlparser.node.INode;
-import com.itextpdf.svg.exceptions.SvgProcessingException;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.tanodxyz.itext722g.svg.processors.ISvgConverterProperties;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
+import com.tanodxyz.itext722g.svg.exceptions.SvgProcessingException;
 
 /**
  * Interface for SVG processors.
@@ -64,5 +62,5 @@ public interface ISvgProcessor {
      * @throws SvgProcessingException throws an exception if the root
      *                                node is null or if the child node being processed is null
      */
-    com.itextpdf.svg.processors.ISvgProcessorResult process(INode root, ISvgConverterProperties converterProps) throws SvgProcessingException;
+   ISvgProcessorResult process(INode root, ISvgConverterProperties converterProps) throws SvgProcessingException;
 }

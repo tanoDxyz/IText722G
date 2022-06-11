@@ -22,11 +22,11 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
-import com.itextpdf.svg.renderers.SvgDrawContext;
+
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
 import com.tanodxyz.itext722g.svg.SvgConstants;
-import com.tanodxyz.itext722g.svg.renderers.impl.AbstractBranchSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
 
 public abstract class AbstractContainerSvgNodeRenderer extends AbstractBranchSvgNodeRenderer {
     @Override

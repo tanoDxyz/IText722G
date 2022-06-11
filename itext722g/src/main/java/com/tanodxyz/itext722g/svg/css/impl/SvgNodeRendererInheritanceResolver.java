@@ -42,11 +42,11 @@
  */
 package com.tanodxyz.itext722g.svg.css.impl;
 
-import com.itextpdf.styledxmlparser.util.StyleUtil;
-import com.itextpdf.svg.css.SvgCssContext;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.impl.AbstractBranchSvgNodeRenderer;
+import com.tanodxyz.itext722g.styledXmlParser.util.StyleUtil;
 import com.tanodxyz.itext722g.svg.SvgConstants;
+import com.tanodxyz.itext722g.svg.css.SvgCssContext;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.impl.AbstractBranchSvgNodeRenderer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -67,7 +67,7 @@ public final class SvgNodeRendererInheritanceResolver {
      * @param cssContext the current SVG CSS context
      */
     public static void applyInheritanceToSubTree(ISvgNodeRenderer root, ISvgNodeRenderer subTree,
-            SvgCssContext cssContext) {
+                                                 SvgCssContext cssContext) {
         // Merge inherited style declarations from parent into child
         applyStyles(root, subTree, cssContext);
         // If subtree, iterate over tree
@@ -90,10 +90,10 @@ public final class SvgNodeRendererInheritanceResolver {
 
             for (Map.Entry<String, String> parentAttribute : parentStyles.entrySet()) {
                 childStyles = StyleUtil.mergeParentStyleDeclaration(childStyles, parentAttribute.getKey(),
-                        parentAttribute.getValue(), parentFontSize, com.itextpdf.svg.css.impl.SvgStyleResolver.INHERITANCE_RULES);
+                        parentAttribute.getValue(), parentFontSize, SvgStyleResolver.INHERITANCE_RULES);
             }
 
-            com.itextpdf.svg.css.impl.SvgStyleResolver.resolveFontSizeStyle(childStyles, cssContext, parentFontSize);
+            SvgStyleResolver.resolveFontSizeStyle(childStyles, cssContext, parentFontSize);
 
             child.setAttributesAndStyles(childStyles);
         }

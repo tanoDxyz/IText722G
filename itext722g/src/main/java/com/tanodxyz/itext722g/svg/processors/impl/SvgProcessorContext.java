@@ -43,15 +43,14 @@
 package com.tanodxyz.itext722g.svg.processors.impl;
 
 import com.tanodxyz.itext722g.io.font.FontProgram;
-import com.itextpdf.layout.font.FontInfo;
-import com.itextpdf.layout.font.FontProvider;
-import com.itextpdf.layout.font.FontSet;
-import com.itextpdf.layout.font.Range;
-import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
-import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
-import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
-import com.itextpdf.svg.css.SvgCssContext;
-import com.itextpdf.svg.processors.ISvgConverterProperties;
+import com.tanodxyz.itext722g.layout.font.FontProvider;
+import com.tanodxyz.itext722g.layout.font.FontSet;
+import com.tanodxyz.itext722g.styledXmlParser.css.media.MediaDeviceDescription;
+import com.tanodxyz.itext722g.styledXmlParser.resolver.font.BasicFontProvider;
+import com.tanodxyz.itext722g.styledXmlParser.resolver.resource.ResourceResolver;
+import com.tanodxyz.itext722g.svg.css.SvgCssContext;
+import com.tanodxyz.itext722g.svg.processors.ISvgConverterProperties;
+
 
 /**
  * Context class with accessors to properties/objects used in processing Svg documents

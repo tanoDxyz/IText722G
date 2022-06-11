@@ -42,14 +42,15 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
 import com.tanodxyz.itext722g.svg.SvgConstants;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
 
 /**
  * {@link ISvgNodeRenderer} implementation for the &lt;circle&gt; tag.
  */
-public class CircleSvgNodeRenderer extends com.itextpdf.svg.renderers.impl.EllipseSvgNodeRenderer {
+public class CircleSvgNodeRenderer extends  EllipseSvgNodeRenderer {
 
 
     @Override

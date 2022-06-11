@@ -22,23 +22,22 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.svg.exceptions.SvgExceptionMessageConstant;
-import com.itextpdf.svg.logs.SvgLogMessageConstant;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.ISvgPaintServer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
-import com.itextpdf.svg.utils.TransformUtils;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.kernel.colors.gradients.GradientSpreadMethod;
 import com.tanodxyz.itext722g.kernel.geom.AffineTransform;
 import com.tanodxyz.itext722g.svg.SvgConstants.Attributes;
 import com.tanodxyz.itext722g.svg.SvgConstants.Values;
-import com.tanodxyz.itext722g.svg.renderers.impl.AbstractBranchSvgNodeRenderer;
-
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.svg.exceptions.SvgExceptionMessageConstant;
+import com.tanodxyz.itext722g.svg.logs.SvgLogMessageConstant;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.ISvgPaintServer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
+import com.tanodxyz.itext722g.svg.utils.TransformUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * {@link ISvgNodeRenderer} abstract implementation for gradient tags
@@ -67,7 +66,7 @@ public abstract class AbstractGradientSvgNodeRenderer extends AbstractBranchSvgN
         if (Values.USER_SPACE_ON_USE.equals(gradientUnits)) {
             return false;
         } else if (gradientUnits != null && !Values.OBJECT_BOUNDING_BOX.equals(gradientUnits)) {
-            LoggerFactory.getLogger(this.getClass()).warn(MessageFormatUtil.format(
+            Logger.getLogger(this.getClass().getName()).warn(MessageFormatUtil.format(
                     SvgLogMessageConstant.GRADIENT_INVALID_GRADIENT_UNITS_LOG, gradientUnits));
         }
         return true;
@@ -93,11 +92,11 @@ public abstract class AbstractGradientSvgNodeRenderer extends AbstractBranchSvgN
      * Construct a list of child stop renderers
      * @return a list of {@link StopSvgNodeRenderer} elements that represents the child stop values
      */
-    protected List<com.itextpdf.svg.renderers.impl.StopSvgNodeRenderer> getChildStopRenderers() {
-        List<com.itextpdf.svg.renderers.impl.StopSvgNodeRenderer> stopRenderers = new ArrayList<>();
+    protected List< StopSvgNodeRenderer> getChildStopRenderers() {
+        List< StopSvgNodeRenderer> stopRenderers = new ArrayList<>();
         for (ISvgNodeRenderer child : getChildren()) {
-            if (child instanceof com.itextpdf.svg.renderers.impl.StopSvgNodeRenderer) {
-                stopRenderers.add((com.itextpdf.svg.renderers.impl.StopSvgNodeRenderer) child);
+            if (child instanceof  StopSvgNodeRenderer) {
+                stopRenderers.add(( StopSvgNodeRenderer) child);
             }
         }
         return stopRenderers;
@@ -124,7 +123,7 @@ public abstract class AbstractGradientSvgNodeRenderer extends AbstractBranchSvgN
             case Values.SPREAD_METHOD_REPEAT:
                 return GradientSpreadMethod.REPEAT;
             default:
-                LoggerFactory.getLogger(this.getClass()).warn(MessageFormatUtil.format(
+                Logger.getLogger(this.getClass().getName()).warning(MessageFormatUtil.format(
                         SvgLogMessageConstant.GRADIENT_INVALID_SPREAD_METHOD_LOG, spreadMethodValue));
                 return GradientSpreadMethod.PAD;
         }

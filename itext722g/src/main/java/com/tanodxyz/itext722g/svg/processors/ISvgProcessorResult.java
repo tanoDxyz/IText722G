@@ -42,9 +42,10 @@
  */
 package com.tanodxyz.itext722g.svg.processors;
 
-import com.itextpdf.layout.font.FontProvider;
-import com.itextpdf.layout.font.FontSet;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
+
+import com.tanodxyz.itext722g.layout.font.FontProvider;
+import com.tanodxyz.itext722g.layout.font.FontSet;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
 
 import java.util.Map;
 

@@ -42,7 +42,7 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.source.ByteUtils;
 import com.tanodxyz.itext722g.kernel.geom.AffineTransform;
 import com.tanodxyz.itext722g.kernel.geom.Matrix;
@@ -55,28 +55,27 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfStream;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfFormXObject;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfXObject;
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
 import com.tanodxyz.itext722g.svg.SvgConstants;
-import com.tanodxyz.itext722g.svg.SvgConstants.Values;
-import com.itextpdf.svg.logs.SvgLogMessageConstant;
-import com.itextpdf.svg.renderers.IBranchSvgNodeRenderer;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
-import com.itextpdf.svg.utils.SvgCssUtils;
+import com.tanodxyz.itext722g.svg.logs.SvgLogMessageConstant;
+import com.tanodxyz.itext722g.svg.renderers.IBranchSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
+import com.tanodxyz.itext722g.svg.utils.SvgCssUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
+
 
 /**
  * Abstract class that will be the superclass for any element that can function
  * as a parent.
  */
-public abstract class AbstractBranchSvgNodeRenderer extends com.itextpdf.svg.renderers.impl.AbstractSvgNodeRenderer implements IBranchSvgNodeRenderer {
+public abstract class AbstractBranchSvgNodeRenderer extends AbstractSvgNodeRenderer implements IBranchSvgNodeRenderer {
 
     /**
      * The number of viewBox values.
@@ -85,7 +84,7 @@ public abstract class AbstractBranchSvgNodeRenderer extends com.itextpdf.svg.ren
 
     private final List<ISvgNodeRenderer> children = new ArrayList<>();
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractBranchSvgNodeRenderer.class);
+    private static final Logger LOGGER = Logger.getLogger(AbstractBranchSvgNodeRenderer.class.getName());
 
     /**
      * Method that will set properties to be inherited by this branch renderer's
@@ -109,28 +108,28 @@ public abstract class AbstractBranchSvgNodeRenderer extends com.itextpdf.svg.ren
 
             boolean overflowVisible = isOverflowVisible(this);
             // TODO (DEVSIX-3482) Currently overflow logic works only for markers.  Update this code after the ticket will be finished.
-            if (this instanceof com.itextpdf.svg.renderers.impl.MarkerSvgNodeRenderer && overflowVisible) {
+            if (this instanceof MarkerSvgNodeRenderer && overflowVisible) {
                 writeBBoxAccordingToVisibleOverflow(context, stream);
             } else {
                 Rectangle bbBox = context.getCurrentViewPort().clone();
                 stream.put(PdfName.BBox, new PdfArray(bbBox));
             }
 
-            if (this instanceof com.itextpdf.svg.renderers.impl.MarkerSvgNodeRenderer) {
-                ((com.itextpdf.svg.renderers.impl.MarkerSvgNodeRenderer) this).applyMarkerAttributes(context);
+            if (this instanceof MarkerSvgNodeRenderer) {
+                ((MarkerSvgNodeRenderer) this).applyMarkerAttributes(context);
             }
 
             context.pushCanvas(newCanvas);
 
             // TODO (DEVSIX-3482) Currently overflow logic works only for markers. Update this code after the ticket will be finished.
-            if (!(this instanceof com.itextpdf.svg.renderers.impl.MarkerSvgNodeRenderer) || !overflowVisible) {
+            if (!(this instanceof MarkerSvgNodeRenderer) || !overflowVisible) {
                 applyViewportClip(context);
             }
 
             applyViewportTranslationCorrection(context);
 
             for (ISvgNodeRenderer child : getChildren()) {
-                if (!(child instanceof com.itextpdf.svg.renderers.impl.MarkerSvgNodeRenderer)) {
+                if (!(child instanceof MarkerSvgNodeRenderer)) {
                     newCanvas.saveState();
                     child.draw(context);
                     newCanvas.restoreState();
@@ -151,7 +150,7 @@ public abstract class AbstractBranchSvgNodeRenderer extends com.itextpdf.svg.ren
             canvas.concatMatrix(1, 0, 0, 1, x, y);
             PdfName name = canvas.getResources().addForm((PdfFormXObject) xObject);
             canvas.getContentStream().getOutputStream()
-                  .write(name).writeSpace().writeBytes(ByteUtils.getIsoBytes("Do\n"));
+                    .write(name).writeSpace().writeBytes(ByteUtils.getIsoBytes("Do\n"));
             canvas.restoreState();
         } else {
             canvas.addXObjectAt(xObject, x, y);
@@ -196,14 +195,14 @@ public abstract class AbstractBranchSvgNodeRenderer extends com.itextpdf.svg.ren
             }
         }
 
-        if (this instanceof com.itextpdf.svg.renderers.impl.MarkerSvgNodeRenderer && !SvgConstants.Values.NONE.equals(align)
+        if (this instanceof MarkerSvgNodeRenderer && !SvgConstants.Values.NONE.equals(align)
                 && SvgConstants.Values.MEET.equals(meetOrSlice)) {
             // Browsers do not correctly display markers with 'meet' option in the preserveAspectRatio attribute.
             // The Chrome, IE, and Firefox browsers set the align value to 'xMinYMin' regardless of the actual align.
-            align = Values.XMIN_YMIN;
+            align = SvgConstants.Values.XMIN_YMIN;
         }
 
-        return new String[] {align, meetOrSlice};
+        return new String[]{align, meetOrSlice};
     }
 
     /**
@@ -242,7 +241,7 @@ public abstract class AbstractBranchSvgNodeRenderer extends com.itextpdf.svg.ren
      * @return the transformation based on the preserveAspectRatio value
      */
     AffineTransform processAspectRatioPosition(SvgDrawContext context, float[] viewBoxValues, String align,
-            float scaleWidth, float scaleHeight) {
+                                               float scaleWidth, float scaleHeight) {
         AffineTransform transform = new AffineTransform();
         Rectangle currentViewPort = context.getCurrentViewPort();
 
@@ -265,7 +264,7 @@ public abstract class AbstractBranchSvgNodeRenderer extends com.itextpdf.svg.ren
             y = CssDimensionParsingUtils.parseAbsoluteLength(attributesAndStyles.get(SvgConstants.Attributes.Y));
         }
 
-        if (!(this instanceof com.itextpdf.svg.renderers.impl.MarkerSvgNodeRenderer)) {
+        if (!(this instanceof MarkerSvgNodeRenderer)) {
             x -= currentViewPort.getX();
             y -= currentViewPort.getY();
         }
@@ -374,8 +373,8 @@ public abstract class AbstractBranchSvgNodeRenderer extends com.itextpdf.svg.ren
     void setPartOfClipPath(boolean isPart) {
         super.setPartOfClipPath(isPart);
         for (ISvgNodeRenderer child : children) {
-            if (child instanceof com.itextpdf.svg.renderers.impl.AbstractSvgNodeRenderer) {
-                ((com.itextpdf.svg.renderers.impl.AbstractSvgNodeRenderer) child).setPartOfClipPath(isPart);
+            if (child instanceof AbstractSvgNodeRenderer) {
+                ((AbstractSvgNodeRenderer) child).setPartOfClipPath(isPart);
             }
         }
     }
@@ -446,19 +445,18 @@ public abstract class AbstractBranchSvgNodeRenderer extends com.itextpdf.svg.ren
         }
         // the value for viewBox should be 4 numbers according to the viewBox documentation
         if (values.length != VIEWBOX_VALUES_NUMBER) {
-            if (LOGGER.isWarnEnabled()) {
-                LOGGER.warn(MessageFormatUtil.format(
-                        SvgLogMessageConstant.VIEWBOX_VALUE_MUST_BE_FOUR_NUMBERS, viewBoxValues));
-            }
+
+            LOGGER.warning(MessageFormatUtil.format(
+                    SvgLogMessageConstant.VIEWBOX_VALUE_MUST_BE_FOUR_NUMBERS, viewBoxValues));
+
             return new float[]{};
         }
         // case when viewBox width or height is negative value is an error and
         // invalidates the ‘viewBox’ attribute (according to the viewBox documentation)
         if (values[2] < 0 || values[3] < 0) {
-            if (LOGGER.isWarnEnabled()) {
-                LOGGER.warn(MessageFormatUtil.format(
-                        SvgLogMessageConstant.VIEWBOX_WIDTH_AND_HEIGHT_CANNOT_BE_NEGATIVE, viewBoxValues));
-            }
+            LOGGER.warning(MessageFormatUtil.format(
+                    SvgLogMessageConstant.VIEWBOX_WIDTH_AND_HEIGHT_CANNOT_BE_NEGATIVE, viewBoxValues));
+
             return new float[]{};
         }
         return values;
@@ -473,7 +471,7 @@ public abstract class AbstractBranchSvgNodeRenderer extends com.itextpdf.svg.ren
         return scaledViewBoxValues;
     }
 
-    private static boolean isOverflowVisible(com.itextpdf.svg.renderers.impl.AbstractSvgNodeRenderer currentElement) {
+    private static boolean isOverflowVisible(AbstractSvgNodeRenderer currentElement) {
         return (CommonCssConstants.VISIBLE.equals(currentElement.attributesAndStyles.get(CommonCssConstants.OVERFLOW))
                 || CommonCssConstants.AUTO.equals(currentElement.attributesAndStyles.get(CommonCssConstants.OVERFLOW)));
     }
@@ -484,8 +482,9 @@ public abstract class AbstractBranchSvgNodeRenderer extends com.itextpdf.svg.ren
      * that should cover the entire svg space (page in pdf) in order to be able to show parts of the element which are outside the current element viewPort.
      * To do this, we get the inverse matrix of all the current transformation matrix changes and apply it to the root viewPort.
      * This allows you to get the root rectangle in the final coordinate system.
+     *
      * @param context current context to get canvases and view ports
-     * @param stream stream to write a BBox
+     * @param stream  stream to write a BBox
      */
     private static void writeBBoxAccordingToVisibleOverflow(SvgDrawContext context, PdfStream stream) {
         List<PdfCanvas> canvases = new ArrayList<>();
@@ -507,8 +506,8 @@ public abstract class AbstractBranchSvgNodeRenderer extends com.itextpdf.svg.ren
             // Case with zero determiner (see PDF 32000-1:2008 - 8.3.4 Transformation Matrices - NOTE 3)
             // for example with a, b, c, d in cm equal to 0
             stream.put(PdfName.BBox, new PdfArray(new Rectangle(0, 0, 0, 0)));
-            Logger logger = LoggerFactory.getLogger(AbstractBranchSvgNodeRenderer.class);
-            logger.warn(SvgLogMessageConstant.UNABLE_TO_GET_INVERSE_MATRIX_DUE_TO_ZERO_DETERMINANT);
+            Logger logger = Logger.getLogger(AbstractBranchSvgNodeRenderer.class.getName());
+            logger.warning(SvgLogMessageConstant.UNABLE_TO_GET_INVERSE_MATRIX_DUE_TO_ZERO_DETERMINANT);
             return;
         }
         Point[] points = context.getRootViewPort().toPointsArray();

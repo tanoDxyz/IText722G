@@ -42,9 +42,10 @@
  */
 package com.tanodxyz.itext722g.svg.css;
 
-import com.itextpdf.styledxmlparser.css.resolve.AbstractCssContext;
-import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.resolve.AbstractCssContext;
+import com.tanodxyz.itext722g.styledXmlParser.css.resolve.CssDefaults;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
 import com.tanodxyz.itext722g.svg.SvgConstants;
 
 /**

@@ -42,29 +42,27 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.factories;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.styledxmlparser.node.IElementNode;
-import com.itextpdf.svg.exceptions.SvgExceptionMessageConstant;
-import com.itextpdf.svg.logs.SvgLogMessageConstant;
-import com.itextpdf.svg.exceptions.SvgProcessingException;
-import com.itextpdf.svg.renderers.INoDrawSvgNodeRenderer;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.factories.DefaultSvgNodeRendererMapper.ISvgNodeRendererCreator;
-import com.itextpdf.svg.renderers.impl.DefsSvgNodeRenderer;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
+import com.tanodxyz.itext722g.styledXmlParser.node.IElementNode;
+import com.tanodxyz.itext722g.svg.exceptions.SvgExceptionMessageConstant;
+import com.tanodxyz.itext722g.svg.exceptions.SvgProcessingException;
+import com.tanodxyz.itext722g.svg.logs.SvgLogMessageConstant;
+import com.tanodxyz.itext722g.svg.renderers.INoDrawSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.impl.DefsSvgNodeRenderer;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 /**
  * The default implementation of {@link ISvgNodeRendererFactory} that will be
  * used by default by the entry points defined by this project.
  */
-public class DefaultSvgNodeRendererFactory implements com.itextpdf.svg.renderers.factories.ISvgNodeRendererFactory {
+public class DefaultSvgNodeRendererFactory implements  ISvgNodeRendererFactory {
 
     private final Map<String, ISvgNodeRendererCreator> rendererMap = new HashMap<>();
     private final Collection<String> ignoredTags = new HashSet<>();
@@ -73,7 +71,7 @@ public class DefaultSvgNodeRendererFactory implements com.itextpdf.svg.renderers
      * Default constructor with default {@link ISvgNodeRenderer} creation logic.
      */
     public DefaultSvgNodeRendererFactory() {
-        final com.itextpdf.svg.renderers.factories.DefaultSvgNodeRendererMapper defaultMapper = new com.itextpdf.svg.renderers.factories.DefaultSvgNodeRendererMapper();
+        final  DefaultSvgNodeRendererMapper defaultMapper = new  DefaultSvgNodeRendererMapper();
         rendererMap.putAll(defaultMapper.getMapping());
         ignoredTags.addAll(defaultMapper.getIgnoredTags());
     }
@@ -86,11 +84,11 @@ public class DefaultSvgNodeRendererFactory implements com.itextpdf.svg.renderers
             throw new SvgProcessingException(SvgExceptionMessageConstant.TAG_PARAMETER_NULL);
         }
 
-        final ISvgNodeRendererCreator svgNodeRendererCreator = rendererMap.get(tag.name());
+        final DefaultSvgNodeRendererMapper.ISvgNodeRendererCreator svgNodeRendererCreator = rendererMap.get(tag.name());
 
         if (svgNodeRendererCreator == null) {
-            Logger logger = LoggerFactory.getLogger(this.getClass());
-            logger.warn(MessageFormatUtil.format(SvgLogMessageConstant.UNMAPPED_TAG, tag.name()));
+            Logger logger = Logger.getLogger(this.getClass().getName());
+            logger.warning(MessageFormatUtil.format(SvgLogMessageConstant.UNMAPPED_TAG, tag.name()));
             return null;
         }
 

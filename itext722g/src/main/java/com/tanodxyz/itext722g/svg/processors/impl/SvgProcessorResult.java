@@ -42,13 +42,12 @@
  */
 package com.tanodxyz.itext722g.svg.processors.impl;
 
-import com.itextpdf.layout.font.FontProvider;
-import com.itextpdf.layout.font.FontSet;
-import com.itextpdf.svg.exceptions.SvgExceptionMessageConstant;
-import com.itextpdf.svg.processors.ISvgProcessor;
-import com.itextpdf.svg.processors.ISvgProcessorResult;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.tanodxyz.itext722g.svg.processors.impl.SvgProcessorContext;
+
+import com.tanodxyz.itext722g.layout.font.FontProvider;
+import com.tanodxyz.itext722g.layout.font.FontSet;
+import com.tanodxyz.itext722g.svg.exceptions.SvgExceptionMessageConstant;
+import com.tanodxyz.itext722g.svg.processors.ISvgProcessorResult;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
 
 import java.util.Map;
 

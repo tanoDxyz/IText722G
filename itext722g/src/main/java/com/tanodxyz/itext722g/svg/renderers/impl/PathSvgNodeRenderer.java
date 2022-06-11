@@ -42,29 +42,28 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.svg.exceptions.SvgExceptionMessageConstant;
-import com.itextpdf.svg.exceptions.SvgProcessingException;
-import com.itextpdf.svg.renderers.IMarkerCapable;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
-import com.itextpdf.svg.renderers.path.IPathShape;
-import com.itextpdf.svg.renderers.path.SvgPathShapeFactory;
-import com.itextpdf.svg.renderers.path.impl.AbstractPathShape;
-import com.itextpdf.svg.renderers.path.impl.ClosePath;
-import com.itextpdf.svg.renderers.path.impl.IControlPointCurve;
-import com.itextpdf.svg.renderers.path.impl.MoveTo;
-import com.itextpdf.svg.renderers.path.impl.QuadraticSmoothCurveTo;
-import com.itextpdf.svg.renderers.path.impl.SmoothSCurveTo;
-import com.itextpdf.svg.utils.SvgCoordinateUtils;
-import com.itextpdf.svg.utils.SvgCssUtils;
+
 import com.tanodxyz.itext722g.kernel.geom.Point;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.geom.Vector;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.svg.MarkerVertexType;
 import com.tanodxyz.itext722g.svg.SvgConstants;
-import com.tanodxyz.itext722g.svg.renderers.impl.AbstractSvgNodeRenderer;
-import com.tanodxyz.itext722g.svg.renderers.impl.MarkerSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.exceptions.SvgExceptionMessageConstant;
+import com.tanodxyz.itext722g.svg.exceptions.SvgProcessingException;
+import com.tanodxyz.itext722g.svg.renderers.IMarkerCapable;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
+import com.tanodxyz.itext722g.svg.renderers.path.IPathShape;
+import com.tanodxyz.itext722g.svg.renderers.path.SvgPathShapeFactory;
+import com.tanodxyz.itext722g.svg.renderers.path.impl.AbstractPathShape;
+import com.tanodxyz.itext722g.svg.renderers.path.impl.ClosePath;
+import com.tanodxyz.itext722g.svg.renderers.path.impl.IControlPointCurve;
+import com.tanodxyz.itext722g.svg.renderers.path.impl.MoveTo;
+import com.tanodxyz.itext722g.svg.renderers.path.impl.QuadraticSmoothCurveTo;
+import com.tanodxyz.itext722g.svg.renderers.path.impl.SmoothSCurveTo;
+import com.tanodxyz.itext722g.svg.utils.SvgCoordinateUtils;
+import com.tanodxyz.itext722g.svg.utils.SvgCssUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -43,9 +43,10 @@
 package com.tanodxyz.itext722g.svg.exceptions;
 
 import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
+import com.tanodxyz.itext722g.svg.processors.ISvgProcessor;
 
 /**
- * Exception thrown by {@link com.itextpdf.svg.processors.ISvgProcessor} when it cannot process an SVG
+ * Exception thrown by {@link ISvgProcessor} when it cannot process an SVG
  */
 public class SvgProcessingException extends PdfException {
 

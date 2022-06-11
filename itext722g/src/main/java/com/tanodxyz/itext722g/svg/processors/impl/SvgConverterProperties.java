@@ -42,13 +42,14 @@
  */
 package com.tanodxyz.itext722g.svg.processors.impl;
 
-import com.itextpdf.layout.font.FontProvider;
-import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
-import com.itextpdf.styledxmlparser.resolver.resource.DefaultResourceRetriever;
-import com.itextpdf.styledxmlparser.resolver.resource.IResourceRetriever;
-import com.itextpdf.svg.processors.ISvgConverterProperties;
-import com.itextpdf.svg.renderers.factories.DefaultSvgNodeRendererFactory;
-import com.itextpdf.svg.renderers.factories.ISvgNodeRendererFactory;
+
+import com.tanodxyz.itext722g.layout.font.FontProvider;
+import com.tanodxyz.itext722g.styledXmlParser.css.media.MediaDeviceDescription;
+import com.tanodxyz.itext722g.styledXmlParser.resolver.resource.DefaultResourceRetriever;
+import com.tanodxyz.itext722g.styledXmlParser.resolver.resource.IResourceRetriever;
+import com.tanodxyz.itext722g.svg.processors.ISvgConverterProperties;
+import com.tanodxyz.itext722g.svg.renderers.factories.DefaultSvgNodeRendererFactory;
+import com.tanodxyz.itext722g.svg.renderers.factories.ISvgNodeRendererFactory;
 
 import java.nio.charset.StandardCharsets;
 

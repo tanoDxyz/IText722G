@@ -42,22 +42,20 @@
  */
 package com.tanodxyz.itext722g.svg.processors.impl.font;
 
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.font.FontProgram;
 import com.tanodxyz.itext722g.io.font.FontProgramFactory;
 import com.tanodxyz.itext722g.io.font.PdfEncodings;
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.font.FontInfo;
-import com.itextpdf.layout.font.Range;
-import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
-import com.itextpdf.styledxmlparser.css.font.CssFontFace;
-import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
-import com.itextpdf.styledxmlparser.css.ICssResolver;
-import com.itextpdf.svg.css.impl.SvgStyleResolver;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssFontFaceRule;
+import com.tanodxyz.itext722g.styledXmlParser.css.ICssResolver;
+import com.tanodxyz.itext722g.styledXmlParser.css.font.CssFontFace;
+import com.tanodxyz.itext722g.styledXmlParser.logs.StyledXmlParserLogMessageConstant;
+import com.tanodxyz.itext722g.svg.css.impl.SvgStyleResolver;
+import com.tanodxyz.itext722g.svg.processors.impl.SvgProcessorContext;
 
 import java.util.Collection;
-
-import com.itextpdf.svg.processors.impl.SvgProcessorContext;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Class that processes and add resolved css fonts to the FontProvider
@@ -89,8 +87,8 @@ public class SvgFontProcessor {
                     }
                 }
                 if (!findSupportedSrc) {
-                    LoggerFactory.getLogger(SvgFontProcessor.class)
-                            .error(MessageFormatUtil.format(StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_FONT,
+                    Logger.getLogger(SvgFontProcessor.class.getName())
+                            .log(Level.SEVERE,MessageFormatUtil.format(StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_FONT,
                                     fontFace));
                 }
             }

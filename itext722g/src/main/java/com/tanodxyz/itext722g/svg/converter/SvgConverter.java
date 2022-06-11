@@ -53,6 +53,7 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfWriter;
 import com.tanodxyz.itext722g.kernel.pdf.WriterProperties;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfFormXObject;
+import com.tanodxyz.itext722g.layout.element.Image;
 import com.tanodxyz.itext722g.styledXmlParser.IXmlParser;
 import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
 import com.tanodxyz.itext722g.styledXmlParser.node.INode;
@@ -965,7 +966,7 @@ public final class SvgConverter {
                 height = values[3];
             } else {
                 //Log Warning
-                LOGGER.warn(SvgLogMessageConstant.MISSING_HEIGHT);
+                LOGGER.warning(SvgLogMessageConstant.MISSING_HEIGHT);
                 //Set to browser default
                 height = CssDimensionParsingUtils.parseAbsoluteLength("150px");
             }

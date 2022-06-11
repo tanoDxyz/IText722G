@@ -42,7 +42,8 @@
  */
 package com.tanodxyz.itext722g.svg.processors.impl;
 
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
+
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
 
 import java.util.Stack;
 

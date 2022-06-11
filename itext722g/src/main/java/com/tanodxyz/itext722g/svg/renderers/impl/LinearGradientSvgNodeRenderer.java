@@ -22,9 +22,7 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
-import com.itextpdf.svg.utils.SvgCoordinateUtils;
+
 import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.kernel.colors.gradients.GradientColorStop;
 import com.tanodxyz.itext722g.kernel.colors.gradients.GradientColorStop.OffsetType;
@@ -33,7 +31,9 @@ import com.tanodxyz.itext722g.kernel.geom.AffineTransform;
 import com.tanodxyz.itext722g.kernel.geom.Point;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.svg.SvgConstants.Attributes;
-import com.tanodxyz.itext722g.svg.renderers.impl.AbstractGradientSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
+import com.tanodxyz.itext722g.svg.utils.SvgCoordinateUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,7 @@ public class LinearGradientSvgNodeRenderer extends AbstractGradientSvgNodeRender
 
     @Override
     public Color createColor(SvgDrawContext context, Rectangle objectBoundingBox, float objectBoundingBoxMargin,
-            float parentOpacity) {
+                             float parentOpacity) {
         if (objectBoundingBox == null) {
             return null;
         }
@@ -95,7 +95,7 @@ public class LinearGradientSvgNodeRenderer extends AbstractGradientSvgNodeRender
     //  The opacity should be equal to 'parentOpacity * stopRenderer.getStopOpacity() * stopColor[3]'
     private List<GradientColorStop> parseStops(float parentOpacity) {
         List<GradientColorStop> stopsList = new ArrayList<>();
-        for (com.itextpdf.svg.renderers.impl.StopSvgNodeRenderer stopRenderer : getChildStopRenderers()) {
+        for (  StopSvgNodeRenderer stopRenderer : getChildStopRenderers()) {
             float[] stopColor = stopRenderer.getStopColor();
             double offset = stopRenderer.getOffset();
             stopsList.add(new GradientColorStop(stopColor, offset, OffsetType.RELATIVE));

@@ -42,33 +42,33 @@
  */
 package com.tanodxyz.itext722g.svg.processors.impl;
 
-import com.itextpdf.styledxmlparser.css.ICssResolver;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
-import com.itextpdf.styledxmlparser.jsoup.parser.Tag;
-import com.itextpdf.styledxmlparser.node.IElementNode;
-import com.itextpdf.styledxmlparser.node.INode;
-import com.itextpdf.styledxmlparser.node.ITextNode;
-import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupElementNode;
-import com.itextpdf.svg.css.impl.SvgStyleResolver;
-import com.itextpdf.svg.exceptions.SvgExceptionMessageConstant;
-import com.itextpdf.svg.exceptions.SvgProcessingException;
-import com.itextpdf.svg.processors.ISvgConverterProperties;
-import com.itextpdf.svg.processors.ISvgProcessor;
-import com.itextpdf.svg.processors.ISvgProcessorResult;
-import com.itextpdf.svg.processors.impl.font.SvgFontProcessor;
-import com.itextpdf.svg.renderers.IBranchSvgNodeRenderer;
-import com.itextpdf.svg.renderers.INoDrawSvgNodeRenderer;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.factories.DefaultSvgNodeRendererFactory;
-import com.itextpdf.svg.renderers.factories.ISvgNodeRendererFactory;
-import com.itextpdf.svg.renderers.impl.DefsSvgNodeRenderer;
-import com.itextpdf.svg.renderers.impl.ISvgTextNodeRenderer;
-import com.itextpdf.svg.renderers.impl.LinearGradientSvgNodeRenderer;
-import com.itextpdf.svg.renderers.impl.StopSvgNodeRenderer;
-import com.itextpdf.svg.renderers.impl.TextSvgBranchRenderer;
-import com.itextpdf.svg.utils.SvgTextUtil;
+
+import com.tanodxyz.itext722g.styledXmlParser.css.ICssResolver;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Tag;
+import com.tanodxyz.itext722g.styledXmlParser.node.IElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
+import com.tanodxyz.itext722g.styledXmlParser.node.ITextNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.impl.jsoup.node.JsoupElementNode;
 import com.tanodxyz.itext722g.svg.SvgConstants;
 import com.tanodxyz.itext722g.svg.SvgConstants.Tags;
+import com.tanodxyz.itext722g.svg.css.impl.SvgStyleResolver;
+import com.tanodxyz.itext722g.svg.exceptions.SvgExceptionMessageConstant;
+import com.tanodxyz.itext722g.svg.exceptions.SvgProcessingException;
+import com.tanodxyz.itext722g.svg.processors.ISvgConverterProperties;
+import com.tanodxyz.itext722g.svg.processors.ISvgProcessor;
+import com.tanodxyz.itext722g.svg.processors.ISvgProcessorResult;
+import com.tanodxyz.itext722g.svg.processors.impl.font.SvgFontProcessor;
+import com.tanodxyz.itext722g.svg.renderers.IBranchSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.INoDrawSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.factories.DefaultSvgNodeRendererFactory;
+import com.tanodxyz.itext722g.svg.renderers.factories.ISvgNodeRendererFactory;
+import com.tanodxyz.itext722g.svg.renderers.impl.DefsSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.impl.ISvgTextNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.impl.LinearGradientSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.impl.StopSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.impl.TextSvgBranchRenderer;
+import com.tanodxyz.itext722g.svg.utils.SvgTextUtil;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -81,12 +81,12 @@ import java.util.Map;
  */
 public class DefaultSvgProcessor implements ISvgProcessor {
 
-    private com.itextpdf.svg.processors.impl.ProcessorState processorState;
+    private ProcessorState processorState;
 
     private ICssResolver cssResolver;
     private ISvgNodeRendererFactory rendererFactory;
     private Map<String, ISvgNodeRenderer> namedObjects;
-    private com.itextpdf.svg.processors.impl.SvgProcessorContext context;
+    private  SvgProcessorContext context;
 
     /**
      * Instantiates a DefaultSvgProcessor object.
@@ -100,7 +100,7 @@ public class DefaultSvgProcessor implements ISvgProcessor {
             throw new SvgProcessingException(SvgExceptionMessageConstant.I_NODE_ROOT_IS_NULL);
         }
         if (converterProps == null) {
-            converterProps = new com.itextpdf.svg.processors.impl.SvgConverterProperties();
+            converterProps = new SvgConverterProperties();
         }
         //Setup processorState
         performSetup(root, converterProps);
@@ -112,7 +112,7 @@ public class DefaultSvgProcessor implements ISvgProcessor {
             //Iterate over children
             executeDepthFirstTraversal(svgRoot);
             ISvgNodeRenderer rootSvgRenderer = createResultAndClean();
-            return new com.itextpdf.svg.processors.impl.SvgProcessorResult(namedObjects, rootSvgRenderer, context);
+            return new  SvgProcessorResult(namedObjects, rootSvgRenderer, context);
         } else {
             throw new SvgProcessingException(SvgExceptionMessageConstant.NO_ROOT);
         }
@@ -124,13 +124,13 @@ public class DefaultSvgProcessor implements ISvgProcessor {
      * @param converterProps that contains configuration properties and operations
      */
     void performSetup(INode root, ISvgConverterProperties converterProps) {
-        processorState = new com.itextpdf.svg.processors.impl.ProcessorState();
+        processorState = new  ProcessorState();
         if (converterProps.getRendererFactory() != null) {
             rendererFactory = converterProps.getRendererFactory();
         } else {
             rendererFactory = new DefaultSvgNodeRendererFactory();
         }
-        context = new com.itextpdf.svg.processors.impl.SvgProcessorContext(converterProps);
+        context = new  SvgProcessorContext(converterProps);
         cssResolver = new SvgStyleResolver(root, context);
         new SvgFontProcessor(context).addFontFaceFonts(cssResolver);
         //TODO DEVSIX-2264

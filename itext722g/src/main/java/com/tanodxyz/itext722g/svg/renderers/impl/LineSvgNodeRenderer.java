@@ -42,17 +42,17 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
-import com.itextpdf.svg.renderers.IMarkerCapable;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
-import com.itextpdf.svg.utils.SvgCoordinateUtils;
+
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.geom.Vector;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
 import com.tanodxyz.itext722g.svg.MarkerVertexType;
 import com.tanodxyz.itext722g.svg.SvgConstants;
-import com.tanodxyz.itext722g.svg.renderers.impl.AbstractSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.IMarkerCapable;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
+import com.tanodxyz.itext722g.svg.utils.SvgCoordinateUtils;
 
 import java.util.Map;
 
@@ -123,12 +123,12 @@ public class LineSvgNodeRenderer extends AbstractSvgNodeRenderer implements IMar
             moveY = this.attributesAndStyles.get(SvgConstants.Attributes.Y2);
         }
         if (moveX != null && moveY != null) {
-            com.itextpdf.svg.renderers.impl.MarkerSvgNodeRenderer.drawMarker(context, moveX, moveY, markerVertexType, this);
+             MarkerSvgNodeRenderer.drawMarker(context, moveX, moveY, markerVertexType, this);
         }
     }
 
     @Override
-    public double getAutoOrientAngle(com.itextpdf.svg.renderers.impl.MarkerSvgNodeRenderer marker, boolean reverse) {
+    public double getAutoOrientAngle( MarkerSvgNodeRenderer marker, boolean reverse) {
         Vector v = new Vector(getAttribute(this.attributesAndStyles, SvgConstants.Attributes.X2) - getAttribute(
                 this.attributesAndStyles, SvgConstants.Attributes.X1),
                 getAttribute(this.attributesAndStyles, SvgConstants.Attributes.Y2) - getAttribute(

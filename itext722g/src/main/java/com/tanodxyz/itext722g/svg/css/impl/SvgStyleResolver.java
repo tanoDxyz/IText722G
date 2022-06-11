@@ -42,44 +42,41 @@
  */
 package com.tanodxyz.itext722g.svg.css.impl;
 
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
-import com.itextpdf.styledxmlparser.css.CssDeclaration;
-import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
-import com.itextpdf.styledxmlparser.css.CssStatement;
-import com.itextpdf.styledxmlparser.css.CssStyleSheet;
-import com.itextpdf.styledxmlparser.css.ICssResolver;
-import com.itextpdf.styledxmlparser.css.media.CssMediaRule;
-import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
-import com.itextpdf.styledxmlparser.css.parse.CssRuleSetParser;
-import com.itextpdf.styledxmlparser.css.parse.CssStyleSheetParser;
-import com.itextpdf.styledxmlparser.css.resolve.AbstractCssContext;
-import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
-import com.itextpdf.styledxmlparser.css.resolve.CssInheritance;
-import com.itextpdf.styledxmlparser.css.resolve.IStyleInheritance;
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
-import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
-import com.itextpdf.styledxmlparser.node.IAttribute;
-import com.itextpdf.styledxmlparser.node.IDataNode;
-import com.itextpdf.styledxmlparser.node.IElementNode;
-import com.itextpdf.styledxmlparser.node.INode;
-import com.itextpdf.styledxmlparser.node.IStylesContainer;
-import com.itextpdf.styledxmlparser.node.ITextNode;
-import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
-import com.itextpdf.styledxmlparser.util.StyleUtil;
-import com.itextpdf.svg.css.SvgCssContext;
-import com.itextpdf.svg.exceptions.SvgProcessingException;
-import com.itextpdf.svg.logs.SvgLogMessageConstant;
-import com.itextpdf.svg.processors.impl.SvgProcessorContext;
+
 import com.tanodxyz.itext722g.io.util.DecimalFormatUtil;
 import com.tanodxyz.itext722g.io.util.ResourceUtil;
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssDeclaration;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssFontFaceRule;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssStatement;
+import com.tanodxyz.itext722g.styledXmlParser.css.CssStyleSheet;
+import com.tanodxyz.itext722g.styledXmlParser.css.ICssResolver;
+import com.tanodxyz.itext722g.styledXmlParser.css.media.CssMediaRule;
+import com.tanodxyz.itext722g.styledXmlParser.css.media.MediaDeviceDescription;
+import com.tanodxyz.itext722g.styledXmlParser.css.parse.CssRuleSetParser;
+import com.tanodxyz.itext722g.styledXmlParser.css.parse.CssStyleSheetParser;
+import com.tanodxyz.itext722g.styledXmlParser.css.resolve.AbstractCssContext;
+import com.tanodxyz.itext722g.styledXmlParser.css.resolve.CssDefaults;
+import com.tanodxyz.itext722g.styledXmlParser.css.resolve.CssInheritance;
+import com.tanodxyz.itext722g.styledXmlParser.css.resolve.IStyleInheritance;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssTypesValidationUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssUtils;
+import com.tanodxyz.itext722g.styledXmlParser.logs.StyledXmlParserLogMessageConstant;
+import com.tanodxyz.itext722g.styledXmlParser.node.IAttribute;
+import com.tanodxyz.itext722g.styledXmlParser.node.IDataNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.IElementNode;
+import com.tanodxyz.itext722g.styledXmlParser.node.INode;
+import com.tanodxyz.itext722g.styledXmlParser.node.IStylesContainer;
+import com.tanodxyz.itext722g.styledXmlParser.node.ITextNode;
+import com.tanodxyz.itext722g.styledXmlParser.resolver.resource.ResourceResolver;
+import com.tanodxyz.itext722g.styledXmlParser.util.StyleUtil;
 import com.tanodxyz.itext722g.svg.SvgConstants;
 import com.tanodxyz.itext722g.svg.SvgConstants.Tags;
-import com.tanodxyz.itext722g.svg.css.impl.SvgAttributeInheritance;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tanodxyz.itext722g.svg.css.SvgCssContext;
+import com.tanodxyz.itext722g.svg.exceptions.SvgProcessingException;
+import com.tanodxyz.itext722g.svg.logs.SvgLogMessageConstant;
+import com.tanodxyz.itext722g.svg.processors.impl.SvgProcessorContext;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -93,6 +90,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Default implementation of SVG`s styles and attribute resolver .
@@ -110,7 +109,7 @@ public class SvgStyleResolver implements ICssResolver {
     private static final float DEFAULT_FONT_SIZE = CssDimensionParsingUtils.parseAbsoluteFontSize(
             CssDefaults.getDefaultValue(SvgConstants.Attributes.FONT_SIZE));
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SvgStyleResolver.class);
+    private static final Logger LOGGER = Logger.getLogger(SvgStyleResolver.class.getName());
 
     private CssStyleSheet css;
     private static final String DEFAULT_CSS_PATH = "com/itextpdf/svg/default.css";
@@ -317,7 +316,7 @@ public class SvgStyleResolver implements ICssResolver {
             try {
                 xlinkValue = this.resourceResolver.resolveAgainstBaseUri(attr.getValue()).toExternalForm();
             } catch (MalformedURLException mue) {
-                LOGGER.error(StyledXmlParserLogMessageConstant.UNABLE_TO_RESOLVE_IMAGE_URL, mue);
+                LOGGER.log(Level.SEVERE,StyledXmlParserLogMessageConstant.UNABLE_TO_RESOLVE_IMAGE_URL, mue);
             }
         }
         attributesMap.put(attr.getKey(), xlinkValue);

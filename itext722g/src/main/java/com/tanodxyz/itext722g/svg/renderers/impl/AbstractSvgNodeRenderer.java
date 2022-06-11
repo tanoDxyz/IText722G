@@ -42,19 +42,7 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.layout.properties.TransparentColor;
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer;
-import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer.Token;
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
-import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import com.itextpdf.svg.css.impl.SvgNodeRendererInheritanceResolver;
-import com.itextpdf.svg.renderers.IMarkerCapable;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.ISvgPaintServer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
-import com.itextpdf.svg.utils.TransformUtils;
+
 import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.kernel.colors.ColorConstants;
 import com.tanodxyz.itext722g.kernel.colors.WebColors;
@@ -62,8 +50,20 @@ import com.tanodxyz.itext722g.kernel.geom.AffineTransform;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.kernel.pdf.extgstate.PdfExtGState;
+import com.tanodxyz.itext722g.layout.properties.TransparentColor;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.styledXmlParser.css.parse.CssDeclarationValueTokenizer;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssTypesValidationUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssUtils;
 import com.tanodxyz.itext722g.svg.MarkerVertexType;
 import com.tanodxyz.itext722g.svg.SvgConstants;
+import com.tanodxyz.itext722g.svg.css.impl.SvgNodeRendererInheritanceResolver;
+import com.tanodxyz.itext722g.svg.renderers.IMarkerCapable;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.ISvgPaintServer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
+import com.tanodxyz.itext722g.svg.utils.TransformUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -272,7 +272,7 @@ public abstract class AbstractSvgNodeRenderer implements ISvgNodeRenderer {
                     currentCanvas.clip();
                 }
                 currentCanvas.endPath();
-            } else if (!(this instanceof com.itextpdf.svg.renderers.impl.ISvgTextNodeRenderer)) {
+            } else if (!(this instanceof  ISvgTextNodeRenderer)) {
                 if (doFill && canElementFill()) {
                     String fillRuleRawValue = getAttribute(SvgConstants.Attributes.FILL_RULE);
 
@@ -480,8 +480,8 @@ public abstract class AbstractSvgNodeRenderer implements ISvgNodeRenderer {
             String clipPathName = attributesAndStyles.get(SvgConstants.Attributes.CLIP_PATH);
             ISvgNodeRenderer template = context.getNamedObject(normalizeLocalUrlName(clipPathName));
             //Clone template to avoid muddying the state
-            if (template instanceof com.itextpdf.svg.renderers.impl.ClipPathSvgNodeRenderer) {
-                com.itextpdf.svg.renderers.impl.ClipPathSvgNodeRenderer clipPath = (com.itextpdf.svg.renderers.impl.ClipPathSvgNodeRenderer) template.createDeepCopy();
+            if (template instanceof  ClipPathSvgNodeRenderer) {
+                 ClipPathSvgNodeRenderer clipPath = ( ClipPathSvgNodeRenderer) template.createDeepCopy();
                 // Resolve parent inheritance
                 SvgNodeRendererInheritanceResolver.applyInheritanceToSubTree(this, clipPath, context.getCssContext());
                 clipPath.setClippedRenderer(this);

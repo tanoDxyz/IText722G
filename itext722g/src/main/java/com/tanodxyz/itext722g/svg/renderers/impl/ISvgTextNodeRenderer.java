@@ -44,9 +44,10 @@ package com.tanodxyz.itext722g.svg.renderers.impl;
 
 import com.tanodxyz.itext722g.kernel.font.PdfFont;
 import com.tanodxyz.itext722g.kernel.geom.Point;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
-import com.itextpdf.svg.utils.TextRectangle;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
+import com.tanodxyz.itext722g.svg.utils.TextRectangle;
+
 
 public interface ISvgTextNodeRenderer extends ISvgNodeRenderer {
 

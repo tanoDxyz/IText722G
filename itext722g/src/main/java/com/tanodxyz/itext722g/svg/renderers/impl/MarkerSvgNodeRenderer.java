@@ -22,23 +22,22 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
-import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import com.itextpdf.svg.logs.SvgLogMessageConstant;
-import com.itextpdf.svg.renderers.IMarkerCapable;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
-import com.itextpdf.svg.utils.SvgTextUtil;
+
 import com.tanodxyz.itext722g.kernel.geom.AffineTransform;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssTypesValidationUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssUtils;
 import com.tanodxyz.itext722g.svg.MarkerVertexType;
 import com.tanodxyz.itext722g.svg.SvgConstants;
-import com.tanodxyz.itext722g.svg.renderers.impl.AbstractBranchSvgNodeRenderer;
-import com.tanodxyz.itext722g.svg.renderers.impl.AbstractSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.logs.SvgLogMessageConstant;
+import com.tanodxyz.itext722g.svg.renderers.IMarkerCapable;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
+import com.tanodxyz.itext722g.svg.utils.SvgTextUtil;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
+
 
 /**
  * {@link ISvgNodeRenderer} implementation for the &lt;marker&gt; tag.
@@ -146,7 +145,7 @@ public class MarkerSvgNodeRenderer extends AbstractBranchSvgNodeRenderer {
     }
 
     private static boolean markerWidthHeightAreCorrect(MarkerSvgNodeRenderer namedObject) {
-        Logger log = LoggerFactory.getLogger(MarkerSvgNodeRenderer.class);
+        Logger log = Logger.getLogger(MarkerSvgNodeRenderer.class.getName());
         String markerWidth = namedObject.getAttribute(SvgConstants.Attributes.MARKER_WIDTH);
         // TODO: DEVSIX-3923 remove normalization (.toLowerCase)
         if (markerWidth == null) {
@@ -161,20 +160,20 @@ public class MarkerSvgNodeRenderer extends AbstractBranchSvgNodeRenderer {
         if (markerWidth != null) {
             float absoluteMarkerWidthValue = CssDimensionParsingUtils.parseAbsoluteLength(markerWidth);
             if (absoluteMarkerWidthValue == 0) {
-                log.warn(SvgLogMessageConstant.MARKER_WIDTH_IS_ZERO_VALUE);
+                log.warning(SvgLogMessageConstant.MARKER_WIDTH_IS_ZERO_VALUE);
                 isCorrect = false;
             } else if (absoluteMarkerWidthValue < 0) {
-                log.warn(SvgLogMessageConstant.MARKER_WIDTH_IS_NEGATIVE_VALUE);
+                log.warning(SvgLogMessageConstant.MARKER_WIDTH_IS_NEGATIVE_VALUE);
                 isCorrect = false;
             }
         }
         if (markerHeight != null) {
             float absoluteMarkerHeightValue = CssDimensionParsingUtils.parseAbsoluteLength(markerHeight);
             if (absoluteMarkerHeightValue == 0) {
-                log.warn(SvgLogMessageConstant.MARKER_HEIGHT_IS_ZERO_VALUE);
+                log.warning(SvgLogMessageConstant.MARKER_HEIGHT_IS_ZERO_VALUE);
                 isCorrect = false;
             } else if (absoluteMarkerHeightValue < 0) {
-                log.warn(SvgLogMessageConstant.MARKER_HEIGHT_IS_NEGATIVE_VALUE);
+                log.warning(SvgLogMessageConstant.MARKER_HEIGHT_IS_NEGATIVE_VALUE);
                 isCorrect = false;
             }
         }

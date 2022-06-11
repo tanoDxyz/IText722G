@@ -42,13 +42,8 @@
  */
 package com.tanodxyz.itext722g.svg.renderers.impl;
 
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.svg.logs.SvgLogMessageConstant;
-import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.ISvgPaintServer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
-import com.itextpdf.svg.utils.SvgCoordinateUtils;
-import com.itextpdf.svg.utils.TransformUtils;
+
+import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.kernel.colors.PatternColor;
 import com.tanodxyz.itext722g.kernel.geom.AffineTransform;
@@ -60,17 +55,22 @@ import com.tanodxyz.itext722g.kernel.pdf.colorspace.PdfPattern;
 import com.tanodxyz.itext722g.svg.SvgConstants;
 import com.tanodxyz.itext722g.svg.SvgConstants.Attributes;
 import com.tanodxyz.itext722g.svg.SvgConstants.Values;
-import com.tanodxyz.itext722g.svg.renderers.impl.AbstractBranchSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.logs.SvgLogMessageConstant;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.ISvgPaintServer;
+import com.tanodxyz.itext722g.svg.renderers.SvgDrawContext;
+import com.tanodxyz.itext722g.svg.utils.SvgCoordinateUtils;
+import com.tanodxyz.itext722g.svg.utils.TransformUtils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
+
 
 /**
  * Implementation for the svg &lt;pattern&gt; tag.
  */
 public class PatternSvgNodeRenderer extends AbstractBranchSvgNodeRenderer implements ISvgPaintServer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PatternSvgNodeRenderer.class);
+    private static final Logger LOGGER = Logger.getLogger(PatternSvgNodeRenderer.class.getName());
 
     private static final double CONVERT_COEFF = 0.75;
 
@@ -84,7 +84,7 @@ public class PatternSvgNodeRenderer extends AbstractBranchSvgNodeRenderer implem
 
     @Override
     public Color createColor(SvgDrawContext context, Rectangle objectBoundingBox, float objectBoundingBoxMargin,
-            float parentOpacity) {
+                             float parentOpacity) {
         if (objectBoundingBox == null) {
             return null;
         }
@@ -253,7 +253,7 @@ public class PatternSvgNodeRenderer extends AbstractBranchSvgNodeRenderer implem
         if (Values.USER_SPACE_ON_USE.equals(patternUnits)) {
             return false;
         } else if (patternUnits != null && !Values.OBJECT_BOUNDING_BOX.equals(patternUnits)) {
-            LoggerFactory.getLogger(this.getClass()).warn(MessageFormatUtil.format(
+            Logger.getLogger(this.getClass().getName()).warning(MessageFormatUtil.format(
                     SvgLogMessageConstant.PATTERN_INVALID_PATTERN_UNITS_LOG, patternUnits));
         }
         return true;
@@ -268,7 +268,7 @@ public class PatternSvgNodeRenderer extends AbstractBranchSvgNodeRenderer implem
             return true;
         } else if (patternContentUnits != null && !Values.USER_SPACE_ON_USE
                 .equals(patternContentUnits)) {
-            LoggerFactory.getLogger(this.getClass()).warn(MessageFormatUtil.format(
+            Logger.getLogger(this.getClass().getName()).warning(MessageFormatUtil.format(
                     SvgLogMessageConstant.PATTERN_INVALID_PATTERN_CONTENT_UNITS_LOG, patternContentUnits));
         }
         return false;
