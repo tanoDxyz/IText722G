@@ -44,11 +44,13 @@ package com.tanodxyz.itext722g.svg.renderers.factories;
 
 
 import com.tanodxyz.itext722g.styledXmlParser.node.IElementNode;
+import com.tanodxyz.itext722g.svg.processors.ISvgConverterProperties;
+import com.tanodxyz.itext722g.svg.processors.impl.DefaultSvgProcessor;
 import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
 
 /**
  * Interface for the factory used by {@link DefaultSvgProcessor}.
- * Pass along using {@link com.itextpdf.svg.processors.ISvgConverterProperties}.
+ * Pass along using {@link ISvgConverterProperties}.
  */
 public interface ISvgNodeRendererFactory {
 

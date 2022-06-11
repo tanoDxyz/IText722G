@@ -42,11 +42,11 @@
  */
 package com.tanodxyz.itext722g.svg.utils;
 
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
-import com.itextpdf.svg.exceptions.SvgExceptionMessageConstant;
-import com.itextpdf.svg.exceptions.SvgProcessingException;
+
 import com.tanodxyz.itext722g.kernel.geom.AffineTransform;
-import com.tanodxyz.itext722g.svg.utils.SvgCssUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
+import com.tanodxyz.itext722g.svg.exceptions.SvgExceptionMessageConstant;
+import com.tanodxyz.itext722g.svg.exceptions.SvgProcessingException;
 
 import java.util.ArrayList;
 import java.util.List;

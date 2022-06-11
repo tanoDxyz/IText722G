@@ -43,15 +43,14 @@
 package com.tanodxyz.itext722g.svg.utils;
 
 
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
-import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
-import com.itextpdf.styledxmlparser.util.WhiteSpaceUtil;
+import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssTypesValidationUtils;
+import com.tanodxyz.itext722g.styledXmlParser.util.WhiteSpaceUtil;
 import com.tanodxyz.itext722g.svg.SvgConstants;
-import com.itextpdf.svg.renderers.impl.ISvgTextNodeRenderer;
-import com.itextpdf.svg.renderers.impl.TextLeafSvgNodeRenderer;
-import com.itextpdf.svg.renderers.impl.TextSvgBranchRenderer;
-
+import com.tanodxyz.itext722g.svg.renderers.impl.ISvgTextNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.impl.TextLeafSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.impl.TextSvgBranchRenderer;
 
 /**
  * Class containing utility methods for text operations in the context of SVG processing

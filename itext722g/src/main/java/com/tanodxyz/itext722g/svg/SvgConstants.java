@@ -43,6 +43,7 @@
 package com.tanodxyz.itext722g.svg;
 
 import com.tanodxyz.itext722g.styledXmlParser.CommonAttributeConstants;
+import com.tanodxyz.itext722g.svg.renderers.impl.LinearGradientSvgNodeRenderer;
 
 /**
  * A class containing constant values signifying the proeprty names of tags, attribute, CSS-style
@@ -98,7 +99,7 @@ public final class SvgConstants {
         public static final String ANIMATE_TRANSFORM = "animateTransform";
 
         /**
-         * Tag defining a {@link com.itextpdf.svg.renderers.impl.CircleSvgNodeRenderer circle}.
+         * Tag defining a {@link  CircleSvgNodeRenderer circle}.
          *
          * @since 7.1.2
          */
@@ -131,7 +132,7 @@ public final class SvgConstants {
         public static final String DESC = "desc";
 
         /**
-         * Tag defining an {@link com.itextpdf.svg.renderers.impl.EllipseSvgNodeRenderer ellipse}.
+         * Tag defining an {@link  EllipseSvgNodeRenderer ellipse}.
          *
          * @since 7.1.2
          */
@@ -323,14 +324,14 @@ public final class SvgConstants {
         public static final String IMAGE = "image";
 
         /**
-         * Tag defining a {@link com.itextpdf.svg.renderers.impl.LineSvgNodeRenderer line}.
+         * Tag defining a {@link  LineSvgNodeRenderer line}.
          *
          * @since 7.1.2
          */
         public static final String LINE = "line";
 
         /**
-         * Tag defining a {@link com.itextpdf.svg.renderers.impl.LinearGradientSvgNodeRenderer linear gradient}.
+         * Tag defining a {@link  LinearGradientSvgNodeRenderer linear gradient}.
          */
         public static final String LINEAR_GRADIENT = "linearGradient";
 
@@ -365,7 +366,7 @@ public final class SvgConstants {
         public static final String MPATH = "mpath";
 
         /**
-         * Tag defining a {@link com.itextpdf.svg.renderers.impl.PathSvgNodeRenderer path}.
+         * Tag defining a {@link  PathSvgNodeRenderer path}.
          *
          * @since 7.1.2
          */
@@ -377,14 +378,14 @@ public final class SvgConstants {
         public static final String PATTERN = "pattern";
 
         /**
-         * Tag defining a {@link com.itextpdf.svg.renderers.impl.PolygonSvgNodeRenderer polygon} shape.
+         * Tag defining a {@link  PolygonSvgNodeRenderer polygon} shape.
          *
          * @since 7.1.2
          */
         public static final String POLYGON = "polygon";
 
         /**
-         * Tag defining a {@link com.itextpdf.svg.renderers.impl.PolylineSvgNodeRenderer polyline} shape.
+         * Tag defining a {@link  PolylineSvgNodeRenderer polyline} shape.
          *
          * @since 7.1.2
          */
@@ -396,7 +397,7 @@ public final class SvgConstants {
         public static final String RADIAL_GRADIENT = "radialGradient";
 
         /**
-         * Tag defining a {@link com.itextpdf.svg.renderers.impl.RectangleSvgNodeRenderer rectangle}.
+         * Tag defining a {@link  RectangleSvgNodeRenderer rectangle}.
          *
          * @since 7.1.2
          */
@@ -433,7 +434,7 @@ public final class SvgConstants {
         public static final String STYLE = "style";
 
         /**
-         * Tag defining an {@link com.itextpdf.svg.renderers.impl.SvgTagSvgNodeRenderer SVG} element.
+         * Tag defining an {@link  SvgTagSvgNodeRenderer SVG} element.
          *
          * @since 7.1.2
          */

@@ -51,6 +51,7 @@ import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvasConstants;
 import com.tanodxyz.itext722g.layout.font.FontCharacteristics;
+import com.tanodxyz.itext722g.layout.font.FontInfo;
 import com.tanodxyz.itext722g.layout.font.FontProvider;
 import com.tanodxyz.itext722g.layout.font.FontSet;
 import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;

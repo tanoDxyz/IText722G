@@ -64,7 +64,7 @@ import java.util.logging.Logger;
  */
 public class DefaultSvgNodeRendererFactory implements  ISvgNodeRendererFactory {
 
-    private final Map<String, ISvgNodeRendererCreator> rendererMap = new HashMap<>();
+    private final Map<String, DefaultSvgNodeRendererMapper.ISvgNodeRendererCreator> rendererMap = new HashMap<>();
     private final Collection<String> ignoredTags = new HashSet<>();
 
     /**

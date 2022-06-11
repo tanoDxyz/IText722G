@@ -66,7 +66,7 @@ public abstract class AbstractGradientSvgNodeRenderer extends AbstractBranchSvgN
         if (Values.USER_SPACE_ON_USE.equals(gradientUnits)) {
             return false;
         } else if (gradientUnits != null && !Values.OBJECT_BOUNDING_BOX.equals(gradientUnits)) {
-            Logger.getLogger(this.getClass().getName()).warn(MessageFormatUtil.format(
+            Logger.getLogger(this.getClass().getName()).warning(MessageFormatUtil.format(
                     SvgLogMessageConstant.GRADIENT_INVALID_GRADIENT_UNITS_LOG, gradientUnits));
         }
         return true;

@@ -46,6 +46,8 @@ import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.font.FontProgram;
 import com.tanodxyz.itext722g.io.font.FontProgramFactory;
 import com.tanodxyz.itext722g.io.font.PdfEncodings;
+import com.tanodxyz.itext722g.layout.font.FontInfo;
+import com.tanodxyz.itext722g.layout.font.Range;
 import com.tanodxyz.itext722g.styledXmlParser.css.CssFontFaceRule;
 import com.tanodxyz.itext722g.styledXmlParser.css.ICssResolver;
 import com.tanodxyz.itext722g.styledXmlParser.css.font.CssFontFace;

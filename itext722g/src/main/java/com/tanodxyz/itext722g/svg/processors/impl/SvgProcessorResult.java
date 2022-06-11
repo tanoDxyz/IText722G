@@ -46,6 +46,7 @@ package com.tanodxyz.itext722g.svg.processors.impl;
 import com.tanodxyz.itext722g.layout.font.FontProvider;
 import com.tanodxyz.itext722g.layout.font.FontSet;
 import com.tanodxyz.itext722g.svg.exceptions.SvgExceptionMessageConstant;
+import com.tanodxyz.itext722g.svg.processors.ISvgProcessor;
 import com.tanodxyz.itext722g.svg.processors.ISvgProcessorResult;
 import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
 

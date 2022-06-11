@@ -213,7 +213,7 @@ public class PatternSvgNodeRenderer extends AbstractBranchSvgNodeRenderer implem
     }
 
     private Rectangle calculateOriginalPatternRectangle(SvgDrawContext context,
-            boolean isObjectBoundingBoxInPatternUnits) {
+                                                        boolean isObjectBoundingBoxInPatternUnits) {
         double xOffset, yOffset, xStep, yStep;
         if (isObjectBoundingBoxInPatternUnits) {
             xOffset = SvgCoordinateUtils.getCoordinateForObjectBoundingBox(
@@ -275,7 +275,7 @@ public class PatternSvgNodeRenderer extends AbstractBranchSvgNodeRenderer implem
     }
 
     private static PdfPattern.Tiling createColoredTilingPatternInstance(AffineTransform patternAffineTransform,
-            Rectangle bbox, double xStep, double yStep) {
+                                                                        Rectangle bbox, double xStep, double yStep) {
         PdfPattern.Tiling coloredTilingPattern = new PdfPattern.Tiling(bbox, (float) xStep, (float) yStep,
                 true);
         setPatternMatrix(coloredTilingPattern, patternAffineTransform);
@@ -300,16 +300,14 @@ public class PatternSvgNodeRenderer extends AbstractBranchSvgNodeRenderer implem
 
     private static boolean xStepYStepAreValid(double xStep, double yStep) {
         if (xStep < 0 || yStep < 0) {
-            if (LOGGER.isWarnEnabled()) {
-                LOGGER.warn(MessageFormatUtil
-                        .format(SvgLogMessageConstant.PATTERN_WIDTH_OR_HEIGHT_IS_NEGATIVE));
-            }
+            LOGGER.warning(MessageFormatUtil
+                    .format(SvgLogMessageConstant.PATTERN_WIDTH_OR_HEIGHT_IS_NEGATIVE));
+
             return false;
         } else if (xStep == 0 || yStep == 0) {
-            if (LOGGER.isInfoEnabled()) {
-                LOGGER.info(MessageFormatUtil
-                        .format(SvgLogMessageConstant.PATTERN_WIDTH_OR_HEIGHT_IS_ZERO));
-            }
+            LOGGER.info(MessageFormatUtil
+                    .format(SvgLogMessageConstant.PATTERN_WIDTH_OR_HEIGHT_IS_ZERO));
+
             return false;
         } else {
             return true;
@@ -320,10 +318,9 @@ public class PatternSvgNodeRenderer extends AbstractBranchSvgNodeRenderer implem
         // if viewBox width or height is zero we should disable rendering
         // of the element (according to the viewBox documentation)
         if (viewBoxValues[2] == 0 || viewBoxValues[3] == 0) {
-            if (LOGGER.isInfoEnabled()) {
-                LOGGER.info(MessageFormatUtil
-                        .format(SvgLogMessageConstant.VIEWBOX_WIDTH_OR_HEIGHT_IS_ZERO));
-            }
+            LOGGER.info(MessageFormatUtil
+                    .format(SvgLogMessageConstant.VIEWBOX_WIDTH_OR_HEIGHT_IS_ZERO));
+
             return true;
         } else {
             return false;

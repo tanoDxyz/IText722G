@@ -435,7 +435,7 @@ public abstract class AbstractSvgNodeRenderer implements ISvgNodeRenderer {
             return null;
         }
         CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(rawColorValue);
-        Token token = tokenizer.getNextValidToken();
+        CssDeclarationValueTokenizer.Token token = tokenizer.getNextValidToken();
         if (token == null) {
             return null;
         }

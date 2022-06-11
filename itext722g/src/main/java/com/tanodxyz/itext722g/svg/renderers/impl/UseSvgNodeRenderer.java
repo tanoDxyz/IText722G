@@ -106,7 +106,7 @@ public class UseSvgNodeRenderer extends AbstractSvgNodeRenderer {
                                     inverseMatrix = translation.createInverse();
                                 } catch (NoninvertibleTransformException ex) {
                                     Logger.getLogger(UseSvgNodeRenderer.class.getName())
-                                            .warning(SvgLogMessageConstant.NONINVERTIBLE_TRANSFORMATION_MATRIX_USED_IN_CLIP_PATH, ex);
+                                            .warning(SvgLogMessageConstant.NONINVERTIBLE_TRANSFORMATION_MATRIX_USED_IN_CLIP_PATH +" error -> "+ex);
                                 }
                             }
                         }

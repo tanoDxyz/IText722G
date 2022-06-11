@@ -43,13 +43,14 @@
 package com.tanodxyz.itext722g.svg.renderers.path.impl;
 
 import com.tanodxyz.itext722g.kernel.geom.Point;
+import com.tanodxyz.itext722g.svg.renderers.impl.PathSvgNodeRenderer;
 
 /**
  * Interface that describes a Path object which is defined by control points. In practice this only means Bézier curves,
  * both quadratic (one control point) and cubic (two control points). This interface is relevant in the context of
  * Smooth (Shorthand) Bézier curves, which omit a control point from their arguments list because it can be calculated
  * from the last control point of the previous curve. Therefore, the last control point of a curve must be exposed to
- * the {@link com.itextpdf.svg.renderers.impl.PathSvgNodeRenderer} algorithm.
+ * the {@link PathSvgNodeRenderer} algorithm.
  */
 public interface IControlPointCurve {
 

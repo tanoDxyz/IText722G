@@ -43,8 +43,10 @@
 package com.tanodxyz.itext722g.svg.processors.impl;
 
 import com.tanodxyz.itext722g.io.font.FontProgram;
+import com.tanodxyz.itext722g.layout.font.FontInfo;
 import com.tanodxyz.itext722g.layout.font.FontProvider;
 import com.tanodxyz.itext722g.layout.font.FontSet;
+import com.tanodxyz.itext722g.layout.font.Range;
 import com.tanodxyz.itext722g.styledXmlParser.css.media.MediaDeviceDescription;
 import com.tanodxyz.itext722g.styledXmlParser.resolver.font.BasicFontProvider;
 import com.tanodxyz.itext722g.styledXmlParser.resolver.resource.ResourceResolver;

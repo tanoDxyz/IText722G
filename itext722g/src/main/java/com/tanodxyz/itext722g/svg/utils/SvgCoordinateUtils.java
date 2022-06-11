@@ -42,14 +42,15 @@
  */
 package com.tanodxyz.itext722g.svg.utils;
 
-import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
-import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
-import com.itextpdf.svg.exceptions.SvgExceptionMessageConstant;
+
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.geom.Vector;
+import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssDimensionParsingUtils;
+import com.tanodxyz.itext722g.styledXmlParser.css.util.CssTypesValidationUtils;
 import com.tanodxyz.itext722g.svg.SvgConstants;
 import com.tanodxyz.itext722g.svg.SvgConstants.Values;
+import com.tanodxyz.itext722g.svg.exceptions.SvgExceptionMessageConstant;
 
 public class SvgCoordinateUtils {
 
@@ -74,7 +75,7 @@ public class SvgCoordinateUtils {
             for (int j = 0; j < currentCoordinates.length; j++, i++) {
                 double relativeDouble = Double.parseDouble(relativeCoordinates[i]);
                 relativeDouble += currentCoordinates[j];
-                absoluteOperators[i] = com.itextpdf.svg.utils.SvgCssUtils.convertDoubleToString(relativeDouble);
+                absoluteOperators[i] = SvgCssUtils.convertDoubleToString(relativeDouble);
             }
         }
 

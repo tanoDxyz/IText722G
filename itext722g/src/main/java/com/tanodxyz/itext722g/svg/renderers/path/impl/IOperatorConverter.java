@@ -43,6 +43,7 @@
 package com.tanodxyz.itext722g.svg.renderers.path.impl;
 
 
+import com.tanodxyz.itext722g.svg.renderers.impl.PathSvgNodeRenderer;
 import com.tanodxyz.itext722g.svg.utils.SvgCoordinateUtils;
 
 /**
@@ -64,7 +65,7 @@ public interface IOperatorConverter {
  * Implementation of {@link IOperatorConverter} specifically for smooth curves. It will convert all operators from
  * relative to absolute coordinates except the first coordinate pair.
  * This implementation is used by the Smooth (Shorthand) Bézier curve commands, because the conversion of the first
- * coordinate pair is calculated in {@link com.itextpdf.svg.renderers.impl.PathSvgNodeRenderer#getShapeCoordinates}.
+ * coordinate pair is calculated in {@link PathSvgNodeRenderer#getShapeCoordinates}.
  */
 class SmoothOperatorConverter implements IOperatorConverter {
     @Override
