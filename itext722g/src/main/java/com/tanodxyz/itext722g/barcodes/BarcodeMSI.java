@@ -328,7 +328,8 @@ public class BarcodeMSI extends Barcode1D {
             }
         }
         Bitmap bitmap = Bitmap.createBitmap(pix, 0, fullWidth, fullWidth, fullHeight, Bitmap.Config.ARGB_8888);
-        return new BitmapExt(bitmap);    }
+        return new BitmapExt(bitmap);
+    }
 
     /**
      * Creates the bars.

@@ -43,14 +43,17 @@
  */
 package com.tanodxyz.itext722g.barcodes;
 
+import android.graphics.Bitmap;
+
+import com.tanodxyz.itext722g.BitmapExt;
 import com.tanodxyz.itext722g.barcodes.exceptions.BarcodeExceptionMessageConstant;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.io.font.PdfEncodings;
-import com.tanodxyz.itext722g.kernel.geom.Rectangle;
-import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.kernel.colors.Color;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
+import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
+import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfFormXObject;
 
 import java.util.ArrayList;
@@ -869,11 +872,9 @@ public class BarcodePDF417 extends Barcode2D {
      * @param background the color of the background
      * @return the image
      */
-    public java.awt.Image createAwtImage(java.awt.Color foreground, java.awt.Color background) {
-        int f = foreground.getRGB();
-        int g = background.getRGB();
-        java.awt.Canvas canvas = new java.awt.Canvas();
-
+    public BitmapExt createAwtImage(int foreground, int background) {
+        int f = foreground;
+        int g = background;
         paintCode();
         int h = (int) yHeight;
         int[] pix = new int[bitColumns * codeRows * h];
@@ -891,9 +892,8 @@ public class BarcodePDF417 extends Barcode2D {
             }
             ptr += bitColumns * (h - 1);
         }
-
-        java.awt.Image img = canvas.createImage(new java.awt.image.MemoryImageSource(bitColumns, codeRows * h, pix, 0, bitColumns));
-        return img;
+        Bitmap bitmap = Bitmap.createBitmap(pix, 0, bitColumns, bitColumns, codeRows * h, Bitmap.Config.ARGB_8888);
+        return new BitmapExt(bitmap);
     }
 
     /**
