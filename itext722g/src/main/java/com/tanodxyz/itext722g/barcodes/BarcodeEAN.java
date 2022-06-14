@@ -43,12 +43,15 @@
  */
 package com.tanodxyz.itext722g.barcodes;
 
+import android.graphics.Bitmap;
+
+import com.tanodxyz.itext722g.BitmapExt;
+import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.font.PdfFont;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
-import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
-import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
+import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 
 import java.util.Arrays;
 
@@ -826,10 +829,9 @@ public class BarcodeEAN extends Barcode1D {
      * @return the image
      */
     @Override
-    public Image createAwtImage(java.awt.Color foreground, java.awt.Color background) {
-        int f = (foreground == null) ? DEFAULT_BAR_FOREGROUND_COLOR.getRGB() : foreground.getRGB();
-        int g = (background == null) ? DEFAULT_BAR_BACKGROUND_COLOR.getRGB() : background.getRGB();
-        java.awt.Canvas canvas = new java.awt.Canvas();
+    public BitmapExt createAwtImage(int foreground, int background) {
+        int f = foreground;
+        int g = background;
 
         int width;
         byte bars[];
@@ -880,6 +882,6 @@ public class BarcodeEAN extends Barcode1D {
         for (int k = width; k < pix.length; k += width) {
             System.arraycopy(pix, 0, pix, k, width);
         }
-        return canvas.createImage(new java.awt.image.MemoryImageSource(width, height, pix, 0, width));
-    }
+        Bitmap bitmap = Bitmap.createBitmap(pix, 0, width, width, height, Bitmap.Config.ARGB_8888);
+        return new BitmapExt(bitmap);    }
 }

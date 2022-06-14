@@ -42,6 +42,9 @@
  */
 package com.tanodxyz.itext722g.barcodes;
 
+import android.graphics.Bitmap;
+
+import com.tanodxyz.itext722g.BitmapExt;
 import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.kernel.font.PdfFont;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
@@ -304,10 +307,9 @@ public class BarcodeMSI extends Barcode1D {
      * @return the image
      */
     @Override
-    public Image createAwtImage(java.awt.Color foreground, java.awt.Color background) {
-        int foregroundColor = (foreground == null) ? DEFAULT_BAR_FOREGROUND_COLOR.getRGB() : foreground.getRGB();
-        int backgroundColor = (background == null) ? DEFAULT_BAR_BACKGROUND_COLOR.getRGB() : background.getRGB();
-        java.awt.Canvas canvas = new java.awt.Canvas();
+    public BitmapExt createAwtImage(int foreground, int background) {
+        int foregroundColor = foreground;
+        int backgroundColor = background;
         String bCode = this.code;
         if (this.generateChecksum) {
             bCode = bCode + Integer.toString(getChecksum(this.code));
@@ -325,8 +327,8 @@ public class BarcodeMSI extends Barcode1D {
                 pix[currentPixel] = color;
             }
         }
-        return canvas.createImage(new java.awt.image.MemoryImageSource(fullWidth, fullHeight, pix, 0, fullWidth));
-    }
+        Bitmap bitmap = Bitmap.createBitmap(pix, 0, fullWidth, fullWidth, fullHeight, Bitmap.Config.ARGB_8888);
+        return new BitmapExt(bitmap);    }
 
     /**
      * Creates the bars.

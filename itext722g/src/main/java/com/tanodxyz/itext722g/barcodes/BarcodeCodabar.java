@@ -43,12 +43,15 @@
  */
 package com.tanodxyz.itext722g.barcodes;
 
+import android.graphics.Bitmap;
+
+import com.tanodxyz.itext722g.BitmapExt;
 import com.tanodxyz.itext722g.barcodes.exceptions.BarcodeExceptionMessageConstant;
+import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.kernel.font.PdfFont;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
-import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
-import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
+import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 
 public class BarcodeCodabar extends Barcode1D {
 
@@ -367,10 +370,9 @@ public class BarcodeCodabar extends Barcode1D {
      * @param background the color of the background
      * @return the image
      */
-    public java.awt.Image createAwtImage(java.awt.Color foreground, java.awt.Color background) {
-        int f = (foreground == null) ? DEFAULT_BAR_FOREGROUND_COLOR.getRGB() : foreground.getRGB();
-        int g = (background == null) ? DEFAULT_BAR_BACKGROUND_COLOR.getRGB() : background.getRGB();
-        java.awt.Canvas canvas = new java.awt.Canvas();
+    public BitmapExt createAwtImage(int  foreground, int background) {
+        int f = foreground;
+        int g = background;
 
         byte[] bars = getBarsCodabar(generateChecksum ? calculateChecksum(code) : code);
         int wide = 0;
@@ -397,6 +399,6 @@ public class BarcodeCodabar extends Barcode1D {
         for (int k = fullWidth; k < pix.length; k += fullWidth) {
             System.arraycopy(pix, 0, pix, k, fullWidth);
         }
-        return canvas.createImage(new java.awt.image.MemoryImageSource(fullWidth, height, pix, 0, fullWidth));
-    }
+        Bitmap bitmap = Bitmap.createBitmap(pix, 0, fullWidth, fullWidth, height, Bitmap.Config.ARGB_8888);
+        return new BitmapExt(bitmap);    }
 }

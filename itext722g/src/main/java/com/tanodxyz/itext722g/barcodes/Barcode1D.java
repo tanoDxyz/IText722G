@@ -44,6 +44,7 @@
 package com.tanodxyz.itext722g.barcodes;
 
 
+import com.tanodxyz.itext722g.BitmapExt;
 import com.tanodxyz.itext722g.io.font.FontProgram;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
@@ -62,11 +63,11 @@ public abstract class Barcode1D {
     /**
      * The default color to draw if a bar is present.
      */
-    protected final android.graphics.Color DEFAULT_BAR_FOREGROUND_COLOR = android.graphics.Color.BLACK;
+    protected final int DEFAULT_BAR_FOREGROUND_COLOR = android.graphics.Color.BLACK;
     /**
      * The default color to draw if a bar is not present.
      */
-    protected final java.awt.Color DEFAULT_BAR_BACKGROUND_COLOR = java.awt.Color.WHITE;
+    protected final int DEFAULT_BAR_BACKGROUND_COLOR = android.graphics.Color.WHITE;
 
     protected PdfDocument document;
 
@@ -507,7 +508,7 @@ public abstract class Barcode1D {
      * @param background the color of the background. If <CODE>null</CODE> defaults to {@link Barcode1D#DEFAULT_BAR_BACKGROUND_COLOR}
      * @return the image
      */
-    public abstract java.awt.Image createAwtImage(java.awt.Color foreground, java.awt.Color background);
+    public abstract BitmapExt createAwtImage(int foreground, int background);
 
     /**
      * Creates a PdfFormXObject with the barcode. Default bar color and text color will be used.

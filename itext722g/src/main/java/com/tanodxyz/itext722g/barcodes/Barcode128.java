@@ -43,9 +43,12 @@
  */
 package com.tanodxyz.itext722g.barcodes;
 
+import android.graphics.Bitmap;
+
+import com.tanodxyz.itext722g.BitmapExt;
 import com.tanodxyz.itext722g.barcodes.exceptions.BarcodeExceptionMessageConstant;
-import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.colors.Color;
+import com.tanodxyz.itext722g.kernel.exceptions.PdfException;
 import com.tanodxyz.itext722g.kernel.font.PdfFont;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
@@ -727,10 +730,9 @@ public class Barcode128 extends Barcode1D {
      * @return the image
      */
     @Override
-    public java.awt.Image createAwtImage(java.awt.Color foreground, java.awt.Color background) {
-        int f = (foreground == null) ? DEFAULT_BAR_FOREGROUND_COLOR.getRGB() : foreground.getRGB();
-        int g = (background == null) ? DEFAULT_BAR_BACKGROUND_COLOR.getRGB() : background.getRGB();
-        java.awt.Canvas canvas = new java.awt.Canvas();
+    public BitmapExt createAwtImage(int foreground, int background) {
+        int f = foreground;
+        int g = background;
         String bCode;
         if (codeType == CODE128_RAW) {
             int idx = code.indexOf('\uffff');
@@ -764,7 +766,8 @@ public class Barcode128 extends Barcode1D {
         for (int k = fullWidth; k < pix.length; k += fullWidth) {
             System.arraycopy(pix, 0, pix, k, fullWidth);
         }
-        return canvas.createImage(new java.awt.image.MemoryImageSource(fullWidth, height, pix, 0, fullWidth));
+        Bitmap bitmap = Bitmap.createBitmap(pix, 0, fullWidth, fullWidth, height, Bitmap.Config.ARGB_8888);
+        return new BitmapExt(bitmap);
     }
 
     private static char getStartSymbol(Barcode128CodeSet codeSet) {

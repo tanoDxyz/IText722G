@@ -44,10 +44,13 @@
 package com.tanodxyz.itext722g.barcodes;
 
 
-import com.tanodxyz.itext722g.kernel.geom.Rectangle;
-import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
+import android.graphics.Bitmap;
+
+import com.tanodxyz.itext722g.BitmapExt;
 import com.tanodxyz.itext722g.kernel.colors.Color;
+import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
+import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 
 
 public class BarcodePostnet extends Barcode1D {
@@ -142,10 +145,9 @@ public class BarcodePostnet extends Barcode1D {
     }
 
     @Override
-    public Image createAwtImage(java.awt.Color foreground, java.awt.Color background) {
-        int f = (foreground == null) ? DEFAULT_BAR_FOREGROUND_COLOR.getRGB() : foreground.getRGB();
-        int g = (background == null) ? DEFAULT_BAR_BACKGROUND_COLOR.getRGB() : background.getRGB();
-        java.awt.Canvas canvas = new java.awt.Canvas();
+    public BitmapExt createAwtImage(int foreground, int background) {
+        int f = foreground;
+        int g = background;
         int barWidth = (int)x;
         if (barWidth <= 0)
             barWidth = 1;
@@ -187,8 +189,7 @@ public class BarcodePostnet extends Barcode1D {
         }
         for (int k = limit + width; k < pix.length; k += width)
             System.arraycopy(pix, limit, pix, k, width);
-        java.awt.Image img = canvas.createImage(new java.awt.image.MemoryImageSource(width, barTall, pix, 0, width));
-
-        return img;
+        Bitmap bitmap = Bitmap.createBitmap(pix, 0, width, width, barTall, Bitmap.Config.ARGB_8888);
+        return new BitmapExt(bitmap);
     }
 }

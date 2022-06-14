@@ -43,6 +43,7 @@
  */
 package com.tanodxyz.itext722g.barcodes;
 
+import com.tanodxyz.itext722g.BitmapExt;
 import com.tanodxyz.itext722g.barcodes.exceptions.BarcodeExceptionMessageConstant;
 import com.tanodxyz.itext722g.io.font.FontProgram;
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
@@ -157,7 +158,7 @@ public class BarcodeEANSUPP extends Barcode1D {
      * @return the image
      */
     @Override
-    public java.awt.Image createAwtImage(java.awt.Color foreground, java.awt.Color background) {
+    public BitmapExt createAwtImage(int foreground, int background) {
         throw new UnsupportedOperationException(BarcodeExceptionMessageConstant.TWO_BARCODE_MUST_BE_EXTERNALLY);
     }
 }
