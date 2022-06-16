@@ -44,6 +44,10 @@
 package com.tanodxyz.itext722g.commons.utils;
 
 
+import android.os.Build;
+
+import com.tanodxyz.itext722g.IText722;
+
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -59,8 +63,10 @@ import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -87,12 +93,9 @@ public final class FileUtil {
      */
     public static String getFontsDir() {
         try {
-            String winDir = System.getenv("windir");
-            String fileSeparator = System.getProperty("file.separator");
-            return winDir + fileSeparator + "fonts";
+            return IText722.ANDROID_FONTS_DIR;
         } catch (SecurityException e) {
-            Logger.getLogger(FileUtil.class.getName()).warning("Can't access System.getenv(\"windir\") to load fonts. " +
-                    "Please, add RuntimePermission for getenv.windir.");
+            Logger.getLogger(FileUtil.class.getName()).warning("Can't access "+IText722.ANDROID_FONTS_DIR+" to load fonts. ");
             return null;
         }
     }
@@ -101,7 +104,6 @@ public final class FileUtil {
      * Checks whether there is a file at the provided path.
      *
      * @param path the path to the file to be checked on existence
-     *
      * @return {@code true} if such a file exists, otherwise {@code false}
      */
     public static boolean fileExists(String path) {
@@ -116,7 +118,6 @@ public final class FileUtil {
      * Checks whether there is a directory at the provided path.
      *
      * @param path the path to the directory to be checked on existence
-     *
      * @return {@code true} if such a directory exists, otherwise {@code false}
      */
 
@@ -131,9 +132,8 @@ public final class FileUtil {
     /**
      * Lists all the files located at the provided directory.
      *
-     * @param path path to the directory
+     * @param path      path to the directory
      * @param recursive if {@code true}, files from all the subdirectories will be returned
-     *
      * @return all the files located at the provided directory
      */
     public static String[] listFilesInDirectory(String path, boolean recursive) {
@@ -162,9 +162,8 @@ public final class FileUtil {
     /**
      * Lists all the files located at the provided directory, which are accepted by the provided filter.
      *
-     * @param outPath  path to the directory
+     * @param outPath    path to the directory
      * @param fileFilter filter to accept files to be listed
-     *
      * @return all the files located at the provided directory, which are accepted by the provided filter
      */
     public static File[] listFilesInDirectoryByFilter(String outPath, FileFilter fileFilter) {
@@ -216,9 +215,7 @@ public final class FileUtil {
      *
      * @param path path to the temporary file to be created. If it is a directory, then the temporary file
      *             will be created at this directory
-     *
      * @return the created temporary file
-     *
      * @throws IOException signals that an I/O exception has occurred
      */
     public static File createTempFile(String path) throws IOException {
@@ -251,7 +248,13 @@ public final class FileUtil {
     }
 
     public static String getParentDirectoryUri(File file) throws MalformedURLException {
-        return file != null ? Paths.get(file.getParent()).toUri().toURL().toExternalForm() : "";
+        String parentDirectoryUri = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            parentDirectoryUri = file != null ? Paths.get(file.getParent()).toUri().toURL().toExternalForm() : "";
+        } else {
+            parentDirectoryUri = file != null ? URI.create(file.getParent()).toURL().toExternalForm() : "";
+        }
+        return parentDirectoryUri;
     }
 
     /**
@@ -269,13 +272,12 @@ public final class FileUtil {
      * Returns an URL of the parent directory for the resource.
      *
      * @param url of resource
-     *
      * @return parent directory path| the same path if a catalog`s url is passed;
      * @throws URISyntaxException if this URL is not formatted strictly according
      *                            to RFC2396 and cannot be converted to a URI.
      */
     public static String parentDirectory(URL url) throws URISyntaxException {
-            return url.toURI().resolve(".").toString();
+        return url.toURI().resolve(".").toString();
     }
 
     /**
@@ -283,9 +285,7 @@ public final class FileUtil {
      *
      * @param tempFilePrefix  the prefix of the copied file's name
      * @param tempFilePostfix the postfix of the copied file's name
-     *
      * @return the path to the copied file
-     *
      * @throws IOException signals that an I/O exception has occurred.
      */
     public static File createTempFile(String tempFilePrefix, String tempFilePostfix) throws IOException {
@@ -298,25 +298,44 @@ public final class FileUtil {
      * @param file            the path to the file to be copied
      * @param tempFilePrefix  the prefix of the copied file's name
      * @param tempFilePostfix the postfix of the copied file's name
-     *
      * @return the path to the copied file
-     *
      * @throws IOException signals that an I/O exception has occurred.
      */
     public static String createTempCopy(String file, String tempFilePrefix, String tempFilePostfix)
             throws IOException {
-        Path replacementFilePath = null;
+        String replacementFilePath = null;
         try {
-            replacementFilePath = Files.createTempFile(tempFilePrefix, tempFilePostfix);
-            Path pathToPassedFile = Paths.get(file);
-            Files.copy(pathToPassedFile, replacementFilePath, StandardCopyOption.REPLACE_EXISTING);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Path tempFile = Files.createTempFile(tempFilePrefix, tempFilePostfix);
+                replacementFilePath = tempFile.toString();
+                Path pathToPassedFile = Paths.get(file);
+                Files.copy(pathToPassedFile, tempFile, StandardCopyOption.REPLACE_EXISTING);
+            } else {
+                File sourceFile = new File(file);
+                File tempFile = File.createTempFile(tempFilePrefix, tempFilePostfix, IText722.getCacheDir());
+                replacementFilePath = tempFile.toString();
+                copyFileUsingChannel(sourceFile, tempFile);
+            }
         } catch (IOException e) {
             if (null != replacementFilePath) {
-                FileUtil.removeFiles(new String[] {replacementFilePath.toString()});
+                FileUtil.removeFiles(new String[]{replacementFilePath.toString()});
             }
             throw e;
         }
         return replacementFilePath.toString();
+    }
+
+    public static void copyFileUsingChannel(File source, File dest) throws IOException {
+        FileChannel sourceChannel = null;
+        FileChannel destChannel = null;
+        try {
+            sourceChannel = new FileInputStream(source).getChannel();
+            destChannel = new FileOutputStream(dest).getChannel();
+            destChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
+        } finally {
+            sourceChannel.close();
+            destChannel.close();
+        }
     }
 
     /**
@@ -324,33 +343,40 @@ public final class FileUtil {
      *
      * @param inputFile  the path to the file to be copied
      * @param outputFile the path, to which the passed file should be copied
-     *
      * @throws IOException signals that an I/O exception has occurred.
      */
     public static void copy(String inputFile, String outputFile)
             throws IOException {
-        Files.copy(Paths.get(inputFile), Paths.get(outputFile), StandardCopyOption.REPLACE_EXISTING);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Files.copy(Paths.get(inputFile), Paths.get(outputFile), StandardCopyOption.REPLACE_EXISTING);
+        } else {
+            copyFileUsingChannel(new File(inputFile), new File(outputFile));
+        }
     }
 
     /**
      * Creates a temporary directory.
      *
      * @param tempFilePrefix the prefix of the temporary directory's name
-     *
      * @return the path to the temporary directory
-     *
      * @throws IOException signals that an I/O exception has occurred.
      */
     public static String createTempDirectory(String tempFilePrefix)
             throws IOException {
-        return Files.createTempDirectory(tempFilePrefix).toString();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return Files.createTempDirectory(tempFilePrefix).toString();
+        } else {
+            File tempFile = File.createTempFile("temp", ".tmp", IText722.getCacheDir());
+            String parent = tempFile.getParent();
+            deleteFile(tempFile);
+            return parent;
+        }
     }
 
     /**
      * Removes all of the passed files.
      *
      * @param paths paths to files, which should be removed
-     *
      * @return {@code true} if all the files have been successfully removed, {@code false} otherwise
      */
     public static boolean removeFiles(String[] paths) {
@@ -358,7 +384,11 @@ public final class FileUtil {
         for (String path : paths) {
             try {
                 if (null != path) {
-                    Files.delete(Paths.get(path));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        Files.delete(Paths.get(path));
+                    } else {
+                        deleteFile(new File(path));
+                    }
                 }
             } catch (Exception e) {
                 allFilesAreRemoved = false;

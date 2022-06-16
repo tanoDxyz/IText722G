@@ -43,12 +43,13 @@
  */
 package com.tanodxyz.itext722g.forms.util;
 
+import com.tanodxyz.itext722g.forms.fields.PdfFormField;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 
 import java.nio.charset.StandardCharsets;
 
 /**
- * Utility class to draw form fields {@link com.itextpdf.forms.fields.PdfFormField}.
+ * Utility class to draw form fields {@link PdfFormField}.
  */
 public class DrawingUtil {
     protected static final String check = "0.8 0 0 0.8 0.3 0.5 cm 0 0 m\n" +

@@ -44,14 +44,17 @@
 package com.tanodxyz.itext722g.barcodes;
 
 
+import android.graphics.Bitmap;
+
+import com.tanodxyz.itext722g.BitmapExt;
 import com.tanodxyz.itext722g.barcodes.dmcode.DmParams;
 import com.tanodxyz.itext722g.barcodes.dmcode.Placement;
 import com.tanodxyz.itext722g.barcodes.dmcode.ReedSolomon;
-import com.tanodxyz.itext722g.kernel.geom.Rectangle;
-import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.kernel.colors.Color;
+import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.kernel.pdf.PdfArray;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
+import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfFormXObject;
 
 import java.io.UnsupportedEncodingException;
@@ -270,12 +273,11 @@ public class BarcodeDataMatrix extends Barcode2D {
      * @param background the color of the background
      * @return the image
      */
-    public java.awt.Image createAwtImage(java.awt.Color foreground, java.awt.Color background) {
+    public BitmapExt createAwtImage(int foreground, int background) {
         if (image == null)
             return null;
-        int f = foreground.getRGB();
-        int g = background.getRGB();
-        java.awt.Canvas canvas = new java.awt.Canvas();
+        int f = foreground;
+        int g = background;
 
         int w = width + 2 * ws;
         int h = height + 2 * ws;
@@ -290,8 +292,8 @@ public class BarcodeDataMatrix extends Barcode2D {
                 pix[ptr++] = (b & 0x80) == 0 ? g : f;
             }
         }
-        java.awt.Image img = canvas.createImage(new java.awt.image.MemoryImageSource(w, h, pix, 0, w));
-        return img;
+        Bitmap bitmap = Bitmap.createBitmap(pix, 0, w, w, h, Bitmap.Config.ARGB_8888);
+        return new BitmapExt(bitmap);
     }
 
 

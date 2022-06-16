@@ -400,5 +400,6 @@ public class BarcodeCodabar extends Barcode1D {
             System.arraycopy(pix, 0, pix, k, fullWidth);
         }
         Bitmap bitmap = Bitmap.createBitmap(pix, 0, fullWidth, fullWidth, height, Bitmap.Config.ARGB_8888);
-        return new BitmapExt(bitmap);    }
+        return new BitmapExt(bitmap);
+    }
 }
