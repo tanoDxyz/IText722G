@@ -94,6 +94,6 @@ public class CryptoUtil {
                     MessageFormatUtil.format(KernelExceptionMessageConstant.UNSUPPORTED_ASN1_ENCODING, asn1Encoding)
             );
         }
-        return ASN1OutputStream.create(outputStream, asn1Encoding);
+        return new ASN1OutputStream(outputStream);
     }
 }
