@@ -9,10 +9,14 @@ public class BitmapExt {
         this.bitmap = bitmap;
     }
 
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
     public void recycle() {
         try {
             this.bitmap.recycle();
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }

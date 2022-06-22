@@ -44,6 +44,8 @@
 package com.tanodxyz.itext722g.io.image;
 
 
+import com.tanodxyz.itext722g.BitmapExt;
+
 class AwtImageDataFactory {
     /**
      * Gets an instance of an Image from a {@link java.awt.Image}
@@ -63,6 +65,7 @@ class AwtImageDataFactory {
      * @return RawImage
      */
     public static ImageData create(java.awt.Image image, java.awt.Color color, boolean forceBW) throws java.io.IOException {
+        new BitmapExt().getBitmap().getc;
         if (image instanceof BufferedImage) {
             BufferedImage bi = (BufferedImage) image;
             if (bi.getType() == BufferedImage.TYPE_BYTE_BINARY && bi.getColorModel().getPixelSize() == 1) {
