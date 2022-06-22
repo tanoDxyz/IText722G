@@ -43,6 +43,9 @@
  */
 package com.tanodxyz.itext722g.io.image;
 
+import androidx.annotation.Nullable;
+
+import com.tanodxyz.itext722g.BitmapExt;
 import com.tanodxyz.itext722g.io.exceptions.IOException;
 import com.tanodxyz.itext722g.io.codec.CCITTG4Encoder;
 import com.tanodxyz.itext722g.io.codec.TIFFFaxDecoder;
@@ -189,7 +192,7 @@ public final class ImageDataFactory {
      * @return RawImage
      * @throws java.io.IOException if an I/O error occurs.
      */
-    public static ImageData create(java.awt.Image image, java.awt.Color color) throws java.io.IOException {
+    public static ImageData create(BitmapExt image, @Nullable Integer color) throws java.io.IOException {
         return ImageDataFactory.create(image, color, false);
     }
 
@@ -202,7 +205,7 @@ public final class ImageDataFactory {
      * @return RawImage
      * @throws java.io.IOException if an I/O error occurs.
      */
-    public static ImageData create(java.awt.Image image, java.awt.Color color, boolean forceBW) throws java.io.IOException {
+    public static ImageData create(BitmapExt image, @Nullable Integer color, boolean forceBW) throws java.io.IOException {
         return AwtImageDataFactory.create(image, color, forceBW);
     }
 

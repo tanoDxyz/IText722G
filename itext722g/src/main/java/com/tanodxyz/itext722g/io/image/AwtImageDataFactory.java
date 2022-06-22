@@ -44,47 +44,38 @@
 package com.tanodxyz.itext722g.io.image;
 
 
+import android.graphics.Color;
+
+import androidx.annotation.Nullable;
+
 import com.tanodxyz.itext722g.BitmapExt;
 
 class AwtImageDataFactory {
     /**
-     * Gets an instance of an Image from a {@link java.awt.Image}
-     * @param image the {@link java.awt.Image} to convert
+     * Gets an instance of an Image from a {@link android.graphics.Bitmap}
+     *
+     * @param image the {@link android.graphics.Bitmap} to convert
      * @param color if different from <CODE>null</CODE> the transparency pixels are replaced by this color
      * @return RawImage
      */
-    public static ImageData create(java.awt.Image image, java.awt.Color color) throws java.io.IOException {
+    public static ImageData create(BitmapExt image, @Nullable Integer color) throws java.io.IOException {
         return AwtImageDataFactory.create(image, color, false);
     }
 
     /**
      * Gets an instance of an Image from a java.awt.Image.
-     * @param image the <CODE>java.awt.Image</CODE> to convert
-     * @param color if different from <CODE>null</CODE> the transparency pixels are replaced by this color
+     *
+     * @param image   the <CODE>java.awt.Image</CODE> to convert
+     * @param color   if different from <CODE>null</CODE> the transparency pixels are replaced by this color
      * @param forceBW if <CODE>true</CODE> the image is treated as black and white
      * @return RawImage
      */
-    public static ImageData create(java.awt.Image image, java.awt.Color color, boolean forceBW) throws java.io.IOException {
-        new BitmapExt().getBitmap().getc;
-        if (image instanceof BufferedImage) {
-            BufferedImage bi = (BufferedImage) image;
-            if (bi.getType() == BufferedImage.TYPE_BYTE_BINARY && bi.getColorModel().getPixelSize() == 1) {
-                forceBW = true;
-            }
-        }
+    public static ImageData create(BitmapExt image, @Nullable Integer color, boolean forceBW) throws java.io.IOException {
+        forceBW = image.isBlackAndWhite();
 
-        PixelGrabber pg = new PixelGrabber(image, 0, 0, -1, -1, true);
-        try {
-            pg.grabPixels();
-        } catch (InterruptedException e) {
-            throw new java.io.IOException("Java.awt.image was interrupted. Waiting for pixels");
-        }
-        if ((pg.getStatus() & ImageObserver.ABORT) != 0) {
-            throw new java.io.IOException("Java.awt.image fetch aborted or errored");
-        }
-        int w = pg.getWidth();
-        int h = pg.getHeight();
-        int[] pixels = (int[]) pg.getPixels();
+        int w = image.getBitmap().getWidth();
+        int h = image.getBitmap().getHeight();
+        int[] pixels = image.getPixels();
         if (forceBW) {
             int byteWidth = w / 8 + ((w & 7) != 0 ? 1 : 0);
             byte[] pixelsByte = new byte[byteWidth * h];
@@ -93,8 +84,8 @@ class AwtImageDataFactory {
             int size = h * w;
             int transColor = 1;
             if (color != null) {
-                transColor = color.getRed() + color.getGreen()
-                        + color.getBlue() < 384 ? 0 : 1;
+                transColor = Color.red(color) + Color.green(color)
+                        + Color.blue(color) < 384 ? 0 : 1;
             }
             int[] transparency = null;
             int cbyte = 0x80;
@@ -126,7 +117,7 @@ class AwtImageDataFactory {
                         int alpha = pixels[j] >> 24 & 0xff;
                         if (alpha == 0) {
                             transparency = new int[2];
-							/* bugfix by M.P. Liston, ASC, was: ... ? 1: 0; */
+                            /* bugfix by M.P. Liston, ASC, was: ... ? 1: 0; */
                             transparency[0] = transparency[1] = (pixels[j] & 0x888) != 0 ? 0xff : 0;
                         }
                     }
@@ -154,9 +145,9 @@ class AwtImageDataFactory {
             int green = 255;
             int blue = 255;
             if (color != null) {
-                red = color.getRed();
-                green = color.getGreen();
-                blue = color.getBlue();
+                red = Color.red(color);
+                green = Color.green(color);
+                blue = Color.blue(color);
             }
             int[] transparency = null;
             if (color != null) {
@@ -178,7 +169,7 @@ class AwtImageDataFactory {
                 boolean shades = false;
                 for (int j = 0; j < size; j++) {
                     byte alpha = smask[j] = (byte) (pixels[j] >> 24 & 0xff);
-					/* bugfix by Chris Nokleberg */
+                    /* bugfix by Chris Nokleberg */
                     if (!shades) {
                         if (alpha != 0 && alpha != -1) {
                             shades = true;
