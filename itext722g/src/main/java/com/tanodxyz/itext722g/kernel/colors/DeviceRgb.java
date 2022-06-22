@@ -124,11 +124,11 @@ public class DeviceRgb extends Color {
      *
      * @param color the color which RGB values are used
      */
-    public DeviceRgb(java.awt.Color color) {
-        this(color.getRed(), color.getGreen(), color.getBlue());
-        if (color.getAlpha() != 255) {
+    public DeviceRgb(Integer color) {
+        this(android.graphics.Color.red(color), android.graphics.Color.green(color), android.graphics.Color.blue(color));
+        if (android.graphics.Color.alpha(color)!= 255) {
             Logger LOGGER = Logger.getLogger(DeviceRgb.class.getName());
-            LOGGER.warning(MessageFormatUtil.format(IoLogMessageConstant.COLOR_ALPHA_CHANNEL_IS_IGNORED, color.getAlpha()));
+            LOGGER.warning(MessageFormatUtil.format(IoLogMessageConstant.COLOR_ALPHA_CHANNEL_IS_IGNORED, android.graphics.Color.alpha(color)));
         }
     }
 

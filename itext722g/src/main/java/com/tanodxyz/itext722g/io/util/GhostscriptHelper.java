@@ -62,6 +62,8 @@ import java.util.regex.Pattern;
  * The Ghostscript needs to be installed independently on the system. This class provides a convenient
  * way to run it by passing a terminal command. The command can either be specified explicitly or by a mean
  * of environment variable {@link #GHOSTSCRIPT_ENVIRONMENT_VARIABLE}.
+ *
+ * //todo remove android
  */
 public class GhostscriptHelper {
     /**

@@ -130,6 +130,7 @@ import javax.xml.transform.TransformerException;
  * ideal cmpDoc. Therefore all reports of the comparison are in the form: "Expected ...,
  * but was ...". This should be interpreted in the following way: "expected" part stands
  * for the content of the cmpDoc and "but was" part stands for the content of the outDoc.
+ * //todo remove android
  */
 public class CompareTool {
     private static final String FILE_PROTOCOL = "file://";
