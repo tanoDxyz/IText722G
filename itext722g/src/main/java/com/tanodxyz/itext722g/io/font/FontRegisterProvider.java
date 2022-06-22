@@ -362,20 +362,14 @@ class FontRegisterProvider {
     int registerSystemFontDirectories() {
         int count = 0;
         String[] withSubDirs = {
-                FileUtil.getFontsDir(),
-                "/usr/share/X11/fonts",
-                "/usr/X/lib/X11/fonts",
-                "/usr/openwin/lib/X11/fonts",
-                "/usr/share/fonts",
-                "/usr/X11R6/lib/X11/fonts"
+                FileUtil.getFontsDir()
         };
         for (String directory : withSubDirs) {
             count += registerFontDirectory(directory, true);
         }
 
         String[] withoutSubDirs = {
-                "/Library/Fonts",
-                "/System/Library/Fonts"
+                FileUtil.getFontsDir()
         };
         for (String directory : withoutSubDirs) {
             count += registerFontDirectory(directory, false);
