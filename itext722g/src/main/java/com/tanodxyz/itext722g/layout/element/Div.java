@@ -43,7 +43,6 @@
  */
 package com.tanodxyz.itext722g.layout.element;
 
-import android.media.Image;
 
 import com.tanodxyz.itext722g.kernel.pdf.tagging.StandardRoles;
 import com.tanodxyz.itext722g.kernel.pdf.tagutils.AccessibilityProperties;

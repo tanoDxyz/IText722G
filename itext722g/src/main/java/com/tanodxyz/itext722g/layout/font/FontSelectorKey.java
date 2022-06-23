@@ -48,7 +48,7 @@ import java.util.List;
 /**
  * Key for {@link FontSelector} caching.
  *
- * @see com.itextpdf.layout.font.FontSelectorCache
+ * @see FontSelectorCache
  */
 final class FontSelectorKey {
     private List<String> fontFamilies;

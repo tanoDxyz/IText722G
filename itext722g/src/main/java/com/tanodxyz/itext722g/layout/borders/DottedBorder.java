@@ -49,7 +49,7 @@ import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 
 /**
  * Draws a dotted border around the element it has been set to. Do note that this border draw square dots,
- * if you want to draw round dots, see {@link com.itextpdf.layout.borders.RoundDotsBorder}.
+ * if you want to draw round dots, see {@link RoundDotsBorder}.
  */
 public class DottedBorder extends Border {
 

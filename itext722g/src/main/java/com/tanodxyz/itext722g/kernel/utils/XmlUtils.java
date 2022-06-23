@@ -49,7 +49,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
@@ -63,8 +62,8 @@ final class XmlUtils {
     public static void writeXmlDocToStream(Document xmlReport, OutputStream stream) throws TransformerException {
         TransformerFactory tFactory = TransformerFactory.newInstance();
         try {
-            tFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            tFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+//            tFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+//            tFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
         } catch (Exception exc) {}
         Transformer transformer = tFactory.newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");

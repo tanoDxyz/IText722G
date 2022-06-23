@@ -83,7 +83,7 @@ public final class FontInfo {
         this.fontData = fontData;
         this.encoding = encoding;
         this.descriptor = descriptor;
-        this.range = unicodeRange != null ? unicodeRange : com.itextpdf.layout.font.RangeBuilder.getFullRange();
+        this.range = unicodeRange != null ? unicodeRange : RangeBuilder.getFullRange();
         this.alias = alias != null ? alias.toLowerCase() : null;
         this.hash = calculateHashCode(this.fontName, this.fontData, this.encoding, this.range);
     }

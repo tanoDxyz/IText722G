@@ -50,7 +50,7 @@ import java.util.List;
 /**
  * Class represents ordered list of {@link SubRange}.
  * This class is used in {@link FontInfo} as internal field and in one of the overloads of
- * the {@link com.itextpdf.layout.font.FontProvider#addFont(String, String, Range)} method as range
+ * the {@link FontProvider#addFont(String, String, Range)} method as range
  * of characters to be used in font.
  *
  * <p>

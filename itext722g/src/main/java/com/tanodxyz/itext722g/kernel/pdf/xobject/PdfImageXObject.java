@@ -43,6 +43,10 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf.xobject;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import com.tanodxyz.itext722g.BitmapExt;
 import com.tanodxyz.itext722g.io.colors.IccProfile;
 import com.tanodxyz.itext722g.io.font.PdfEncodings;
 import com.tanodxyz.itext722g.io.image.ImageData;
@@ -75,7 +79,6 @@ import com.tanodxyz.itext722g.kernel.pdf.filters.DoNothingFilter;
 import com.tanodxyz.itext722g.kernel.pdf.filters.FilterHandlers;
 import com.tanodxyz.itext722g.kernel.pdf.filters.IFilterHandler;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -179,12 +182,14 @@ public class PdfImageXObject extends PdfXObject {
     /**
      * Gets image bytes, wrapped with buffered image.
      *
-     * @return {@link java.awt.image.BufferedImage} image.
+     * @return {@link BitmapExt} image.
      * @throws IOException if an error occurs during reading.
      */
-    public java.awt.image.BufferedImage getBufferedImage() throws IOException {
+    public BitmapExt getBufferedImage() throws IOException {
+        //todo proper algorithm is required ...
         byte[] img = getImageBytes();
-        return ImageIO.read(new ByteArrayInputStream(img));
+        Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+        return new BitmapExt(bitmap);
     }
 
     /**

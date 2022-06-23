@@ -72,7 +72,7 @@ public class ListItem extends Div {
      */
     public ListItem(String text) {
         this();
-        add(new com.itextpdf.layout.element.Paragraph(text).setMarginTop(0).setMarginBottom(0));
+        add(new Paragraph(text).setMarginTop(0).setMarginBottom(0));
     }
 
     /**
