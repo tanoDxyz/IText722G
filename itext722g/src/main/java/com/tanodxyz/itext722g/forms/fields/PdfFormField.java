@@ -2465,8 +2465,8 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
             }
         } else {
             if (this.getFieldFlag( PdfTextFormField.FF_COMB)) {
-                Logger logger = LoggerFactory.getLogger(PdfFormField.class);
-                logger.error(MessageFormatUtil.format(IoLogMessageConstant.COMB_FLAG_MAY_BE_SET_ONLY_IF_MAXLEN_IS_PRESENT));
+                Logger logger = Logger.getLogger(PdfFormField.class.getName());
+                logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.COMB_FLAG_MAY_BE_SET_ONLY_IF_MAXLEN_IS_PRESENT));
             }
             modelCanvas.showTextAligned(createParagraphForTextFieldValue(value).addStyle(paragraphStyle).setPaddings(0, X_OFFSET, 0, X_OFFSET),
                     x, rect.getHeight() / 2, textAlignment, VerticalAlignment.MIDDLE);
@@ -3583,8 +3583,8 @@ public class PdfFormField extends PdfObjectWrapper<PdfDictionary> {
                         .writeSpace()
                         .writeBytes(k);
             } else {
-                Logger logger = LoggerFactory.getLogger(PdfFormField.class);
-                logger.error(IoLogMessageConstant.UNSUPPORTED_COLOR_IN_DA);
+                Logger logger = Logger.getLogger(PdfFormField.class.getName());
+                logger.log(Level.SEVERE,IoLogMessageConstant.UNSUPPORTED_COLOR_IN_DA);
             }
         }
         return new PdfString(output.toByteArray());

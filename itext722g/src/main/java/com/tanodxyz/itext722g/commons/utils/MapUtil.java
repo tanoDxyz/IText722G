@@ -24,7 +24,6 @@ package com.tanodxyz.itext722g.commons.utils;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.BiFunction;
 
 /**
  * Utility class for work with collections. Not for public use.

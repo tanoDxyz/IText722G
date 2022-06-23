@@ -60,6 +60,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -226,17 +227,29 @@ public class TrueTypeFont extends FontProgram {
      * @return a set of glyph ids corresponding to the passed glyph CIDs
      */
     public Set<Integer> mapGlyphsCidsToGids(Set<Integer> glyphs) {
-        return glyphs.stream()
-                .map((Integer i) -> {
-                    Glyph usedGlyph = getGlyphByCode(i);
-                    if (usedGlyph instanceof GidAwareGlyph) {
-                        return ((GidAwareGlyph) usedGlyph).getGid();
-                    }
-                    return i;
-                })
-                .collect(Collectors.toSet());
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            return glyphs.stream()
+                    .map((Integer i) -> {
+                        Glyph usedGlyph = getGlyphByCode(i);
+                        if (usedGlyph instanceof GidAwareGlyph) {
+                            return ((GidAwareGlyph) usedGlyph).getGid();
+                        }
+                        return i;
+                    })
+                    .collect(Collectors.toSet());
+        } else {
+            Set<Integer> gids = new TreeSet<>();
+            for (Integer glyph : glyphs) {
+                Glyph usedGlyph = getGlyphByCode(glyph);
+                int gid = glyph;
+                if (usedGlyph instanceof GidAwareGlyph) {
+                    gid = ((GidAwareGlyph) usedGlyph).getGid();
+                }
+                gids.add(gid);
+            }
+            return gids;
+        }
     }
-
     protected void readGdefTable() throws java.io.IOException {
         int[] gdef = fontParser.tables.get("GDEF");
         if (gdef != null) {
