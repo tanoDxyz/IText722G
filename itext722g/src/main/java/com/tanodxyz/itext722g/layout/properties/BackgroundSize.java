@@ -30,11 +30,11 @@ public class BackgroundSize {
     /**
      * Width size for this image. If {@link UnitValue} is in percent, then width depends on the area of the element.
      */
-    private com.itextpdf.layout.properties.UnitValue backgroundWidthSize;
+    private UnitValue backgroundWidthSize;
     /**
      * Height size for this image. If {@link UnitValue} is in percent, then height depends on the area of the element.
      */
-    private com.itextpdf.layout.properties.UnitValue backgroundHeightSize;
+    private UnitValue backgroundHeightSize;
     /**
      * Image covers the entire area and its size may be more than the area.
      */
@@ -58,7 +58,7 @@ public class BackgroundSize {
      * @param width a {@link UnitValue} object
      * @param height a {@link UnitValue} object
      */
-    public void setBackgroundSizeToValues(com.itextpdf.layout.properties.UnitValue width, com.itextpdf.layout.properties.UnitValue height) {
+    public void setBackgroundSizeToValues(UnitValue width, UnitValue height) {
         // See also BackgroundSizeCalculationUtil#calculateBackgroundImageSize
         clear();
         this.backgroundWidthSize = width;
@@ -91,7 +91,7 @@ public class BackgroundSize {
      * @return the {@link UnitValue} width for this image.
      * @see BackgroundSize#backgroundWidthSize
      */
-    public com.itextpdf.layout.properties.UnitValue getBackgroundWidthSize() {
+    public UnitValue getBackgroundWidthSize() {
         return backgroundWidthSize;
     }
 
@@ -101,7 +101,7 @@ public class BackgroundSize {
      * @return the {@link UnitValue} height for this image.
      * @see BackgroundSize#backgroundHeightSize
      */
-    public com.itextpdf.layout.properties.UnitValue getBackgroundHeightSize() {
+    public UnitValue getBackgroundHeightSize() {
         return backgroundHeightSize;
     }
 

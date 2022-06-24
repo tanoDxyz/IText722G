@@ -44,11 +44,12 @@
 package com.tanodxyz.itext722g.layout.layout;
 
 import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.renderer.LineRenderer;
 
 import java.util.List;
 
 /**
- * Represents the result of a line {@link com.itextpdf.layout.renderer.LineRenderer#layout(LayoutContext) layouting}.
+ * Represents the result of a line {@link LineRenderer#layout(LayoutContext) layouting}.
  */
 public class LineLayoutResult extends MinMaxWidthLayoutResult {
 
@@ -59,10 +60,10 @@ public class LineLayoutResult extends MinMaxWidthLayoutResult {
     private List<IRenderer> floatsOverflowedToNextPage;
 
     /**
-     * Creates the {@link LayoutResult result of {@link com.itextpdf.layout.renderer.LineRenderer#layout(LayoutContext) layouting}}.
+     * Creates the {@link LayoutResult result of {@link LineRenderer#layout(LayoutContext) layouting}}.
      * The {@link LayoutResult#causeOfNothing} will be set as null.
      *
-     * @param status the status of {@link com.itextpdf.layout.renderer.LineRenderer#layout(LayoutContext)}
+     * @param status the status of {@link LineRenderer#layout(LayoutContext)}
      * @param occupiedArea the area occupied by the content
      * @param splitRenderer the renderer to draw the splitted part of the content
      * @param overflowRenderer the renderer to draw the overflowed part of the content
@@ -72,9 +73,9 @@ public class LineLayoutResult extends MinMaxWidthLayoutResult {
     }
 
     /**
-     * Creates the {@link LayoutResult result of {@link com.itextpdf.layout.renderer.LineRenderer#layout(LayoutContext) layouting}}.
+     * Creates the {@link LayoutResult result of {@link LineRenderer#layout(LayoutContext) layouting}}.
      *
-     * @param status the status of {@link com.itextpdf.layout.renderer.LineRenderer#layout(LayoutContext)}
+     * @param status the status of {@link LineRenderer#layout(LayoutContext)}
      * @param occupiedArea the area occupied by the content
      * @param splitRenderer the renderer to draw the splitted part of the content
      * @param overflowRenderer the renderer to draw the overflowed part of the content
@@ -99,7 +100,7 @@ public class LineLayoutResult extends MinMaxWidthLayoutResult {
      * Sets a flat that split was forced by new line symbol in rendered text.
      *
      * @param isSplitForcedByNewline indicates that split was forced by new line symbol in rendered text.
-     * @return {@link com.itextpdf.layout.layout.LineLayoutResult this layout result} the setting was applied on.
+     * @return {@link LineLayoutResult this layout result} the setting was applied on.
      */
     public LineLayoutResult setSplitForcedByNewline(boolean isSplitForcedByNewline) {
         this.splitForcedByNewline = isSplitForcedByNewline;

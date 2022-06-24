@@ -54,6 +54,7 @@ import com.tanodxyz.itext722g.layout.IPropertyContainer;
 import com.tanodxyz.itext722g.layout.borders.Border;
 import com.tanodxyz.itext722g.layout.element.Cell;
 import com.tanodxyz.itext722g.layout.exceptions.LayoutExceptionMessageConstant;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
 import com.tanodxyz.itext722g.layout.properties.BorderCollapsePropertyValue;
 import com.tanodxyz.itext722g.layout.properties.Property;
 import com.tanodxyz.itext722g.layout.properties.UnitValue;
@@ -62,7 +63,7 @@ public class CellRenderer extends BlockRenderer {
     /**
      * Creates a CellRenderer from its corresponding layout object.
      *
-     * @param modelElement the {@link com.itextpdf.layout.element.Cell} which this object should manage
+     * @param modelElement the {@link Cell} which this object should manage
      */
     public CellRenderer(Cell modelElement) {
         super(modelElement);

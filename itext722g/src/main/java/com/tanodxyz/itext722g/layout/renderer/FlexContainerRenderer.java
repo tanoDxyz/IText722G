@@ -69,7 +69,7 @@ public class FlexContainerRenderer extends DivRenderer {
 
     /**
      * Creates a FlexContainerRenderer from its corresponding layout object.
-     * @param modelElement the {@link com.itextpdf.layout.element.Div} which this object should manage
+     * @param modelElement the {@link Div} which this object should manage
      */
     public FlexContainerRenderer(Div modelElement) {
         super(modelElement);

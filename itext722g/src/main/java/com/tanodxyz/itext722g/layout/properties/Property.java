@@ -43,9 +43,11 @@
  */
 package com.tanodxyz.itext722g.layout.properties;
 
-import com.tanodxyz.itext722g.layout.IPropertyContainer;
 import com.tanodxyz.itext722g.io.font.constants.StandardFontFamilies;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvasConstants;
+import com.tanodxyz.itext722g.layout.IPropertyContainer;
+import com.tanodxyz.itext722g.layout.font.FontProvider;
+import com.tanodxyz.itext722g.layout.font.FontSet;
 
 /**
  * An enum of property names that are used for graphical properties of layout
@@ -116,11 +118,11 @@ public final class Property {
     public static final int FONT_WEIGHT = 95;
     public static final int FONT_SCRIPT = 23;
     /**
-     * Shall be instance of {@link com.itextpdf.layout.font.FontProvider}
+     * Shall be instance of {@link FontProvider}
      */
     public static final int FONT_PROVIDER = 91;
     /**
-     * Shall be instance of {@link com.itextpdf.layout.font.FontSet}.
+     * Shall be instance of {@link FontSet}.
      */
     public static final int FONT_SET = 98;
     public static final int FONT_SIZE = 24;

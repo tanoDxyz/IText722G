@@ -43,9 +43,11 @@
  */
 package com.tanodxyz.itext722g.layout.properties;
 
+import com.tanodxyz.itext722g.layout.element.Tab;
+
 /**
  * A specialized enum holding the possible values for a {@link
- * com.itextpdf.layout.element.Tab Tab}'s alignment.
+ * Tab Tab}'s alignment.
  */
 public enum TabAlignment {
     LEFT,

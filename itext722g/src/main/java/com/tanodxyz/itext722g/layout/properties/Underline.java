@@ -52,7 +52,7 @@ import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvasConstants;
  * A POJO that describes the underline of a layout element.
  * 
  * This class is to be used as a property for an element or renderer,
- * as the value for {@link com.itextpdf.layout.properties.Property#UNDERLINE}
+ * as the value for {@link Property#UNDERLINE}
  */
 public class Underline {
     protected TransparentColor transparentColor;

@@ -77,7 +77,7 @@ public class ListItemRenderer extends DivRenderer {
 
     /**
      * Creates a ListItemRenderer from its corresponding layout object.
-     * @param modelElement the {@link com.itextpdf.layout.element.ListItem} which this object should manage
+     * @param modelElement the {@link ListItem} which this object should manage
      */
     public ListItemRenderer(ListItem modelElement) {
         super(modelElement);

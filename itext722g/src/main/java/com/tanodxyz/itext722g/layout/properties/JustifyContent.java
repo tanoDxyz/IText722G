@@ -23,7 +23,7 @@
 package com.tanodxyz.itext722g.layout.properties;
 
 /**
- * A enum containing potential property values for {@link com.itextpdf.layout.properties.Property#JUSTIFY_CONTENT}.
+ * A enum containing potential property values for {@link Property#JUSTIFY_CONTENT}.
  */
 public enum JustifyContent {
     CENTER,

@@ -42,9 +42,11 @@
  */
 package com.tanodxyz.itext722g.layout.properties;
 
+import com.tanodxyz.itext722g.layout.element.BlockElement;
+
 /**
  * The possible values for the type of overflow of {@link
- * com.itextpdf.layout.element.BlockElement}.
+ * BlockElement}.
  */
 public enum OverflowPropertyValue {
     FIT,

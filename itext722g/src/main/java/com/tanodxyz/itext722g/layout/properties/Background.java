@@ -45,10 +45,11 @@ package com.tanodxyz.itext722g.layout.properties;
 
 import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.layout.IPropertyContainer;
+import com.tanodxyz.itext722g.layout.element.IElement;
 
 /**
  * A specialized class holding configurable properties related to an {@link
- * com.itextpdf.layout.element.IElement}'s background. This class is meant to be used as the value for the
+ * IElement}'s background. This class is meant to be used as the value for the
  * {@link Property#BACKGROUND} key in an {@link IPropertyContainer}. Allows
  * to define a background color, and positive or negative changes to the
  * location of the edges of the background coloring.

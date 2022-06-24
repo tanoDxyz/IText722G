@@ -58,7 +58,7 @@ public class LineSeparatorRenderer extends BlockRenderer {
 
     /**
      * Creates a LineSeparatorRenderer from its corresponding layout object.
-     * @param lineSeparator the {@link com.itextpdf.layout.element.LineSeparator} which this object should manage
+     * @param lineSeparator the {@link LineSeparator} which this object should manage
      */
     public LineSeparatorRenderer(LineSeparator lineSeparator) {
         super(lineSeparator);

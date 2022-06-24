@@ -87,7 +87,7 @@ public class ParagraphRenderer extends BlockRenderer {
     /**
      * Creates a ParagraphRenderer from its corresponding layout object.
      *
-     * @param modelElement the {@link com.itextpdf.layout.element.Paragraph} which this object should manage
+     * @param modelElement the {@link Paragraph} which this object should manage
      */
     public ParagraphRenderer(Paragraph modelElement) {
         super(modelElement);

@@ -42,9 +42,11 @@
  */
 package com.tanodxyz.itext722g.layout.properties;
 
+import com.tanodxyz.itext722g.layout.element.Table;
+
 /**
  * A specialized enum containing the potential caption side values
- * for a {@link com.itextpdf.layout.element.Table}'s caption.
+ * for a {@link Table}'s caption.
  */
 public enum CaptionSide {
     BOTTOM,

@@ -45,12 +45,13 @@ package com.tanodxyz.itext722g.layout.renderer;
 
 
 import com.tanodxyz.itext722g.layout.element.Div;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
 
 public class DivRenderer extends BlockRenderer {
 
     /**
      * Creates a DivRenderer from its corresponding layout object.
-     * @param modelElement the {@link com.itextpdf.layout.element.Div} which this object should manage
+     * @param modelElement the {@link Div} which this object should manage
      */
 
     public DivRenderer(Div modelElement) {

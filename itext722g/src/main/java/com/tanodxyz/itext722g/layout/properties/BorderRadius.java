@@ -44,6 +44,8 @@
 package com.tanodxyz.itext722g.layout.properties;
 
 
+import com.tanodxyz.itext722g.layout.borders.Border;
+
 /**
  * Represents a border radius.
  */

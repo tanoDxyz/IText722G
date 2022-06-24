@@ -43,7 +43,7 @@
 package com.tanodxyz.itext722g.layout.properties;
 
 /**
- * A specialized enum containing potential property values for {@link com.itextpdf.layout.properties.Property#FLEX_WRAP}.
+ * A specialized enum containing potential property values for {@link Property#FLEX_WRAP}.
  */
 public enum FlexWrapPropertyValue {
     NOWRAP,

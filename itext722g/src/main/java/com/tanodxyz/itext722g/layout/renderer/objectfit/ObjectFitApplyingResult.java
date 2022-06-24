@@ -43,6 +43,8 @@
 package com.tanodxyz.itext722g.layout.renderer.objectfit;
 
 
+import com.tanodxyz.itext722g.layout.properties.ObjectFit;
+
 /**
  * The class represents results of calculating of rendered image size
  * after applying of the {@link ObjectFit} property.

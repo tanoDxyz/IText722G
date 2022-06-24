@@ -44,11 +44,12 @@ package com.tanodxyz.itext722g.layout.layout;
 
 import com.tanodxyz.itext722g.kernel.geom.Rectangle;
 import com.tanodxyz.itext722g.layout.margincollapse.MarginsCollapseInfo;
+import com.tanodxyz.itext722g.layout.renderer.IRenderer;
 
 import java.util.List;
 
 /**
- * Represents the context for content of a line {@link com.itextpdf.layout.renderer.IRenderer#layout(LayoutContext) layouting}.
+ * Represents the context for content of a line {@link IRenderer#layout(LayoutContext) layouting}.
  */
 public class LineLayoutContext extends LayoutContext {
     private boolean floatOverflowedToNextPageWithNothing = false;

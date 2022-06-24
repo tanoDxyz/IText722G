@@ -24,13 +24,14 @@ package com.tanodxyz.itext722g.layout.properties;
 
 import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
+import com.tanodxyz.itext722g.layout.element.Paragraph;
 import com.tanodxyz.itext722g.layout.renderer.ParagraphRenderer;
 
 import java.util.logging.Logger;
 
 
 /**
- * A specialized class holding configurable parameters related to {@link com.itextpdf.layout.element.Paragraph}'s
+ * A specialized class holding configurable parameters related to {@link Paragraph}'s
  * widows restrictions. This class is meant to be used as the value for the {@link Property#WIDOWS_CONTROL} key.
  */
 public class ParagraphWidowsControl {

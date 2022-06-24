@@ -45,14 +45,16 @@ package com.tanodxyz.itext722g.layout.layout;
 
 
 import com.tanodxyz.itext722g.layout.renderer.IRenderer;
+import com.tanodxyz.itext722g.layout.renderer.TextRenderer;
+import com.tanodxyz.itext722g.layout.splitting.ISplitCharacters;
 
 /**
- * Represents the result of a text {@link com.itextpdf.layout.renderer.TextRenderer#layout(LayoutContext) layout}.
+ * Represents the result of a text {@link TextRenderer#layout(LayoutContext) layout}.
  */
 public class TextLayoutResult extends MinMaxWidthLayoutResult {
 
     /**
-     * Indicates whether some word was split during {@link com.itextpdf.layout.renderer.TextRenderer#layout(LayoutContext) layout}.
+     * Indicates whether some word was split during {@link TextRenderer#layout(LayoutContext) layout}.
      */
     protected boolean wordHasBeenSplit;
     /**
@@ -71,10 +73,10 @@ public class TextLayoutResult extends MinMaxWidthLayoutResult {
     protected float rightMinWidth;
 
     /**
-     * Creates the {@link LayoutResult result of {@link com.itextpdf.layout.renderer.TextRenderer#layout(LayoutContext) layouting}}.
+     * Creates the {@link LayoutResult result of {@link TextRenderer#layout(LayoutContext) layouting}}.
      * The {@link LayoutResult#causeOfNothing} will be set as null.
      *
-     * @param status the status of {@link com.itextpdf.layout.renderer.TextRenderer#layout(LayoutContext)}
+     * @param status the status of {@link TextRenderer#layout(LayoutContext)}
      * @param occupiedArea the area occupied by the content
      * @param splitRenderer the renderer to draw the split part of the content
      * @param overflowRenderer the renderer to draw the overflowed part of the content
@@ -84,9 +86,9 @@ public class TextLayoutResult extends MinMaxWidthLayoutResult {
     }
 
     /**
-     * Creates the {@link LayoutResult result of {@link com.itextpdf.layout.renderer.TextRenderer#layout(LayoutContext) layouting}}.
+     * Creates the {@link LayoutResult result of {@link TextRenderer#layout(LayoutContext) layouting}}.
      *
-     * @param status the status of {@link com.itextpdf.layout.renderer.TextRenderer#layout(LayoutContext)}
+     * @param status the status of {@link TextRenderer#layout(LayoutContext)}
      * @param occupiedArea the area occupied by the content
      * @param splitRenderer the renderer to draw the split part of the content
      * @param overflowRenderer the renderer to draw the overflowed part of the content
@@ -97,7 +99,7 @@ public class TextLayoutResult extends MinMaxWidthLayoutResult {
     }
 
     /**
-     * Indicates whether some word in a rendered text was split during {@link com.itextpdf.layout.renderer.IRenderer#layout layout}.
+     * Indicates whether some word in a rendered text was split during {@link IRenderer#layout layout}.
      * The value will be set as true if, for example, the rendered words width is bigger than the width of layout area.
      *
      * @return whether some word was split or not.
@@ -108,8 +110,8 @@ public class TextLayoutResult extends MinMaxWidthLayoutResult {
 
     /**
      * Sets {@link #wordHasBeenSplit}
-     * @param wordHasBeenSplit indicates that some word was split during {@link com.itextpdf.layout.renderer.IRenderer#layout layout}.
-     * @return {@link com.itextpdf.layout.layout.TextLayoutResult this layout result} the setting was applied on
+     * @param wordHasBeenSplit indicates that some word was split during {@link IRenderer#layout layout}.
+     * @return {@link TextLayoutResult this layout result} the setting was applied on
      * @see #wordHasBeenSplit
      */
     public TextLayoutResult setWordHasBeenSplit(boolean wordHasBeenSplit) {
@@ -132,7 +134,7 @@ public class TextLayoutResult extends MinMaxWidthLayoutResult {
      * Sets {@link #isSplitForcedByNewline}
      *
      * @param isSplitForcedByNewline indicates that split was forced by new line symbol in rendered text.
-     * @return {@link com.itextpdf.layout.layout.TextLayoutResult this layout result} the setting was applied on.
+     * @return {@link TextLayoutResult this layout result} the setting was applied on.
      * @see #setSplitForcedByNewline
      */
     public TextLayoutResult setSplitForcedByNewline(boolean isSplitForcedByNewline) {
@@ -145,7 +147,7 @@ public class TextLayoutResult extends MinMaxWidthLayoutResult {
      * Possible breaks are either whitespaces or split characters.
      *
      * @return true if there's a possible break within the split renderer.
-     * @see com.itextpdf.layout.splitting.ISplitCharacters
+     * @see ISplitCharacters
      */
     public boolean isContainsPossibleBreak() {
         return containsPossibleBreak;
@@ -155,7 +157,7 @@ public class TextLayoutResult extends MinMaxWidthLayoutResult {
      * Sets {@link #isContainsPossibleBreak()}.
      *
      * @param containsPossibleBreak indicates that split renderer contains possible break.
-     * @return {@link com.itextpdf.layout.layout.TextLayoutResult this layout result} the setting was applied on.
+     * @return {@link TextLayoutResult this layout result} the setting was applied on.
      * @see #isContainsPossibleBreak
      */
     public TextLayoutResult setContainsPossibleBreak(boolean containsPossibleBreak) {
@@ -168,7 +170,7 @@ public class TextLayoutResult extends MinMaxWidthLayoutResult {
      *
      * @param startsWithSplitCharacterWhiteSpace indicates if TextRenderer#line starts with a split character that is
      *                                           also a whitespace.
-     * @return {@link com.itextpdf.layout.layout.TextLayoutResult this layout result} the setting was applied on.
+     * @return {@link TextLayoutResult this layout result} the setting was applied on.
      * @see #isStartsWithSplitCharacterWhiteSpace
      */
     public TextLayoutResult setStartsWithSplitCharacterWhiteSpace(boolean startsWithSplitCharacterWhiteSpace) {
@@ -189,7 +191,7 @@ public class TextLayoutResult extends MinMaxWidthLayoutResult {
      * Sets {@link #isEndsWithSplitCharacter()}.
      *
      * @param endsWithSplitCharacter indicates if TextRenderer#line ends with a splitCharacter.
-     * @return {@link com.itextpdf.layout.layout.TextLayoutResult this layout result} the setting was applied on.
+     * @return {@link TextLayoutResult this layout result} the setting was applied on.
      * @see #isEndsWithSplitCharacter
      */
     public TextLayoutResult setEndsWithSplitCharacter(boolean endsWithSplitCharacter) {
@@ -201,7 +203,7 @@ public class TextLayoutResult extends MinMaxWidthLayoutResult {
      * Indicates whether TextRenderer#line ends with a splitCharacter.
      *
      * @return true if TextRenderer#line ends with a splitCharacter.
-     * @see com.itextpdf.layout.splitting.ISplitCharacters
+     * @see ISplitCharacters
      */
     public boolean isEndsWithSplitCharacter() {
         return endsWithSplitCharacter;
@@ -213,7 +215,7 @@ public class TextLayoutResult extends MinMaxWidthLayoutResult {
      * In case when entire TextRenderer#line is unbreakable, leftMinWidth also includes right-side additional width.
      *
      * @param leftMinWidth min width of the leftmost unbreakable part of the TextRenderer#line after layout.
-     * @return {@link com.itextpdf.layout.layout.TextLayoutResult this layout result} the setting was applied on.
+     * @return {@link TextLayoutResult this layout result} the setting was applied on.
      */
     public TextLayoutResult setLeftMinWidth(float leftMinWidth) {
         this.leftMinWidth = leftMinWidth;
@@ -238,7 +240,7 @@ public class TextLayoutResult extends MinMaxWidthLayoutResult {
      * and right-side additional width must be included in leftMinWidth.
      *
      * @param rightMinWidth min width of the rightmost unbreakable part of the TextRenderer#line after layout.
-     * @return {@link com.itextpdf.layout.layout.TextLayoutResult this layout result} the setting was applied on.
+     * @return {@link TextLayoutResult this layout result} the setting was applied on.
      */
     public TextLayoutResult setRightMinWidth(float rightMinWidth) {
         this.rightMinWidth = rightMinWidth;

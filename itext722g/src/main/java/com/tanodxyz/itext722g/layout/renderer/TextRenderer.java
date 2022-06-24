@@ -44,6 +44,9 @@
 package com.tanodxyz.itext722g.layout.renderer;
 
 
+import android.icu.lang.UCharacter;
+import android.text.AndroidCharacter;
+
 import com.tanodxyz.itext722g.commons.actions.contexts.IMetaInfo;
 import com.tanodxyz.itext722g.commons.actions.sequence.SequenceId;
 import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;

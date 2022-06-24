@@ -44,10 +44,11 @@
 package com.tanodxyz.itext722g.layout.properties;
 
 import com.tanodxyz.itext722g.layout.IPropertyContainer;
+import com.tanodxyz.itext722g.layout.element.List;
 
 /**
  * A specialized enum holding the possible values
- * for a list {@link com.itextpdf.layout.element.List}'s entry prefix.
+ * for a list {@link List}'s entry prefix.
  * This class is meant to be used as the value for the {@link Property#LIST_SYMBOL} key
  * in an {@link IPropertyContainer}.
  */

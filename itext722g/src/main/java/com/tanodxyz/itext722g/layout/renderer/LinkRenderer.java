@@ -47,6 +47,7 @@ package com.tanodxyz.itext722g.layout.renderer;
 import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.layout.element.Link;
+import com.tanodxyz.itext722g.layout.layout.LayoutContext;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,7 +57,7 @@ public class LinkRenderer extends TextRenderer {
 
     /**
      * Creates a LinkRenderer from its corresponding layout object.
-     * @param link the {@link com.itextpdf.layout.element.Link} which this object should manage
+     * @param link the {@link Link} which this object should manage
      */
     public LinkRenderer(Link link) {
         this (link, link.getText());
@@ -64,9 +65,9 @@ public class LinkRenderer extends TextRenderer {
 
     /**
      * Creates a LinkRenderer from its corresponding layout object, with a custom
-     * text to replace the contents of the {@link com.itextpdf.layout.element.Link}.
+     * text to replace the contents of the {@link Link}.
      *
-     * @param linkElement the {@link com.itextpdf.layout.element.Link} which this object should manage
+     * @param linkElement the {@link Link} which this object should manage
      * @param text the replacement text
      */
     public LinkRenderer(Link linkElement, String text) {

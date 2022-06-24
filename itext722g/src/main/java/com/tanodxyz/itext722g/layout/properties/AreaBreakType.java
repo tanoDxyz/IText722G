@@ -45,7 +45,7 @@ package com.tanodxyz.itext722g.layout.properties;
 
 /**
  * The possible values for the type of break
- * that is executed by an {@link com.itextpdf.layout.element.AreaBreak}.
+ * that is executed by an {@link AreaBreak}.
  */
 public enum AreaBreakType {
     NEXT_AREA,

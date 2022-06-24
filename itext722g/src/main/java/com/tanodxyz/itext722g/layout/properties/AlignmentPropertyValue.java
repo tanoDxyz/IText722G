@@ -43,8 +43,8 @@
 package com.tanodxyz.itext722g.layout.properties;
 
 /**
- * A specialized enum containing potential property values for {@link com.itextpdf.layout.properties.Property#ALIGN_ITEMS}
- * and {@link com.itextpdf.layout.properties.Property#ALIGN_SELF}.
+ * A specialized enum containing potential property values for {@link Property#ALIGN_ITEMS}
+ * and {@link Property#ALIGN_SELF}.
  */
 public enum AlignmentPropertyValue {
     CENTER,

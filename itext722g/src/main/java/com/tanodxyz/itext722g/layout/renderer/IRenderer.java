@@ -47,16 +47,18 @@ package com.tanodxyz.itext722g.layout.renderer;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.layout.IPropertyContainer;
+import com.tanodxyz.itext722g.layout.element.Image;
 import com.tanodxyz.itext722g.layout.layout.LayoutArea;
 import com.tanodxyz.itext722g.layout.layout.LayoutContext;
 import com.tanodxyz.itext722g.layout.layout.LayoutResult;
+import com.tanodxyz.itext722g.layout.layout.TextLayoutResult;
 
 import java.util.List;
 
 /**
  * A renderer object is responsible for drawing a corresponding layout object on
  * a document or canvas. Every layout object has a renderer, by default one of
- * the corresponding type, e.g. you can ask an {@link com.itextpdf.layout.element.Image}
+ * the corresponding type, e.g. you can ask an {@link Image}
  * for its {@link ImageRenderer}.
  * 
  * Renderers are designed to be extensible, and custom implementations can be
@@ -75,7 +77,7 @@ public interface IRenderer extends IPropertyContainer {
      * the {@link LayoutResult}, representing the layout result, including occupied area, status, i.e.
      * if there was enough place to fit the renderer subtree, etc.
      * {@link LayoutResult} can be extended to return custom layout results for custom elements, e.g.
-     * {@link TextRenderer} uses {@link com.itextpdf.layout.layout.TextLayoutResult} as its result.
+     * {@link TextRenderer} uses {@link TextLayoutResult} as its result.
      *
      * This method can be called standalone to learn how much area the renderer subtree needs, or can be called
      * before {@link #draw(DrawContext)}, to prepare the renderer to be flushed to the output stream.
