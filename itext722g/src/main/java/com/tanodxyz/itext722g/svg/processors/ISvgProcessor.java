@@ -45,6 +45,7 @@ package com.tanodxyz.itext722g.svg.processors;
 
 import com.tanodxyz.itext722g.styledXmlParser.node.INode;
 import com.tanodxyz.itext722g.svg.exceptions.SvgProcessingException;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
 
 /**
  * Interface for SVG processors.

@@ -151,7 +151,7 @@ public class SvgStyleResolver implements ICssResolver {
         try (InputStream defaultCss = ResourceUtil.getResourceStream(DEFAULT_CSS_PATH)) {
             this.css = CssStyleSheetParser.parse(defaultCss);
         } catch (IOException e) {
-            LOGGER.warn(SvgLogMessageConstant.ERROR_INITIALIZING_DEFAULT_CSS, e);
+            LOGGER.warning(SvgLogMessageConstant.ERROR_INITIALIZING_DEFAULT_CSS + " " +e);
             this.css = new CssStyleSheet();
         }
         this.resourceResolver = context.getResourceResolver();
@@ -275,7 +275,7 @@ public class SvgStyleResolver implements ICssResolver {
             Map<String, String> parentStyles = parentNode.getStyles();
 
             if (parentStyles == null && !(parentNode instanceof IElementNode)) {
-                LOGGER.error(StyledXmlParserLogMessageConstant.ERROR_RESOLVING_PARENT_STYLES);
+                LOGGER.log(Level.SEVERE,StyledXmlParserLogMessageConstant.ERROR_RESOLVING_PARENT_STYLES);
             }
 
             if (parentStyles != null) {
@@ -367,7 +367,7 @@ public class SvgStyleResolver implements ICssResolver {
                             this.css.appendCssStyleSheet(styleSheet);
                         }
                     } catch (Exception exc) {
-                        LOGGER.error(StyledXmlParserLogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE, exc);
+                        LOGGER.severe(StyledXmlParserLogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE + " "+ exc);
                     }
                 }
             }

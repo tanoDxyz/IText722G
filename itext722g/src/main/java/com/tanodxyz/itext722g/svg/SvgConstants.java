@@ -43,7 +43,15 @@
 package com.tanodxyz.itext722g.svg;
 
 import com.tanodxyz.itext722g.styledXmlParser.CommonAttributeConstants;
+import com.tanodxyz.itext722g.svg.renderers.impl.CircleSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.impl.EllipseSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.impl.LineSvgNodeRenderer;
 import com.tanodxyz.itext722g.svg.renderers.impl.LinearGradientSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.impl.PathSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.impl.PolygonSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.impl.PolylineSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.impl.RectangleSvgNodeRenderer;
+import com.tanodxyz.itext722g.svg.renderers.impl.SvgTagSvgNodeRenderer;
 
 /**
  * A class containing constant values signifying the proeprty names of tags, attribute, CSS-style

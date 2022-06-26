@@ -44,6 +44,7 @@ package com.tanodxyz.itext722g.svg.renderers.path.impl;
 
 
 import com.tanodxyz.itext722g.svg.SvgConstants;
+import com.tanodxyz.itext722g.svg.renderers.impl.PathSvgNodeRenderer;
 import com.tanodxyz.itext722g.svg.renderers.path.IPathShape;
 import com.tanodxyz.itext722g.svg.renderers.path.IPathShapeMapper;
 

@@ -64,6 +64,7 @@ import com.tanodxyz.itext722g.svg.exceptions.SvgExceptionMessageConstant;
 import com.tanodxyz.itext722g.svg.exceptions.SvgProcessingException;
 import com.tanodxyz.itext722g.svg.logs.SvgLogMessageConstant;
 import com.tanodxyz.itext722g.svg.processors.ISvgConverterProperties;
+import com.tanodxyz.itext722g.svg.processors.ISvgProcessor;
 import com.tanodxyz.itext722g.svg.processors.ISvgProcessorResult;
 import com.tanodxyz.itext722g.svg.processors.impl.DefaultSvgProcessor;
 import com.tanodxyz.itext722g.svg.processors.impl.SvgConverterProperties;
@@ -953,7 +954,7 @@ public final class SvgConverter {
                 width = values[2];
             } else {
                 //Log Warning
-                LOGGER.warn(SvgLogMessageConstant.MISSING_WIDTH);
+                LOGGER.warning(SvgLogMessageConstant.MISSING_WIDTH);
                 //Set to browser default
                 width = CssDimensionParsingUtils.parseAbsoluteLength("300px");
             }

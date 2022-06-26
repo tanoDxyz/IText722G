@@ -44,6 +44,7 @@ package com.tanodxyz.itext722g.svg.processors.impl;
 
 
 import com.tanodxyz.itext722g.styledXmlParser.css.ICssResolver;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Tag;
 import com.tanodxyz.itext722g.styledXmlParser.node.IElementNode;
 import com.tanodxyz.itext722g.styledXmlParser.node.INode;

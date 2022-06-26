@@ -46,6 +46,8 @@ package com.tanodxyz.itext722g.svg.processors;
 import com.tanodxyz.itext722g.layout.font.FontProvider;
 import com.tanodxyz.itext722g.styledXmlParser.css.media.MediaDeviceDescription;
 import com.tanodxyz.itext722g.styledXmlParser.resolver.resource.IResourceRetriever;
+import com.tanodxyz.itext722g.svg.converter.SvgConverter;
+import com.tanodxyz.itext722g.svg.renderers.ISvgNodeRenderer;
 import com.tanodxyz.itext722g.svg.renderers.factories.ISvgNodeRendererFactory;
 
 import java.nio.charset.Charset;
@@ -57,7 +59,7 @@ public interface ISvgConverterProperties {
 
     /**
      * Retrieve the factory responsible for creating
-     * {@link com.itextpdf.svg.renderers.ISvgNodeRenderer}
+     * {@link ISvgNodeRenderer}
      *
      * @return A {@link ISvgNodeRendererFactory} implementation
      */
