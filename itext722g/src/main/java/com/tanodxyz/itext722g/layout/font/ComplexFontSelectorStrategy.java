@@ -45,6 +45,7 @@ package com.tanodxyz.itext722g.layout.font;
 import com.tanodxyz.itext722g.io.font.otf.Glyph;
 import com.tanodxyz.itext722g.io.util.TextUtil;
 import com.tanodxyz.itext722g.kernel.font.PdfFont;
+import com.tanodxyz.itext722g.layout.renderer.CharacterUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,11 +101,11 @@ public class ComplexFontSelectorStrategy extends FontSelectorStrategy {
         List<Glyph> glyphs = new ArrayList<>();
         boolean anyGlyphsAppended = false;
         if (font != null) {
-            Character.UnicodeScript unicodeScript = nextSignificantUnicodeScript(nextUnignorable);
+            CharacterUtils.UnicodeScript unicodeScript = nextSignificantUnicodeScript(nextUnignorable);
             int to = nextUnignorable;
             for (int i = nextUnignorable; i < text.length(); i++) {
                 int codePoint = isSurrogatePair(text, i) ? TextUtil.convertToUtf32(text, i) : (int) text.charAt(i);
-                Character.UnicodeScript currScript = Character.UnicodeScript.of(codePoint);
+                CharacterUtils.UnicodeScript currScript = CharacterUtils.UnicodeScript.of(codePoint);
                 if (isSignificantUnicodeScript(currScript) && currScript != unicodeScript) {
                     break;
                 }
@@ -139,7 +140,7 @@ public class ComplexFontSelectorStrategy extends FontSelectorStrategy {
         return nextValidChar;
     }
 
-    private Character.UnicodeScript nextSignificantUnicodeScript(int from) {
+    private CharacterUtils.UnicodeScript nextSignificantUnicodeScript(int from) {
         for (int i = from; i < text.length(); i++) {
             int codePoint;
             if (isSurrogatePair(text, i)) {
@@ -148,17 +149,17 @@ public class ComplexFontSelectorStrategy extends FontSelectorStrategy {
             } else {
                 codePoint = (int) text.charAt(i);
             }
-            Character.UnicodeScript unicodeScript = Character.UnicodeScript.of(codePoint);
+            CharacterUtils.UnicodeScript unicodeScript = CharacterUtils.UnicodeScript.of(codePoint);
             if (isSignificantUnicodeScript(unicodeScript)) {
                 return unicodeScript;
             }
         }
-        return Character.UnicodeScript.COMMON;
+        return CharacterUtils.UnicodeScript.COMMON;
     }
 
-    private static boolean isSignificantUnicodeScript(Character.UnicodeScript unicodeScript) {
+    private static boolean isSignificantUnicodeScript(CharacterUtils.UnicodeScript unicodeScript) {
         // Character.UnicodeScript.UNKNOWN will be handled as significant unicode script
-        return unicodeScript != Character.UnicodeScript.COMMON && unicodeScript != Character.UnicodeScript.INHERITED;
+        return unicodeScript != CharacterUtils.UnicodeScript.COMMON && unicodeScript != CharacterUtils.UnicodeScript.INHERITED;
     }
 
     //This method doesn't perform additional checks if compare with TextUtil#isSurrogatePair()

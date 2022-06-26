@@ -65,7 +65,7 @@ import com.tanodxyz.itext722g.layout.renderer.RootRenderer;
  * <p>
  * A {@link Document}'s rendering behavior can be modified by extending
  * {@link DocumentRenderer} and setting an instance of this newly created with
- * {@link #setRenderer(com.itextpdf.layout.renderer.DocumentRenderer) }.
+ * {@link #setRenderer(DocumentRenderer) }.
  */
 public class Document extends RootElement<Document> {
 

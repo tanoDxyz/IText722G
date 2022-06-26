@@ -15,4 +15,6 @@ specifically take care of bitmap loading
 and ofcourse load bitmaps according to the density of the device or u will cause .
 check files in the assets and find where they are used.
 
+text render testing needed as various changes were introduced.
+TextRenderer.java
 ...........................................................

@@ -48,6 +48,7 @@ import com.tanodxyz.itext722g.kernel.font.PdfFontFactory;
 import com.tanodxyz.itext722g.kernel.pdf.PdfDocument;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvasConstants;
 import com.tanodxyz.itext722g.kernel.pdf.tagging.StandardRoles;
+import com.tanodxyz.itext722g.layout.element.BlockElement;
 import com.tanodxyz.itext722g.layout.element.Div;
 import com.tanodxyz.itext722g.layout.element.IBlockElement;
 import com.tanodxyz.itext722g.layout.element.IElement;

@@ -51,6 +51,7 @@ import com.tanodxyz.itext722g.kernel.pdf.PdfPage;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvas;
 import com.tanodxyz.itext722g.kernel.pdf.xobject.PdfFormXObject;
 import com.tanodxyz.itext722g.layout.element.IElement;
+import com.tanodxyz.itext722g.layout.element.Link;
 import com.tanodxyz.itext722g.layout.exceptions.LayoutExceptionMessageConstant;
 import com.tanodxyz.itext722g.layout.renderer.CanvasRenderer;
 import com.tanodxyz.itext722g.layout.renderer.IRenderer;
@@ -83,7 +84,7 @@ public class Canvas extends RootElement<Canvas> {
     /**
      * Creates a new Canvas to manipulate a specific page content stream. The given page shall not be flushed:
      * drawing on flushed pages is impossible because their content is already written to the output stream.
-     * Use this constructor to be able to add {@link com.itextpdf.layout.element.Link} elements on it
+     * Use this constructor to be able to add {@link Link} elements on it
      * (using any other constructor would result in inability to add PDF annotations, based on which, for example, links work).
      * <p>
      * If the {@link PdfDocument#isTagged()} is true, using this constructor would automatically enable

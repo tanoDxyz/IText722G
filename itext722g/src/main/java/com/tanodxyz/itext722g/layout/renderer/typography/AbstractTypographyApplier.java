@@ -30,10 +30,10 @@ import com.tanodxyz.itext722g.io.font.FontProgram;
 import com.tanodxyz.itext722g.io.font.TrueTypeFont;
 import com.tanodxyz.itext722g.io.font.otf.GlyphLine;
 import com.tanodxyz.itext722g.layout.properties.BaseDirection;
+import com.tanodxyz.itext722g.layout.renderer.CharacterUtils;
 import com.tanodxyz.itext722g.layout.renderer.LineRenderer;
 
 import java.io.IOException;
-import java.lang.Character.UnicodeScript;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -46,15 +46,15 @@ public abstract class AbstractTypographyApplier extends AbstractITextEvent {
 
     public abstract boolean isPdfCalligraphInstance();
 
-    public Collection<UnicodeScript> getSupportedScripts() {
+    public Collection<CharacterUtils.UnicodeScript> getSupportedScripts() {
         return null;
     }
 
-    public Collection<Character.UnicodeScript> getSupportedScripts(Object configurator) {
+    public Collection<CharacterUtils.UnicodeScript> getSupportedScripts(Object configurator) {
         return null;
     }
 
-    public boolean applyOtfScript(TrueTypeFont font, GlyphLine glyphLine, Character.UnicodeScript script,
+    public boolean applyOtfScript(TrueTypeFont font, GlyphLine glyphLine, CharacterUtils.UnicodeScript script,
                                   Object configurator, SequenceId id, IMetaInfo metaInfo) {
         return false;
     }

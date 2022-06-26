@@ -44,9 +44,6 @@
 package com.tanodxyz.itext722g.layout.renderer;
 
 
-import android.icu.lang.UCharacter;
-import android.text.AndroidCharacter;
-
 import com.tanodxyz.itext722g.commons.actions.contexts.IMetaInfo;
 import com.tanodxyz.itext722g.commons.actions.sequence.SequenceId;
 import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
@@ -73,6 +70,7 @@ import com.tanodxyz.itext722g.layout.element.Text;
 import com.tanodxyz.itext722g.layout.exceptions.LayoutExceptionMessageConstant;
 import com.tanodxyz.itext722g.layout.font.FontCharacteristics;
 import com.tanodxyz.itext722g.layout.font.FontProvider;
+import com.tanodxyz.itext722g.layout.font.FontSelector;
 import com.tanodxyz.itext722g.layout.font.FontSelectorStrategy;
 import com.tanodxyz.itext722g.layout.font.FontSet;
 import com.tanodxyz.itext722g.layout.hyphenation.Hyphenation;
@@ -752,7 +750,7 @@ public class TextRenderer extends AbstractRenderer implements ILeafElementRender
 
     public void applyOtf() {
         updateFontAndText();
-        Character.UnicodeScript script = this.<Character.UnicodeScript>getProperty(Property.FONT_SCRIPT);
+        CharacterUtils.UnicodeScript script = this.<CharacterUtils.UnicodeScript>getProperty(Property.FONT_SCRIPT);
         if (!otfFeaturesApplied && TypographyUtils.isPdfCalligraphAvailable() && text.start < text.end) {
             final PdfDocument pdfDocument = getPdfDocument();
             final SequenceId sequenceId = pdfDocument == null ? null : pdfDocument.getDocumentIdWrapper();
@@ -760,7 +758,7 @@ public class TextRenderer extends AbstractRenderer implements ILeafElementRender
             final IMetaInfo metaInfo = metaInfoContainer == null ? null : metaInfoContainer.getMetaInfo();
             if (hasOtfFont()) {
                 Object typographyConfig = this.<Object>getProperty(Property.TYPOGRAPHY_CONFIG);
-                Collection<Character.UnicodeScript> supportedScripts = null;
+                Collection<CharacterUtils.UnicodeScript> supportedScripts = null;
         	    if (typographyConfig != null) {
     	            supportedScripts = TypographyUtils.getSupportedScripts(typographyConfig);
 	            }
@@ -777,9 +775,8 @@ public class TextRenderer extends AbstractRenderer implements ILeafElementRender
                     for (int i = text.start; i < text.end; i++) {
                         int unicode = text.get(i).getUnicode();
                         if (unicode > -1) {
-                            Character.UnicodeScript glyphScript = Character.UnicodeScript.of(unicode);
-                            if (Character.UnicodeScript.COMMON.equals(glyphScript) || Character.UnicodeScript.UNKNOWN.equals(glyphScript)
-                                    || Character.UnicodeScript.INHERITED.equals(glyphScript)) {
+                            CharacterUtils.UnicodeScript glyphScript = CharacterUtils.UnicodeScript.of(unicode);
+                            if(CharacterUtils.isUnicodeScriptUnknownCommonOrInherited(unicode)) {
                                 continue;
                             }
                             if (glyphScript != currRange.script) {
@@ -807,7 +804,7 @@ public class TextRenderer extends AbstractRenderer implements ILeafElementRender
                     text.start = shapingRangeStart;
                     text.end = scriptsRange.rangeEnd;
 
-                    if ((scriptsRange.script == Character.UnicodeScript.ARABIC || scriptsRange.script == Character.UnicodeScript.HEBREW) && parent instanceof LineRenderer) {
+                    if ((scriptsRange.script == CharacterUtils.UnicodeScript.ARABIC || scriptsRange.script == CharacterUtils.UnicodeScript.HEBREW) && parent instanceof LineRenderer) {
                         // It's safe to set here BASE_DIRECTION to TextRenderer without additional checks, because
                         // by convention this property makes sense only if it's applied to LineRenderer or it's
                         // parents (Paragraph or above).
@@ -1380,7 +1377,7 @@ public class TextRenderer extends AbstractRenderer implements ILeafElementRender
     }
 
     /**
-     * Returns the length of the {@link com.itextpdf.layout.renderer.TextRenderer#line line} which is the result of the layout call.
+     * Returns the length of the {@link TextRenderer#line line} which is the result of the layout call.
      *
      * @return the length of the line
      */
@@ -1576,7 +1573,7 @@ public class TextRenderer extends AbstractRenderer implements ILeafElementRender
      * <p>
      * While processing {@link TextRenderer}, iText uses this method to create {@link GlyphLine glyph lines}
      * of specific {@link PdfFont fonts}, which represent the {@link TextRenderer}'s parts. If one extends
-     * {@link TextRenderer}, one should override this method, otherwise if {@link com.itextpdf.layout.font.FontSelector}
+     * {@link TextRenderer}, one should override this method, otherwise if {@link FontSelector}
      * related logic is triggered, copies of this {@link TextRenderer} will have the default behavior rather than
      * the custom one.
      * @param gl a {@link GlyphLine} which represents some of this {@link TextRenderer}'s content
@@ -1627,11 +1624,11 @@ public class TextRenderer extends AbstractRenderer implements ILeafElementRender
     }
 
     static boolean codePointIsOfSpecialScript(int codePoint) {
-        Character.UnicodeScript glyphScript = Character.UnicodeScript.of(codePoint);
-        return Character.UnicodeScript.THAI == glyphScript
-                || Character.UnicodeScript.KHMER == glyphScript
-                || Character.UnicodeScript.LAO == glyphScript
-                || Character.UnicodeScript.MYANMAR == glyphScript;
+        CharacterUtils.UnicodeScript glyphScript = CharacterUtils.UnicodeScript.of(codePoint);
+        return CharacterUtils.UnicodeScript.THAI == glyphScript
+                || CharacterUtils.UnicodeScript.KHMER == glyphScript
+                || CharacterUtils.UnicodeScript.LAO == glyphScript
+                || CharacterUtils.UnicodeScript.MYANMAR == glyphScript;
     }
 
     @Override
@@ -1866,10 +1863,10 @@ public class TextRenderer extends AbstractRenderer implements ILeafElementRender
     }
 
     private static class ScriptRange {
-        Character.UnicodeScript script;
+        CharacterUtils.UnicodeScript script;
         int rangeEnd;
 
-        ScriptRange(Character.UnicodeScript script, int rangeEnd) {
+        ScriptRange(CharacterUtils.UnicodeScript script, int rangeEnd) {
             this.script = script;
             this.rangeEnd = rangeEnd;
         }

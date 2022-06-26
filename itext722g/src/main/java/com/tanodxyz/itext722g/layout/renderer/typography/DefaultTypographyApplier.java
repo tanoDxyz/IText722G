@@ -30,10 +30,10 @@ import com.tanodxyz.itext722g.io.font.TrueTypeFont;
 import com.tanodxyz.itext722g.io.font.otf.GlyphLine;
 import com.tanodxyz.itext722g.io.logs.IoLogMessageConstant;
 import com.tanodxyz.itext722g.layout.properties.BaseDirection;
+import com.tanodxyz.itext722g.layout.renderer.CharacterUtils;
 import com.tanodxyz.itext722g.layout.renderer.LineRenderer;
 
 import java.io.IOException;
-import java.lang.Character.UnicodeScript;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -52,20 +52,20 @@ public final class DefaultTypographyApplier extends AbstractTypographyApplier {
     }
 
     @Override
-    public boolean applyOtfScript(TrueTypeFont font, GlyphLine glyphLine, UnicodeScript script, Object configurator,
+    public boolean applyOtfScript(TrueTypeFont font, GlyphLine glyphLine, CharacterUtils.UnicodeScript script, Object configurator,
                                   SequenceId id, IMetaInfo metaInfo) {
         LOGGER.warning(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
         return super.applyOtfScript(font, glyphLine, script, configurator, id, metaInfo);
     }
 
     @Override
-    public Collection<UnicodeScript> getSupportedScripts() {
+    public Collection<CharacterUtils.UnicodeScript> getSupportedScripts() {
         LOGGER.warning(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
         return super.getSupportedScripts();
     }
 
     @Override
-    public Collection<UnicodeScript> getSupportedScripts(Object configurator) {
+    public Collection<CharacterUtils.UnicodeScript> getSupportedScripts(Object configurator) {
         LOGGER.warning(IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND);
         return super.getSupportedScripts(configurator);
     }

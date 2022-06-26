@@ -54,7 +54,6 @@ import com.tanodxyz.itext722g.layout.renderer.typography.AbstractTypographyAppli
 import com.tanodxyz.itext722g.layout.renderer.typography.DefaultTypographyApplier;
 
 import java.io.IOException;
-import java.lang.Character.UnicodeScript;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
@@ -106,11 +105,11 @@ public final class TypographyUtils {
         return applierInstance.isPdfCalligraphInstance();
     }
 
-    public static Collection<Character.UnicodeScript> getSupportedScripts() {
+    public static Collection<CharacterUtils.UnicodeScript> getSupportedScripts() {
         return applierInstance.getSupportedScripts();
     }
 
-    public static Collection<Character.UnicodeScript> getSupportedScripts(Object typographyConfig) {
+    public static Collection<CharacterUtils.UnicodeScript> getSupportedScripts(Object typographyConfig) {
         return applierInstance.getSupportedScripts(typographyConfig);
     }
 
@@ -118,7 +117,7 @@ public final class TypographyUtils {
         return applierInstance.loadShippedFonts();
     }
 
-    static void applyOtfScript(FontProgram fontProgram, GlyphLine text, UnicodeScript script, Object typographyConfig,
+    static void applyOtfScript(FontProgram fontProgram, GlyphLine text, CharacterUtils.UnicodeScript script, Object typographyConfig,
                                SequenceId sequenceId, IMetaInfo metaInfo) {
         applierInstance.applyOtfScript((TrueTypeFont) fontProgram, text, script, typographyConfig,
                 sequenceId, metaInfo);

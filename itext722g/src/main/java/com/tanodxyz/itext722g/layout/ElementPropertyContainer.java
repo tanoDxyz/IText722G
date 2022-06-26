@@ -49,6 +49,8 @@ import com.tanodxyz.itext722g.kernel.colors.Color;
 import com.tanodxyz.itext722g.kernel.font.PdfFont;
 import com.tanodxyz.itext722g.kernel.pdf.canvas.PdfCanvasConstants;
 import com.tanodxyz.itext722g.layout.borders.Border;
+import com.tanodxyz.itext722g.layout.element.IElement;
+import com.tanodxyz.itext722g.layout.font.FontProvider;
 import com.tanodxyz.itext722g.layout.hyphenation.HyphenationConfig;
 import com.tanodxyz.itext722g.layout.layout.LayoutPosition;
 import com.tanodxyz.itext722g.layout.properties.Background;
@@ -62,6 +64,9 @@ import com.tanodxyz.itext722g.layout.properties.TextAlignment;
 import com.tanodxyz.itext722g.layout.properties.TransparentColor;
 import com.tanodxyz.itext722g.layout.properties.Underline;
 import com.tanodxyz.itext722g.layout.properties.UnitValue;
+import com.tanodxyz.itext722g.layout.renderer.AbstractRenderer;
+import com.tanodxyz.itext722g.layout.renderer.CharacterUtils;
+import com.tanodxyz.itext722g.layout.splitting.DefaultSplitCharacters;
 import com.tanodxyz.itext722g.layout.splitting.ISplitCharacters;
 
 import java.util.ArrayList;
@@ -71,7 +76,7 @@ import java.util.Map;
 
 /**
  * A generic abstract element that fits in a PDF layout object hierarchy.
- * A superclass of all {@link com.itextpdf.layout.element.IElement layout object} implementations.
+ * A superclass of all {@link IElement layout object} implementations.
  *
  * @param <T> this type
  */
@@ -132,7 +137,7 @@ public abstract class ElementPropertyContainer<T extends IPropertyContainer> ext
      * side effect that the Element's {@link Property#POSITION} is changed to
      * {@link LayoutPosition#RELATIVE relative}.
      *
-     * The default implementation in {@link com.itextpdf.layout.renderer.AbstractRenderer} treats
+     * The default implementation in {@link AbstractRenderer} treats
      * <code>left</code> and <code>top</code> as the most important values. Only
      * if <code>left == 0</code> will <code>right</code> be used for the
      * calculation; ditto for top vs. bottom.
@@ -254,7 +259,7 @@ public abstract class ElementPropertyContainer<T extends IPropertyContainer> ext
 
     /**
      * Sets the preferable font families for this Element.
-     * Note that {@link com.itextpdf.layout.font.FontProvider} shall be set as well.
+     * Note that {@link FontProvider} shall be set as well.
      * See {@link RootElement#setFontProvider(FontProvider)}
      * <p>
      * This property overrides the value set by {@link #setFont(PdfFont)}. Font is set either via exact {@link PdfFont}
@@ -275,7 +280,7 @@ public abstract class ElementPropertyContainer<T extends IPropertyContainer> ext
 
     /**
      * Sets the preferable font families for this Element.
-     * Note that {@link com.itextpdf.layout.font.FontProvider} shall be set as well.
+     * Note that {@link FontProvider} shall be set as well.
      * See {@link RootElement#setFontProvider(FontProvider)}
      * <p>
      * This property overrides the value set by {@link #setFont(PdfFont)}. Font is set either via exact {@link PdfFont}
@@ -564,7 +569,7 @@ public abstract class ElementPropertyContainer<T extends IPropertyContainer> ext
 
     /**
      * Sets a rule for splitting strings when they don't fit into one line.
-     * The default implementation is {@link com.itextpdf.layout.splitting.DefaultSplitCharacters}
+     * The default implementation is {@link DefaultSplitCharacters}
      *
      * @param splitCharacters an implementation of {@link ISplitCharacters}
      * @return this Element.
@@ -797,7 +802,7 @@ public abstract class ElementPropertyContainer<T extends IPropertyContainer> ext
      * @param script a new script type
      * @return this Element.
      */
-    public T setFontScript(Character.UnicodeScript script) {
+    public T setFontScript(CharacterUtils.UnicodeScript script) {
         setProperty(Property.FONT_SCRIPT, script);
         return (T) (Object) this;
     }
