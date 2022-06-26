@@ -43,6 +43,8 @@
 package com.tanodxyz.itext722g.styledXmlParser.css.resolve;
 
 
+import com.tanodxyz.itext722g.styledXmlParser.css.ICssResolver;
+
 /**
  * Container for CSS context properties that influence CSS resolution.
  * This class only contains properties relevant for any generic XML+CSS combo:

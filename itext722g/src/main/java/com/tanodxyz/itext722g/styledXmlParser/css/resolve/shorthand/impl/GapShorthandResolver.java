@@ -41,6 +41,7 @@
     address: sales@itextpdf.com
  */
 
+package com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.impl;
 
 import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 import com.tanodxyz.itext722g.styledXmlParser.css.CommonCssConstants;

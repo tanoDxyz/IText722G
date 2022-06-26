@@ -58,6 +58,7 @@ import com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.impl.BorderW
 import com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.impl.FlexFlowShorthandResolver;
 import com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.impl.FlexShorthandResolver;
 import com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.impl.FontShorthandResolver;
+import com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.impl.GapShorthandResolver;
 import com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.impl.ListStyleShorthandResolver;
 import com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.impl.MarginShorthandResolver;
 import com.tanodxyz.itext722g.styledXmlParser.css.resolve.shorthand.impl.OutlineShorthandResolver;

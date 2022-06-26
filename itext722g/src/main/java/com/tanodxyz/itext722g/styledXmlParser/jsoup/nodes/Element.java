@@ -28,6 +28,7 @@ import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.ChangeNotifyingArrayL
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.Normalizer;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.ParseSettings;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.parser.Tag;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.Collector;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.select.Elements;

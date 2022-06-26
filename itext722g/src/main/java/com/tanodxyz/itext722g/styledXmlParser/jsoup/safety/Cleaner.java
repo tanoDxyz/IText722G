@@ -22,6 +22,7 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.safety;
 
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.Jsoup;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Attribute;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Attributes;
@@ -49,7 +50,7 @@ import java.util.List;
  It is assumed that the input HTML is a body fragment; the clean methods only pull from the source's body, and the
  canned safe-lists only allow body contained tags.
  <p>
- Rather than interacting directly with a Cleaner object, generally see the {@code clean} methods in {@link com.itextpdf.styledxmlparser.jsoup.Jsoup}.
+ Rather than interacting directly with a Cleaner object, generally see the {@code clean} methods in {@link Jsoup}.
  */
 public class Cleaner {
     private final  Safelist safelist;

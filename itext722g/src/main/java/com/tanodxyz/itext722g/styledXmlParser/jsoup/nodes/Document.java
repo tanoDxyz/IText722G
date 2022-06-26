@@ -23,6 +23,7 @@
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes;
 
 
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.Jsoup;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.DataUtil;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.helper.Validate;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.internal.StringUtil;
@@ -51,7 +52,7 @@ public class Document extends Element {
     /**
      Create a new, empty Document.
      @param baseUri base URI of document
-     @see com.itextpdf.styledxmlparser.jsoup.Jsoup#parse
+     @see Jsoup#parse
      @see #createShell
      */
     public Document(String baseUri) {

@@ -58,7 +58,7 @@ import java.util.logging.Logger;
 
 public class PlaceItemsShorthandResolver implements IShorthandResolver {
 
-    private static final Logger LOGGER = Logger.getLogger(PlaceItemsShorthandResolver.class);
+    private static final Logger LOGGER = Logger.getLogger(PlaceItemsShorthandResolver.class.getName());
 
     /**
      * {@inheritDoc}
@@ -168,7 +168,7 @@ public class PlaceItemsShorthandResolver implements IShorthandResolver {
 
     private static List<CssDeclaration> handleExpressionError(String logMessage, String attribute,
             String shorthandExpression) {
-        LOGGER.warn(MessageFormatUtil.format(logMessage, attribute, shorthandExpression));
+        LOGGER.warning(MessageFormatUtil.format(logMessage, attribute, shorthandExpression));
         return Collections.<CssDeclaration>emptyList();
     }
 }

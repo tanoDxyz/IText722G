@@ -17,4 +17,7 @@ check files in the assets and find where they are used.
 
 text render testing needed as various changes were introduced.
 TextRenderer.java
+
+UriResolver has some changes
+needs testing
 ...........................................................

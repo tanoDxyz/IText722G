@@ -31,6 +31,7 @@ import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.FormElement;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Node;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.TextNode;
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.safety.Cleaner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -470,7 +471,7 @@ public class Elements extends ArrayList<Element> {
      * <code>doc.select("p").remove();</code><br>
      * HTML = {@code <div> <img /></div>}
      * <p>
-     * Note that this method should not be used to clean user-submitted HTML; rather, use {@link com.itextpdf.styledxmlparser.jsoup.safety.Cleaner} to clean HTML.
+     * Note that this method should not be used to clean user-submitted HTML; rather, use {@link Cleaner} to clean HTML.
      *
      * @return this, for chaining
      * @see Element#empty()

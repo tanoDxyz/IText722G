@@ -42,20 +42,27 @@
  */
 package com.tanodxyz.itext722g.styledXmlParser.resolver.resource;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import com.tanodxyz.itext722g.commons.utils.MessageFormatUtil;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Utilities class to resolve URIs.
  */
 public class UriResolver {
-
+    public Logger LOGGER = Logger.getLogger(UriResolver.class.getName());
     /**
      * The base url.
      */
@@ -93,6 +100,7 @@ public class UriResolver {
      * @throws MalformedURLException the malformed URL exception
      */
     public URL resolveAgainstBaseUri(String uriString) throws MalformedURLException {
+        LOGGER.log(Level.FINER, uriString);
         URL resolvedUrl = null;
         uriString = uriString.trim();
         // decode and then encode uri string in order to process unsafe characters correctly
@@ -100,14 +108,24 @@ public class UriResolver {
         if (isLocalBaseUri) {
             if (!uriString.startsWith("file:")) {
                 try {
-                    Path path = Paths.get(uriString);
-                    // In general this check is for windows only, in order to handle paths like "c:/temp/img.jpg".
-                    // What concerns unix paths, we already removed leading slashes,
-                    // therefore we can't meet here an absolute path.
-                    if (path.isAbsolute()) {
-                        resolvedUrl = path.toUri().toURL();
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        LOGGER.log(Level.FINER, "Api is " + Build.VERSION.SDK_INT);
+                        Path path = Paths.get(uriString);
+                        // In general this check is for windows only, in order to handle paths like "c:/temp/img.jpg".
+                        // What concerns unix paths, we already removed leading slashes,
+                        // therefore we can't meet here an absolute path.
+                        if (path.isAbsolute()) {
+                            resolvedUrl = path.toUri().toURL();
+                        }
+                    } else {
+                        LOGGER.log(Level.FINER, "Api is " + Build.VERSION.SDK_INT);
+                        File filePath = new File(uriString);
+                        if (filePath.isAbsolute()) {
+                            resolvedUrl = filePath.toURI().toURL();
+                        }
                     }
-                } catch (Exception ignored) {
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
             }
         }
@@ -175,22 +193,37 @@ public class UriResolver {
     private URL uriAsFileUrl(String baseUriString) {
         URL baseAsFileUrl = null;
         try {
-            Path path = Paths.get(baseUriString);
-            if (isPathRooted(path, baseUriString)) {
-                String str = "file:///" + encode(path, path.toAbsolutePath().normalize().toString());
-                baseAsFileUrl = new URI(str).toURL();
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                Path path = null;
+                path = Paths.get(baseUriString);
+                if (isPathRooted(path, baseUriString)) {
+                    String str = "file:///" + encode(path, path.toAbsolutePath().normalize().toString());
+                    baseAsFileUrl = new URI(str).toURL();
+                } else {
+                    String str = encode(path, baseUriString);
+                    URL base = Paths.get("").toUri().toURL();
+                    baseAsFileUrl = new URL(base, str);
+                }
+                isLocalBaseUri = true;
             } else {
-                String str = encode(path, baseUriString);
-                URL base = Paths.get("").toUri().toURL();
-                baseAsFileUrl = new URL(base, str);
+                File path = new File(baseUriString);
+                if (isPathRooted(path,baseUriString)) {
+                    String str = "file:///" + encode(path, path.getAbsolutePath());
+                    baseAsFileUrl = new URI(str).toURL();
+                } else {
+                    String str = encode(path, baseUriString);
+                    URL base = new URL("file:///");
+                    baseAsFileUrl = new URL(base, str);
+                }
             }
-            isLocalBaseUri = true;
         } catch (Exception ignored) {
+            ignored.printStackTrace();
         }
 
         return baseAsFileUrl;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private String encode(Path path, String str) {
         str = str.replace("\\", "/");
         str = UriEncodeUtil.encode(str);
@@ -201,7 +234,22 @@ public class UriResolver {
         return str;
     }
 
+    private String encode(File path , String str) {
+        str = str.replace("\\", "/");
+        str = UriEncodeUtil.encode(str);
+        if (path.isDirectory() && !str.endsWith("/")) {
+            str += "/";
+        }
+        str = str.replaceFirst("/*\\\\*", "");
+        return str;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private boolean isPathRooted(Path path, String str) {
+        return path.isAbsolute() || str.startsWith("/");
+    }
+
+    private boolean isPathRooted(File path , String str) {
         return path.isAbsolute() || str.startsWith("/");
     }
 }

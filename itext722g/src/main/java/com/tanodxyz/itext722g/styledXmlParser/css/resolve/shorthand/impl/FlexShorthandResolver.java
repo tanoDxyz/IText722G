@@ -61,7 +61,7 @@ import java.util.logging.Logger;
 
 public class FlexShorthandResolver implements IShorthandResolver {
 
-    private static final Logger LOGGER = Logger.getLogger(FlexShorthandResolver.class);
+    private static final Logger LOGGER = Logger.getLogger(FlexShorthandResolver.class.getName());
 
     /**
      * {@inheritDoc}

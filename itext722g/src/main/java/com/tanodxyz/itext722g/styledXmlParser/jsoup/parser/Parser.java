@@ -23,6 +23,7 @@
 package com.tanodxyz.itext722g.styledXmlParser.jsoup.parser;
 
 
+import com.tanodxyz.itext722g.styledXmlParser.jsoup.Jsoup;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Document;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Element;
 import com.tanodxyz.itext722g.styledXmlParser.jsoup.nodes.Node;
@@ -32,8 +33,8 @@ import java.io.StringReader;
 import java.util.List;
 
 /**
- * Parses HTML into a {@link com.itextpdf.styledxmlparser.jsoup.nodes.Document}. Generally best to use one of the  more convenient parse methods
- * in {@link com.itextpdf.styledxmlparser.jsoup.Jsoup}.
+ * Parses HTML into a {@link Document}. Generally best to use one of the  more convenient parse methods
+ * in {@link Jsoup}.
  */
 public class Parser {
     private  TreeBuilder treeBuilder;
