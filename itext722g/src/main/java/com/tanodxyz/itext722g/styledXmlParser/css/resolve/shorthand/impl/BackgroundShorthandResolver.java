@@ -69,7 +69,7 @@ import java.util.logging.Logger;
  */
 public class BackgroundShorthandResolver implements IShorthandResolver {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BackgroundShorthandResolver.class);
+    private static final Logger LOGGER = Logger.getLogger(BackgroundShorthandResolver.class.getName());
 
     // With CSS3, you can apply multiple backgrounds to elements. These are layered atop one another
     // with the first background you provide on top and the last background listed in the back. Only
@@ -93,7 +93,7 @@ public class BackgroundShorthandResolver implements IShorthandResolver {
             );
         }
         if (shorthandExpression.trim().isEmpty()) {
-            LOGGER.warn(MessageFormatUtil.format(
+            LOGGER.warning(MessageFormatUtil.format(
                     StyledXmlParserLogMessageConstant.SHORTHAND_PROPERTY_CANNOT_BE_EMPTY, CommonCssConstants.BACKGROUND));
             return new ArrayList<>();
         }
@@ -343,7 +343,7 @@ public class BackgroundShorthandResolver implements IShorthandResolver {
                                                   Map<CssBackgroundUtils.BackgroundPropertyType, String> resolvedProps,
                                                   Set<CssBackgroundUtils.BackgroundPropertyType> usedTypes) {
         if (type == CssBackgroundUtils.BackgroundPropertyType.UNDEFINED) {
-            LOGGER.warn(MessageFormatUtil.format(
+            LOGGER.warning(MessageFormatUtil.format(
                     StyledXmlParserLogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES, value));
             return false;
         }
