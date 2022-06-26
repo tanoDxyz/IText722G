@@ -44,6 +44,8 @@
 package com.tanodxyz.itext722g.layout;
 
 
+import com.tanodxyz.itext722g.layout.element.AbstractElement;
+import com.tanodxyz.itext722g.layout.element.BlockElement;
 import com.tanodxyz.itext722g.layout.properties.Property;
 import com.tanodxyz.itext722g.layout.properties.UnitValue;
 import com.tanodxyz.itext722g.layout.properties.VerticalAlignment;
