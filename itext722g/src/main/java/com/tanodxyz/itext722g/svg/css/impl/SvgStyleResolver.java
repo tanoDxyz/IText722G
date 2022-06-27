@@ -112,7 +112,7 @@ public class SvgStyleResolver implements ICssResolver {
     private static final Logger LOGGER = Logger.getLogger(SvgStyleResolver.class.getName());
 
     private CssStyleSheet css;
-    private static final String DEFAULT_CSS_PATH = "com/itextpdf/svg/default.css";
+    private static final String DEFAULT_CSS_PATH = "default.css";
     private boolean isFirstSvgElement = true;
 
     /**

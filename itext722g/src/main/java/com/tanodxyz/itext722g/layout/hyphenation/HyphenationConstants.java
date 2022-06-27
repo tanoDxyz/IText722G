@@ -44,5 +44,5 @@ package com.tanodxyz.itext722g.layout.hyphenation;
 
 public class HyphenationConstants {
 
-    public static final String HYPHENATION_DEFAULT_RESOURCE = "com/itextpdf/hyph/";
+    public static final String HYPHENATION_DEFAULT_RESOURCE = "hyph/";
 }

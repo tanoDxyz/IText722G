@@ -228,7 +228,6 @@ public class FontCache {
 
     private static Map<String, Object> readFontProperties(String name) throws java.io.IOException {
         InputStream resource = ResourceUtil.getResourceStream(FontResources.CMAPS + name + ".properties");
-
         try {
             Properties p = new Properties();
             p.load(resource);

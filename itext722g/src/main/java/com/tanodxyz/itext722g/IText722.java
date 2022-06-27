@@ -5,6 +5,8 @@ import android.graphics.Typeface;
 import android.util.Log;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.security.Security;
 import java.util.ArrayList;
@@ -14,7 +16,8 @@ import java.util.Set;
 
 public class IText722 {
     private static Context appContext;
-    public static String ANDROID_FONTS_DIR = "system"+File.separatorChar+"fonts";
+    public static String ANDROID_FONTS_DIR = "system" + File.separatorChar + "fonts";
+
     static {
         Security.insertProviderAt(new org.spongycastle.jce.provider.BouncyCastleProvider(), 1);
     }
@@ -31,7 +34,7 @@ public class IText722 {
         return appContext.getCacheDir();
     }
 
-    protected Map<String, Typeface> getSSystemFontMap() {
+    public static Map<String, Typeface> getSSystemFontMap() {
         Map<String, Typeface> sSystemFontMap = null;
         try {
             //Typeface typeface = Typeface.class.newInstance();
@@ -59,5 +62,9 @@ public class IText722 {
             }
         }
         return arr;
+    }
+
+    public static InputStream getResourceStream(String path) throws IOException {
+        return getContext().getAssets().open(path);
     }
 }

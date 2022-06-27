@@ -43,6 +43,8 @@
  */
 package com.tanodxyz.itext722g.io.util;
 
+import com.tanodxyz.itext722g.IText722;
+
 import java.io.InputStream;
 
 /**
@@ -72,30 +74,15 @@ public final class ResourceUtil {
      * @return the {@code InputStream} to get the resource or {@code null} if not found.
      */
     public static InputStream getResourceStream(String key, ClassLoader loader) {
+        System.out.println("Bako: key file is "+key);
         if (key.startsWith("/")) {
             key = key.substring(1);
         }
         InputStream stream = null;
-        if (loader != null) {
-            stream = loader.getResourceAsStream(key);
-            if (stream != null) {
-                return stream;
-            }
-        }
-        // Try to use Context Class Loader to load the properties file.
         try {
-            ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-            if (contextClassLoader != null) {
-                stream = contextClassLoader.getResourceAsStream(key);
-            }
-        } catch (SecurityException ignored) {
-        }
-
-        if (stream == null) {
-            stream = ResourceUtil.class.getResourceAsStream("/" + key);
-        }
-        if (stream == null) {
-            stream = ClassLoader.getSystemResourceAsStream(key);
+            stream = IText722.getResourceStream(key);
+        }catch (Exception ex) {
+            ex.printStackTrace();
         }
         return stream;
     }

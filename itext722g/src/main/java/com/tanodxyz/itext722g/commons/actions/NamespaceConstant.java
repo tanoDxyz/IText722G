@@ -52,7 +52,7 @@ import java.util.List;
  */
 public final class NamespaceConstant {
     
-    public static final String ITEXT = "com.itextpdf";
+    public static final String ITEXT = "com.tanodxyz.itext722g";
 
     //Core
     public static final String CORE_EVENTS = ITEXT + ".events";
