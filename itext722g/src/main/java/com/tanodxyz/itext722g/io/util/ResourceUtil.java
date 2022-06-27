@@ -74,7 +74,6 @@ public final class ResourceUtil {
      * @return the {@code InputStream} to get the resource or {@code null} if not found.
      */
     public static InputStream getResourceStream(String key, ClassLoader loader) {
-        System.out.println("Bako: key file is "+key);
         if (key.startsWith("/")) {
             key = key.substring(1);
         }
