@@ -20,4 +20,8 @@ TextRenderer.java
 
 UriResolver has some changes
 needs testing
+
+
+ResourceUtil class
+RandomAccessSourceFactory also needs testing
 ...........................................................
