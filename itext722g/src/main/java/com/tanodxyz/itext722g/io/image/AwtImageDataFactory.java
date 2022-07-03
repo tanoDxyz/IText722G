@@ -50,7 +50,7 @@ import androidx.annotation.Nullable;
 
 import com.tanodxyz.itext722g.BitmapExt;
 
-class AwtImageDataFactory {
+public class AwtImageDataFactory {
     /**
      * Gets an instance of an Image from a {@link android.graphics.Bitmap}
      *

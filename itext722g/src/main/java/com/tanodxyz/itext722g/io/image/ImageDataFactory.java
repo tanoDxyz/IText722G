@@ -185,7 +185,7 @@ public final class ImageDataFactory {
     }
 
     /**
-     * Gets an instance of an Image from a java.awt.Image
+     * Gets an instance of an Image from android.graphics.Bitmap
      *
      * @param image the java.awt.Image to convert
      * @param color if different from <CODE>null</CODE> the transparency pixels are replaced by this color
@@ -197,7 +197,7 @@ public final class ImageDataFactory {
     }
 
     /**
-     * Gets an instance of an Image from a java.awt.Image.
+     * Gets an instance of an Image from a android.graphics.Bitmap
      *
      * @param image   the <CODE>java.awt.Image</CODE> to convert
      * @param color   if different from <CODE>null</CODE> the transparency pixels are replaced by this color
