@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 /**
                  * How to USE FONT....
                  */
-                PdfFont font = PdfFontFactory.createFont("fonts/simpleFont.ttf", "UTF-8", PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
+                PdfFont font = PdfFontFactory.createFont("fonts/cavier_dreams.ttf", "UTF-8", PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
 
                 // LINE SEPARATOR
                 LineSeparator lineSeparator = new LineSeparator(new DottedLine());
