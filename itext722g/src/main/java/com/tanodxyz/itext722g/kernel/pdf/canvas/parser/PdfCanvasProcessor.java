@@ -971,7 +971,7 @@ public class PdfCanvasProcessor {
                     throw exception;
                 } else {
                     Logger logger = Logger.getLogger(PdfCanvasProcessor.class.getName());
-                    logger.log(Level.SEVERE,MessageFormatUtil.format(IoLogMessageConstant.FAILED_TO_PROCESS_A_TRANSFORMATION_MATRIX));
+                    logger.log(Level.SEVERE, MessageFormatUtil.format(IoLogMessageConstant.FAILED_TO_PROCESS_A_TRANSFORMATION_MATRIX));
                 }
             }
         }
@@ -1038,7 +1038,7 @@ public class PdfCanvasProcessor {
 
         Logger logger = Logger.getLogger(PdfCanvasProcessor.class.getName());
         logger.warning(MessageFormatUtil.format(KernelLogMessageConstant.UNABLE_TO_PARSE_COLOR_WITHIN_COLORSPACE,
-                Arrays.toString((Object[])operands.toArray()), pdfColorSpace.getPdfObject()));
+                Arrays.toString((Object[]) operands.toArray()), pdfColorSpace.getPdfObject()));
 
         return null;
     }
@@ -1460,7 +1460,7 @@ public class PdfCanvasProcessor {
     private static class ImageXObjectDoHandler implements IXObjectDoHandler {
 
         public void handleXObject(PdfCanvasProcessor processor, Stack<CanvasTag> canvasTagHierarchy, PdfStream xObjectStream, PdfName resourceName) {
-            processor.displayImage(canvasTagHierarchy, xObjectStream, resourceName,false);
+            processor.displayImage(canvasTagHierarchy, xObjectStream, resourceName, false);
         }
     }
 
