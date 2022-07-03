@@ -83,6 +83,7 @@ path passed to the library = fonts/fancyFont.otf
 
 Raw Files: IText won't load files that resides in your raw directory.  
 
+*Assets are loaded into memory*
 
 
 
