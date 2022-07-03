@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "Iext7.2.2G"
 include ':app'
 include ':itext722g'
+enableFeaturePreview("VERSION_CATALOGS")
