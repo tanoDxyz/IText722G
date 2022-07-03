@@ -1,3 +1,4 @@
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -5,6 +6,7 @@ pluginManagement {
         mavenCentral()
     }
 }
+enableFeaturePreview("VERSION_CATALOGS")
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -15,4 +17,3 @@ dependencyResolutionManagement {
 rootProject.name = "Iext7.2.2G"
 include ':app'
 include ':itext722g'
-enableFeaturePreview("VERSION_CATALOGS")
