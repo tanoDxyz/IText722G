@@ -38,7 +38,7 @@ if you place files in the app's asset directory or any sub directory inside asse
 
 original file placed = assets/fonts/fancyFont.otf
 
-path to the library = fonts/fancyFont.otf
+path passed to the library = fonts/fancyFont.otf
 
 
 Raw Files:
