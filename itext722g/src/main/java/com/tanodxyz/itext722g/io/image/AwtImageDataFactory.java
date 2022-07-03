@@ -46,6 +46,7 @@ package com.tanodxyz.itext722g.io.image;
 
 import android.graphics.Color;
 
+
 import androidx.annotation.Nullable;
 
 import com.tanodxyz.itext722g.BitmapExt;

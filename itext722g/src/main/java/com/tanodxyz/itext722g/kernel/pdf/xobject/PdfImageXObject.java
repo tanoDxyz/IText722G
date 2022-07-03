@@ -43,10 +43,6 @@
  */
 package com.tanodxyz.itext722g.kernel.pdf.xobject;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
-import com.tanodxyz.itext722g.BitmapExt;
 import com.tanodxyz.itext722g.io.colors.IccProfile;
 import com.tanodxyz.itext722g.io.font.PdfEncodings;
 import com.tanodxyz.itext722g.io.image.ImageData;
@@ -177,19 +173,6 @@ public class PdfImageXObject extends PdfXObject {
         image.mask = mask;
         image.softMask = softMask;
         return image;
-    }
-
-    /**
-     * Gets image bytes, wrapped with buffered image.
-     *
-     * @return {@link BitmapExt} image.
-     * @throws IOException if an error occurs during reading.
-     */
-    public BitmapExt getBufferedImage() throws IOException {
-        //todo proper algorithm is required ...
-        byte[] img = getImageBytes();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
-        return new BitmapExt(bitmap);
     }
 
     /**
