@@ -70,7 +70,6 @@ java.awt.Image is replaced with android.graphics.bitmap.
 library  works well on android with api 19 or above.  
 From styledXmlParser package ACCESS_EXTERNAL_DTD has been removed.  
 BouncyCastle is replaced with SpongyCastle.  
-The library itself is huge. you may not need all the packages.
 
 ### File Path
 Library only understands absolute file paths. RandomAccessFile is used everywhere so if Scope storage is active please make sure that you have read/write permission on the paths or files passed to library. use SAF or other means.
