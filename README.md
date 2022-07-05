@@ -86,6 +86,13 @@ Raw Files: IText won't load files that resides in your raw directory.
 *Assets are loaded into memory*
 
 
+### Tests
+IText sources have test cases already written and for the following scenaiors and packages I run them on android.
+BarCodes ---- Ok.
+Basic PDF creation ----- Ok.
+Basic Pdf reading, ---- Ok.
+
+
 
 Contribute
 ----------
